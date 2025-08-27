@@ -1,15 +1,13 @@
 import { Dispatch, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import MenuButton from "./MenuButton";
 import AboutDialog from "./AboutDialog";
-import { FaInstagram } from "react-icons/fa6";
 import LoginButtons from "../login/LoginButtons";
 import LeaderBoard from "../scores/LeaderBoard";
 import RootState from "../../features/RootState";
 import InfoDisplay from "../InfoDisplay";
 import GameData from "../../restoreGame/GameData";
 import { saveGame } from "../../services/api";
-import { updateDialogContent } from "../../features/dialogs/dialogReducer";
 import {
   getLastGameLocalStorage,
   getLastGameTimestampLocalStorage,
@@ -18,11 +16,11 @@ import InstructionsDialog from "./InstructionsDialog";
 import { useGameStartActions } from "./hooks";
 import NewGameDialog from "./NewGameDialog";
 import { socials } from "./config";
+import Dialog from "../dialog/Dialog";
 
 type Props = { setIsNewGame: Dispatch<React.SetStateAction<boolean>> };
 
 const Menu = ({ setIsNewGame }: Props) => {
-  const dispatch = useDispatch();
   const { startNewGame, continuePreviousGame } =
     useGameStartActions(setIsNewGame);
 
@@ -35,6 +33,7 @@ const Menu = ({ setIsNewGame }: Props) => {
   );
   const profile = useSelector((state: RootState) => state.game.profile.value);
   const [showNewGameDialog, setShowNewGameDialog] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const handleNewGame = () => {
     const hasLastGame = !!getLastGameLocalStorage();
@@ -56,15 +55,7 @@ const Menu = ({ setIsNewGame }: Props) => {
       try {
         await saveGame({ lastGame, timestamp });
       } catch {
-        dispatch(
-          updateDialogContent({
-            dialog: {
-              title: "Error",
-              text: ["Failed to upload last game! Please try again later."],
-              type: "error",
-            },
-          })
-        );
+        setError("Failed to upload last game! Please try again later.");
       }
     }
   };
@@ -129,6 +120,11 @@ const Menu = ({ setIsNewGame }: Props) => {
           setIsOpen={setShowNewGameDialog}
           setIsNewGame={setIsNewGame}
         />
+      )}
+      {error && (
+        <Dialog title="Error" type="error">
+          {error}
+        </Dialog>
       )}
     </>
   );

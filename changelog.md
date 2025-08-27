@@ -1,3 +1,7 @@
+# 0.7.7 Beta (Malta&Gozo hatching Edition) -
+
+- 
+
 # 0.7.6.2 Beta (Malta&Gozo hatching Edition) - 27/08/2025 15:00 UTC+1
 
 - [Turtle-14]: Add Vercel rewrite rule

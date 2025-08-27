@@ -4,7 +4,6 @@ import { HighScore } from "../../services/interfaces";
 import Dialog from "../dialog/Dialog";
 import ScoreTable from "./ScoreTable";
 import { useDispatch, useSelector } from "react-redux";
-import { updateDialogContent } from "../../features/dialogs/dialogReducer";
 import RootState from "../../features/RootState";
 import { getLevelText } from "../../levels/levels";
 
@@ -13,6 +12,7 @@ const LeaderBoard = () => {
 
   const [scores, setScores] = useState<HighScore[]>();
   const [showScoresDialog, setShowScoresDialog] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const personalBest = useSelector(
     (state: RootState) => state.game.personalBest.value
   );
@@ -22,15 +22,7 @@ const LeaderBoard = () => {
       setScores(await fetchHighScores());
       setShowScoresDialog(true);
     } catch {
-      dispatch(
-        updateDialogContent({
-          dialog: {
-            title: "High Scores",
-            text: ["Error fetching high scores :( Please try again later"],
-            type: "error",
-          },
-        })
-      );
+      setError("Error fetching high scores :( Please try again later");
     }
   };
 
@@ -59,6 +51,11 @@ const LeaderBoard = () => {
       {showScoresDialog && (
         <Dialog title="High Scores" handleOk={closeHighScores}>
           <ScoreTable highScores={scores} />
+        </Dialog>
+      )}
+      {error && (
+        <Dialog title="High Scores" type="error">
+          {error}
         </Dialog>
       )}
     </div>

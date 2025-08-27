@@ -1,11 +1,11 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import FormDialog from "../../dialog/FormDialog";
 import { Input } from "../../dialog/types";
 import { updateSettings } from "../../../services/api";
 import { useDispatch, useSelector } from "react-redux";
 import RootState from "../../../features/RootState";
 import { setSettings } from "../../../features/gameState/gameStateReducer";
-import { updateDialogContent } from "../../../features/dialogs/dialogReducer";
+import Dialog from "../../dialog/Dialog";
 
 type Props = {
   showDialog: boolean;
@@ -14,9 +14,11 @@ type Props = {
 
 const Settings = ({ showDialog, setShowDialog }: Props) => {
   const dispatch = useDispatch();
+
   const settings = useSelector(
     (state: RootState) => state.game.profile.value.settings
   );
+  const [error, setError] = useState<string>("");
 
   const settingsConfig: Input[] = [
     {
@@ -37,29 +39,29 @@ const Settings = ({ showDialog, setShowDialog }: Props) => {
     event.preventDefault();
 
     setShowDialog(false);
+    setError("");
 
     try {
       await updateSettings(settings);
     } catch {
-      dispatch(
-        updateDialogContent({
-          dialog: {
-            title: "Settings error",
-            text: ["Failed to save settings! Please try again."],
-            type: "error",
-          },
-        })
-      );
+      setError("Failed to save settings! Please try again.");
     }
   };
 
   return showDialog ? (
-    <FormDialog
-      title="Settings"
-      inputs={settingsConfig}
-      handleInputChange={handleSettingChange}
-      handleSubmit={handleSubmit}
-    />
+    <>
+      <FormDialog
+        title="Settings"
+        inputs={settingsConfig}
+        handleInputChange={handleSettingChange}
+        handleSubmit={handleSubmit}
+      />
+      {error && (
+        <Dialog title="Error" type="error">
+          {error}
+        </Dialog>
+      )}
+    </>
   ) : null;
 };
 

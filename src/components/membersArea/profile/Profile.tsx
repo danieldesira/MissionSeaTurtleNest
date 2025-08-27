@@ -5,8 +5,8 @@ import { setProfile } from "../../../features/gameState/gameStateReducer";
 import { useDispatch, useSelector } from "react-redux";
 import RootState from "../../../features/RootState";
 import { updateProfile, uploadProfilePicture } from "../../../services/api";
-import { updateDialogContent } from "../../../features/dialogs/dialogReducer";
 import LoadingOverlay from "../../LoadingOverlay";
+import Dialog from "../../dialog/Dialog";
 
 type Props = {
   showDialog: boolean;
@@ -18,6 +18,7 @@ const Profile = ({ showDialog, setShowDialog }: Props) => {
 
   const profile = useSelector((state: RootState) => state.game.profile.value);
   const [isUploadingPicture, setIsUploadingPicture] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const profileConfig: Input[] = [
     {
@@ -57,6 +58,7 @@ const Profile = ({ showDialog, setShowDialog }: Props) => {
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "profile_picture") {
+      setError("");
       const file = event.target.files?.[0];
       if (file) {
         try {
@@ -70,15 +72,7 @@ const Profile = ({ showDialog, setShowDialog }: Props) => {
             );
           }
         } catch {
-          dispatch(
-            updateDialogContent({
-              dialog: {
-                title: "Error uploading Profile Picture",
-                text: ["Failed to upload profile picture. Try again later."],
-                type: "error",
-              },
-            })
-          );
+          setError("Failed to upload profile picture. Try again later.");
         } finally {
           setIsUploadingPicture(false);
         }
@@ -97,15 +91,7 @@ const Profile = ({ showDialog, setShowDialog }: Props) => {
         date_of_birth: profile.date_of_birth,
       });
     } catch {
-      dispatch(
-        updateDialogContent({
-          dialog: {
-            title: "Profile error",
-            text: ["Failed to save player info! Please try again."],
-            type: "error",
-          },
-        })
-      );
+      setError("Failed to save player info! Please try again.");
     }
   };
 
@@ -120,6 +106,11 @@ const Profile = ({ showDialog, setShowDialog }: Props) => {
         />
         {isUploadingPicture && (
           <LoadingOverlay message="Uploading profile picture..." />
+        )}
+        {error && (
+          <Dialog title="Error" type="error">
+            {error}
+          </Dialog>
         )}
       </>
     )
