@@ -9,7 +9,6 @@ import {
   saveLastGameTimestampLocalStorage,
 } from "../../utils/lastGameLocalStorage";
 import { LoginResponse } from "../../services/interfaces";
-import { updateDialogContent } from "../../features/dialogs/dialogReducer";
 import {
   setPersonalBest,
   setProfile,
@@ -29,18 +28,11 @@ const LoginDialog = ({ setShowLogin }: Props) => {
     (state: RootState) => state.authentication.isAuthenticated
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const showAuthError = () =>
-    dispatch(
-      updateDialogContent({
-        dialog: {
-          title: "Authentication Error",
-          text: [
-            "Failed to login! Please contact us at turtle.quest.web@gmail.com",
-          ],
-          type: "error",
-        },
-      })
+    setError(
+      "Failed to login! Please contact us at turtle.quest.web@gmail.com"
     );
 
   const storeAccountGameDataLocally = (accountData: LoginResponse) => {
@@ -120,6 +112,11 @@ const LoginDialog = ({ setShowLogin }: Props) => {
         Or continue without logging in...
       </span>
       {isLoading && <LoadingOverlay message="Loading account data" />}
+      {error && (
+        <Dialog title="Error" type="error">
+          {error}
+        </Dialog>
+      )}
     </Dialog>
   );
 };

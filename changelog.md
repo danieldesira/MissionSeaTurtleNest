@@ -1,6 +1,6 @@
 # 0.7.7 Beta (Malta&Gozo hatching Edition) -
 
-- 
+- Cleanup error dialogs from global state dependency
 
 # 0.7.6.2 Beta (Malta&Gozo hatching Edition) - 27/08/2025 15:00 UTC+1
 

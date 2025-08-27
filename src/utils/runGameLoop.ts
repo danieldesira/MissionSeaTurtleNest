@@ -1,7 +1,6 @@
 import Game from "../Game";
 import { paintLevelBg } from "../levels/background";
 import store from "../store";
-import { updateDialogContent } from "../features/dialogs/dialogReducer";
 import stringifyGameData from "../restoreGame/stringifyGameData";
 import {
   saveLastGameLocalStorage,
@@ -36,11 +35,6 @@ const runGameLoop = async (canvas: HTMLCanvasElement) => {
       cancelAnimationFrame(Game.instance.animationTimer);
     }
   } catch (error) {
-    store.dispatch(
-      updateDialogContent({
-        dialog: { title: "Unhandled Error", text: [error] },
-      })
-    );
     throw error;
   }
 };

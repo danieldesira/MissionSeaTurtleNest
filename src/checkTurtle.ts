@@ -138,7 +138,7 @@ const checkIfBestPersonalScore = () => {
 
 const shareGameButton = {
   label: "Share",
-  action: async () => {
+  async action() {
     if (navigator.share) {
       try {
         await navigator.share({

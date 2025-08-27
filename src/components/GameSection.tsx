@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import NextLevelIndication from "./NextLevelIndication";
 import GameHeader from "./gameHeader/GameHeader";
 import handleKeyDown from "../controls/handleKeyDown";
@@ -8,12 +8,12 @@ import RootState from "../features/RootState";
 import ControlGroup from "./controls/ControlGroup";
 import Game from "../Game";
 import animate from "../utils/runGameLoop";
-import { updateDialogContent } from "../features/dialogs/dialogReducer";
 import { triggerMenuMode } from "../features/gameState/gameStateReducer";
 import GameData from "../restoreGame/GameData";
 import { getLastGameLocalStorage } from "../utils/lastGameLocalStorage";
 import LoadingOverlay from "./LoadingOverlay";
 import { resizeCanvas } from "../utils/generic";
+import Dialog from "./dialog/Dialog";
 
 type Props = { isNewGame: boolean };
 
@@ -27,6 +27,7 @@ const GameSection = ({ isNewGame }: Props) => {
   const isSaving = useSelector(
     (state: RootState) => state.game.state.value === "saving"
   );
+  const [error, setError] = useState<string>("");
 
   const dispatch = useDispatch();
 
@@ -55,9 +56,7 @@ const GameSection = ({ isNewGame }: Props) => {
       })
       .then(async () => await animate(canvas))
       .catch((error) => {
-        dispatch(
-          updateDialogContent({ dialog: { title: "Error", text: [error] } })
-        );
+        setError(error);
         dispatch(triggerMenuMode());
       });
 
@@ -88,6 +87,11 @@ const GameSection = ({ isNewGame }: Props) => {
       <NextLevelIndication />
       <ControlGroup />
       {isSaving && <LoadingOverlay message="Saving..." />}
+      {error && (
+        <Dialog title="Error" type="error">
+          {error}
+        </Dialog>
+      )}
     </div>
   );
 };
