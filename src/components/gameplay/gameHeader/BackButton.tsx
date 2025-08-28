@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { IoIosArrowBack } from "react-icons/io";
 import {
   triggerMenuMode,
-} from "../../features/gameState/gameStateReducer";
+} from "../../../features/gameState/gameStateReducer";
 
 const BackButton = () => {
   const dispatch = useDispatch();

@@ -60,16 +60,6 @@ class Game {
         store.dispatch(startLoadingLevel());
         await this._level.init(isFreshLevel, gameData);
         store.dispatch(stopLoadingLevel());
-        store.dispatch(
-          store.dispatch(
-            updateDialogContent({
-              dialog: {
-                title: `Level ${newLevelNo}`,
-                text: this._level.levelDescription,
-              },
-            })
-          )
-        );
       }
       if (isFreshLevel) {
         this.turtle.resetPosition();

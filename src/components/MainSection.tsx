@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import RootState from "../features/RootState";
 import Menu from "./mainMenu/Menu";
-import GameSection from "./GameSection";
+import GameSection from "./gameplay/GameSection";
 
 const MainSection = () => {
   const gameState = useSelector((state: RootState) => state.game.state.value);

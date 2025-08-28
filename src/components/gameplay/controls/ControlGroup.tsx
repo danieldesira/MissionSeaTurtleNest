@@ -5,11 +5,13 @@ import {
   GoArrowRight,
   GoArrowUp,
 } from "react-icons/go";
-import Game from "../../Game";
+import Game from "../../../Game";
 import { useSelector } from "react-redux";
-import RootState from "../../features/RootState";
+import RootState from "../../../features/RootState";
 
-const ControlGroup = () => {
+type Props = { isGamePaused: boolean };
+
+const ControlGroup = ({ isGamePaused }: Props) => {
   const turtle = Game.instance.turtle;
   const gameRunning = useSelector(
     (state: RootState) => state.game.state.value === "in-progress"
@@ -20,7 +22,7 @@ const ControlGroup = () => {
 
   return (
     <>
-      {gameRunning ? (
+      {gameRunning && !isGamePaused && (
         <div
           className={`fixed bottom-1 ${
             controlPosition === "Left" ? "left-1" : "right-1"
@@ -47,7 +49,7 @@ const ControlGroup = () => {
             />
           </div>
         </div>
-      ) : null}
+      )}
     </>
   );
 };

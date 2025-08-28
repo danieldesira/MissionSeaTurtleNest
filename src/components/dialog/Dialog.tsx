@@ -19,7 +19,7 @@ const Dialog = ({
   buttons,
 }: React.PropsWithChildren<Props>) => {
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "Escape") {
+    if (event.key === "Escape" && handleOk) {
       handleOk();
     }
   };

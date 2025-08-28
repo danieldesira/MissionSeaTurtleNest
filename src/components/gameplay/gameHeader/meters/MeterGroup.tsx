@@ -2,7 +2,7 @@ import MeterContainer from "./MeterContainer";
 import { FaFishFins, FaLungs } from "react-icons/fa6";
 import { FaHeartbeat } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import RootState from "../../../features/RootState";
+import RootState from "../../../../features/RootState";
 import { GiStomach } from "react-icons/gi";
 
 const MeterGroup = () => {

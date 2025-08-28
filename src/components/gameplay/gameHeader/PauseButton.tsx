@@ -1,6 +1,6 @@
 import { FaPause } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
-import { updateDialogContent } from "../../features/dialogs/dialogReducer";
+import { updateDialogContent } from "../../../features/dialogs/dialogReducer";
 
 const PauseButton = () => {
   const dispatch = useDispatch();

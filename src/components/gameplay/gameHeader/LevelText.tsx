@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import RootState from "../../features/RootState";
-import { levelMap } from "../../levels/levels";
+import RootState from "../../../features/RootState";
+import { levelMap } from "../../../levels/levels";
 
 const LevelText = () => {
   const level = useSelector((state: RootState) => state.levels.level.value);
