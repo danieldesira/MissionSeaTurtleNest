@@ -1,11 +1,8 @@
 import Turtle from "./characters/Turtle";
-import { updateDialogContent } from "./features/dialogs/dialogReducer";
 import {
   startLoadingLevel,
   stopLoadingLevel,
 } from "./features/gameState/gameStateReducer";
-import { resetLevel } from "./features/levels/levelReducer";
-import { resetTurtle } from "./features/turtleMonitor/turtleReducers";
 import ILevel from "./levels/ILevel";
 import { createLevelInstance } from "./levels/levels";
 import GameData from "./restoreGame/GameData";
@@ -52,8 +49,11 @@ class Game {
    * @param gameData The game data in case it is a restored level.
    * @author Daniel Desira
    */
-  async loadNewLevel(isFreshLevel: boolean, gameData: GameData = null) {
-    const newLevelNo = store.getState().levels.level.value;
+  async loadNewLevel(
+    newLevelNo: number,
+    isFreshLevel: boolean,
+    gameData: GameData = null
+  ) {
     try {
       this._level = createLevelInstance(newLevelNo);
       if (this._level) {
@@ -77,20 +77,15 @@ class Game {
   async start({ canvas, isNewGame, gameData }: GameOptions) {
     try {
       await Game.instance.turtle.loadImage();
-      await Game.instance.loadNewLevel(isNewGame, gameData);
+      await Game.instance.loadNewLevel(
+        gameData ? gameData.levelNo : 1,
+        isNewGame,
+        gameData
+      );
       resizeCanvas(canvas);
     } catch (error) {
       throw new Error(error);
     }
-  }
-
-  /**
-   * Resets game state.
-   * @author Daniel Desira
-   */
-  reset() {
-    store.dispatch(resetLevel());
-    store.dispatch(resetTurtle());
   }
 }
 

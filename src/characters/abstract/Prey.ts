@@ -1,5 +1,4 @@
 import Game from "../../Game";
-import { eat } from "../../features/turtleMonitor/turtleReducers";
 import store from "../../store";
 import IPrey from "../interfaces/IPrey";
 import NonMain from "./NonMain";

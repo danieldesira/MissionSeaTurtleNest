@@ -1,20 +1,20 @@
+import { Dispatch, SetStateAction } from "react";
 import { FaPause } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
-import { updateDialogContent } from "../../../features/dialogs/dialogReducer";
+import { DialogContent } from "../types";
 
-const PauseButton = () => {
-  const dispatch = useDispatch();
+type Props = {
+  setDialogContent: Dispatch<SetStateAction<DialogContent>>;
+  setIsPaused: Dispatch<SetStateAction<boolean>>;
+};
 
+const PauseButton = ({ setDialogContent, setIsPaused }: Props) => {
   const handleClick = (event: React.MouseEvent) => {
     event.preventDefault();
-    dispatch(
-      updateDialogContent({
-        dialog: {
-          title: "Game Paused",
-          text: ["Click OK to continue the game"],
-        },
-      })
-    );
+    setIsPaused(true);
+    setDialogContent({
+      title: "Game Paused",
+      message: <>Click OK to continue the game</>,
+    });
   };
 
   return (

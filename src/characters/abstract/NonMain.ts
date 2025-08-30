@@ -1,8 +1,4 @@
 import Game from "../../Game";
-import {
-  decrementStomachCapacity,
-  gainPoints,
-} from "../../features/turtleMonitor/turtleReducers";
 import store from "../../store";
 import checkBoundingBoxCollision, {
   getCharacterBoundingBox,

@@ -1,5 +1,4 @@
 import Game from "../../Game";
-import { takeDamage } from "../../features/turtleMonitor/turtleReducers";
 import store from "../../store";
 import { generateRandomBit } from "../../utils/generic";
 import IObstacle from "../interfaces/IObstacle";

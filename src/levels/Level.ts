@@ -3,7 +3,6 @@ import INonMainCharacter from "../characters/interfaces/INonMainCharacter";
 import { restoreCharacters } from "../restoreGame/parseGameData";
 import ILevel from "./ILevel";
 import LevelCharacter from "./LevelCharacter";
-import store from "../store";
 import GameData from "../restoreGame/GameData";
 
 abstract class Level implements ILevel {
@@ -35,9 +34,7 @@ abstract class Level implements ILevel {
       }
       await this.loadCharacterImages();
     } catch {
-      throw new Error(
-        `Unable to load level ${store.getState().levels.level.value}`
-      );
+      throw new Error("Unable to load level");
     }
   }
 

@@ -1,12 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
 import { triggerGameMode } from "../../features/gameState/gameStateReducer";
-import Game from "../../Game";
 import { getLastGameLocalStorage } from "../../utils/lastGameLocalStorage";
 import parseGameData from "../../restoreGame/parseGameData";
+import { TurtleStats } from "../gameplay/types";
 
 export const useGameStartActions = (
-  setIsNewGame: Dispatch<SetStateAction<boolean>>
+  setIsNewGame: Dispatch<SetStateAction<boolean>>,
+  setTurtleStats: Dispatch<SetStateAction<TurtleStats>>
 ) => {
   const dispatch = useDispatch();
 
@@ -14,12 +15,11 @@ export const useGameStartActions = (
     startNewGame() {
       setIsNewGame(true);
       dispatch(triggerGameMode());
-      Game.instance.reset();
     },
     continuePreviousGame() {
       setIsNewGame(false);
       dispatch(triggerGameMode());
-      parseGameData(getLastGameLocalStorage());
+      parseGameData(getLastGameLocalStorage(), setTurtleStats);
     },
   };
 };

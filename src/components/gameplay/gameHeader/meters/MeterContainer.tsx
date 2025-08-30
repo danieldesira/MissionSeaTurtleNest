@@ -1,13 +1,14 @@
+import { IconType } from "react-icons";
 import GameMeter from "./GameMeter";
 
 interface Props {
   value: number;
-  icon: React.ReactElement;
+  Icon: IconType;
 }
 
-const MeterContainer = ({ value, icon }: Props) => (
+const MeterContainer = ({ value, Icon }: Props) => (
   <div className="flex gap-1">
-    {icon}
+    <Icon />
     <GameMeter value={value} />
   </div>
 );

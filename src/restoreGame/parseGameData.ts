@@ -1,25 +1,22 @@
+import { Dispatch, SetStateAction } from "react";
 import Game from "../Game";
 import createCharacterInstance from "../characters/createCharacterInstance";
-import { restoreLevel } from "../features/levels/levelReducer";
-import {
-  restoreFood,
-  restoreHealth,
-  restoreOxygen,
-  restorePoints,
-  restoreStomachCapacity,
-} from "../features/turtleMonitor/turtleReducers";
 import store from "../store";
 import GameData from "./GameData";
+import { TurtleStats } from "../components/gameplay/types";
 
 /**
  * Restore game state from JSON string.
  * @param json The game data as a JSON string.
  * @author Daniel Desira
  */
-const parseGameData = (json: string) => {
-  const data: GameData = JSON.parse(json);
+const parseGameData = (
+  json: string,
+  setTurtleStats: Dispatch<SetStateAction<TurtleStats>>
+) => {
+  const data = JSON.parse(json) as GameData;
   restoreTurtle(data);
-  restoreState(data);
+  restoreState(data, setTurtleStats);
 };
 
 const restoreTurtle = (data: GameData) => {
@@ -28,20 +25,18 @@ const restoreTurtle = (data: GameData) => {
   Game.instance.turtle.direction = data.turtle.direction;
 };
 
-const restoreState = (data: GameData) => {
-  store.dispatch(restoreFood({ turtle: { foodValue: data.turtle.food } }));
-  store.dispatch(restoreHealth({ turtle: { lifeValue: data.turtle.health } }));
-  store.dispatch(
-    restoreOxygen({ turtle: { oxygenValue: data.turtle.oxygen } })
-  );
-  store.dispatch(
-    restoreStomachCapacity({
-      turtle: { stomachValue: data.turtle.stomachCapacity },
-    })
-  );
-  store.dispatch(restorePoints({ turtle: { xpValue: data.xp } }));
-  store.dispatch(restoreLevel({ levelValue: data.levelNo }));
-};
+const restoreState = (
+  data: GameData,
+  setTurtleStats: Dispatch<SetStateAction<TurtleStats>>
+) =>
+  setTurtleStats({
+    food: data.turtle.food,
+    physicalCondition: data.turtle.health,
+    oxygen: data.turtle.oxygen,
+    apetite: data.turtle.stomachCapacity,
+    level: data.levelNo,
+    xp: data.xp,
+  });
 
 /**
  * Restores characters
