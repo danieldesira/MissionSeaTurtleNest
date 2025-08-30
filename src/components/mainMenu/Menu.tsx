@@ -17,6 +17,7 @@ import { useGameStartActions } from "./hooks";
 import NewGameDialog from "./NewGameDialog";
 import { socials } from "./config";
 import Dialog from "../dialog/Dialog";
+import NotificationIcon from "./NotificationIcon";
 
 type Props = { setIsNewGame: Dispatch<React.SetStateAction<boolean>> };
 
@@ -98,6 +99,7 @@ const Menu = ({ setIsNewGame }: Props) => {
           >
             <socials.youtube.Icon className="text-primary text-4xl" />
           </a>
+          <NotificationIcon />
           <LoginButtons />
         </div>
         {isAuthenticated ? (
