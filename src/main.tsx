@@ -5,7 +5,7 @@ import "./main.css";
 if (navigator.serviceWorker) {
   try {
     window.addEventListener("load", async () => {
-      const worker = await navigator.serviceWorker.register("serviceWorker.js");
+      const worker = await navigator.serviceWorker.register("cacheServiceWorker.js");
       console.log(`Registered service worker ${worker}`);
     });
   } catch (error) {
