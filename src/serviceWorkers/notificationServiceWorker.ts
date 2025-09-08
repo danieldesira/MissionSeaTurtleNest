@@ -4,8 +4,8 @@ const swSelf = self as unknown as ServiceWorkerGlobalScope;
 
 interface SaveSubPayload {
   endpoint: string;
-  p256dh: ArrayBuffer | null;
-  auth: ArrayBuffer | null;
+  p256dh: string;
+  auth: string;
 }
 
 const savePushSubscription = async (subscription: SaveSubPayload) => {
@@ -19,6 +19,15 @@ const savePushSubscription = async (subscription: SaveSubPayload) => {
   return await res.json();
 };
 
+const convertArrayBufferToString = (buffer: ArrayBuffer | null) => {
+  if (!buffer) {
+    return "";
+  }
+
+  const decoder = new TextDecoder("utf-8");
+  return decoder.decode(buffer);
+};
+
 swSelf.addEventListener("activate", async () => {
   const subscription = await swSelf.registration.pushManager.subscribe({
     userVisibleOnly: true,
@@ -27,8 +36,8 @@ swSelf.addEventListener("activate", async () => {
   });
   await savePushSubscription({
     endpoint: subscription.endpoint,
-    p256dh: subscription.getKey("p256dh"),
-    auth: subscription.getKey("auth"),
+    p256dh: convertArrayBufferToString(subscription.getKey("p256dh")),
+    auth: convertArrayBufferToString(subscription.getKey("auth")),
   });
 });
 
