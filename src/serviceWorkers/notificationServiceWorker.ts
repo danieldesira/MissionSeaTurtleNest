@@ -8,8 +8,13 @@ interface SaveSubPayload {
   auth: string;
 }
 
+const apiBaseUrl =
+  location.hostname === "localhost"
+    ? "https://localhost:32769"
+    : "https://tochange.com";
+
 const savePushSubscription = async (subscription: SaveSubPayload) => {
-  const res = await fetch("http://localhost:32768/api/subscription", {
+  const res = await fetch(`${apiBaseUrl}/api/subscription`, {
     method: "POST",
     headers: {
       "Accept-Content": "application/json",
