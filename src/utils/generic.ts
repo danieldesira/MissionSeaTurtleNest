@@ -29,3 +29,13 @@ export const resizeCanvas = (canvas: HTMLCanvasElement) => {
     readjustCanvasForBg(canvas);
   }
 };
+
+/**
+ * Wrapper for the native ``vibrate`` method, only available on mobile browsers.
+ * @author Daniel Desira
+ */
+export const vibrate = () => {
+  if (navigator.vibrate) {
+    navigator.vibrate(300);
+  }
+};

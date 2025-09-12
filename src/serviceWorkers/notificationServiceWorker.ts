@@ -23,7 +23,7 @@ swSelf.addEventListener("activate", async () => {
   const subscription = await swSelf.registration.pushManager.subscribe({
     userVisibleOnly: true,
     applicationServerKey:
-      "BDRd50z5ESS32mFqaLVJIT-Ap-EgwELoHWo2BFa5_oZSGHKLtQcM3w4-nEA2XOnM6QMN1zYApbs4SjjQgt56rQk",
+      "BEfuj-su_7dqT40eFWTa4wh8FZDJ5oPUiu8AqxFQ260hZotE3i0ZH5B8Esc2J126zJgxLSEKSBRsrtFbKPXRo4Y",
   });
   await savePushSubscription(subscription);
 });
