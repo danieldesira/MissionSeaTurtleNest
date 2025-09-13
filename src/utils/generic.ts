@@ -32,6 +32,7 @@ export const resizeCanvas = (canvas: HTMLCanvasElement) => {
 
 /**
  * Wrapper for the native ``vibrate`` method, only available on mobile browsers.
+ * Vibration duration fixed at 300ms.
  * @author Daniel Desira
  */
 export const vibrate = () => {

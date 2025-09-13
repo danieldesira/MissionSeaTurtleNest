@@ -8,14 +8,17 @@ const apiBaseUrl =
     : "https://tochange.com";
 
 const savePushSubscription = async (subscription: PushSubscription) => {
-  const res = await fetch(`${apiBaseUrl}/api/subscription`, {
-    method: "POST",
-    headers: {
-      "Accept-Content": "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(subscription),
-  });
+  const res = await fetch(
+    `${apiBaseUrl}/api/subscription?appId=65033d73-3cdc-416d-9689-1b0b3e73cbad`,
+    {
+      method: "POST",
+      headers: {
+        "Accept-Content": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(subscription),
+    }
+  );
   return await res.json();
 };
 
