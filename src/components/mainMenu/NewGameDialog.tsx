@@ -7,7 +7,7 @@ type Props = {
   setIsNewGame: Dispatch<SetStateAction<boolean>>;
 };
 
-const NewGameDialog = ({ setIsOpen, setIsNewGame }) => {
+const NewGameDialog = ({ setIsOpen, setIsNewGame }: Props) => {
   const { startNewGame } = useGameStartActions(setIsNewGame);
 
   const closeDialog = () => setIsOpen(false);

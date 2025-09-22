@@ -1,5 +1,7 @@
 import PackPrey from "../characters/abstract/PackPrey";
-import INonMainCharacter from "../characters/interfaces/INonMainCharacter";
+import INonMainCharacter, {
+  CollisionCallbacks,
+} from "../characters/interfaces/INonMainCharacter";
 import { restoreCharacters } from "../restoreGame/parseGameData";
 import ILevel from "./ILevel";
 import LevelCharacter from "./LevelCharacter";
@@ -152,10 +154,13 @@ abstract class Level implements ILevel {
    * Loops through characters and checks for collisions.
    * @author Daniel Desira
    */
-  checkIfTurtleMeetsCharacters(): void {
+  checkIfTurtleMeetsCharacters(
+    apetite: number,
+    callbacks: CollisionCallbacks
+  ): void {
     for (const character of this._characters) {
       if (character.isCollidingWithTurtle()) {
-        character.handleTurtleCollision();
+        character.handleTurtleCollision(apetite, callbacks);
       }
     }
   }

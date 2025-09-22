@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import NextLevelIndication from "./NextLevelIndication";
 import GameHeader from "./gameHeader/GameHeader";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +26,7 @@ import stringifyGameData from "../../restoreGame/stringifyGameData";
 import { paintLevelBg } from "../../levels/background";
 import { getLevelText, LevelChangeTypes, levelMap } from "../../levels/levels";
 import { deleteLastGame, saveScore } from "../../services/api";
+import parseGameData from "../../restoreGame/parseGameData";
 
 type Props = { isNewGame: boolean };
 
@@ -87,6 +88,33 @@ const GameSection = ({ isNewGame }: Props) => {
     });
   };
 
+  const eat = (foodValue: number) => {
+    if (turtleStats.food + foodValue < defaultTurtleStats.food) {
+      setTurtleStats({ ...turtleStats, food: turtleStats.food + foodValue });
+    } else {
+      setTurtleStats({ ...turtleStats, food: defaultTurtleStats.food });
+    }
+  };
+
+  const deductLife = (amount: number) => {
+    if (turtleStats.physicalCondition - amount < 0) {
+      setTurtleStats({
+        ...turtleStats,
+        physicalCondition: turtleStats.physicalCondition - amount,
+      });
+    } else {
+      setTurtleStats({ ...turtleStats, physicalCondition: 0 });
+    }
+  };
+
+  const decrementApetite = (amount: number) => {
+    if (turtleStats.apetite - amount < 0) {
+      setTurtleStats({ ...turtleStats, apetite: turtleStats.apetite - amount });
+    } else {
+      setTurtleStats({ ...turtleStats, apetite: 0 });
+    }
+  };
+
   const checkTurtleAndGameProgress = async (): Promise<LevelChangeTypes> => {
     const mainCharacter = Game.instance.turtle;
 
@@ -113,7 +141,12 @@ const GameSection = ({ isNewGame }: Props) => {
       return await handleOffBgWidth();
     }
 
-    Game.instance.level.checkIfTurtleMeetsCharacters();
+    Game.instance.level.checkIfTurtleMeetsCharacters(turtleStats.apetite, {
+      eat,
+      gainPoints,
+      deductLife,
+      decrementApetite,
+    });
 
     Game.instance.level.moveCharacters();
 
@@ -340,6 +373,10 @@ const GameSection = ({ isNewGame }: Props) => {
     window.addEventListener("resize", () => resizeCanvas(canvas), { signal });
     window.addEventListener("beforeunload", handleBeforeUnload, { signal });
 
+    if (!isNewGame) {
+      parseGameData(getLastGameLocalStorage(), setTurtleStats);
+    }
+
     Game.instance
       .start({
         canvas,
@@ -352,10 +389,10 @@ const GameSection = ({ isNewGame }: Props) => {
           message: (
             <p>
               {Game.instance.level.levelDescription.map((line) => (
-                <>
-                  line
+                <Fragment key={line}>
+                  {line}
                   <br />
-                </>
+                </Fragment>
               ))}
             </p>
           ),
