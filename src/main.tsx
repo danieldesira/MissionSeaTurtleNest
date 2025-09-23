@@ -1,5 +1,6 @@
 import "./main.css";
-import MenuItem from "./webComponents/MenuItem";
+import { registerComponents } from "./webComponents/components";
+import MenuItem from "./webComponents/mainMenu/MenuItem";
 
 if (navigator.serviceWorker) {
   try {
@@ -13,11 +14,11 @@ if (navigator.serviceWorker) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  registerComponents();
+
   document.body.addEventListener("contextmenu", (event) =>
     event.preventDefault()
   );
-
-  customElements.define("menu-item", MenuItem);
 
   const newGameBtn = document.getElementById("newGameBtn") as MenuItem;
   newGameBtn.onClick = () => {

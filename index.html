@@ -23,6 +23,73 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
   <body class="bg-primary select-none touch-none">
+    <template id="menuItemTemplate">
+      <style>
+        span {
+          @apply text-primary text-5xl;
+        }
+      </style>
+      <span role="button"><slot></slot></span>
+    </template>
+    <template id="prettyDialogTemplate">
+      <style>
+        dialog {
+          @apply fixed inset-0 flex flex-col gap-2 items-center justify-center text-white w-4/5 opacity-80 focus:opacity-95 transition-opacity duration-500 bg-gray-900 p-5 rounded-3xl max-w-xl z-50;
+        }
+
+        .heading {
+          @apply flex justify-center items-center gap-2 border-b-white border-b-2 pb-2;
+        }
+
+        .title {
+          @apply text-xl font-extrabold;
+        }
+
+        .content {
+          @apply flex flex-col gap-2;
+        }
+
+        .footer {
+          @apply flex gap-2 items-center;
+        }
+      </style>
+      <dialog
+        onKeyDown={handleKeyDown}
+      >
+        <div class="heading">
+          <GiTurtleShell />
+          <h1 class="title"><slot name="title"></slot></h1>
+        </div>
+        <div class="content">
+          <slot name="content"></slot>
+        </div>
+        <div class="footer">
+          <slot name="footer"></slot>
+        </div>
+      </dialog>
+    </template>
+    <template id="prettyButtonTemplate">
+      <style>
+        button {
+          @apply rounded-md text-xl text-white pl-2 pr-2 w-fit flex gap-2 items-center border-0;
+        }
+
+        .default {
+          @apply bg-primary;
+        }
+
+        .danger {
+          @apply bg-danger;
+        }
+      </style>
+      <button
+        type="button"
+        role="button"
+        class="default"
+      >
+        <slot></slot>
+      </button>
+    </template>
     <div class="max-w-screen max-h-screen portrait:hidden">
     <div
       class="flex flex-col justify-between bg-cute bg-no-repeat bg-center bg-cover p-5 items-center h-screen w-screen"
@@ -68,6 +135,41 @@
         Firefox with the Progressive Web App addon.
       </p>
     </div>
+    <pretty-dialog id="instructionsDialog">
+      <span slot="title">Instructions</span>
+      <div slot="content" class="text-center">
+        <div className="flex flex-col gap-1">
+        <p>
+          Help Peppa the loggerhead turtle to her nesting grounds. Use the
+          provided on-screen arrows to move the turtle. W,A,S,D or arrow keys
+          may also be used to control the turtle.
+        </p>
+        <p>
+          Move Peppa to the right end of the screen in order to pass each level.
+          Eat prey and avoid obstacles.
+        </p>
+        <p>Good luck!</p>
+        <p>
+          Yours turtley,
+          <br />
+          Daniel - Game Developer
+        </p>
+      </div>
+      <figure className="flex flex-col justify-center items-center gap-1">
+        <img
+          src="/images/babyTurtle.jpg"
+          alt="Baby turtle"
+          className="w-full"
+        />
+        <figcaption className="font-light italic text-sm">
+          Photo by Steff Cutajar from Għadira nest excavation (2025)
+        </figcaption>
+      </figure>
+      </div>
+      <div slot="footer">
+        <pretty-button>Close</pretty-button>
+      </div>
+    </pretty-dialog>
     <script type="module" src="src/main.tsx"></script>
   </body>
 </html>
