@@ -3,6 +3,12 @@ import { IoIosArrowBack } from "react-icons/io";
 import {
   triggerMenuMode,
 } from "../../../features/gameState/gameStateReducer";
+import { AppScreen } from "../types";
+
+
+type Props ={
+  setScreen: React.Dispatch<React.SetStateAction<AppScreen>>;
+}
 
 const BackButton = () => {
   const dispatch = useDispatch();

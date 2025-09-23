@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Turtle Escape</title>
     <link rel="manifest" href="./manifest.json" />
     <link rel="icon" href="favicon.svg" />
@@ -23,7 +23,51 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
   <body class="bg-primary select-none touch-none">
-    <div id="root"></div>
+    <div class="max-w-screen max-h-screen portrait:hidden">
+    <div
+      class="flex flex-col justify-between bg-cute bg-no-repeat bg-center bg-cover p-5 items-center h-screen w-screen"
+    >
+      <div class="flex gap-5 justify-center items-center">
+        <h1
+          class="text-5xl font-bold"
+          role="button"
+          onClick="{handleAbout}"
+        >
+          <span class="text-emerald-300">Turtle</span>
+          <span class="text-cyan-500">Quest</span>
+        </h1>
+        <span class="text-sm font-light">Beta</span>
+        <a
+          href="{socials.instagram.url}"
+          target="_blank"
+          title="{socials.instagram.tooltip}"
+        >
+          <socials.instagram.Icon class="text-primary text-4xl" />
+        </a>
+        <a
+          href="{socials.youtube.url}"
+          target="_blank"
+          title="{socials.youtube.tooltip}"
+        >
+          <socials.youtube.Icon class="text-primary text-4xl" />
+        </a>
+        <LoginButtons />
+      </div>
+      <div class="flex flex-col items-center gap-5">
+        <menu-item id="newGameBtn">New Game</menu-item>
+        <menu-item id="continueGameBtn">Continue Game</menu-item>
+        <menu-item id="instructionsBtn">Instructions</menu-item>
+      </div>
+    </div>
+    <div
+      class="landscape:hidden flex justify-center items-center bg-red-700"
+    >
+      <p class="text-white">
+        Unable to play game in portrait mode. Please switch your device to
+        landscape mode or install the Progressive Web App in Chrome, Edge or
+        Firefox with the Progressive Web App addon.
+      </p>
+    </div>
     <script type="module" src="src/main.tsx"></script>
   </body>
 </html>

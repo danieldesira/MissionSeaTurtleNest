@@ -28,14 +28,11 @@ import { getLevelText, LevelChangeTypes, levelMap } from "../../levels/levels";
 import { deleteLastGame, saveScore } from "../../services/api";
 import parseGameData from "../../restoreGame/parseGameData";
 
-type Props = { isNewGame: boolean };
+type Props = { isNewGame: boolean;};
 
 const GameSection = ({ isNewGame }: Props) => {
   const isLoadingLevel = useSelector(
     (state: RootState) => state.game.isLoadingLevel.value
-  );
-  const isSaving = useSelector(
-    (state: RootState) => state.game.state.value === "saving"
   );
   const isAuthenticated = useSelector(
     (state: RootState) => state.authentication.isAuthenticated
@@ -180,7 +177,7 @@ const GameSection = ({ isNewGame }: Props) => {
     } catch {
       setDialogContent({
         title: "Error",
-        message: <>Failed to save game score"</>,
+        message: <>Failed to save game score</>,
         type: "error",
       });
     } finally {
@@ -268,10 +265,12 @@ const GameSection = ({ isNewGame }: Props) => {
   };
 
   const runGameLoop = async (canvas: HTMLCanvasElement) => {
+    if (isGamePaused) {
+      return;
+    }
+
     try {
-      const levelChangeType = isGamePaused
-        ? "SameLevel"
-        : await checkTurtleAndGameProgress();
+      const levelChangeType = await checkTurtleAndGameProgress();
       if (levelChangeType === "SameLevel" || levelChangeType === "NewLevel") {
         const context = canvas.getContext("2d");
 
@@ -313,6 +312,7 @@ const GameSection = ({ isNewGame }: Props) => {
   const handleDialogClose = () => {
     resetDialogContent();
     resumeGame();
+    setIsGamePaused((_) => false);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -388,20 +388,19 @@ const GameSection = ({ isNewGame }: Props) => {
           title: "Level 1",
           message: (
             <p>
-              {Game.instance.level.levelDescription.map((line) => (
-                <Fragment key={line}>
+              {Game.instance.level.levelDescription.map((line, index) => (
+                <Fragment key={index}>
                   {line}
                   <br />
                 </Fragment>
               ))}
             </p>
           ),
-          type: "default",
         });
+        setIsGamePaused(true);
         await runGameLoop(canvas);
       })
       .catch((error) => {
-        console.log(error);
         setDialogContent({ title: "Error", message: error, type: "error" });
         dispatch(triggerMenuMode());
       });
