@@ -1,5 +1,7 @@
 import "./main.css";
 import { registerComponents } from "./webComponents/components";
+import PrettyDialog from "./webComponents/dialog/PrettyDialog";
+import PrettyButton from "./webComponents/form/PrettyButton";
 import MenuItem from "./webComponents/mainMenu/MenuItem";
 
 if (navigator.serviceWorker) {
@@ -21,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   );
 
   const newGameBtn = document.getElementById("newGameBtn") as MenuItem;
-  newGameBtn.onClick = () => {
+  newGameBtn.callback = () => {
     alert("New Game button clicked");
     // Add logic to start a new game here
   };
@@ -29,16 +31,26 @@ document.addEventListener("DOMContentLoaded", async () => {
   const continueGameBtn = document.getElementById(
     "continueGameBtn"
   ) as MenuItem;
-  continueGameBtn.onClick = () => {
+  continueGameBtn.callback = () => {
     alert("Continue Game button clicked");
     // Add logic to start a new game here
   };
 
+  const instructionsDialog = document.getElementById(
+    "instructionsDialog"
+  ) as PrettyDialog;
+
   const instructionsBtn = document.getElementById(
     "instructionsBtn"
   ) as MenuItem;
-  instructionsBtn.onClick = () => {
-    alert("Instructions button clicked");
-    // Add logic to start a new game here
+  instructionsBtn.callback = () => {
+    instructionsDialog.isVisible = true;
+  };
+
+  const closeInstructionsBtn = instructionsDialog.querySelector(
+    "pretty-button"
+  ) as PrettyButton;
+  closeInstructionsBtn.callback = () => {
+    instructionsDialog.isVisible = false;
   };
 });

@@ -1,13 +1,18 @@
+import { loadTemplate } from "../components";
+
 class PrettyDialog extends HTMLElement {
   constructor() {
     super();
+    loadTemplate("prettyDialogTemplate", this);
+  }
 
-    const template = document.getElementById(
-      "prettyDialogTemplate"
-    ) as HTMLTemplateElement;
-    const templateContent = template.content.cloneNode(true);
-    const shadowRoot = this.attachShadow({ mode: "open" });
-    shadowRoot.appendChild(templateContent);
+  set isVisible(value: boolean) {
+    const dialog = this.shadowRoot.querySelector("dialog");
+    if (value) {
+      dialog.showModal();
+    } else {
+      dialog.close();
+    }
   }
 }
 

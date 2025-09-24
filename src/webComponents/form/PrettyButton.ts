@@ -1,13 +1,13 @@
+import { loadTemplate } from "../components";
+
 class PrettyButton extends HTMLElement {
   constructor() {
     super();
+    loadTemplate("prettyButtonTemplate", this);
+  }
 
-    const template = document.getElementById(
-      "prettyButtonTemplate"
-    ) as HTMLTemplateElement;
-    const templateContent = template.content.cloneNode(true);
-    const shadowRoot = this.attachShadow({ mode: "open" });
-    shadowRoot.appendChild(templateContent);
+  set callback(value: () => void) {
+    this.addEventListener("click", value);
   }
 }
 
