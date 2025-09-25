@@ -219,8 +219,8 @@ const GameSection = ({ isNewGame }: Props) => {
       if (navigator.share) {
         try {
           await navigator.share({
-            title: "Turtle Quest",
-            text: `I just reached level ${turtleStats.level} with ${turtleStats.xp} points in Turtle Quest!`,
+            title: "Turtle Core",
+            text: `I just reached level ${turtleStats.level} with ${turtleStats.xp} points in Turtle Core!`,
             url: window.location.href,
           });
         } catch {

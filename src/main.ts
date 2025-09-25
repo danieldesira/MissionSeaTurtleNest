@@ -3,6 +3,7 @@ import { registerComponents } from "./webComponents/components";
 import PrettyDialog from "./webComponents/dialog/PrettyDialog";
 import PrettyButton from "./webComponents/form/PrettyButton";
 import MenuItem from "./webComponents/mainMenu/MenuItem";
+import { version } from "../package.json";
 
 if (navigator.serviceWorker) {
   try {
@@ -53,4 +54,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   closeInstructionsBtn.callback = () => {
     instructionsDialog.isVisible = false;
   };
+
+  const aboutDialog = document.getElementById("aboutDialog") as PrettyDialog;
+
+  const title = document.getElementById("title");
+  title.addEventListener("click", () => {
+    aboutDialog.isVisible = true;
+  });
+
+  const closeAboutBtn = aboutDialog.querySelector(
+    "pretty-button"
+  ) as PrettyButton;
+  closeAboutBtn.callback = () => {
+    aboutDialog.isVisible = false;
+  };
+
+  const versionLink = document.getElementById("version");
+  versionLink.textContent = version;
 });

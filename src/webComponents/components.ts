@@ -14,12 +14,9 @@ const components: {
 export const registerComponents = () =>
   components.forEach(({ tag, jsClass }) => customElements.define(tag, jsClass));
 
-export const loadTemplate = (
-  templateId: string,
-  elementContext: HTMLElement
-) => {
+export const loadTemplate = (templateId: string, host: HTMLElement) => {
   const template = document.getElementById(templateId) as HTMLTemplateElement;
   const templateContent = template.content.cloneNode(true);
-  const shadowRoot = elementContext.attachShadow({ mode: "open" });
+  const shadowRoot = host.attachShadow({ mode: "open" });
   shadowRoot.appendChild(templateContent);
 };

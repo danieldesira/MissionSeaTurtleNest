@@ -1,6 +1,6 @@
 # Contributing Code
 ## Introduction
-Turtle Quest is primarily built using canvas 2D and ``requestAnimationFrame`` 
+Turtle Core is primarily built using canvas 2D and ``requestAnimationFrame`` 
 which are technologies built into all major browsers. The codebase is written 
 in TypeScript and libraries like React and Redux are in use in order to 
 promote reuse of UI components and state sharing. The codebase however is 

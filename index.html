@@ -6,7 +6,7 @@
     <title>Turtle Escape</title>
     <link rel="manifest" href="./manifest.json" />
     <link rel="icon" href="favicon.svg" />
-    <meta property="og:title" content="Turtle Quest" />
+    <meta property="og:title" content="Turtle Core" />
     <meta property="og:description" content="Educational game for kids" />
     <meta
       property="og:image"
@@ -14,13 +14,14 @@
     />
     <meta property="og:image:alt" content="Gameplay screenshot" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Turtle Quest" />
+    <meta name="twitter:title" content="Turtle Core" />
     <meta name="twitter:description" content="Educational game for kids" />
     <meta
-      name="twitter:image"
-      content="https://turtle-quest.vercel.app/images/screenshot.png"
+    name="twitter:image"
+    content="https://turtle-quest.vercel.app/images/screenshot.png"
     />
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script type="module" src="src/main.ts" blocking="render"></script>
   </head>
   <body class="bg-primary select-none touch-none">
     <template id="menuItemTemplate">
@@ -34,7 +35,7 @@
     <template id="prettyDialogTemplate">
       <style>
         dialog:open {
-          @apply inset-0 border-0 flex flex-col gap-2 items-center justify-center text-white w-4/5 opacity-80 focus:opacity-95 transition-opacity duration-500 bg-gray-900 p-5 rounded-3xl max-w-xl z-50;
+          @apply inset-0 border-0 flex flex-col gap-2 items-center justify-center text-white w-4/5 opacity-80 focus:opacity-95 transition-opacity duration-500 bg-gray-900 p-5 rounded-3xl max-w-xl z-50 animate-pulse animate-[500ms];
         }
 
         .heading {
@@ -96,12 +97,12 @@
     >
       <div class="flex gap-5 justify-center items-center">
         <h1
+          id="title"
           class="text-5xl font-bold"
           role="button"
-          onClick="{handleAbout}"
         >
           <span class="text-emerald-300">Turtle</span>
-          <span class="text-cyan-500">Quest</span>
+          <span class="text-cyan-500">Core</span>
         </h1>
         <span class="text-sm font-light">Beta</span>
         <a
@@ -170,6 +171,70 @@
         <pretty-button>Close</pretty-button>
       </div>
     </pretty-dialog>
-    <script type="module" src="src/main.tsx"></script>
+    <pretty-dialog id="aboutDialog">
+      <span slot="title">About Turtle Core</span>
+      <div slot="content">
+        <div className="flex flex-col justify-center gap-2">
+          <div className="flex justify-between">
+            <a
+              id="version"
+              href="https://github.com/danieldesira/TurtleQuest/blob/master/changelog.md"
+              target="_blank"
+              title="Changelog"
+            >
+            </a>
+            <div className="flex gap-2">
+              <a
+                href="https://github.com/danieldesira/TurtleQuest/blob/master/contributors.md"
+                target="_blank"
+                title="Credits"
+              >
+                Credits
+              </a>
+              <a
+                href="https://github.com/danieldesira/TurtleQuest/blob/master/license.md"
+                target="_blank"
+                title="License"
+              >
+                License
+              </a>
+              <a
+                href="https://github.com/danieldesira/TurtleQuest/blob/master/DEDICATIONS.md"
+                target="_blank"
+                title="License"
+              >
+                Dedications
+              </a>
+            </div>
+            <div className="flex gap-2">
+              <a
+                href={socials.github.url}
+                target="_blank"
+                title={socials.github.tooltip}
+              >
+                <socials.github.Icon />
+              </a>
+              <a
+                href={socials.instagram.url}
+                target="_blank"
+                title={socials.instagram.tooltip}
+              >
+                <socials.instagram.Icon />
+              </a>
+              <a
+                href={socials.youtube.url}
+                target="_blank"
+                title={socials.youtube.tooltip}
+              >
+                <socials.youtube.Icon />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div slot="footer">
+        <pretty-button>Close</pretty-button>
+      </div>
+    </pretty-dialog>
   </body>
 </html>

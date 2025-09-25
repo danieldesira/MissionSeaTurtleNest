@@ -1,4 +1,4 @@
-# Turtle Quest
+# Turtle Core
 A simple educational game about loggerhead turtles.
 
 ## Access
