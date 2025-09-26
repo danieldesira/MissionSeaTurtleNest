@@ -15,7 +15,7 @@ import {
 import InstructionsDialog from "./InstructionsDialog";
 import { useGameStartActions } from "./hooks";
 import NewGameDialog from "./NewGameDialog";
-import { socials } from "./config";
+import { socials } from "../../socials";
 import Dialog from "../dialog/Dialog";
 
 type Props = { setIsNewGame: Dispatch<React.SetStateAction<boolean>> };

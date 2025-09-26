@@ -5,5 +5,8 @@ declare global {
     google?: {
       accounts?: { id?: { initialize: Function; renderButton: Function } };
     };
+    lucide?: {
+      createIcons: () => void;
+    };
   }
 }

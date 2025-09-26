@@ -4,6 +4,7 @@ import PrettyDialog from "./webComponents/dialog/PrettyDialog";
 import PrettyButton from "./webComponents/form/PrettyButton";
 import MenuItem from "./webComponents/mainMenu/MenuItem";
 import { version } from "../package.json";
+import { setupSocialButtons } from "./socials";
 
 if (navigator.serviceWorker) {
   try {
@@ -18,6 +19,8 @@ if (navigator.serviceWorker) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerComponents();
+  setupSocialButtons();
+  window.lucide?.createIcons();
 
   document.body.addEventListener("contextmenu", (event) =>
     event.preventDefault()
@@ -70,5 +73,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   const versionLink = document.getElementById("version");
-  versionLink.textContent = version;
+  versionLink.innerText = version;
 });

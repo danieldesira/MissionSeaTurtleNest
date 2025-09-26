@@ -20,6 +20,7 @@
     name="twitter:image"
     content="https://turtle-quest.vercel.app/images/screenshot.png"
     />
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script type="module" src="src/main.ts" blocking="render"></script>
   </head>
@@ -106,18 +107,25 @@
         </h1>
         <span class="text-sm font-light">Beta</span>
         <a
-          href="{socials.instagram.url}"
+          href="_github_"
           target="_blank"
-          title="{socials.instagram.tooltip}"
+          title="_github_"
         >
-          <socials.instagram.Icon class="text-primary text-4xl" />
+          <i data-lucide="github" class="text-primary text-4xl"></i>
         </a>
         <a
-          href="{socials.youtube.url}"
+          href="_instagram_"
           target="_blank"
-          title="{socials.youtube.tooltip}"
+          title="_instagram_"
         >
-          <socials.youtube.Icon class="text-primary text-4xl" />
+          <i data-lucide="instagram" class="text-primary text-4xl"></i>
+        </a>
+        <a
+          href="_youtube_"
+          target="_blank"
+          title="_youtube_"
+        >
+          <i data-lucide="youtube" class="text-primary text-4xl"></i>
         </a>
         <LoginButtons />
       </div>
@@ -204,29 +212,6 @@
                 title="License"
               >
                 Dedications
-              </a>
-            </div>
-            <div className="flex gap-2">
-              <a
-                href={socials.github.url}
-                target="_blank"
-                title={socials.github.tooltip}
-              >
-                <socials.github.Icon />
-              </a>
-              <a
-                href={socials.instagram.url}
-                target="_blank"
-                title={socials.instagram.tooltip}
-              >
-                <socials.instagram.Icon />
-              </a>
-              <a
-                href={socials.youtube.url}
-                target="_blank"
-                title={socials.youtube.tooltip}
-              >
-                <socials.youtube.Icon />
               </a>
             </div>
           </div>
