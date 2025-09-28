@@ -14,6 +14,7 @@ const processPayload = (payload: unknown) => {
 };
 
 const request = async <T>(
+  resourceLocation: string,
   url: string,
   method: string,
   payload: unknown = null,
@@ -28,7 +29,11 @@ const request = async <T>(
     credentials: "include",
   });
   if (res.ok) {
-    return res.status === 204 ? null : ((await res.json()) as T);
+    return res.status === 204
+      ? null
+      : contentType === "application/json"
+      ? ((await res.json()) as T)
+      : await res.text();
   } else {
     if (res.status === 401) {
       store.dispatch(logout());
@@ -41,22 +46,22 @@ const request = async <T>(
   }
 };
 
-const Request = {
+const FetchRequest = {
   async get<T>(url: string) {
-    return await request<T>(url, "get");
+    return await request<T>("api", url, "get");
   },
   async post<T>(url: string, body: unknown = null) {
-    return await request<T>(url, "post", body);
+    return await request<T>("api", url, "post", body);
   },
   async put<T>(url: string, body: unknown) {
-    return await request<T>(url, "put", body);
+    return await request<T>("api", url, "put", body);
   },
   async delete<T>(url: string) {
-    return await request<T>(url, "delete");
+    return await request<T>("api", url, "delete");
   },
   async uploadFile<T>(url: string, file: File) {
-    return await request<T>(url, "put", file, file.type);
+    return await request<T>("api", url, "put", file, file.type);
   },
 };
 
-export default Request;
+export default FetchRequest;

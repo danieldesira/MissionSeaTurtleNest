@@ -4,15 +4,17 @@ import MenuItem from "./mainMenu/MenuItem";
 
 const components: {
   tag: string;
-  jsClass: CustomElementConstructor;
+  Constructor: CustomElementConstructor;
 }[] = [
-  { tag: "menu-item", jsClass: MenuItem },
-  { tag: "pretty-dialog", jsClass: PrettyDialog },
-  { tag: "pretty-button", jsClass: PrettyButton },
+  { tag: "menu-item", Constructor: MenuItem },
+  { tag: "pretty-dialog", Constructor: PrettyDialog },
+  { tag: "pretty-button", Constructor: PrettyButton },
 ];
 
 export const registerComponents = () =>
-  components.forEach(({ tag, jsClass }) => customElements.define(tag, jsClass));
+  components.forEach(({ tag, Constructor }) =>
+    customElements.define(tag, Constructor)
+  );
 
 export const loadTemplate = (templateId: string, host: HTMLElement) => {
   const template = document.getElementById(templateId) as HTMLTemplateElement;

@@ -59,7 +59,6 @@
         role="dialog"
       >
         <div class="heading">
-          <GiTurtleShell />
           <h1 class="title"><slot name="title"></slot></h1>
         </div>
         <div class="content">
@@ -127,7 +126,7 @@
         >
           <i data-lucide="youtube" class="text-primary text-4xl"></i>
         </a>
-        <LoginButtons />
+        <div id="loginButtons"></div>
       </div>
       <div class="flex flex-col items-center gap-5">
         <menu-item id="newGameBtn">New Game</menu-item>
@@ -183,37 +182,37 @@
       <span slot="title">About Turtle Core</span>
       <div slot="content">
         <div className="flex flex-col justify-center gap-2">
-          <div className="flex justify-between">
+          <i data-lucide="turtle" class="text-5xl"></i>
+          <a
+            id="version"
+            href="https://github.com/danieldesira/TurtleQuest/blob/master/changelog.md"
+            target="_blank"
+            title="Changelog"
+          >
+          </a>
+          <div className="flex gap-2">
             <a
-              id="version"
-              href="https://github.com/danieldesira/TurtleQuest/blob/master/changelog.md"
+              href="https://github.com/danieldesira/TurtleQuest/blob/master/contributors.md"
               target="_blank"
-              title="Changelog"
+              title="Credits"
             >
+              Credits
             </a>
-            <div className="flex gap-2">
-              <a
-                href="https://github.com/danieldesira/TurtleQuest/blob/master/contributors.md"
-                target="_blank"
-                title="Credits"
-              >
-                Credits
-              </a>
-              <a
-                href="https://github.com/danieldesira/TurtleQuest/blob/master/license.md"
-                target="_blank"
-                title="License"
-              >
-                License
-              </a>
-              <a
-                href="https://github.com/danieldesira/TurtleQuest/blob/master/DEDICATIONS.md"
-                target="_blank"
-                title="License"
-              >
-                Dedications
-              </a>
-            </div>
+            <a
+              href="https://github.com/danieldesira/TurtleQuest/blob/master/license.md"
+              target="_blank"
+              title="License"
+            >
+              License
+            </a>
+            <a
+              href="https://github.com/danieldesira/TurtleQuest/blob/master/DEDICATIONS.md"
+              target="_blank"
+              title="License"
+            >
+              Dedications
+            </a>
+            
           </div>
         </div>
       </div>
