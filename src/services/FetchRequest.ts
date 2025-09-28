@@ -14,7 +14,6 @@ const processPayload = (payload: unknown) => {
 };
 
 const request = async <T>(
-  resourceLocation: string,
   url: string,
   method: string,
   payload: unknown = null,
@@ -48,19 +47,19 @@ const request = async <T>(
 
 const FetchRequest = {
   async get<T>(url: string) {
-    return await request<T>("api", url, "get");
+    return await request<T>(url, "get");
   },
   async post<T>(url: string, body: unknown = null) {
-    return await request<T>("api", url, "post", body);
+    return await request<T>(url, "post", body);
   },
   async put<T>(url: string, body: unknown) {
-    return await request<T>("api", url, "put", body);
+    return await request<T>(url, "put", body);
   },
   async delete<T>(url: string) {
-    return await request<T>("api", url, "delete");
+    return await request<T>(url, "delete");
   },
   async uploadFile<T>(url: string, file: File) {
-    return await request<T>("api", url, "put", file, file.type);
+    return await request<T>(url, "put", file, file.type);
   },
 };
 
