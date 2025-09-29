@@ -26,9 +26,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     event.preventDefault()
   );
 
+  const menuContainer = document.getElementById("menuContainer");
+  const gameContainer = document.getElementById("gameContainer");
+
+  const toggleGameMode = () => {
+    menuContainer.classList.add("hidden");
+    menuContainer.classList.remove("flex");
+    gameContainer.classList.add("flex");
+    gameContainer.classList.remove("hidden");
+  };
+
   const newGameBtn = document.getElementById("newGameBtn") as MenuItem;
   newGameBtn.callback = () => {
-    alert("New Game button clicked");
+    toggleGameMode();
     // Add logic to start a new game here
   };
 
@@ -36,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     "continueGameBtn"
   ) as MenuItem;
   continueGameBtn.callback = () => {
-    alert("Continue Game button clicked");
+    toggleGameMode();
     // Add logic to start a new game here
   };
 

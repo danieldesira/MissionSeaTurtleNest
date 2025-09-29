@@ -17,8 +17,8 @@
     <meta name="twitter:title" content="Turtle Core" />
     <meta name="twitter:description" content="Educational game for kids" />
     <meta
-    name="twitter:image"
-    content="https://turtle-quest.vercel.app/images/screenshot.png"
+      name="twitter:image"
+      content="https://turtle-quest.vercel.app/images/screenshot.png"
     />
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -55,9 +55,7 @@
           @apply flex gap-2 items-center;
         }
       </style>
-      <dialog 
-        role="dialog"
-      >
+      <dialog role="dialog">
         <div class="heading">
           <h1 class="title"><slot name="title"></slot></h1>
         </div>
@@ -83,60 +81,47 @@
           @apply bg-danger;
         }
       </style>
-      <button
-        type="button"
-        role="button"
-        class="default"
-      >
+      <button type="button" role="button" class="default">
         <slot></slot>
       </button>
     </template>
     <div class="max-w-screen max-h-screen portrait:hidden">
-    <div
-      class="flex flex-col justify-between bg-cute bg-no-repeat bg-center bg-cover p-5 items-center h-screen w-screen"
-    >
-      <div class="flex gap-5 justify-center items-center">
-        <h1
-          id="title"
-          class="text-5xl font-bold"
-          role="button"
-        >
-          <span class="text-emerald-300">Turtle</span>
-          <span class="text-cyan-500">Core</span>
-        </h1>
-        <span class="text-sm font-light">Beta</span>
-        <a
-          href="_github_"
-          target="_blank"
-          title="_github_"
-        >
-          <i data-lucide="github" class="text-primary text-4xl"></i>
-        </a>
-        <a
-          href="_instagram_"
-          target="_blank"
-          title="_instagram_"
-        >
-          <i data-lucide="instagram" class="text-primary text-4xl"></i>
-        </a>
-        <a
-          href="_youtube_"
-          target="_blank"
-          title="_youtube_"
-        >
-          <i data-lucide="youtube" class="text-primary text-4xl"></i>
-        </a>
-        <div id="loginButtons"></div>
+      <div
+        id="menuContainer"
+        class="flex flex-col justify-between bg-cute bg-no-repeat bg-center bg-cover p-5 items-center h-screen w-screen"
+      >
+        <div class="flex gap-5 justify-center items-center">
+          <h1 id="title" class="text-5xl font-bold" role="button">
+            <span class="text-emerald-300">Turtle</span>
+            <span class="text-cyan-500">Core</span>
+          </h1>
+          <span class="text-sm font-light">Beta</span>
+          <a href="_github_" target="_blank" title="_github_">
+            <i data-lucide="github" class="text-primary text-4xl"></i>
+          </a>
+          <a href="_instagram_" target="_blank" title="_instagram_">
+            <i data-lucide="instagram" class="text-primary text-4xl"></i>
+          </a>
+          <a href="_youtube_" target="_blank" title="_youtube_">
+            <i data-lucide="youtube" class="text-primary text-4xl"></i>
+          </a>
+          <div id="loginButtons"></div>
+        </div>
+        <div class="flex flex-col items-center gap-5">
+          <menu-item id="newGameBtn">New Game</menu-item>
+          <menu-item id="continueGameBtn">Continue Game</menu-item>
+          <menu-item id="instructionsBtn">Instructions</menu-item>
+        </div>
       </div>
-      <div class="flex flex-col items-center gap-5">
-        <menu-item id="newGameBtn">New Game</menu-item>
-        <menu-item id="continueGameBtn">Continue Game</menu-item>
-        <menu-item id="instructionsBtn">Instructions</menu-item>
+      <div id="gameContainer" class="hidden h-screen items-center justify-center">
+        <canvas
+          height="400"
+          width="700"
+          tab-index="1"
+        ></canvas>
       </div>
     </div>
-    <div
-      class="landscape:hidden flex justify-center items-center bg-red-700"
-    >
+    <div class="landscape:hidden flex justify-center items-center bg-red-700">
       <p class="text-white">
         Unable to play game in portrait mode. Please switch your device to
         landscape mode or install the Progressive Web App in Chrome, Edge or
@@ -145,34 +130,30 @@
     </div>
     <pretty-dialog id="instructionsDialog">
       <span slot="title">Instructions</span>
-      <div slot="content" class="text-center">
-        <div className="flex flex-col gap-1">
-        <p>
-          Help Peppa the loggerhead turtle to her nesting grounds. Use the
-          provided on-screen arrows to move the turtle. W,A,S,D or arrow keys
-          may also be used to control the turtle.
-        </p>
-        <p>
-          Move Peppa to the right end of the screen in order to pass each level.
-          Eat prey and avoid obstacles.
-        </p>
-        <p>Good luck!</p>
-        <p>
-          Yours turtley,
-          <br />
-          Daniel - Game Developer
-        </p>
-      </div>
-      <figure className="flex flex-col justify-center items-center gap-1">
-        <img
-          src="/images/babyTurtle.jpg"
-          alt="Baby turtle"
-          className="w-full"
-        />
-        <figcaption className="font-light italic text-sm">
-          Photo by Steff Cutajar from Għadira nest excavation (2025)
-        </figcaption>
-      </figure>
+      <div slot="content">
+        <div class="flex flex-col gap-1 justify-center items-center">
+          <p>
+            Help Peppa the loggerhead turtle to her nesting grounds. Use the
+            provided on-screen arrows to move the turtle. W,A,S,D or arrow keys
+            may also be used to control the turtle.
+          </p>
+          <p>
+            Move Peppa to the right end of the screen in order to pass each
+            level. Eat prey and avoid obstacles.
+          </p>
+          <p>Good luck!</p>
+          <p>
+            Yours turtley,
+            <br />
+            Daniel - Game Developer
+          </p>
+        </div>
+        <figure class="flex flex-col justify-center items-center gap-1">
+          <img src="/images/babyTurtle.jpg" alt="Baby turtle" class="w-full" />
+          <figcaption class="font-light italic text-sm">
+            Photo by Steff Cutajar from Għadira nest excavation (2025)
+          </figcaption>
+        </figure>
       </div>
       <div slot="footer">
         <pretty-button>Close</pretty-button>
@@ -181,8 +162,8 @@
     <pretty-dialog id="aboutDialog">
       <span slot="title">About Turtle Core</span>
       <div slot="content">
-        <div className="flex flex-col justify-center gap-2">
-          <i data-lucide="turtle" class="text-5xl"></i>
+        <div class="flex flex-col justify-center items-center gap-2">
+          <i data-lucide="turtle" class="w-16 h-16 text-primary"></i>
           <a
             id="version"
             href="https://github.com/danieldesira/TurtleQuest/blob/master/changelog.md"
@@ -190,7 +171,7 @@
             title="Changelog"
           >
           </a>
-          <div className="flex gap-2">
+          <div class="flex gap-2">
             <a
               href="https://github.com/danieldesira/TurtleQuest/blob/master/contributors.md"
               target="_blank"
@@ -212,7 +193,6 @@
             >
               Dedications
             </a>
-            
           </div>
         </div>
       </div>
