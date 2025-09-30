@@ -3,6 +3,8 @@
 - Migrate to vanilla JS and web components
 - Minor UI changes
 - Rename game to Turtle Core
+- Add desktop notifications
+- Mobile: Add 300ms vibration on collision with obstacles
 
 # 0.7.6.2 Beta (Malta&Gozo hatching Edition) - 27/08/2025 15:00 UTC+1
 

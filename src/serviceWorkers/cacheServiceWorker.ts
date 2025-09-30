@@ -1,3 +1,5 @@
+/// <reference lib="webworker" />
+
 // Choose a cache name
 const cacheName = "cache-v1";
 // List the files to precache
@@ -25,10 +27,6 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(cacheName).then((cache) => cache.addAll(precacheResources))
   );
-});
-
-self.addEventListener("activate", (event) => {
-  console.log("Service worker activate event!");
 });
 
 // When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network

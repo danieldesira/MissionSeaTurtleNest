@@ -1,7 +1,6 @@
 import Game from "../../Game";
 import store from "../../store";
-import { generateRandomBit } from "../../utils/generic";
-import { CollisionCallbacks } from "../interfaces/INonMainCharacter";
+import { generateRandomBit, vibrate } from "../../utils/generic";
 import IObstacle from "../interfaces/IObstacle";
 import NonMain from "./NonMain";
 
@@ -18,9 +17,10 @@ abstract class Obstacle extends NonMain implements IObstacle {
    * @override
    * @author Daniel Desira
    */
-  handleTurtleCollision(apetite: number, callbacks: CollisionCallbacks): void {
-    callbacks.deductLife(this._damage);
-    super.handleTurtleCollision(apetite, callbacks);
+  handleTurtleCollision(): void {
+    store.dispatch(takeDamage({ turtle: { lifeValue: this._damage } }));
+    super.handleTurtleCollision();
+    vibrate();
   }
 
   /**

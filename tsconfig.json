@@ -3,12 +3,14 @@
     "jsx": "react-jsx",
     "sourceMap": true,
     "module": "ESNext",
-    "target": "ES2021",
+    "target": "ES2022",
     "allowJs": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "noEmit": true
+    "noEmit": true,
+    "lib": ["ES2022", "DOM"]
   },
-  "exclude": ["*.config.js", "serviceWorker.js", "dist", "*.config.cjs"]
+  "include": ["src"],
+  "exclude": ["src/serviceWorkers"]
 }
