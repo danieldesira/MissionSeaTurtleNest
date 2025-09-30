@@ -9,6 +9,10 @@ class Turtle extends Character implements IMainCharacter {
   protected readonly _speed: number = 1;
   protected readonly _width: number;
   protected readonly _height: number;
+  protected _foodGauge: number;
+  protected _lifeGauge: number;
+  protected _apetiteGauge: number;
+  protected _oxygenGauge: number;
 
   constructor({ speed, width, height }: CharacterOptions = {}) {
     super();
@@ -16,6 +20,7 @@ class Turtle extends Character implements IMainCharacter {
     this._speed = speed ?? 1;
     this._width = width ?? 130;
     this._height = height ?? 80;
+    this.resetGauges();
   }
 
   /**
@@ -26,6 +31,17 @@ class Turtle extends Character implements IMainCharacter {
     this._x = 50;
     this._y = 10;
     this._direction = "Right";
+  }
+
+  /**
+   * Resets turtle gauges with regards to life, oxygen, food and apetite.
+   * @author Daniel Desira
+   */
+  resetGauges() {
+    this._apetiteGauge = 100;
+    this._foodGauge = 100;
+    this._lifeGauge = 100;
+    this._oxygenGauge = 100;
   }
 
   /**
@@ -86,6 +102,22 @@ class Turtle extends Character implements IMainCharacter {
       this._height
     );
     context.resetTransform();
+  }
+
+  get foodGauge() {
+    return this._foodGauge;
+  }
+
+  get lifeGauge() {
+    return this._lifeGauge;
+  }
+
+  get apetiteGauge() {
+    return this._apetiteGauge;
+  }
+
+  get oxygenGauge() {
+    return this._oxygenGauge;
   }
 }
 

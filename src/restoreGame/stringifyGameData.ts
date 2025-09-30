@@ -14,10 +14,10 @@ const stringifyGameData = (turtleStats: TurtleStats): string => {
       x: Game.instance.turtle.x,
       y: Game.instance.turtle.y,
       direction: Game.instance.turtle.direction,
-      food: turtleStats.food,
-      oxygen: turtleStats.oxygen,
-      health: turtleStats.physicalCondition,
-      stomachCapacity: turtleStats.apetite,
+      food: Game.instance.turtle.foodGauge,
+      oxygen: Game.instance.turtle.oxygenGauge,
+      health: Game.instance.turtle.lifeGauge,
+      stomachCapacity: Game.instance.turtle.apetiteGauge,
     },
     characters: [...Game.instance.level.characters].map((c) => {
       return {
