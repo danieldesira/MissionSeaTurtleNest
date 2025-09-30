@@ -5,6 +5,8 @@ import PrettyButton from "./webComponents/form/PrettyButton";
 import MenuItem from "./webComponents/mainMenu/MenuItem";
 import { version } from "../package.json";
 import { setupSocialButtons } from "./socials";
+import GameControl from "./webComponents/gameplay/GameControl";
+import Game from "./Game";
 
 if (navigator.serviceWorker) {
   try {
@@ -84,4 +86,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const versionLink = document.getElementById("version");
   versionLink.innerText = version;
+
+  const upControl = document.getElementById("upControl") as GameControl;
+  upControl.callback = () => Game.instance.turtle.moveUp();
+  const downControl = document.getElementById("downControl") as GameControl;
+  downControl.callback = () => Game.instance.turtle.moveDown();
+  const leftControl = document.getElementById("leftControl") as GameControl;
+  leftControl.callback = () => Game.instance.turtle.moveLeft();
+  const rightControl = document.getElementById("rightControl") as GameControl;
+  rightControl.callback = () => Game.instance.turtle.moveRight();
 });

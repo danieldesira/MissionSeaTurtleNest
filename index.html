@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Turtle Escape</title>
+    <title>Turtle Core</title>
     <link rel="manifest" href="./manifest.json" />
     <link rel="icon" href="favicon.svg" />
     <meta property="og:title" content="Turtle Core" />
@@ -85,6 +85,16 @@
         <slot></slot>
       </button>
     </template>
+    <template id="gameControlTemplate">
+      <style>
+        button {
+          @apply rounded-7xl w-20 h-20 bg-black opacity-50 hover:opacity-70 text-white;
+        }
+      </style>
+      <button type="button">
+        <div className="flex justify-center"><slot></slot></div>
+      </button>
+    </template>
     <div class="max-w-screen max-h-screen portrait:hidden">
       <div
         id="menuContainer"
@@ -113,12 +123,21 @@
           <menu-item id="instructionsBtn">Instructions</menu-item>
         </div>
       </div>
-      <div id="gameContainer" class="hidden h-screen items-center justify-center">
-        <canvas
-          height="400"
-          width="700"
-          tab-index="1"
-        ></canvas>
+      <div
+        id="gameContainer"
+        class="hidden h-screen items-center justify-center"
+      >
+        <canvas id="gameCanvas" height="400" width="700" tab-index="1"></canvas>
+        <div class="fixed bottom-1 right-1">
+          <div class="mb-1 flex justify-center">
+            <game-control id="upControl"></game-control>
+          </div>
+          <div class="flex gap-1">
+            <game-control id="leftControl"></game-control>
+            <game-control id="downControl"></game-control>
+            <game-control id="rightControl"></game-control>
+          </div>
+        </div>
       </div>
     </div>
     <div class="landscape:hidden flex justify-center items-center bg-red-700">

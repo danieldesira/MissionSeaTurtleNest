@@ -1,5 +1,6 @@
 import PrettyDialog from "./dialog/PrettyDialog";
 import PrettyButton from "./form/PrettyButton";
+import GameControl from "./gameplay/GameControl";
 import MenuItem from "./mainMenu/MenuItem";
 
 const components: {
@@ -7,8 +8,9 @@ const components: {
   Constructor: CustomElementConstructor;
 }[] = [
   { tag: "menu-item", Constructor: MenuItem },
-  { tag: "pretty-dialog", Constructor: PrettyDialog },
+  { tag: "pretty-dialog", Constructor: PrettyDialog },  
   { tag: "pretty-button", Constructor: PrettyButton },
+  { tag: "game-control", Constructor: GameControl },
 ];
 
 export const registerComponents = () =>
