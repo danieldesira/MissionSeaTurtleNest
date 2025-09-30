@@ -9,7 +9,7 @@ export type CollisionCallbacks = {
 
 interface INonMainCharacter extends ICharacter {
   swim(): void;
-  handleTurtleCollision(apetite: number, callbacks: CollisionCallbacks): void;
+  handleTurtleCollision(): void;
   setInitialPosition(): void;
   get stomachImpact(): number;
   get points(): number;

@@ -1,6 +1,4 @@
-import INonMainCharacter, {
-  CollisionCallbacks,
-} from "../characters/interfaces/INonMainCharacter";
+import INonMainCharacter from "../characters/interfaces/INonMainCharacter";
 import GameData from "../restoreGame/GameData";
 
 interface ILevel {
@@ -16,10 +14,7 @@ interface ILevel {
   moveCharacters(): void;
   get currentSpeed(): number;
   get points(): number;
-  checkIfTurtleMeetsCharacters(
-    apetite: number,
-    callbacks: CollisionCallbacks
-  ): void;
+  checkIfTurtleMeetsCharacters(): void;
   get levelDescription(): string[];
   get imagePath(): string;
 }

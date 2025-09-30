@@ -154,13 +154,10 @@ abstract class Level implements ILevel {
    * Loops through characters and checks for collisions.
    * @author Daniel Desira
    */
-  checkIfTurtleMeetsCharacters(
-    apetite: number,
-    callbacks: CollisionCallbacks
-  ): void {
+  checkIfTurtleMeetsCharacters(): void {
     for (const character of this._characters) {
       if (character.isCollidingWithTurtle()) {
-        character.handleTurtleCollision(apetite, callbacks);
+        character.handleTurtleCollision();
       }
     }
   }

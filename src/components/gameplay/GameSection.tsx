@@ -112,56 +112,6 @@ const GameSection = ({ isNewGame }: Props) => {
     }
   };
 
-  const checkTurtleAndGameProgress = async (): Promise<LevelChangeTypes> => {
-    const mainCharacter = Game.instance.turtle;
-
-    useFood();
-    recoverApetite();
-
-    if (
-      turtleStats.food <= 0 ||
-      turtleStats.oxygen <= 0 ||
-      turtleStats.physicalCondition <= 0
-    ) {
-      await handleLoss();
-      return "GameEnd";
-    }
-
-    if (mainCharacter.y <= 0) {
-      breath();
-    } else {
-      useOxygen();
-    }
-
-    const backgroundImage = Game.instance.level.bgImg;
-    if (backgroundImage && mainCharacter.x >= backgroundImage.width) {
-      return await handleOffBgWidth();
-    }
-
-    Game.instance.level.checkIfTurtleMeetsCharacters(turtleStats.apetite, {
-      eat,
-      gainPoints,
-      deductLife,
-      decrementApetite,
-    });
-
-    Game.instance.level.moveCharacters();
-
-    return "SameLevel";
-  };
-
-  const handleOffBgWidth = async (): Promise<LevelChangeTypes> => {
-    gainPoints(Game.instance.level.points);
-    setTurtleStats({ ...turtleStats, level: turtleStats.level + 1 });
-    if (levelMap[turtleStats.level]) {
-      await Game.instance.loadNewLevel(turtleStats.level, true);
-      return "NewLevel";
-    } else {
-      await handleWin();
-      return "GameEnd";
-    }
-  };
-
   const deleteLastGameAndSaveScore = async (hasWon: boolean): Promise<void> => {
     try {
       if (isAuthenticated) {

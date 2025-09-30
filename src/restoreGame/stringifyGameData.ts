@@ -1,6 +1,4 @@
-import { TurtleStats } from "../components/gameplay/types";
 import Game from "../Game";
-import store from "../store";
 import GameData from "./GameData";
 
 /**
@@ -8,7 +6,7 @@ import GameData from "./GameData";
  * @returns JSON string represantation of game data.
  * @author Daniel Desira
  */
-const stringifyGameData = (turtleStats: TurtleStats): string => {
+const stringifyGameData = (): string => {
   const data: GameData = {
     turtle: {
       x: Game.instance.turtle.x,
@@ -27,8 +25,8 @@ const stringifyGameData = (turtleStats: TurtleStats): string => {
         type: c.type,
       };
     }),
-    levelNo: turtleStats.level,
-    xp: turtleStats.xp,
+    levelNo: Game.instance.level.levelNo,
+    xp: Game.instance.xp,
   };
   return JSON.stringify(data);
 };

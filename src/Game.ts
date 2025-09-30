@@ -26,6 +26,8 @@ class Game {
 
   private _turtle: Turtle;
   private _level: ILevel;
+  private _xp: number;
+  private _currentLevelNo: number;
 
   get turtle() {
     return this._turtle;
@@ -43,19 +45,27 @@ class Game {
     return this._animationTimer;
   }
 
+  get xp() {
+    return this._xp;
+  }
+
+  get currentLevelNo() {
+    return this._currentLevelNo;
+  }
+
+  incrementCurrentLevelNo() {
+    this._currentLevelNo++;
+  }
+
   /**
    * Loads the level currently indicated by the Redux store.
    * @param isFreshLevel Flag used to determine whether level is fresh or restored.
    * @param gameData The game data in case it is a restored level.
    * @author Daniel Desira
    */
-  async loadNewLevel(
-    newLevelNo: number,
-    isFreshLevel: boolean,
-    gameData: GameData = null
-  ) {
+  async loadNewLevel(isFreshLevel: boolean, gameData: GameData = null) {
     try {
-      this._level = createLevelInstance(newLevelNo);
+      this._level = createLevelInstance(this._currentLevelNo);
       if (this._level) {
         store.dispatch(startLoadingLevel());
         await this._level.init(isFreshLevel, gameData);
@@ -77,11 +87,7 @@ class Game {
   async start({ canvas, isNewGame, gameData }: GameOptions) {
     try {
       await Game.instance.turtle.loadImage();
-      await Game.instance.loadNewLevel(
-        gameData ? gameData.levelNo : 1,
-        isNewGame,
-        gameData
-      );
+      await Game.instance.loadNewLevel(isNewGame, gameData);
       resizeCanvas(canvas);
     } catch (error) {
       throw new Error(error);

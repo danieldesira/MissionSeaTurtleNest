@@ -1,9 +1,8 @@
 import Game from "../../Game";
-import store from "../../store";
 import checkBoundingBoxCollision, {
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
-import INonMainCharacter, { CollisionCallbacks } from "../interfaces/INonMainCharacter";
+import INonMainCharacter from "../interfaces/INonMainCharacter";
 import Character from "./Character";
 
 abstract class NonMain extends Character implements INonMainCharacter {
@@ -65,7 +64,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
    * applying points (+ve/-ve) and deleting character from set
    * @author Daniel Desira
    */
-  handleTurtleCollision(apetite:number, callbacks: CollisionCallbacks): void {
+  handleTurtleCollision(): void {
     callbacks.decrementApetite(this._stomachImpact);
     callbacks.gainPoints(this._points);
     Game.instance.level.characters.delete(this);

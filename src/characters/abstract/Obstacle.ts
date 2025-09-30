@@ -1,5 +1,4 @@
 import Game from "../../Game";
-import store from "../../store";
 import { generateRandomBit, vibrate } from "../../utils/generic";
 import IObstacle from "../interfaces/IObstacle";
 import NonMain from "./NonMain";
@@ -18,7 +17,7 @@ abstract class Obstacle extends NonMain implements IObstacle {
    * @author Daniel Desira
    */
   handleTurtleCollision(): void {
-    store.dispatch(takeDamage({ turtle: { lifeValue: this._damage } }));
+    Game.instance.turtle.takeDamage(this._damage);
     super.handleTurtleCollision();
     vibrate();
   }
