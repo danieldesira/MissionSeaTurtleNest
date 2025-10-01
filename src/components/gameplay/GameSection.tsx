@@ -55,63 +55,6 @@ const GameSection = ({ isNewGame }: Props) => {
   const gainPoints = (increment: number) =>
     setTurtleStats({ ...turtleStats, xp: turtleStats.xp + increment });
 
-  const useOxygen = () =>
-    setTurtleStats({ ...turtleStats, oxygen: turtleStats.oxygen - 0.001 });
-
-  const useFood = () =>
-    setTurtleStats({ ...turtleStats, food: turtleStats.food - 0.005 });
-
-  const breath = () => {
-    const increment = 0.5;
-    setTurtleStats((prev) => {
-      if (prev.oxygen + increment < defaultTurtleStats.oxygen) {
-        prev.oxygen += increment;
-      } else {
-        prev.oxygen = defaultTurtleStats.oxygen;
-      }
-      return prev;
-    });
-  };
-
-  const recoverApetite = () => {
-    const increment = 0.00005;
-    setTurtleStats((prev) => {
-      if (prev.apetite + increment < defaultTurtleStats.apetite) {
-        prev.apetite += increment;
-      } else {
-        prev.apetite = defaultTurtleStats.apetite;
-      }
-      return prev;
-    });
-  };
-
-  const eat = (foodValue: number) => {
-    if (turtleStats.food + foodValue < defaultTurtleStats.food) {
-      setTurtleStats({ ...turtleStats, food: turtleStats.food + foodValue });
-    } else {
-      setTurtleStats({ ...turtleStats, food: defaultTurtleStats.food });
-    }
-  };
-
-  const deductLife = (amount: number) => {
-    if (turtleStats.physicalCondition - amount < 0) {
-      setTurtleStats({
-        ...turtleStats,
-        physicalCondition: turtleStats.physicalCondition - amount,
-      });
-    } else {
-      setTurtleStats({ ...turtleStats, physicalCondition: 0 });
-    }
-  };
-
-  const decrementApetite = (amount: number) => {
-    if (turtleStats.apetite - amount < 0) {
-      setTurtleStats({ ...turtleStats, apetite: turtleStats.apetite - amount });
-    } else {
-      setTurtleStats({ ...turtleStats, apetite: 0 });
-    }
-  };
-
   const deleteLastGameAndSaveScore = async (hasWon: boolean): Promise<void> => {
     try {
       if (isAuthenticated) {

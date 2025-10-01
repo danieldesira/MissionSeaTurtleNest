@@ -1,6 +1,6 @@
 import Game from "./Game";
 import { paintLevelBg } from "./levels/background";
-import { LevelChangeTypes, levelMap } from "./levels/levels";
+import { getLevelText, LevelChangeTypes, levelMap } from "./levels/levels";
 import stringifyGameData from "./restoreGame/stringifyGameData";
 import { deleteLastGame, saveScore } from "./services/api";
 import {
@@ -9,9 +9,11 @@ import {
   saveLastGameLocalStorage,
   saveLastGameTimestampLocalStorage,
 } from "./utils/lastGameLocalStorage";
+import PrettyDialog from "./webComponents/dialog/PrettyDialog";
+import PrettyButton from "./webComponents/form/PrettyButton";
 
 export const runGameLoop = async (canvas: HTMLCanvasElement) => {
-  if (isGamePaused) {
+  if (Game.instance.isPaused) {
     return;
   }
 
@@ -47,8 +49,8 @@ const saveGameProgress = () => {
 const checkTurtleAndGameProgress = async (): Promise<LevelChangeTypes> => {
   const mainCharacter = Game.instance.turtle;
 
-  useFood();
-  recoverApetite();
+  mainCharacter.useFood();
+  mainCharacter.recoverApetite();
 
   if (
     mainCharacter.foodGauge <= 0 ||
@@ -60,9 +62,9 @@ const checkTurtleAndGameProgress = async (): Promise<LevelChangeTypes> => {
   }
 
   if (mainCharacter.y <= 0) {
-    breath();
+    mainCharacter.breath();
   } else {
-    useOxygen();
+    mainCharacter.useOxygen();
   }
 
   const backgroundImage = Game.instance.level.bgImg;
@@ -78,7 +80,7 @@ const checkTurtleAndGameProgress = async (): Promise<LevelChangeTypes> => {
 };
 
 const handleOffBgWidth = async (): Promise<LevelChangeTypes> => {
-  gainPoints(Game.instance.level.points);
+  Game.instance.gainLevelPoints();
   Game.instance.incrementCurrentLevelNo();
   if (levelMap[Game.instance.currentLevelNo]) {
     await Game.instance.loadNewLevel(true);
@@ -87,6 +89,15 @@ const handleOffBgWidth = async (): Promise<LevelChangeTypes> => {
     await handleWin();
     return "GameEnd";
   }
+};
+
+const launchCustomDialog = (title: string, text: string) => {
+  const customDialog = document.getElementById("customDialog") as PrettyDialog;
+  customDialog.isVisible = true;
+  const customDialogTitle = document.getElementById("customDialogTitle");
+  customDialogTitle.innerText = title;
+  const customDialogContent = document.getElementById("customDialogContent");
+  customDialogContent.innerText = text;
 };
 
 const deleteLastGameAndSaveScore = async (hasWon: boolean): Promise<void> => {
@@ -102,11 +113,7 @@ const deleteLastGameAndSaveScore = async (hasWon: boolean): Promise<void> => {
       ]);
     }
   } catch {
-    setDialogContent({
-      title: "Error",
-      message: <>Failed to save game score</>,
-      type: "error",
-    });
+    launchCustomDialog("Error", "Failed to save game score");
   } finally {
     deleteLastGameLocalStorage();
     deleteLastGameTimestampLocalStorage();
@@ -118,17 +125,12 @@ const checkIfBestPersonalScore = () => {
     personalBest.level <= Game.instance.currentLevelNo &&
     personalBest.points < Game.instance.xp
   ) {
-    setDialogContent({
-      title: "New Personal Best",
-      message: (
-        <p>
-          Congratulations!
-          <br />
-          {Game.instance.xp} points at Level{" "}
-          {getLevelText(Game.instance.currentLevelNo)}
-        </p>
-      ),
-    });
+    launchCustomDialog(
+      "New Personal Best",
+      `Congratulations! ${Game.instance.xp} points at level ${getLevelText(
+        Game.instance.currentLevelNo
+      )}`
+    );
   }
 
   dispatch(
@@ -152,11 +154,7 @@ const shareGameButton = {
           url: window.location.href,
         });
       } catch {
-        setDialogContent({
-          title: "Share Failed",
-          message: <>Failed to share the game.</>,
-          type: "error",
-        });
+        launchCustomDialog("Share failed", "Failed to share the game.");
       }
     }
   },
@@ -191,8 +189,3 @@ const handleWin = async () => {
 
   checkIfBestPersonalScore();
 };
-
-const resetDialogContent = () =>
-  setDialogContent({ title: "", message: <></>, type: "default" });
-
-const resumeGame = () => setIsGamePaused(false);

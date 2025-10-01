@@ -120,24 +120,50 @@ class Turtle extends Character implements IMainCharacter {
     return this._oxygenGauge;
   }
 
-  eat(foodIncrement: number) {
-    if (foodIncrement + this._foodGauge < 100) {
-      this._foodGauge += foodIncrement;
+  private incrementValue(value: number, increment: number): number {
+    if (value + increment < 100) {
+      value += increment;
     } else {
-      this._foodGauge = 100;
+      value = 100;
     }
+    return value;
+  }
+
+  private decrementValue(value: number, decrement: number): number {
+    if (value - decrement > 0) {
+      value -= decrement;
+    } else {
+      value = 0;
+    }
+    return value;
+  }
+
+  eat(foodIncrement: number) {
+    this.incrementValue(this._foodGauge, foodIncrement);
   }
 
   takeDamage(lifeDecrement: number) {
-    if (this._lifeGauge - lifeDecrement > 0) {
-      this._lifeGauge -= lifeDecrement;
-    } else {
-      this._lifeGauge = 0;
-    }
+    this.decrementValue(this._lifeGauge, lifeDecrement);
   }
 
   decrementApetite(apetiteDecrement: number) {
-    this._apetiteGauge -= apetiteDecrement;
+    this.decrementValue(this._apetiteGauge, apetiteDecrement);
+  }
+
+  useFood() {
+    this.decrementValue(this._foodGauge, 0.005);
+  }
+
+  useOxygen() {
+    this.decrementValue(this._oxygenGauge, 0.001);
+  }
+
+  recoverApetite() {
+    this.incrementValue(this.apetiteGauge, 0.00005);
+  }
+
+  breath() {
+    this.incrementValue(this._oxygenGauge, 0.5);
   }
 }
 

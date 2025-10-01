@@ -28,6 +28,7 @@ class Game {
   private _level: ILevel;
   private _xp: number;
   private _currentLevelNo: number;
+  private _isPaused: boolean;
 
   get turtle() {
     return this._turtle;
@@ -53,8 +54,24 @@ class Game {
     return this._currentLevelNo;
   }
 
+  get isPaused() {
+    return this._isPaused;
+  }
+
+  pause() {
+    this._isPaused = true;
+  }
+
+  resume() {
+    this._isPaused = false;
+  }
+
   incrementCurrentLevelNo() {
     this._currentLevelNo++;
+  }
+
+  gainLevelPoints() {
+    this._xp += this._level.points;
   }
 
   /**
