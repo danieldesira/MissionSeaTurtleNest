@@ -3,14 +3,13 @@ import { paintLevelBg } from "./levels/background";
 import { getLevelText, LevelChangeTypes, levelMap } from "./levels/levels";
 import stringifyGameData from "./restoreGame/stringifyGameData";
 import { deleteLastGame, saveScore } from "./services/api";
+import { launchCustomDialog, launchGameEndDialog, toggleMode } from "./ui";
 import {
   deleteLastGameLocalStorage,
   deleteLastGameTimestampLocalStorage,
   saveLastGameLocalStorage,
   saveLastGameTimestampLocalStorage,
 } from "./utils/lastGameLocalStorage";
-import PrettyDialog from "./webComponents/dialog/PrettyDialog";
-import PrettyButton from "./webComponents/form/PrettyButton";
 
 export const runGameLoop = async (canvas: HTMLCanvasElement) => {
   if (Game.instance.isPaused) {
@@ -91,15 +90,6 @@ const handleOffBgWidth = async (): Promise<LevelChangeTypes> => {
   }
 };
 
-const launchCustomDialog = (title: string, text: string) => {
-  const customDialog = document.getElementById("customDialog") as PrettyDialog;
-  customDialog.isVisible = true;
-  const customDialogTitle = document.getElementById("customDialogTitle");
-  customDialogTitle.innerText = title;
-  const customDialogContent = document.getElementById("customDialogContent");
-  customDialogContent.innerText = text;
-};
-
 const deleteLastGameAndSaveScore = async (hasWon: boolean): Promise<void> => {
   try {
     if (isAuthenticated) {
@@ -122,8 +112,8 @@ const deleteLastGameAndSaveScore = async (hasWon: boolean): Promise<void> => {
 
 const checkIfBestPersonalScore = () => {
   if (
-    personalBest.level <= Game.instance.currentLevelNo &&
-    personalBest.points < Game.instance.xp
+    PersonalBestStore.instance.level <= Game.instance.currentLevelNo &&
+    PersonalBestStore.instance.points < Game.instance.xp
   ) {
     launchCustomDialog(
       "New Personal Best",
@@ -131,33 +121,9 @@ const checkIfBestPersonalScore = () => {
         Game.instance.currentLevelNo
       )}`
     );
+    PersonalBestStore.instance.level = Game.instance.currentLevelNo;
+    PersonalBestStore.instance.points = Game.instance.xp;
   }
-
-  dispatch(
-    setPersonalBest({
-      personalBest: {
-        points: Game.instance.xp,
-        level: Game.instance.currentLevelNo,
-      },
-    })
-  );
-};
-
-const shareGameButton = {
-  label: "Share",
-  async action() {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Turtle Core",
-          text: `I just reached level ${Game.instance.currentLevelNo} with ${Game.instance.xp} points in Turtle Core!`,
-          url: window.location.href,
-        });
-      } catch {
-        launchCustomDialog("Share failed", "Failed to share the game.");
-      }
-    }
-  },
 };
 
 const handleGameEnd = async (hasWon: boolean) => {
@@ -165,27 +131,16 @@ const handleGameEnd = async (hasWon: boolean) => {
 
   dispatch(triggerSavingMode());
   await deleteLastGameAndSaveScore(hasWon);
-  dispatch(triggerMenuMode());
+  toggleMode("menu");
 };
 
 const handleLoss = async () => {
   await handleGameEnd(false);
-
-  setDialogContent({
-    title: "You lose",
-    message: <>"Better luck next time!"</>,
-    buttons: [shareGameButton],
-  });
+  launchGameEndDialog('Game over', 'You lose! Better luck next time.')
 };
 
 const handleWin = async () => {
   await handleGameEnd(true);
+launchCustomDialog('Game Complete', 'You win. Congratulations!')
 
-  setDialogContent({
-    title: "Game Complete",
-    message: <>"Game complete. Congratulations!"</>,
-    buttons: [shareGameButton],
-  });
-
-  checkIfBestPersonalScore();
 };

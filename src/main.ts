@@ -5,17 +5,19 @@ import PrettyButton from "./webComponents/form/PrettyButton";
 import MenuItem from "./webComponents/mainMenu/MenuItem";
 import { version } from "../package.json";
 import { setupSocialButtons } from "./socials";
-import GameControl from "./webComponents/gameplay/GameControl";
 import Game from "./Game";
 import { resizeCanvas } from "./utils/generic";
 import { getLastGameLocalStorage } from "./utils/lastGameLocalStorage";
 import GameData from "./restoreGame/GameData";
 import { runGameLoop } from "./gameLoop";
+import { setupGameControls, setupGameShareBtn, toggleMode } from "./ui";
 
 if (navigator.serviceWorker) {
   try {
     window.addEventListener("load", async () => {
-      const worker = await navigator.serviceWorker.register("cacheServiceWorker.js");
+      const worker = await navigator.serviceWorker.register(
+        "cacheServiceWorker.js"
+      );
       console.log(`Registered service worker ${worker}`);
     });
   } catch (error) {
@@ -31,23 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.body.addEventListener("contextmenu", (event) =>
     event.preventDefault()
   );
-
-  const menuContainer = document.getElementById("menuContainer");
-  const gameContainer = document.getElementById("gameContainer");
-
-  const toggleGameMode = () => {
-    menuContainer.classList.add("hidden");
-    menuContainer.classList.remove("flex");
-    gameContainer.classList.add("flex");
-    gameContainer.classList.remove("hidden");
-  };
-
-  const toggleMenuMode = () => {
-    menuContainer.classList.add("flex");
-    menuContainer.classList.remove("hidden");
-    gameContainer.classList.add("hidden");
-    gameContainer.classList.remove("flex");
-  };
 
   const initialiseGame = async (isNewGame: boolean) => {
     const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
@@ -96,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const newGameBtn = document.getElementById("newGameBtn") as MenuItem;
   newGameBtn.callback = async () => {
-    toggleGameMode();
+    toggleMode("game");
     await initialiseGame(true);
     // Add logic to start a new game here
   };
@@ -105,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     "continueGameBtn"
   ) as MenuItem;
   continueGameBtn.callback = () => {
-    toggleGameMode();
+    toggleMode("game");
     // Add logic to start a new game here
   };
 
@@ -144,12 +129,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const versionLink = document.getElementById("version");
   versionLink.innerText = version;
 
-  const upControl = document.getElementById("upControl") as GameControl;
-  upControl.callback = () => Game.instance.turtle.moveUp();
-  const downControl = document.getElementById("downControl") as GameControl;
-  downControl.callback = () => Game.instance.turtle.moveDown();
-  const leftControl = document.getElementById("leftControl") as GameControl;
-  leftControl.callback = () => Game.instance.turtle.moveLeft();
-  const rightControl = document.getElementById("rightControl") as GameControl;
-  rightControl.callback = () => Game.instance.turtle.moveRight();
+  setupGameControls();
+  setupGameShareBtn();
 });
