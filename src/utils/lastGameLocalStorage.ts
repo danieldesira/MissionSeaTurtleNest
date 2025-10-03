@@ -1,6 +1,4 @@
-import store from "../store";
-
-const getUserEmail = () => store.getState().game.profile.value.email;
+const getUserEmail = () => sessionStorage.getItem("userEmail");
 
 const getUserLastGameKey = () => `${getUserEmail()}LastGame`;
 

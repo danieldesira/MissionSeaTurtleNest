@@ -1,15 +1,16 @@
-import Game from "./Game";
+import Game from "./singletons/Game";
 import { paintLevelBg } from "./levels/background";
 import { getLevelText, LevelChangeTypes, levelMap } from "./levels/levels";
 import stringifyGameData from "./restoreGame/stringifyGameData";
 import { deleteLastGame, saveScore } from "./services/api";
-import { launchCustomDialog, launchGameEndDialog, toggleMode } from "./ui";
+import { launchCustomDialog, launchGameEndDialog, toggleMode } from "./utils/ui";
 import {
   deleteLastGameLocalStorage,
   deleteLastGameTimestampLocalStorage,
   saveLastGameLocalStorage,
   saveLastGameTimestampLocalStorage,
 } from "./utils/lastGameLocalStorage";
+import { isAuthenticated } from "./utils/generic";
 
 export const runGameLoop = async (canvas: HTMLCanvasElement) => {
   if (Game.instance.isPaused) {
@@ -39,7 +40,7 @@ export const runGameLoop = async (canvas: HTMLCanvasElement) => {
 };
 
 const saveGameProgress = () => {
-  if (isAuthenticated) {
+  if (isAuthenticated()) {
     saveLastGameLocalStorage(stringifyGameData());
     saveLastGameTimestampLocalStorage();
   }
@@ -79,7 +80,7 @@ const checkTurtleAndGameProgress = async (): Promise<LevelChangeTypes> => {
 };
 
 const handleOffBgWidth = async (): Promise<LevelChangeTypes> => {
-  Game.instance.gainLevelPoints();
+  Game.instance.gainPoints(Game.instance.level.points);
   Game.instance.incrementCurrentLevelNo();
   if (levelMap[Game.instance.currentLevelNo]) {
     await Game.instance.loadNewLevel(true);
@@ -92,7 +93,7 @@ const handleOffBgWidth = async (): Promise<LevelChangeTypes> => {
 
 const deleteLastGameAndSaveScore = async (hasWon: boolean): Promise<void> => {
   try {
-    if (isAuthenticated) {
+    if (isAuthenticated()) {
       await Promise.all([
         deleteLastGame(),
         saveScore({
@@ -129,18 +130,17 @@ const checkIfBestPersonalScore = () => {
 const handleGameEnd = async (hasWon: boolean) => {
   checkIfBestPersonalScore();
 
-  dispatch(triggerSavingMode());
+  //dispatch(triggerSavingMode()); to do: implement saving screen/overlay in vanilla js
   await deleteLastGameAndSaveScore(hasWon);
   toggleMode("menu");
 };
 
 const handleLoss = async () => {
   await handleGameEnd(false);
-  launchGameEndDialog('Game over', 'You lose! Better luck next time.')
+  launchGameEndDialog("Game over", "You lose! Better luck next time.");
 };
 
 const handleWin = async () => {
   await handleGameEnd(true);
-launchCustomDialog('Game Complete', 'You win. Congratulations!')
-
+  launchCustomDialog("Game Complete", "You win. Congratulations!");
 };

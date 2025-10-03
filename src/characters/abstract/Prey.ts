@@ -1,6 +1,4 @@
-import Game from "../../Game";
-import store from "../../store";
-import { CollisionCallbacks } from "../interfaces/INonMainCharacter";
+import Game from "../../singletons/Game";
 import IPrey from "../interfaces/IPrey";
 import NonMain from "./NonMain";
 
@@ -18,11 +16,12 @@ abstract class Prey extends NonMain implements IPrey {
    * @override
    * @author Daniel Desira
    */
-  handleTurtleCollision(apetite: number, callbacks: CollisionCallbacks): void {
-    const canTurtleEatCharacter = apetite - this._stomachImpact > 0;
+  handleTurtleCollision(): void {
+    const canTurtleEatCharacter =
+      Game.instance.turtle.apetiteGauge - this._stomachImpact > 0;
     if (canTurtleEatCharacter) {
-      callbacks.eat(this._foodValue);
-      super.handleTurtleCollision(apetite, callbacks);
+      Game.instance.turtle.eat(this._foodValue);
+      super.handleTurtleCollision();
     }
   }
 

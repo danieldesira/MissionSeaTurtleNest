@@ -23,11 +23,11 @@ const getSocialKey = (value: string) =>
 
 export const setupSocialButtons = () => {
   const anchors = document.getElementsByTagName("a");
-  for (const a of anchors) {
-    const key = getSocialKey(a.href);
+  for (let i = 0; i < anchors.length; i++) {
+    const key = getSocialKey(anchors[i].href);
     if (key) {
-      a.href = socials[key].url;
-      a.title = socials[key].tooltip;
+      anchors[i].href = socials[key].url;
+      anchors[i].title = socials[key].tooltip;
     }
   }
 };

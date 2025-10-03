@@ -1,5 +1,4 @@
 import { readjustCanvasForBg } from "../levels/background";
-import store from "../store";
 
 /**
  * Randomises true or false.
@@ -32,3 +31,5 @@ export const vibrate = () => {
     navigator.vibrate(300);
   }
 };
+
+export const isAuthenticated = () => !!sessionStorage.getItem("userEmail");

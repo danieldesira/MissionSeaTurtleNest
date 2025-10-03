@@ -1,4 +1,4 @@
-import Game from "../Game";
+import Game from "../singletons/Game";
 import GameData from "./GameData";
 
 /**
@@ -25,7 +25,7 @@ const stringifyGameData = (): string => {
         type: c.type,
       };
     }),
-    levelNo: Game.instance.level.levelNo,
+    levelNo: Game.instance.currentLevelNo,
     xp: Game.instance.xp,
   };
   return JSON.stringify(data);

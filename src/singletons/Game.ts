@@ -1,13 +1,13 @@
-import Turtle from "./characters/Turtle";
+import Turtle from "../characters/Turtle";
 import {
   startLoadingLevel,
   stopLoadingLevel,
-} from "./features/gameState/gameStateReducer";
-import ILevel from "./levels/ILevel";
-import { createLevelInstance } from "./levels/levels";
-import GameData from "./restoreGame/GameData";
-import store from "./store";
-import { resizeCanvas } from "./utils/generic";
+} from "../features/gameState/gameStateReducer";
+import ILevel from "../levels/ILevel";
+import { createLevelInstance } from "../levels/levels";
+import GameData from "../restoreGame/GameData";
+import store from "../store";
+import { resizeCanvas } from "../utils/generic";
 
 class Game {
   private static _instance: Game;
@@ -70,8 +70,8 @@ class Game {
     this._currentLevelNo++;
   }
 
-  gainLevelPoints() {
-    this._xp += this._level.points;
+  gainPoints(xp: number) {
+    this._xp += xp;
   }
 
   /**

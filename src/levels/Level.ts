@@ -1,7 +1,5 @@
 import PackPrey from "../characters/abstract/PackPrey";
-import INonMainCharacter, {
-  CollisionCallbacks,
-} from "../characters/interfaces/INonMainCharacter";
+import INonMainCharacter from "../characters/interfaces/INonMainCharacter";
 import { restoreCharacters } from "../restoreGame/parseGameData";
 import ILevel from "./ILevel";
 import LevelCharacter from "./LevelCharacter";
@@ -99,7 +97,7 @@ abstract class Level implements ILevel {
 
     for (const characterInfo of this._initialCharacters) {
       for (let i = 0; i < characterInfo.amount; i++) {
-        const character = new characterInfo.constructor();
+        const character = new characterInfo.Constructor();
         if (character instanceof PackPrey) {
           if (lastPackCharacter) {
             character.previousCharacterX = lastPackCharacter.x;

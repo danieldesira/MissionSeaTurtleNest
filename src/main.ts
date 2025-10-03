@@ -1,16 +1,19 @@
 import "./main.css";
 import { registerComponents } from "./webComponents/components";
-import PrettyDialog from "./webComponents/dialog/PrettyDialog";
-import PrettyButton from "./webComponents/form/PrettyButton";
 import MenuItem from "./webComponents/mainMenu/MenuItem";
-import { version } from "../package.json";
 import { setupSocialButtons } from "./socials";
-import Game from "./Game";
+import Game from "./singletons/Game";
 import { resizeCanvas } from "./utils/generic";
 import { getLastGameLocalStorage } from "./utils/lastGameLocalStorage";
 import GameData from "./restoreGame/GameData";
 import { runGameLoop } from "./gameLoop";
-import { setupGameControls, setupGameShareBtn, toggleMode } from "./ui";
+import {
+  setupAboutDialog,
+  setupGameControls,
+  setupGameShareBtn,
+  setupInstructionsDialog,
+  toggleMode,
+} from "./utils/ui";
 
 if (navigator.serviceWorker) {
   try {
@@ -94,40 +97,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Add logic to start a new game here
   };
 
-  const instructionsDialog = document.getElementById(
-    "instructionsDialog"
-  ) as PrettyDialog;
-
-  const instructionsBtn = document.getElementById(
-    "instructionsBtn"
-  ) as MenuItem;
-  instructionsBtn.callback = () => {
-    instructionsDialog.isVisible = true;
-  };
-
-  const closeInstructionsBtn = instructionsDialog.querySelector(
-    "pretty-button"
-  ) as PrettyButton;
-  closeInstructionsBtn.callback = () => {
-    instructionsDialog.isVisible = false;
-  };
-
-  const aboutDialog = document.getElementById("aboutDialog") as PrettyDialog;
-
-  const title = document.getElementById("title");
-  title.addEventListener("click", () => {
-    aboutDialog.isVisible = true;
-  });
-
-  const closeAboutBtn = aboutDialog.querySelector(
-    "pretty-button"
-  ) as PrettyButton;
-  closeAboutBtn.callback = () => {
-    aboutDialog.isVisible = false;
-  };
-
-  const versionLink = document.getElementById("version");
-  versionLink.innerText = version;
+  setupInstructionsDialog();
+  setupAboutDialog();
 
   setupGameControls();
   setupGameShareBtn();

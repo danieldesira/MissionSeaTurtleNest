@@ -1,7 +1,9 @@
-import Game from "./Game";
-import PrettyDialog from "./webComponents/dialog/PrettyDialog";
-import PrettyButton from "./webComponents/form/PrettyButton";
-import GameControl from "./webComponents/gameplay/GameControl";
+import Game from "../singletons/Game";
+import PrettyDialog from "../webComponents/dialog/PrettyDialog";
+import PrettyButton from "../webComponents/form/PrettyButton";
+import GameControl from "../webComponents/gameplay/GameControl";
+import { version } from "../../package.json";
+import MenuItem from "../webComponents/mainMenu/MenuItem";
 
 export const launchCustomDialog = (title: string, text: string) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;
@@ -70,5 +72,44 @@ export const setupGameShareBtn = () => {
         launchCustomDialog("Share failed", "Failed to share the game.");
       }
     }
+  };
+};
+
+export const setupAboutDialog = () => {
+  const aboutDialog = document.getElementById("aboutDialog") as PrettyDialog;
+
+  const title = document.getElementById("title");
+  title.addEventListener("click", () => {
+    aboutDialog.isVisible = true;
+  });
+
+  const closeAboutBtn = aboutDialog.querySelector(
+    "pretty-button"
+  ) as PrettyButton;
+  closeAboutBtn.callback = () => {
+    aboutDialog.isVisible = false;
+  };
+
+  const versionLink = document.getElementById("version");
+  versionLink.innerText = version;
+};
+
+export const setupInstructionsDialog = () => {
+  const instructionsDialog = document.getElementById(
+    "instructionsDialog"
+  ) as PrettyDialog;
+
+  const instructionsBtn = document.getElementById(
+    "instructionsBtn"
+  ) as MenuItem;
+  instructionsBtn.callback = () => {
+    instructionsDialog.isVisible = true;
+  };
+
+  const closeInstructionsBtn = instructionsDialog.querySelector(
+    "pretty-button"
+  ) as PrettyButton;
+  closeInstructionsBtn.callback = () => {
+    instructionsDialog.isVisible = false;
   };
 };

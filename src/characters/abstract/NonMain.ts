@@ -1,4 +1,4 @@
-import Game from "../../Game";
+import Game from "../../singletons/Game";
 import checkBoundingBoxCollision, {
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
@@ -65,8 +65,8 @@ abstract class NonMain extends Character implements INonMainCharacter {
    * @author Daniel Desira
    */
   handleTurtleCollision(): void {
-    callbacks.decrementApetite(this._stomachImpact);
-    callbacks.gainPoints(this._points);
+    Game.instance.turtle.decrementApetite(this._stomachImpact);
+    Game.instance.gainPoints(this._points);
     Game.instance.level.characters.delete(this);
   }
 

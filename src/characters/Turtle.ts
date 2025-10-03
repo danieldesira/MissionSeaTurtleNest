@@ -1,4 +1,4 @@
-import Game from "../Game";
+import Game from "../singletons/Game";
 import Character from "./abstract/Character";
 import CharacterOptions from "./interfaces/CharacterOptions";
 import IMainCharacter from "./interfaces/IMainCharacter";
