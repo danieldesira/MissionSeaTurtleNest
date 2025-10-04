@@ -1,41 +1,32 @@
-import { Dispatch, SetStateAction } from "react";
 import Game from "../singletons/Game";
 import createCharacterInstance from "../characters/createCharacterInstance";
 import GameData from "./GameData";
-import { TurtleStats } from "../components/gameplay/types";
 
 /**
  * Restore game state from JSON string.
  * @param json The game data as a JSON string.
  * @author Daniel Desira
  */
-const parseGameData = (
-  json: string,
-  setTurtleStats: Dispatch<SetStateAction<TurtleStats>>
-) => {
+const parseGameData = (json: string) => {
   const data = JSON.parse(json) as GameData;
   restoreTurtle(data);
-  restoreState(data, setTurtleStats);
+  restoreGame(data);
 };
 
 const restoreTurtle = (data: GameData) => {
   Game.instance.turtle.x = data.turtle.x;
   Game.instance.turtle.y = data.turtle.y;
   Game.instance.turtle.direction = data.turtle.direction;
+  Game.instance.turtle.foodGauge = data.turtle.food;
+  Game.instance.turtle.apetiteGauge = data.turtle.stomachCapacity;
+  Game.instance.turtle.lifeGauge = data.turtle.health;
+  Game.instance.turtle.oxygenGauge = data.turtle.oxygen;
 };
 
-const restoreState = (
-  data: GameData,
-  setTurtleStats: Dispatch<SetStateAction<TurtleStats>>
-) =>
-  setTurtleStats({
-    food: data.turtle.food,
-    physicalCondition: data.turtle.health,
-    oxygen: data.turtle.oxygen,
-    apetite: data.turtle.stomachCapacity,
-    level: data.levelNo,
-    xp: data.xp,
-  });
+const restoreGame = (data: GameData) => {
+  Game.instance.currentLevelNo = data.levelNo;
+  Game.instance.xp = data.xp;
+};
 
 /**
  * Restores characters

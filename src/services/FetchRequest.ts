@@ -1,6 +1,3 @@
-import { logout } from "../features/authentication/authenticationReducer";
-import store from "../store";
-
 const processPayload = (payload: unknown) => {
   if (!payload) {
     return null;
@@ -35,7 +32,7 @@ const request = async <T>(
       : await res.text();
   } else {
     if (res.status === 401) {
-      store.dispatch(logout());
+      // to-do : send logout custom event
     }
     throw new Error(
       `Request error: ${url}: ${res.status}: ${JSON.stringify(

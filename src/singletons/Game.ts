@@ -47,8 +47,16 @@ class Game {
     return this._xp;
   }
 
+  set xp(value: number) {
+    this._xp = value;
+  }
+
   get currentLevelNo() {
     return this._currentLevelNo;
+  }
+
+  set currentLevelNo(value: number) {
+    this._currentLevelNo = value;
   }
 
   get isPaused() {

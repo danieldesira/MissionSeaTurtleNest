@@ -108,16 +108,32 @@ class Turtle extends Character implements IMainCharacter {
     return this._foodGauge;
   }
 
+  set foodGauge(value: number) {
+    this._foodGauge = value;
+  }
+
   get lifeGauge() {
     return this._lifeGauge;
+  }
+
+  set lifeGauge(value: number) {
+    this._lifeGauge = value;
   }
 
   get apetiteGauge() {
     return this._apetiteGauge;
   }
 
+  set apetiteGauge(value: number) {
+    this._apetiteGauge = value;
+  }
+
   get oxygenGauge() {
     return this._oxygenGauge;
+  }
+
+  set oxygenGauge(value: number) {
+    this._oxygenGauge - value;
   }
 
   private incrementValue(value: number, increment: number): number {
