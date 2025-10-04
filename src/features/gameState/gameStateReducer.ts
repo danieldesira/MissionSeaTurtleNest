@@ -13,18 +13,6 @@ const slice = createSlice({
   name: "game",
   initialState,
   reducers: {
-    triggerMenuMode: (state) => {
-      state.state.value = "menu";
-    },
-    triggerGameMode: (state) => {
-      state.state.value = "in-progress";
-    },
-    startLoadingLevel: (state) => {
-      state.isLoadingLevel.value = true;
-    },
-    stopLoadingLevel: (state) => {
-      state.isLoadingLevel.value = false;
-    },
     triggerSavingMode: (state) => {
       state.state.value = "saving";
     },
@@ -50,10 +38,6 @@ const slice = createSlice({
 });
 
 export const {
-  triggerGameMode,
-  triggerMenuMode,
-  startLoadingLevel,
-  stopLoadingLevel,
   triggerSavingMode,
   setSettings,
   setProfile,

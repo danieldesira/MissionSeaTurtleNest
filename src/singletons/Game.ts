@@ -1,13 +1,9 @@
 import Turtle from "../characters/Turtle";
-import {
-  startLoadingLevel,
-  stopLoadingLevel,
-} from "../features/gameState/gameStateReducer";
 import ILevel from "../levels/ILevel";
 import { createLevelInstance } from "../levels/levels";
 import GameData from "../restoreGame/GameData";
-import store from "../store";
 import { resizeCanvas } from "../utils/generic";
+import { hideOverlay, showOverlay } from "../utils/ui";
 
 class Game {
   private static _instance: Game;
@@ -15,6 +11,7 @@ class Game {
 
   private constructor() {
     this._turtle = new Turtle();
+    this._currentLevelNo = 1;
   }
 
   static get instance(): Game {
@@ -84,9 +81,9 @@ class Game {
     try {
       this._level = createLevelInstance(this._currentLevelNo);
       if (this._level) {
-        store.dispatch(startLoadingLevel());
+        showOverlay(`Loading level ${this.currentLevelNo}`);
         await this._level.init(isFreshLevel, gameData);
-        store.dispatch(stopLoadingLevel());
+        hideOverlay();
       }
       if (isFreshLevel) {
         this.turtle.resetPosition();

@@ -1,4 +1,4 @@
-import Game from "../../Game";
+import Game from "../../singletons/Game";
 import { generateRandomBit, vibrate } from "../../utils/generic";
 import IObstacle from "../interfaces/IObstacle";
 import NonMain from "./NonMain";

@@ -175,7 +175,7 @@
         </figure>
       </div>
       <div slot="footer">
-        <pretty-button>Close</pretty-button>
+        <pretty-button id="closeInstructionsBtn">Close</pretty-button>
       </div>
     </pretty-dialog>
     <pretty-dialog id="aboutDialog">
@@ -216,7 +216,7 @@
         </div>
       </div>
       <div slot="footer">
-        <pretty-button>Close</pretty-button>
+        <pretty-button id="closeAboutBtn">Close</pretty-button>
       </div>
     </pretty-dialog>
     <pretty-dialog id="customDialog">
@@ -234,5 +234,11 @@
         <pretty-button id="gameEndDialogCloseBtn">Close</pretty-button>
       </div>
     </pretty-dialog>
+    <div
+      id="overlay"
+      class="hidden justify-center items-center fixed top-0 h-screen w-screen bg-slate-950 opacity-0 transition-opacity transition-duration-[400ms]"
+    >
+      <span id="overlayText" class="text-primary text-3xl font-bold"></span>
+    </div>
   </body>
 </html>

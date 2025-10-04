@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-import Game from "../Game";
+import Game from "../singletons/Game";
 import createCharacterInstance from "../characters/createCharacterInstance";
-import store from "../store";
 import GameData from "./GameData";
 import { TurtleStats } from "../components/gameplay/types";
 

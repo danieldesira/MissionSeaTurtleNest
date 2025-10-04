@@ -50,6 +50,7 @@ export const launchGameEndDialog = (title: string, text: string) => {
     "gameEndDialog"
   ) as PrettyDialog;
   gameEndDialog.isVisible = true;
+  gameEndDialog.closeButtonIds = ["gameEndDialogCloseBtn"];
   const gameEndDialogTitle = document.getElementById("gameEndDialogTitle");
   gameEndDialogTitle.innerText = title;
   const gameEndDialogContent = document.getElementById("gameEndDialogContent");
@@ -77,18 +78,12 @@ export const setupGameShareBtn = () => {
 
 export const setupAboutDialog = () => {
   const aboutDialog = document.getElementById("aboutDialog") as PrettyDialog;
+  aboutDialog.closeButtonIds = ["closeAboutBtn"];
 
   const title = document.getElementById("title");
   title.addEventListener("click", () => {
     aboutDialog.isVisible = true;
   });
-
-  const closeAboutBtn = aboutDialog.querySelector(
-    "pretty-button"
-  ) as PrettyButton;
-  closeAboutBtn.callback = () => {
-    aboutDialog.isVisible = false;
-  };
 
   const versionLink = document.getElementById("version");
   versionLink.innerText = version;
@@ -98,6 +93,7 @@ export const setupInstructionsDialog = () => {
   const instructionsDialog = document.getElementById(
     "instructionsDialog"
   ) as PrettyDialog;
+  instructionsDialog.closeButtonIds = ["closeInstructionsBtn"];
 
   const instructionsBtn = document.getElementById(
     "instructionsBtn"
@@ -105,11 +101,27 @@ export const setupInstructionsDialog = () => {
   instructionsBtn.callback = () => {
     instructionsDialog.isVisible = true;
   };
+};
 
-  const closeInstructionsBtn = instructionsDialog.querySelector(
-    "pretty-button"
-  ) as PrettyButton;
-  closeInstructionsBtn.callback = () => {
-    instructionsDialog.isVisible = false;
-  };
+export const showOverlay = (message: string) => {
+  const overlay = document.getElementById("overlay");
+  overlay.classList.remove("opacity-0");
+  overlay.classList.add("opacity-90");
+  overlay.classList.remove("hidden");
+  overlay.classList.add("flex");
+
+  updateOverlayText(message);
+};
+
+const updateOverlayText = (message: string) => {
+  const overlayText = document.getElementById("overlayText");
+  overlayText.innerText = message;
+};
+
+export const hideOverlay = () => {
+  const overlay = document.getElementById("overlay");
+  overlay.classList.add("opacity-0");
+  overlay.classList.remove("opacity-90");
+  overlay.classList.remove("flex");
+  overlay.classList.add("hidden");
 };
