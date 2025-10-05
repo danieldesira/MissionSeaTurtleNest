@@ -2,6 +2,7 @@ import Game from "../../singletons/Game";
 import checkBoundingBoxCollision, {
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
+import { updateXpSpan } from "../../utils/ui";
 import INonMainCharacter from "../interfaces/INonMainCharacter";
 import Character from "./Character";
 
@@ -68,6 +69,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
     Game.instance.turtle.decrementApetite(this._stomachImpact);
     Game.instance.gainPoints(this._points);
     Game.instance.level.characters.delete(this);
+    updateXpSpan();
   }
 
   abstract swim(): void;

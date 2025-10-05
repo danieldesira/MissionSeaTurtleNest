@@ -11,7 +11,7 @@ class Game {
 
   private constructor() {
     this._turtle = new Turtle();
-    this._currentLevelNo = 1;
+    this.reset();
   }
 
   static get instance(): Game {
@@ -63,6 +63,13 @@ class Game {
     return this._isPaused;
   }
 
+  reset() {
+    this._currentLevelNo = 1;
+    this._xp = 0;
+    this._turtle.resetPosition();
+    this._turtle.resetGauges();
+  }
+
   pause() {
     this._isPaused = true;
   }
@@ -108,8 +115,9 @@ class Game {
    */
   async start({ canvas, isNewGame, gameData }: GameOptions) {
     try {
-      await Game.instance.turtle.loadImage();
-      await Game.instance.loadNewLevel(isNewGame, gameData);
+      await Game._instance.turtle.loadImage();
+      await Game._instance.loadNewLevel(isNewGame, gameData);
+      Game._instance.reset();
       resizeCanvas(canvas);
     } catch (error) {
       throw new Error(error);

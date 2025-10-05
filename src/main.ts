@@ -8,6 +8,7 @@ import { getLastGameLocalStorage } from "./utils/lastGameLocalStorage";
 import GameData from "./restoreGame/GameData";
 import { runGameLoop } from "./gameLoop";
 import {
+  disableContextMenu,
   setupAboutDialog,
   setupGameControls,
   setupGameShareBtn,
@@ -29,13 +30,10 @@ if (navigator.serviceWorker) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  disableContextMenu();
   registerComponents();
   setupSocialButtons();
   window.lucide?.createIcons();
-
-  document.body.addEventListener("contextmenu", (event) =>
-    event.preventDefault()
-  );
 
   const initialiseGame = async (isNewGame: boolean) => {
     const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;

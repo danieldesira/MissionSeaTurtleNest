@@ -24,11 +24,11 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script type="module" src="src/main.ts" blocking="render"></script>
   </head>
-  <body class="bg-primary select-none touch-none">
+  <body class="select-none touch-none">
     <template id="menuItemTemplate">
       <style>
         span {
-          @apply text-primary text-5xl;
+          @apply text-primary text-5xl cursor-pointer;
         }
       </style>
       <span role="button"><slot></slot></span>
@@ -88,12 +88,25 @@
     <template id="gameControlTemplate">
       <style>
         button {
-          @apply rounded-7xl w-20 h-20 bg-black opacity-50 hover:opacity-70 text-white;
+          @apply rounded-7xl w-20 h-20 bg-black opacity-50 hover:opacity-70 text-white cursor-pointer flex justify-center items-center transition-opacity border-0;
         }
       </style>
-      <button type="button">
-        <div className="flex justify-center"><slot></slot></div>
-      </button>
+      <button type="button"><slot></slot></button>
+    </template>
+    <template id="gameGaugeTemplate">
+      <style>
+        .outerContainer {
+          @apply flex flex-col gap-1;
+        }
+
+        .label {
+          @apply text-primary font-semibold text-3xl;
+        }
+      </style>
+      <div class="outerContainer">
+        <div class="label"><slot name="label"></slot></div>
+        <meter max="100" value="100" title="100%"></meter>
+      </div>
     </template>
     <div class="max-w-screen max-h-screen portrait:hidden">
       <div
@@ -125,17 +138,43 @@
       </div>
       <div
         id="gameContainer"
-        class="hidden h-screen items-center justify-center"
+        class="hidden h-screen items-center justify-center flex-col"
       >
+        <div class="flex gap-2">
+          <div class="text-primary text-3xl font-semibold">
+            <span id="xpSpan">0</span> XP
+          </div>
+          <game-gauge id="lifeGauge"><span slot="label">Life</span></game-gauge>
+        </div>
         <canvas id="gameCanvas" height="400" width="700" tab-index="1"></canvas>
         <div class="fixed bottom-1 right-1">
           <div class="mb-1 flex justify-center">
-            <game-control id="upControl"></game-control>
+            <game-control id="upControl"
+              ><i
+                data-lucide="circle-chevron-up"
+                class="text-primary w-9 h-9"
+              ></i
+            ></game-control>
           </div>
           <div class="flex gap-1">
-            <game-control id="leftControl"></game-control>
-            <game-control id="downControl"></game-control>
-            <game-control id="rightControl"></game-control>
+            <game-control id="leftControl"
+              ><i
+                data-lucide="circle-chevron-left"
+                class="text-primary w-9 h-9"
+              ></i
+            ></game-control>
+            <game-control id="downControl"
+              ><i
+                data-lucide="circle-chevron-down"
+                class="text-primary w-9 h-9"
+              ></i>
+            </game-control>
+            <game-control id="rightControl">
+              <i
+                data-lucide="circle-chevron-right"
+                class="text-primary w-9 h-9"
+              ></i>
+            </game-control>
           </div>
         </div>
       </div>

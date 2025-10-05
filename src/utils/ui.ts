@@ -4,6 +4,7 @@ import PrettyButton from "../webComponents/form/PrettyButton";
 import GameControl from "../webComponents/gameplay/GameControl";
 import { version } from "../../package.json";
 import MenuItem from "../webComponents/mainMenu/MenuItem";
+import GameGauge from "../webComponents/gameplay/GameGauge";
 
 export const launchCustomDialog = (title: string, text: string) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;
@@ -124,4 +125,19 @@ export const hideOverlay = () => {
   overlay.classList.remove("opacity-90");
   overlay.classList.remove("flex");
   overlay.classList.add("hidden");
+};
+
+export const disableContextMenu = () =>
+  document.body.addEventListener("contextmenu", (event) =>
+    event.preventDefault()
+  );
+
+export const updateXpSpan = () => {
+  const xpSpan = document.getElementById("xpSpan");
+  xpSpan.innerText = Game.instance.xp.toString();
+};
+
+export const updateGauge = (id: "lifeGauge", value: number) => {
+  const gauge = document.getElementById(id) as GameGauge;
+  gauge.currentValue = value;
 };

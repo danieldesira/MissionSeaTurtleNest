@@ -1,4 +1,5 @@
 import Game from "../singletons/Game";
+import { updateGauge } from "../utils/ui";
 import Character from "./abstract/Character";
 import CharacterOptions from "./interfaces/CharacterOptions";
 import IMainCharacter from "./interfaces/IMainCharacter";
@@ -155,31 +156,35 @@ class Turtle extends Character implements IMainCharacter {
   }
 
   eat(foodIncrement: number) {
-    this.incrementValue(this._foodGauge, foodIncrement);
+    this._foodGauge = this.incrementValue(this._foodGauge, foodIncrement);
   }
 
   takeDamage(lifeDecrement: number) {
-    this.decrementValue(this._lifeGauge, lifeDecrement);
+    this._lifeGauge = this.decrementValue(this._lifeGauge, lifeDecrement);
+    updateGauge("lifeGauge", this._lifeGauge);
   }
 
   decrementApetite(apetiteDecrement: number) {
-    this.decrementValue(this._apetiteGauge, apetiteDecrement);
+    this._apetiteGauge = this.decrementValue(
+      this._apetiteGauge,
+      apetiteDecrement
+    );
   }
 
   useFood() {
-    this.decrementValue(this._foodGauge, 0.005);
+    this._foodGauge = this.decrementValue(this._foodGauge, 0.005);
   }
 
   useOxygen() {
-    this.decrementValue(this._oxygenGauge, 0.001);
+    this._oxygenGauge = this.decrementValue(this._oxygenGauge, 0.001);
   }
 
   recoverApetite() {
-    this.incrementValue(this.apetiteGauge, 0.00005);
+    this._apetiteGauge = this.incrementValue(this.apetiteGauge, 0.00005);
   }
 
   breath() {
-    this.incrementValue(this._oxygenGauge, 0.5);
+    this._oxygenGauge = this.incrementValue(this._oxygenGauge, 0.5);
   }
 }
 
