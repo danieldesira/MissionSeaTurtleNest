@@ -137,7 +137,10 @@ export const updateXpSpan = () => {
   xpSpan.innerText = Game.instance.xp.toString();
 };
 
-export const updateGauge = (id: "lifeGauge", value: number) => {
+export const updateGauge = (
+  id: "lifeGauge" | "foodGauge" | "apetiteGauge" | "oxygenGauge",
+  value: number
+) => {
   const gauge = document.getElementById(id) as GameGauge;
   gauge.currentValue = value;
 };

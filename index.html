@@ -100,12 +100,14 @@
         }
 
         .label {
-          @apply text-primary font-semibold text-3xl;
+          @apply flex gap-2 items-center text-primary font-semibold text-3xl;
         }
       </style>
       <div class="outerContainer">
-        <div class="label"><slot name="label"></slot></div>
-        <meter max="100" value="100" title="100%"></meter>
+        <div class="label">
+          <slot name="icon"></slot><slot name="label"></slot>
+        </div>
+        <meter max="100" min="0" low="30" value="100" title="100%"></meter>
       </div>
     </template>
     <div class="max-w-screen max-h-screen portrait:hidden">
@@ -144,7 +146,21 @@
           <div class="text-primary text-3xl font-semibold">
             <span id="xpSpan">0</span> XP
           </div>
-          <game-gauge id="lifeGauge"><span slot="label">Life</span></game-gauge>
+          <game-gauge id="lifeGauge"
+            ><span slot="icon"><i data-lucide="heart-pulse"></i></span
+            ><span slot="label">Life</span></game-gauge
+          >
+          <game-gauge id="foodGauge"
+            ><span slot="icon"><i data-lucide="shrimp"></i></span
+            ><span slot="label">Food</span></game-gauge
+          >
+          <game-gauge id="apetiteGauge"
+            ><span slot="label">Apetite</span></game-gauge
+          >
+          <game-gauge id="oxygenGauge"
+            ><span slot="icon"><i data-lucide="air-vent"></i></span
+            ><span slot="label">Oxygen</span></game-gauge
+          >
         </div>
         <canvas id="gameCanvas" height="400" width="700" tab-index="1"></canvas>
         <div class="fixed bottom-1 right-1">

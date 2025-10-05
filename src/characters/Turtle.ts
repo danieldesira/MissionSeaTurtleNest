@@ -111,6 +111,7 @@ class Turtle extends Character implements IMainCharacter {
 
   set foodGauge(value: number) {
     this._foodGauge = value;
+    updateGauge("foodGauge", this._foodGauge);
   }
 
   get lifeGauge() {
@@ -119,6 +120,7 @@ class Turtle extends Character implements IMainCharacter {
 
   set lifeGauge(value: number) {
     this._lifeGauge = value;
+    updateGauge("lifeGauge", this._lifeGauge);
   }
 
   get apetiteGauge() {
@@ -127,6 +129,7 @@ class Turtle extends Character implements IMainCharacter {
 
   set apetiteGauge(value: number) {
     this._apetiteGauge = value;
+    updateGauge("apetiteGauge", this._apetiteGauge);
   }
 
   get oxygenGauge() {
@@ -135,6 +138,7 @@ class Turtle extends Character implements IMainCharacter {
 
   set oxygenGauge(value: number) {
     this._oxygenGauge - value;
+    updateGauge("oxygenGauge", this._oxygenGauge);
   }
 
   private incrementValue(value: number, increment: number): number {
@@ -157,6 +161,7 @@ class Turtle extends Character implements IMainCharacter {
 
   eat(foodIncrement: number) {
     this._foodGauge = this.incrementValue(this._foodGauge, foodIncrement);
+    updateGauge("foodGauge", this._foodGauge);
   }
 
   takeDamage(lifeDecrement: number) {
@@ -169,22 +174,27 @@ class Turtle extends Character implements IMainCharacter {
       this._apetiteGauge,
       apetiteDecrement
     );
+    updateGauge("apetiteGauge", this._apetiteGauge);
   }
 
   useFood() {
     this._foodGauge = this.decrementValue(this._foodGauge, 0.005);
+    updateGauge("foodGauge", this._foodGauge);
   }
 
   useOxygen() {
     this._oxygenGauge = this.decrementValue(this._oxygenGauge, 0.001);
+    updateGauge("oxygenGauge", this._oxygenGauge);
   }
 
   recoverApetite() {
     this._apetiteGauge = this.incrementValue(this.apetiteGauge, 0.00005);
+    updateGauge("apetiteGauge", this._apetiteGauge);
   }
 
   breath() {
     this._oxygenGauge = this.incrementValue(this._oxygenGauge, 0.5);
+    updateGauge("oxygenGauge", this._oxygenGauge);
   }
 }
 
