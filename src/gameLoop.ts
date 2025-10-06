@@ -3,7 +3,11 @@ import { paintLevelBg } from "./levels/background";
 import { getLevelText, LevelChangeTypes, levelMap } from "./levels/levels";
 import stringifyGameData from "./restoreGame/stringifyGameData";
 import { deleteLastGame, saveScore } from "./services/api";
-import { launchCustomDialog, launchGameEndDialog, toggleMode } from "./utils/ui";
+import {
+  launchCustomDialog,
+  launchGameEndDialog,
+  toggleMode,
+} from "./utils/ui";
 import {
   deleteLastGameLocalStorage,
   deleteLastGameTimestampLocalStorage,
@@ -11,32 +15,31 @@ import {
   saveLastGameTimestampLocalStorage,
 } from "./utils/lastGameLocalStorage";
 import { isAuthenticated } from "./utils/generic";
+import PersonalBestStore from "./singletons/PersonalBestStore";
 
 export const runGameLoop = async (canvas: HTMLCanvasElement) => {
-  if (Game.instance.isPaused) {
-    return;
-  }
+  if (!Game.instance.isPaused) {
+    try {
+      const levelChangeType = await checkTurtleAndGameProgress();
+      if (levelChangeType === "SameLevel" || levelChangeType === "NewLevel") {
+        const context = canvas.getContext("2d");
 
-  try {
-    const levelChangeType = await checkTurtleAndGameProgress();
-    if (levelChangeType === "SameLevel" || levelChangeType === "NewLevel") {
-      const context = canvas.getContext("2d");
+        paintLevelBg({ canvas, context });
+        Game.instance.turtle.paint(context);
+        Game.instance.level.paintCharacters(context);
 
-      paintLevelBg({ canvas, context });
-      Game.instance.turtle.paint(context);
-      Game.instance.level.paintCharacters(context);
-
-      saveGameProgress();
-
-      Game.instance.animationTimer = requestAnimationFrame(
-        async () => await runGameLoop(canvas)
-      );
-    } else {
-      cancelAnimationFrame(Game.instance.animationTimer);
+        saveGameProgress();
+      } else {
+        cancelAnimationFrame(Game.instance.animationTimer);
+      }
+    } catch (error) {
+      throw error;
     }
-  } catch (error) {
-    throw error;
   }
+
+  Game.instance.animationTimer = requestAnimationFrame(
+    async () => await runGameLoop(canvas)
+  );
 };
 
 const saveGameProgress = () => {

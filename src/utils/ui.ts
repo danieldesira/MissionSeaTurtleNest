@@ -5,6 +5,10 @@ import GameControl from "../webComponents/gameplay/GameControl";
 import { version } from "../../package.json";
 import MenuItem from "../webComponents/mainMenu/MenuItem";
 import GameGauge from "../webComponents/gameplay/GameGauge";
+import { resizeCanvas } from "./generic";
+import { getLastGameLocalStorage } from "./lastGameLocalStorage";
+import { runGameLoop } from "../gameLoop";
+import GameData from "../restoreGame/GameData";
 
 export const launchCustomDialog = (title: string, text: string) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;
@@ -143,4 +147,54 @@ export const updateGauge = (
 ) => {
   const gauge = document.getElementById(id) as GameGauge;
   gauge.currentValue = value;
+};
+
+export const setupResumeBtn = () => {
+  const resumeBtn = document.getElementById("resumeBtn") as PrettyButton;
+  resumeBtn.callback = () => Game.instance.resume();
+
+  const gamePausedDialog = document.getElementById(
+    "gamePausedDialog"
+  ) as PrettyDialog;
+  gamePausedDialog.closeButtonIds = ["resumeBtn"];
+};
+
+const showGamePausedDialog = () => {
+  const gamePausedDialog = document.getElementById(
+    "gamePausedDialog"
+  ) as PrettyDialog;
+  gamePausedDialog.isVisible = true;
+};
+
+export const setupPauseBtn = () => {
+  const pauseBtn = document.getElementById("pauseBtn");
+  pauseBtn.addEventListener("click", () => {
+    Game.instance.pause();
+    showGamePausedDialog();
+  });
+};
+
+const initialiseGame = async (isNewGame: boolean) => {
+  const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
+  window.addEventListener("resize", () => resizeCanvas(canvas));
+  window.addEventListener("beforeunload", (event) => {
+    // Display default dialog before closing
+    event.preventDefault();
+    event.returnValue = false; // Required by Chrome
+  });
+
+  await Game.instance.start({
+    canvas,
+    isNewGame,
+    gameData: JSON.parse(getLastGameLocalStorage()) as GameData,
+  });
+  await runGameLoop(canvas);
+};
+
+export const setupNewGameMenuBtn = () => {
+  const newGameBtn = document.getElementById("newGameBtn") as MenuItem;
+  newGameBtn.callback = async () => {
+    toggleMode("game");
+    await initialiseGame(true);
+  };
 };

@@ -9,7 +9,7 @@ class PersonalBestStore {
   }
 
   public static get instance() {
-    if (PersonalBestStore._instance === null) {
+    if (!PersonalBestStore._instance) {
       PersonalBestStore._instance = new PersonalBestStore();
     }
     return PersonalBestStore._instance;
@@ -31,3 +31,5 @@ class PersonalBestStore {
     return this._level;
   }
 }
+
+export default PersonalBestStore;

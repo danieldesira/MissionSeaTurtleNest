@@ -3,16 +3,15 @@ import { registerComponents } from "./webComponents/components";
 import MenuItem from "./webComponents/mainMenu/MenuItem";
 import { setupSocialButtons } from "./socials";
 import Game from "./singletons/Game";
-import { resizeCanvas } from "./utils/generic";
-import { getLastGameLocalStorage } from "./utils/lastGameLocalStorage";
-import GameData from "./restoreGame/GameData";
-import { runGameLoop } from "./gameLoop";
 import {
   disableContextMenu,
   setupAboutDialog,
   setupGameControls,
   setupGameShareBtn,
   setupInstructionsDialog,
+  setupNewGameMenuBtn,
+  setupPauseBtn,
+  setupResumeBtn,
   toggleMode,
 } from "./utils/ui";
 
@@ -34,23 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   registerComponents();
   setupSocialButtons();
   window.lucide?.createIcons();
-
-  const initialiseGame = async (isNewGame: boolean) => {
-    const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
-    window.addEventListener("resize", () => resizeCanvas(canvas));
-    window.addEventListener("beforeunload", (event) => {
-      // Display default dialog before closing
-      event.preventDefault();
-      event.returnValue = false; // Required by Chrome
-    });
-
-    await Game.instance.start({
-      canvas,
-      isNewGame,
-      gameData: JSON.parse(getLastGameLocalStorage()) as GameData,
-    });
-    await runGameLoop(canvas);
-  };
 
   const handleKeyDown = (event: KeyboardEvent) => {
     //if (!isGamePaused) {
@@ -80,12 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
-  const newGameBtn = document.getElementById("newGameBtn") as MenuItem;
-  newGameBtn.callback = async () => {
-    toggleMode("game");
-    await initialiseGame(true);
-    // Add logic to start a new game here
-  };
+  setupNewGameMenuBtn();
 
   const continueGameBtn = document.getElementById(
     "continueGameBtn"
@@ -100,4 +77,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   setupGameControls();
   setupGameShareBtn();
+  setupPauseBtn();
+  setupResumeBtn();
 });

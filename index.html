@@ -52,7 +52,7 @@
         }
 
         .footer {
-          @apply flex gap-2 items-center;
+          @apply flex gap-2 justify-center items-center w-full;
         }
       </style>
       <dialog role="dialog">
@@ -70,7 +70,7 @@
     <template id="prettyButtonTemplate">
       <style>
         button {
-          @apply rounded-md text-xl text-white pl-2 pr-2 w-fit flex gap-2 items-center border-0;
+          @apply rounded-md text-xl text-white pl-2 pr-2 w-fit border-0 cursor-pointer;
         }
 
         .default {
@@ -100,7 +100,7 @@
         }
 
         .label {
-          @apply flex gap-2 items-center text-primary font-semibold text-3xl;
+          @apply flex gap-2 items-center text-primary font-semibold text-lg;
         }
       </style>
       <div class="outerContainer">
@@ -142,7 +142,13 @@
         id="gameContainer"
         class="hidden h-screen items-center justify-center flex-col"
       >
-        <div class="flex gap-2">
+        <div class="flex gap-2 items-center">
+          <i
+            role="button"
+            id="pauseBtn"
+            class="text-primary"
+            data-lucide="pause"
+          ></i>
           <div class="text-primary text-3xl font-semibold">
             <span id="xpSpan">0</span> XP
           </div>
@@ -295,5 +301,14 @@
     >
       <span id="overlayText" class="text-primary text-3xl font-bold"></span>
     </div>
+    <pretty-dialog id="gamePausedDialog">
+      <span slot="title">Game Paused</span>
+      <div slot="content">
+        Game paused. Click the <strong>Resume</strong> button to continue.
+      </div>
+      <div slot="footer">
+        <pretty-button id="resumeBtn">Resume</pretty-button>
+      </div>
+    </pretty-dialog>
   </body>
 </html>
