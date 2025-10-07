@@ -7,7 +7,6 @@ import { hideOverlay, showOverlay } from "../utils/ui";
 
 class Game {
   private static _instance: Game;
-  private _animationTimer: number = 0;
 
   private constructor() {
     this._turtle = new Turtle();
@@ -21,6 +20,7 @@ class Game {
     return this._instance;
   }
 
+  private _animationTimer: number = 0;
   private _turtle: Turtle;
   private _level: ILevel;
   private _xp: number;

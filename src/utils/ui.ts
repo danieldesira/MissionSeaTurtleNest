@@ -13,6 +13,7 @@ import GameData from "../restoreGame/GameData";
 export const launchCustomDialog = (title: string, text: string) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;
   customDialog.isVisible = true;
+  customDialog.closeButtonIds = ["closeCustomDialogBtn"];
   const customDialogTitle = document.getElementById("customDialogTitle");
   customDialogTitle.innerText = title;
   const customDialogContent = document.getElementById("customDialogContent");

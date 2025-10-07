@@ -2,8 +2,6 @@ import Level from "./Level";
 import Level1 from "./Level1";
 import Level2 from "./Level2";
 
-export type LevelChangeTypes = "GameEnd" | "NewLevel" | "SameLevel";
-
 export const levelMap: {
   [key: number]: new () => Level;
 } = {

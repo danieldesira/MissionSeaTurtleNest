@@ -1,11 +1,13 @@
 import Game from "./singletons/Game";
 import { paintLevelBg } from "./levels/background";
-import { getLevelText, LevelChangeTypes, levelMap } from "./levels/levels";
+import { getLevelText, levelMap } from "./levels/levels";
 import stringifyGameData from "./restoreGame/stringifyGameData";
 import { deleteLastGame, saveScore } from "./services/api";
 import {
+  hideOverlay,
   launchCustomDialog,
   launchGameEndDialog,
+  showOverlay,
   toggleMode,
 } from "./utils/ui";
 import {
@@ -20,17 +22,18 @@ import PersonalBestStore from "./singletons/PersonalBestStore";
 export const runGameLoop = async (canvas: HTMLCanvasElement) => {
   if (!Game.instance.isPaused) {
     try {
-      const levelChangeType = await checkTurtleAndGameProgress();
-      if (levelChangeType === "SameLevel" || levelChangeType === "NewLevel") {
-        const context = canvas.getContext("2d");
+      const gameRunning = await checkTurtleAndGameProgress();
+      const context = canvas.getContext("2d");
 
-        paintLevelBg({ canvas, context });
-        Game.instance.turtle.paint(context);
-        Game.instance.level.paintCharacters(context);
+      paintLevelBg({ canvas, context });
+      Game.instance.turtle.paint(context);
+      Game.instance.level.paintCharacters(context);
 
-        saveGameProgress();
-      } else {
+      saveGameProgress();
+
+      if (!gameRunning) {
         cancelAnimationFrame(Game.instance.animationTimer);
+        return;
       }
     } catch (error) {
       throw error;
@@ -49,7 +52,7 @@ const saveGameProgress = () => {
   }
 };
 
-const checkTurtleAndGameProgress = async (): Promise<LevelChangeTypes> => {
+const checkTurtleAndGameProgress = async (): Promise<boolean> => {
   const mainCharacter = Game.instance.turtle;
 
   mainCharacter.useFood();
@@ -61,7 +64,7 @@ const checkTurtleAndGameProgress = async (): Promise<LevelChangeTypes> => {
     mainCharacter.lifeGauge <= 0
   ) {
     await handleLoss();
-    return "GameEnd";
+    return false;
   }
 
   if (mainCharacter.y <= 0) {
@@ -72,25 +75,26 @@ const checkTurtleAndGameProgress = async (): Promise<LevelChangeTypes> => {
 
   const backgroundImage = Game.instance.level.bgImg;
   if (backgroundImage && mainCharacter.x >= backgroundImage.width) {
-    return await handleOffBgWidth();
+    await handleOffBgWidth();
+    if (!levelMap[Game.instance.currentLevelNo]) {
+      return false;
+    }
   }
 
   Game.instance.level.checkIfTurtleMeetsCharacters();
 
   Game.instance.level.moveCharacters();
 
-  return "SameLevel";
+  return true;
 };
 
-const handleOffBgWidth = async (): Promise<LevelChangeTypes> => {
+const handleOffBgWidth = async (): Promise<void> => {
   Game.instance.gainPoints(Game.instance.level.points);
   Game.instance.incrementCurrentLevelNo();
   if (levelMap[Game.instance.currentLevelNo]) {
     await Game.instance.loadNewLevel(true);
-    return "NewLevel";
   } else {
     await handleWin();
-    return "GameEnd";
   }
 };
 
@@ -133,8 +137,9 @@ const checkIfBestPersonalScore = () => {
 const handleGameEnd = async (hasWon: boolean) => {
   checkIfBestPersonalScore();
 
-  //dispatch(triggerSavingMode()); to do: implement saving screen/overlay in vanilla js
+  showOverlay("Saving score");
   await deleteLastGameAndSaveScore(hasWon);
+  hideOverlay();
   toggleMode("menu");
 };
 
@@ -145,5 +150,5 @@ const handleLoss = async () => {
 
 const handleWin = async () => {
   await handleGameEnd(true);
-  launchCustomDialog("Game Complete", "You win. Congratulations!");
+  launchGameEndDialog("Game Complete", "You win. Congratulations!");
 };
