@@ -2,7 +2,6 @@ import "./main.css";
 import { registerComponents } from "./webComponents/components";
 import MenuItem from "./webComponents/mainMenu/MenuItem";
 import { setupSocialButtons } from "./socials";
-import Game from "./singletons/Game";
 import {
   disableContextMenu,
   setupAboutDialog,
@@ -14,6 +13,10 @@ import {
   setupResumeBtn,
   toggleMode,
 } from "./utils/ui";
+import {
+  setupKeyboardControls,
+  setupMouseWheelControls,
+} from "./utils/controls";
 
 if (navigator.serviceWorker) {
   try {
@@ -34,34 +37,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupSocialButtons();
   window.lucide?.createIcons();
 
-  const handleKeyDown = (event: KeyboardEvent) => {
-    //if (!isGamePaused) {
-    const upKeys = ["w", "W", "ArrowUp"];
-    const downKeys = ["s", "S", "ArrowDown"];
-    const leftKeys = ["a", "A", "ArrowLeft"];
-    const rightKeys = ["d", "D", "ArrowRight"];
-
-    const mainCharacter = Game.instance.turtle;
-
-    handleKeyGroup(upKeys, () => mainCharacter.moveUp(), event.key);
-    handleKeyGroup(downKeys, () => mainCharacter.moveDown(), event.key);
-    handleKeyGroup(leftKeys, () => mainCharacter.moveLeft(), event.key);
-    handleKeyGroup(rightKeys, () => mainCharacter.moveRight(), event.key);
-    //}
-  };
-
-  const handleKeyGroup = (
-    keyGroup: Array<string>,
-    action: Function,
-    pressedKey: string
-  ) => {
-    if (keyGroup.includes(pressedKey)) {
-      // Call the method twice to make up for slower triggering of keyboard events
-      action();
-      action();
-    }
-  };
-
   setupNewGameMenuBtn();
 
   const continueGameBtn = document.getElementById(
@@ -79,4 +54,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupGameShareBtn();
   setupPauseBtn();
   setupResumeBtn();
+  setupKeyboardControls();
+  setupMouseWheelControls();
 });

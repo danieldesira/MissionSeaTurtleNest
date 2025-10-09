@@ -10,14 +10,23 @@ import { getLastGameLocalStorage } from "./lastGameLocalStorage";
 import { runGameLoop } from "../gameLoop";
 import GameData from "../restoreGame/GameData";
 
-export const launchCustomDialog = (title: string, text: string) => {
+export const launchCustomDialog = (title: string, text: string | string[]) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;
   customDialog.isVisible = true;
   customDialog.closeButtonIds = ["closeCustomDialogBtn"];
   const customDialogTitle = document.getElementById("customDialogTitle");
   customDialogTitle.innerText = title;
   const customDialogContent = document.getElementById("customDialogContent");
-  customDialogContent.innerText = text;
+  if (typeof text === "string") {
+    customDialogContent.innerText = text;
+  } else {
+    text.forEach((line) => {
+      const textNode = document.createTextNode(line);
+      customDialogContent.appendChild(textNode);
+      const br = document.createElement("br");
+      customDialogContent.appendChild(br);
+    });
+  }
 };
 
 export const setupGameControls = () => {

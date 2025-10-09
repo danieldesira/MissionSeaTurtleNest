@@ -4,6 +4,8 @@ import { restoreCharacters } from "../restoreGame/parseGameData";
 import ILevel from "./ILevel";
 import LevelCharacter from "./LevelCharacter";
 import GameData from "../restoreGame/GameData";
+import { launchCustomDialog } from "../utils/ui";
+import Game from "../singletons/Game";
 
 abstract class Level implements ILevel {
   protected abstract readonly _backgroundImageFilename: string;
@@ -36,6 +38,14 @@ abstract class Level implements ILevel {
     } catch {
       throw new Error("Unable to load level");
     }
+    this.showLevelDialog();
+  }
+
+  private showLevelDialog() {
+    launchCustomDialog(
+      `Level ${Game.instance.currentLevelNo}`,
+      this._levelDescription
+    );
   }
 
   private loadBgImg(): Promise<void> {
