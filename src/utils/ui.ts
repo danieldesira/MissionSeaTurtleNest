@@ -20,6 +20,7 @@ export const launchCustomDialog = (title: string, text: string | string[]) => {
   if (typeof text === "string") {
     customDialogContent.innerText = text;
   } else {
+    customDialogContent.innerText = "";
     text.forEach((line) => {
       const textNode = document.createTextNode(line);
       customDialogContent.appendChild(textNode);
@@ -186,19 +187,13 @@ export const setupPauseBtn = () => {
 
 const initialiseGame = async (isNewGame: boolean) => {
   const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
-  window.addEventListener("resize", () => resizeCanvas(canvas));
-  window.addEventListener("beforeunload", (event) => {
-    // Display default dialog before closing
-    event.preventDefault();
-    event.returnValue = false; // Required by Chrome
-  });
-
   await Game.instance.start({
     canvas,
     isNewGame,
     gameData: JSON.parse(getLastGameLocalStorage()) as GameData,
   });
   await runGameLoop(canvas);
+  updateXpSpan();
 };
 
 export const setupNewGameMenuBtn = () => {
@@ -207,4 +202,17 @@ export const setupNewGameMenuBtn = () => {
     toggleMode("game");
     await initialiseGame(true);
   };
+};
+
+export const preventNavigation = () => {
+  window.addEventListener("beforeunload", (event) => {
+    // Display default dialog before closing
+    event.preventDefault();
+    event.returnValue = false; // Required by Chrome
+  });
+};
+
+export const setupCanvasSize = () => {
+  const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
+  window.addEventListener("resize", () => resizeCanvas(canvas));
 };

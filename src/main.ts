@@ -4,7 +4,9 @@ import MenuItem from "./webComponents/mainMenu/MenuItem";
 import { setupSocialButtons } from "./socials";
 import {
   disableContextMenu,
+  preventNavigation,
   setupAboutDialog,
+  setupCanvasSize,
   setupGameControls,
   setupGameShareBtn,
   setupInstructionsDialog,
@@ -33,6 +35,8 @@ if (navigator.serviceWorker) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   disableContextMenu();
+  preventNavigation();
+
   registerComponents();
   setupSocialButtons();
   window.lucide?.createIcons();
@@ -56,4 +60,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupResumeBtn();
   setupKeyboardControls();
   setupMouseWheelControls();
+  setupCanvasSize();
 });

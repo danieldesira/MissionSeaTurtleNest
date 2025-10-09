@@ -115,9 +115,9 @@ class Game {
    */
   async start({ canvas, isNewGame, gameData }: GameOptions) {
     try {
+      Game._instance.reset();
       await Game._instance.turtle.loadImage();
       await Game._instance.loadNewLevel(isNewGame, gameData);
-      Game._instance.reset();
       resizeCanvas(canvas);
     } catch (error) {
       throw new Error(error);
