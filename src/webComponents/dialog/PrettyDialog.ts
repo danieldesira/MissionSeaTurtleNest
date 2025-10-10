@@ -1,3 +1,4 @@
+import Game from "../../singletons/Game";
 import { loadTemplate } from "../components";
 
 class PrettyDialog extends HTMLElement {
@@ -9,12 +10,20 @@ class PrettyDialog extends HTMLElement {
   show() {
     const dialog = this.shadowRoot.querySelector("dialog");
     dialog.showModal();
+
+    this.handleDialogShow();
   }
 
   hide() {
     const dialog = this.shadowRoot.querySelector("dialog");
     dialog.close();
+
+    this.handleDialogClose();
   }
+
+  private handleDialogShow = () => Game.instance.pause();
+
+  private handleDialogClose = () => Game.instance.resume();
 
   set closeButtonIds(value: string[]) {
     value.forEach((id) => {
@@ -27,6 +36,16 @@ class PrettyDialog extends HTMLElement {
         console.warn(`PrettyDialog: closeButtonIds: ${id} not found in DOM`);
       }
     });
+  }
+
+  connectedCallback() {
+    const dialog = this.shadowRoot.querySelector("dialog");
+    dialog.addEventListener("close", this.handleDialogClose);
+  }
+
+  disconnectedCallack() {
+    const dialog = this.shadowRoot.querySelector("dialog");
+    dialog.removeEventListener("close", this.handleDialogClose);
   }
 }
 
