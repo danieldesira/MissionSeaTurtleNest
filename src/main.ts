@@ -1,11 +1,11 @@
 import "./main.css";
 import { registerComponents } from "./webComponents/components";
-import MenuItem from "./webComponents/mainMenu/MenuItem";
 import { setupSocialButtons } from "./socials";
 import {
   disableContextMenu,
   preventNavigation,
   setupAboutDialog,
+  setupBackToMenuBtn,
   setupCanvasSize,
   setupContinueGameBtn,
   setupGameControls,
@@ -14,7 +14,6 @@ import {
   setupNewGameMenuBtn,
   setupPauseBtn,
   setupResumeBtn,
-  toggleMode,
 } from "./utils/ui";
 import {
   setupKeyboardControls,
@@ -44,4 +43,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupKeyboardControls();
   setupMouseWheelControls();
   setupCanvasSize();
+  setupBackToMenuBtn();
 });

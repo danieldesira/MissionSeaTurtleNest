@@ -26,6 +26,7 @@ class Game {
   private _xp: number;
   private _currentLevelNo: number;
   private _isPaused: boolean;
+  private _isGameScreenActive: boolean;
 
   get turtle() {
     return this._turtle;
@@ -61,6 +62,10 @@ class Game {
 
   get isPaused() {
     return this._isPaused;
+  }
+
+  get isGameScreenActive() {
+    return this._isGameScreenActive;
   }
 
   reset() {
@@ -119,9 +124,14 @@ class Game {
       await Game._instance.turtle.loadImage();
       await Game._instance.loadNewLevel(isNewGame, gameData);
       resizeCanvas(canvas);
+      this._isGameScreenActive = true;
     } catch (error) {
       throw new Error(error);
     }
+  }
+
+  exit() {
+    this._isGameScreenActive = false;
   }
 }
 

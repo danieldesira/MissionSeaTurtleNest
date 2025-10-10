@@ -223,3 +223,11 @@ export const setupContinueGameBtn = () => {
     // Add logic to start a new game here
   };
 };
+
+export const setupBackToMenuBtn = () => {
+  const backBtn = document.getElementById("backBtn") as PrettyButton;
+  backBtn.callback = () => {
+    Game.instance.exit();
+    toggleMode("menu");
+  };
+};

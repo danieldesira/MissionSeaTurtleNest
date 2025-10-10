@@ -20,6 +20,11 @@ import { isAuthenticated } from "./utils/generic";
 import PersonalBestStore from "./singletons/PersonalBestStore";
 
 export const runGameLoop = async (canvas: HTMLCanvasElement) => {
+  if (!Game.instance.isGameScreenActive) {
+    cancelAnimationFrame(Game.instance.animationTimer);
+    return;
+  }
+
   if (!Game.instance.isPaused) {
     try {
       const gameRunning = await checkTurtleAndGameProgress();
