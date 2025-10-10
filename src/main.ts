@@ -7,6 +7,7 @@ import {
   preventNavigation,
   setupAboutDialog,
   setupCanvasSize,
+  setupContinueGameBtn,
   setupGameControls,
   setupGameShareBtn,
   setupInstructionsDialog,
@@ -19,21 +20,10 @@ import {
   setupKeyboardControls,
   setupMouseWheelControls,
 } from "./utils/controls";
-
-if (navigator.serviceWorker) {
-  try {
-    window.addEventListener("load", async () => {
-      const worker = await navigator.serviceWorker.register(
-        "cacheServiceWorker.js"
-      );
-      console.log(`Registered service worker ${worker}`);
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
+import { registerServiceWorker } from "./utils/serviceWorkers";
 
 document.addEventListener("DOMContentLoaded", async () => {
+  registerServiceWorker("cache");
   disableContextMenu();
   preventNavigation();
 
@@ -42,14 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   window.lucide?.createIcons();
 
   setupNewGameMenuBtn();
-
-  const continueGameBtn = document.getElementById(
-    "continueGameBtn"
-  ) as MenuItem;
-  continueGameBtn.callback = () => {
-    toggleMode("game");
-    // Add logic to start a new game here
-  };
+  setupContinueGameBtn();
 
   setupInstructionsDialog();
   setupAboutDialog();

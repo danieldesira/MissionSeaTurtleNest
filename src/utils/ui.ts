@@ -12,7 +12,7 @@ import GameData from "../restoreGame/GameData";
 
 export const launchCustomDialog = (title: string, text: string | string[]) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;
-  customDialog.isVisible = true;
+  customDialog.show();
   customDialog.closeButtonIds = ["closeCustomDialogBtn"];
   const customDialogTitle = document.getElementById("customDialogTitle");
   customDialogTitle.innerText = title;
@@ -65,7 +65,7 @@ export const launchGameEndDialog = (title: string, text: string) => {
   const gameEndDialog = document.getElementById(
     "gameEndDialog"
   ) as PrettyDialog;
-  gameEndDialog.isVisible = true;
+  gameEndDialog.show();
   gameEndDialog.closeButtonIds = ["gameEndDialogCloseBtn"];
   const gameEndDialogTitle = document.getElementById("gameEndDialogTitle");
   gameEndDialogTitle.innerText = title;
@@ -97,9 +97,7 @@ export const setupAboutDialog = () => {
   aboutDialog.closeButtonIds = ["closeAboutBtn"];
 
   const title = document.getElementById("title");
-  title.addEventListener("click", () => {
-    aboutDialog.isVisible = true;
-  });
+  title.addEventListener("click", () => aboutDialog.show());
 
   const versionLink = document.getElementById("version");
   versionLink.innerText = version;
@@ -114,9 +112,7 @@ export const setupInstructionsDialog = () => {
   const instructionsBtn = document.getElementById(
     "instructionsBtn"
   ) as MenuItem;
-  instructionsBtn.callback = () => {
-    instructionsDialog.isVisible = true;
-  };
+  instructionsBtn.callback = () => instructionsDialog.show();
 };
 
 export const showOverlay = (message: string) => {
@@ -174,7 +170,7 @@ const showGamePausedDialog = () => {
   const gamePausedDialog = document.getElementById(
     "gamePausedDialog"
   ) as PrettyDialog;
-  gamePausedDialog.isVisible = true;
+  gamePausedDialog.show();
 };
 
 export const setupPauseBtn = () => {
@@ -215,4 +211,15 @@ export const preventNavigation = () => {
 export const setupCanvasSize = () => {
   const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
   window.addEventListener("resize", () => resizeCanvas(canvas));
+};
+
+export const setupContinueGameBtn = () => {
+  const continueGameBtn = document.getElementById(
+    "continueGameBtn"
+  ) as MenuItem;
+  continueGameBtn.hide();
+  continueGameBtn.callback = () => {
+    toggleMode("game");
+    // Add logic to start a new game here
+  };
 };
