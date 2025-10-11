@@ -157,9 +157,6 @@ export const updateGauge = (
 };
 
 export const setupResumeBtn = () => {
-  const resumeBtn = document.getElementById("resumeBtn") as PrettyButton;
-  resumeBtn.callback = () => Game.instance.resume();
-
   const gamePausedDialog = document.getElementById(
     "gamePausedDialog"
   ) as PrettyDialog;
@@ -175,10 +172,7 @@ const showGamePausedDialog = () => {
 
 export const setupPauseBtn = () => {
   const pauseBtn = document.getElementById("pauseBtn");
-  pauseBtn.addEventListener("click", () => {
-    Game.instance.pause();
-    showGamePausedDialog();
-  });
+  pauseBtn.addEventListener("click", () => showGamePausedDialog());
 };
 
 const initialiseGame = async (isNewGame: boolean) => {
@@ -230,4 +224,12 @@ export const setupBackToMenuBtn = () => {
     Game.instance.exit();
     toggleMode("menu");
   };
+};
+
+export const setupAppVisibilityHandler = () => {
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && Game.instance.isGameScreenActive) {
+      showGamePausedDialog();
+    }
+  });
 };

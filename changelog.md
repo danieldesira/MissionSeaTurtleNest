@@ -6,6 +6,7 @@
 - Add desktop notifications
 - Mobile: Add 300ms vibration on collision with obstacles
 - Fix issue [#55](https://github.com/danieldesira/TurtleQuest/issues/55)
+- Implement game pause on tab change
 
 # 0.7.6.2 Beta (Malta&Gozo hatching Edition) - 27/08/2025 15:00 UTC+1
 

@@ -5,6 +5,7 @@ import {
   disableContextMenu,
   preventNavigation,
   setupAboutDialog,
+  setupAppVisibilityHandler,
   setupBackToMenuBtn,
   setupCanvasSize,
   setupContinueGameBtn,
@@ -44,4 +45,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupMouseWheelControls();
   setupCanvasSize();
   setupBackToMenuBtn();
+  setupAppVisibilityHandler();
 });
