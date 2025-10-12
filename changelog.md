@@ -7,6 +7,7 @@
 - Mobile: Add 300ms vibration on collision with obstacles
 - Fix issue [#55](https://github.com/danieldesira/TurtleQuest/issues/55)
 - Implement game pause on tab change
+- Change license to GNU GPL3
 
 # 0.7.6.2 Beta (Malta&Gozo hatching Edition) - 27/08/2025 15:00 UTC+1
 
@@ -27,12 +28,12 @@
 - Add Share button in win/lose dialog
 - Open login dialog on initial page load
 - Move edition section to about dialog
-- Adjust ``/player`` PUT service method to only send necessary properties in payload
+- Adjust `/player` PUT service method to only send necessary properties in payload
 - Adopt pink primary brand colour more consistently
 - Upload image on profile picture change event
-- Refactor request helper methods as static ``Request`` class
+- Refactor request helper methods as static `Request` class
 - Add player profile pictures to high scores dialog
-- Rename ``LoadingIndicator`` to ``LoadingOverlay`` and increase its z-index to match dialog
+- Rename `LoadingIndicator` to `LoadingOverlay` and increase its z-index to match dialog
 - Show player profile picture in members area instead of generic icon
 - Fix bug [TURTLE-10]: Reset personal best on logout
 - Fix bug [TURTLE-11]: Do not show login dialog if authenticated

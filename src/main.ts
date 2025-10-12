@@ -12,6 +12,7 @@ import {
   setupGameControls,
   setupGameShareBtn,
   setupInstructionsDialog,
+  setupLoginButtons,
   setupNewGameMenuBtn,
   setupPauseBtn,
   setupResumeBtn,
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   setupInstructionsDialog();
   setupAboutDialog();
+  setupLoginButtons();
 
   setupGameControls();
   setupGameShareBtn();

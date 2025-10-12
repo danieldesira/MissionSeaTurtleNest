@@ -5,7 +5,7 @@ import GameControl from "../webComponents/gameplay/GameControl";
 import { version } from "../../package.json";
 import MenuItem from "../webComponents/mainMenu/MenuItem";
 import GameGauge from "../webComponents/gameplay/GameGauge";
-import { resizeCanvas } from "./generic";
+import { isAuthenticated, resizeCanvas } from "./generic";
 import { getLastGameLocalStorage } from "./lastGameLocalStorage";
 import { runGameLoop } from "../gameLoop";
 import GameData from "../restoreGame/GameData";
@@ -232,4 +232,31 @@ export const setupAppVisibilityHandler = () => {
       showGamePausedDialog();
     }
   });
+};
+
+export const setupLoginButtons = () => {
+  const loginBtn = document.getElementById("loginBtn") as PrettyButton;
+  const loginDialog = document.getElementById("loginDialog") as PrettyDialog;
+  loginDialog.closeButtonIds = ["closeLoginBtn"];
+  loginBtn.callback = () => loginDialog.show();
+  const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
+  logoutBtn.class = "danger";
+};
+
+export const updateAuthenticationUI = () => {
+  const loginContainer = document.getElementById("loginContainer");
+  const authenticatedContainer = document.getElementById(
+    "authenticatedContainer"
+  );
+  if (isAuthenticated()) {
+    loginContainer.classList.add("hidden");
+    loginContainer.classList.remove("flex");
+    authenticatedContainer.classList.add("flex");
+    authenticatedContainer.classList.remove("hidden");
+  } else {
+    loginContainer.classList.add("flex");
+    loginContainer.classList.remove("hidden");
+    authenticatedContainer.classList.add("hidden");
+    authenticatedContainer.classList.remove("flex");
+  }
 };
