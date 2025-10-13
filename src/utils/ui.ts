@@ -9,6 +9,7 @@ import { isAuthenticated, resizeCanvas } from "./generic";
 import { getLastGameLocalStorage } from "./lastGameLocalStorage";
 import { runGameLoop } from "../gameLoop";
 import GameData from "../restoreGame/GameData";
+import { handleGoogleAuthResponse } from "./authentication";
 
 export const launchCustomDialog = (title: string, text: string | string[]) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;
@@ -234,13 +235,35 @@ export const setupAppVisibilityHandler = () => {
   });
 };
 
+const initialiseGoogleSignInButton = () => {
+  window.google?.accounts?.id?.initialize({
+    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+    callback: handleGoogleAuthResponse,
+  });
+
+  window.google?.accounts?.id?.renderButton(
+    document.getElementById("googleSignInButton"),
+    { theme: "outline", size: "large" }
+  );
+};
+
 export const setupLoginButtons = () => {
   const loginBtn = document.getElementById("loginBtn") as PrettyButton;
   const loginDialog = document.getElementById("loginDialog") as PrettyDialog;
+
+  initialiseGoogleSignInButton();
+
   loginDialog.closeButtonIds = ["closeLoginBtn"];
+  loginDialog.show();
   loginBtn.callback = () => loginDialog.show();
+
   const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
   logoutBtn.class = "danger";
+};
+
+export const hideLoginDialog = () => {
+  const loginDialog = document.getElementById("loginDialog") as PrettyDialog;
+  loginDialog.hide();
 };
 
 export const updateAuthenticationUI = () => {
