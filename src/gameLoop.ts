@@ -16,8 +16,8 @@ import {
   saveLastGameLocalStorage,
   saveLastGameTimestampLocalStorage,
 } from "./utils/lastGameLocalStorage";
-import { isAuthenticated } from "./utils/generic";
-import PersonalBestStore from "./singletons/PersonalBestStore";
+import PersonalBestStore from "./singletons/cacheStores/PersonalBestStore";
+import { isAuthenticated } from "./utils/authentication";
 
 export const runGameLoop = async (canvas: HTMLCanvasElement) => {
   if (!Game.instance.isGameScreenActive) {

@@ -7,10 +7,7 @@ class ProfileStore {
   private _date_of_birth: Date;
 
   private constructor() {
-    this._email = "";
-    this._name = "";
-    this._profile_pic_url = "";
-    this._date_of_birth = new Date();
+    this.reset();
   }
 
   public static get instance() {
@@ -50,6 +47,13 @@ class ProfileStore {
 
   public get date_of_birth() {
     return this._date_of_birth;
+  }
+
+  public reset() {
+    this._email = "";
+    this._name = "";
+    this._profile_pic_url = "";
+    this._date_of_birth = new Date();
   }
 }
 

@@ -40,7 +40,7 @@
     <template id="prettyDialogTemplate">
       <style>
         dialog:open {
-          @apply inset-0 border-0 flex flex-col gap-2 items-center justify-center text-white w-4/5 opacity-80 focus:opacity-95 transition-opacity duration-500 bg-gray-900 p-5 rounded-3xl max-w-xl z-50 animate-pulse animate-[500ms];
+          @apply inset-0 border-0 flex flex-col gap-2 items-center justify-center text-white w-4/5 opacity-80 focus:opacity-95 transition-opacity duration-500 bg-gray-900 p-5 rounded-3xl max-w-xl z-40 animate-pulse animate-[500ms];
         }
 
         .heading {
@@ -112,6 +112,20 @@
           <slot name="icon"></slot><slot name="label"></slot>
         </div>
         <meter max="100" min="0" low="30" value="100" title="100%"></meter>
+      </div>
+    </template>
+    <template id="prettyTabTemplate">
+      <style>
+        [role="button"] {
+          @apply rounded-xl border-solid border-2 border-primary px-2 hover:bg-primary transition-colors cursor-pointer;
+        }
+
+        [role="button"].active {
+          @apply bg-primary;
+        }
+      </style>
+      <div role="button">
+        <slot></slot>
       </div>
     </template>
     <div class="max-w-screen max-h-screen portrait:hidden">
@@ -307,7 +321,7 @@
     </pretty-dialog>
     <div
       id="overlay"
-      class="hidden flex-col justify-center items-center fixed top-0 h-screen w-screen bg-slate-950 opacity-0 transition-opacity transition-duration-[400ms]"
+      class="hidden flex-col justify-center items-center fixed top-0 h-screen w-screen bg-slate-950 opacity-0 transition-opacity transition-duration-[400ms] z-50"
     >
       <i class="text-primary animate-bounce h-10 w-10" data-lucide="turtle"></i>
       <span id="overlayText" class="text-primary text-3xl font-bold"></span>
@@ -323,7 +337,10 @@
     </pretty-dialog>
     <pretty-dialog id="loginDialog">
       <span slot="title">Login</span>
-      <div slot="content">
+      <div
+        slot="content"
+        class="flex flex-col items-center justify-center gap-2"
+      >
         <p>
           Login with your Google account to save your game progress to the cloud
           and access it from any device and customise.
@@ -332,13 +349,27 @@
         <!-- to do: add Google login button -->
         <p>Or continue as guest.</p>
       </div>
-      <div slot="footer">
-        <p class="italic">
+      <div
+        slot="footer"
+        class="flex flex-col items-center justify-center gap-2"
+      >
+        <p class="italic text-center">
           Please note that the accounts feature makes use of cookies for secure
           authenitication. By logging in, you are agreeing to the use of
           cookies.
         </p>
         <pretty-button id="closeLoginBtn">Close</pretty-button>
+      </div>
+    </pretty-dialog>
+    <pretty-dialog id="settingsDialog">
+      <span slot="title">Settings</span>
+      <div slot="content">
+        <div class="flex flex-col gap-4">
+          <div class="flex gap-1">
+            <pretty-tab>Profile</pretty-tab>
+            <pretty-tab>Controls</pretty-tab>
+          </div>
+        </div>
       </div>
     </pretty-dialog>
   </body>

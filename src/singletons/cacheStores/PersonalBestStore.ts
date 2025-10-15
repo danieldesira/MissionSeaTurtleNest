@@ -4,8 +4,7 @@ class PersonalBestStore {
   private _level: number;
 
   private constructor() {
-    this._points = 0;
-    this._level = 0;
+    this.reset();
   }
 
   public static get instance() {
@@ -29,6 +28,11 @@ class PersonalBestStore {
 
   public get level() {
     return this._level;
+  }
+
+  public reset() {
+    this._points = 0;
+    this._level = 0;
   }
 }
 

@@ -1,7 +1,7 @@
 import { login } from "../services/api";
 import { LoginResponse } from "../services/interfaces";
-import PersonalBestStore from "../singletons/PersonalBestStore";
-import ProfileStore from "../singletons/ProfileStore";
+import PersonalBestStore from "../singletons/cacheStores/PersonalBestStore";
+import ProfileStore from "../singletons/cacheStores/ProfileStore";
 import {
   getLastGameLocalStorage,
   getLastGameTimestampLocalStorage,
@@ -13,6 +13,7 @@ import {
   hideOverlay,
   launchCustomDialog,
   showOverlay,
+  updateAuthenticationUI,
 } from "./ui";
 
 export const handleGoogleAuthResponse = async ({
@@ -25,14 +26,12 @@ export const handleGoogleAuthResponse = async ({
 
     const loginResult = await login(credential);
 
-    //to do: fix authentication state in custom store
-    //dispatch(authenticate());
-
     populatePlayerProfile(loginResult);
     populateGameData(loginResult);
     populatePersonalBest(loginResult);
 
     hideLoginDialog();
+    updateAuthenticationUI();
   } catch {
     launchCustomDialog(
       "Login failed",
@@ -78,4 +77,11 @@ const populatePlayerProfile = (accountData: LoginResponse) => {
     ProfileStore.instance.profile_pic_url = player.profile_pic_url;
     ProfileStore.instance.date_of_birth = new Date(player.date_of_birth);
   }
+};
+
+export const isAuthenticated = () => !!ProfileStore.instance.email;
+
+export const clearCurrentPlayerStores = () => {
+  ProfileStore.instance.reset();
+  PersonalBestStore.instance.reset();
 };

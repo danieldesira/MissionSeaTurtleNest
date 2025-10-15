@@ -5,11 +5,15 @@ import GameControl from "../webComponents/gameplay/GameControl";
 import { version } from "../../package.json";
 import MenuItem from "../webComponents/mainMenu/MenuItem";
 import GameGauge from "../webComponents/gameplay/GameGauge";
-import { isAuthenticated, resizeCanvas } from "./generic";
+import { resizeCanvas } from "./generic";
 import { getLastGameLocalStorage } from "./lastGameLocalStorage";
 import { runGameLoop } from "../gameLoop";
 import GameData from "../restoreGame/GameData";
-import { handleGoogleAuthResponse } from "./authentication";
+import {
+  clearCurrentPlayerStores,
+  handleGoogleAuthResponse,
+  isAuthenticated,
+} from "./authentication";
 
 export const launchCustomDialog = (title: string, text: string | string[]) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;
@@ -259,6 +263,16 @@ export const setupLoginButtons = () => {
 
   const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
   logoutBtn.class = "danger";
+  logoutBtn.callback = () => {
+    clearCurrentPlayerStores();
+    updateAuthenticationUI();
+  };
+
+  const settingsBtn = document.getElementById("settingsBtn") as PrettyButton;
+  const settingsDialog = document.getElementById(
+    "settingsDialog"
+  ) as PrettyDialog;
+  settingsBtn.callback = () => settingsDialog.show();
 };
 
 export const hideLoginDialog = () => {

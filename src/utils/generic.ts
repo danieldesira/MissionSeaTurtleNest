@@ -31,5 +31,3 @@ export const vibrate = () => {
     navigator.vibrate(300);
   }
 };
-
-export const isAuthenticated = () => !!sessionStorage.getItem("userEmail");
