@@ -236,7 +236,7 @@
           >
         </div>
         <canvas id="gameCanvas" height="400" width="700" tab-index="1"></canvas>
-        <div class="fixed bottom-1 right-1">
+        <div id="onscreenControls" class="fixed bottom-1 right-1">
           <div class="mb-1 flex justify-center">
             <game-control id="upControl"
               ><i
@@ -380,14 +380,14 @@
             >
           </div>
           <div class="pt-2 border-t-2 border-t-solid border-t-primary">
-            <tab-container id="profile-tab">Profile settings</tab-container>
-            <tab-container id="controls-tab">
-              <form method="dialog" class="flex flex-col gap-2">
+            <form id="settingsForm" method="dialog">
+              <tab-container id="profile-tab">Profile settings</tab-container>
+              <tab-container id="controls-tab">
                 <radio-selection id="screenControlPositionRadio"
                   >Screen Controls Position</radio-selection
                 >
-              </form>
-            </tab-container>
+              </tab-container>
+            </form>
             <tab-container id="about-tab">
               <div class="flex flex-col justify-center items-center gap-2">
                 <span class="font-bold text-primary text-xl">Turtle Core</span>

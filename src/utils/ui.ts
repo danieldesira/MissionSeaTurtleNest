@@ -15,7 +15,7 @@ import {
   isAuthenticated,
 } from "./authentication";
 import TabPill from "../webComponents/tabs/TabPill";
-import { requestLogout } from "../services/api";
+import { requestLogout, updateSettings } from "../services/api";
 import RadioSelection from "../webComponents/form/RadioSelection";
 import ControlSettingsStore from "../singletons/cacheStores/ControlSettingsStore";
 
@@ -50,6 +50,17 @@ export const setupGameControls = () => {
   rightControl.callback = () => Game.instance.turtle.moveRight();
 };
 
+const setupOnscreenControlsPosition = () => {
+  const onscreenControls = document.getElementById("onscreenControls");
+  if (ControlSettingsStore.instance.screenControlsPosition === "Left") {
+    onscreenControls.classList.add("left-1");
+    onscreenControls.classList.remove("right-1");
+  } else {
+    onscreenControls.classList.add("right-1");
+    onscreenControls.classList.remove("left-1");
+  }
+};
+
 export const toggleMode = (mode: "game" | "menu") => {
   const menuContainer = document.getElementById("menuContainer");
   const gameContainer = document.getElementById("gameContainer");
@@ -60,6 +71,7 @@ export const toggleMode = (mode: "game" | "menu") => {
       menuContainer.classList.remove("flex");
       gameContainer.classList.add("flex");
       gameContainer.classList.remove("hidden");
+      setupOnscreenControlsPosition();
       break;
     case "menu":
       menuContainer.classList.add("flex");
@@ -265,10 +277,10 @@ export const setupLoginButtons = () => {
   const settingsDialog = document.getElementById(
     "settingsDialog"
   ) as PrettyDialog;
+  settingsDialog.closeButtonIds = ["closeSettingsBtn"];
+  settingsDialog.closeCallback = handleSettingsDialogClose;
   settingsBtn.callback = () => settingsDialog.show();
   setupTabPills("settings");
-  setupControlSettings();
-  setupSettingsCloseBtn();
 };
 
 export const hideLoginDialog = () => {
@@ -306,7 +318,7 @@ const setupTabPills = (group: string) => {
   );
 };
 
-const setupControlSettings = () => {
+export const setupControlSettings = () => {
   const screenControlPositionRadio = document.getElementById(
     "screenControlPositionRadio"
   ) as RadioSelection;
@@ -320,27 +332,26 @@ const setupControlSettings = () => {
   };
 };
 
-const setupSettingsCloseBtn = () => {
-  const closeSettingsBtn = document.getElementById(
-    "closeSettingsBtn"
-  ) as PrettyButton;
-  closeSettingsBtn.callback = () => {
-    const tabPills = document.querySelectorAll(
-      `tab-pill[name="settings"]`
-    ) as NodeListOf<TabPill>;
-    let activePill: TabPill = null;
-    tabPills.forEach((pill) => {
-      if (pill.isActive) {
-        activePill = pill;
-      }
-    });
+const submitControlSettings = async () => {
+  const screenControlPositionRadio = document.getElementById(
+    "screenControlPositionRadio"
+  ) as RadioSelection;
+  ControlSettingsStore.instance.screenControlsPosition =
+    screenControlPositionRadio.currentSelection as "Left" | "Right";
+  await updateSettings({
+    controlPosition: ControlSettingsStore.instance.screenControlsPosition,
+  });
+};
 
-    const form = document
-      .getElementById(activePill.dataset.container)
-      .querySelector("form");
-    form.addEventListener("submit", () => console.log("submit"));
+const handleSettingsDialogClose = () => {
+  const form = document.getElementById("settingsForm") as HTMLFormElement;
+  form.addEventListener(
+    "submit",
+    async () => await Promise.all([submitControlSettings()])
+  );
+  if (form?.checkValidity()) {
     form?.requestSubmit();
-  };
+  }
 };
 
 export const toggleContinueGameBtn = () => {

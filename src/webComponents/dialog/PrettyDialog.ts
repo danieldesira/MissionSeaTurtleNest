@@ -38,6 +38,11 @@ class PrettyDialog extends HTMLElement {
     });
   }
 
+  set closeCallback(value: () => void) {
+    const dialog = this.shadowRoot.querySelector("dialog");
+    dialog.addEventListener("close", value);
+  }
+
   connectedCallback() {
     const dialog = this.shadowRoot.querySelector("dialog");
     dialog.addEventListener("close", this.handleDialogClose);

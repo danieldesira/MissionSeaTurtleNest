@@ -1,5 +1,6 @@
 import { login } from "../services/api";
 import { LoginResponse } from "../services/interfaces";
+import ControlSettingsStore from "../singletons/cacheStores/ControlSettingsStore";
 import PersonalBestStore from "../singletons/cacheStores/PersonalBestStore";
 import ProfileStore from "../singletons/cacheStores/ProfileStore";
 import {
@@ -12,6 +13,7 @@ import {
   hideLoginDialog,
   hideOverlay,
   launchCustomDialog,
+  setupControlSettings,
   showOverlay,
   toggleContinueGameBtn,
   updateAuthenticationUI,
@@ -30,6 +32,7 @@ export const handleGoogleAuthResponse = async ({
     populatePlayerProfile(loginResult);
     populateGameData(loginResult);
     populatePersonalBest(loginResult);
+    populateControlSettings(loginResult);
 
     hideLoginDialog();
     updateAuthenticationUI();
@@ -82,9 +85,19 @@ const populatePlayerProfile = (accountData: LoginResponse) => {
   }
 };
 
+const populateControlSettings = (accountData: LoginResponse) => {
+  const { player } = accountData;
+  if (player.settings) {
+    ControlSettingsStore.instance.screenControlsPosition =
+      player.settings.controlPosition;
+    setupControlSettings();
+  }
+};
+
 export const isAuthenticated = () => !!ProfileStore.instance.email;
 
 export const clearCurrentPlayerStores = () => {
   ProfileStore.instance.reset();
   PersonalBestStore.instance.reset();
+  ControlSettingsStore.instance.reset();
 };

@@ -34,6 +34,19 @@ class RadioSelection extends HTMLElement {
       container.appendChild(radioLabel);
     });
   }
+
+  get currentSelection() {
+    const radioOptions = this.shadowRoot.querySelectorAll(
+      '.container > .options > input[type="radio"]'
+    ) as NodeListOf<HTMLInputElement>;
+    let value = "";
+    radioOptions.forEach((option) => {
+      if (option.checked) {
+        value = option.value;
+      }
+    });
+    return value;
+  }
 }
 
 export default RadioSelection;
