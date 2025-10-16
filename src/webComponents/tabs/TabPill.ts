@@ -2,13 +2,13 @@ import { loadTemplate } from "../components";
 import TabContainer from "./TabContainer";
 
 class TabPill extends HTMLElement {
-  static observedAttributes = ["active", "data-container", "name"];
+  static observedAttributes = ["data-active", "data-container", "name"];
 
   constructor() {
     super();
     loadTemplate("tabPillTemplate", this);
 
-    if (this.dataset.active) {console.log('active pill!!')
+    if (this.dataset.active !== undefined) {
       this.isActive = true;
     }
   }

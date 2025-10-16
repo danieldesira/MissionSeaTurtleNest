@@ -15,6 +15,7 @@ import {
   isAuthenticated,
 } from "./authentication";
 import TabPill from "../webComponents/tabs/TabPill";
+import { requestLogout } from "../services/api";
 
 export const launchCustomDialog = (title: string, text: string | string[]) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;
@@ -63,6 +64,7 @@ export const toggleMode = (mode: "game" | "menu") => {
       menuContainer.classList.remove("hidden");
       gameContainer.classList.add("hidden");
       gameContainer.classList.remove("flex");
+      toggleContinueGameBtn();
       break;
   }
 };
@@ -252,9 +254,10 @@ export const setupLoginButtons = () => {
 
   const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
   logoutBtn.class = "danger";
-  logoutBtn.callback = () => {
+  logoutBtn.callback = async () => {
     clearCurrentPlayerStores();
     updateAuthenticationUI();
+    await requestLogout();
   };
 
   const settingsBtn = document.getElementById("settingsBtn") as PrettyButton;
@@ -298,4 +301,15 @@ const setupTabPills = (group: string) => {
       pill.isActive = true;
     })
   );
+};
+
+export const toggleContinueGameBtn = () => {
+  const continueGameBtn = document.getElementById(
+    "continueGameBtn"
+  ) as MenuItem;
+  if (isAuthenticated() && getLastGameLocalStorage() !== null) {
+    continueGameBtn.show();
+  } else {
+    continueGameBtn.hide();
+  }
 };

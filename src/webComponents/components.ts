@@ -15,8 +15,8 @@ const components: {
   { tag: "pretty-button", Constructor: PrettyButton },
   { tag: "game-control", Constructor: GameControl },
   { tag: "game-gauge", Constructor: GameGauge },
+  { tag: "tab-container", Constructor: TabContainer }, // needs to be defined before tab-pill/dependency
   { tag: "tab-pill", Constructor: TabPill },
-  { tag: "tab-container", Constructor: TabContainer },
 ];
 
 export const registerComponents = () =>

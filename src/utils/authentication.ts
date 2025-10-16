@@ -13,6 +13,7 @@ import {
   hideOverlay,
   launchCustomDialog,
   showOverlay,
+  toggleContinueGameBtn,
   updateAuthenticationUI,
 } from "./ui";
 
@@ -53,6 +54,8 @@ const populateGameData = (accountData: LoginResponse) => {
     } else {
       storeAccountGameDataLocally(accountData);
     }
+
+    toggleContinueGameBtn();
   }
 };
 
