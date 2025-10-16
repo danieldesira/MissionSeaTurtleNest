@@ -114,7 +114,7 @@
         <meter max="100" min="0" low="30" value="100" title="100%"></meter>
       </div>
     </template>
-    <template id="prettyTabTemplate">
+    <template id="tabPillTemplate">
       <style>
         [role="button"] {
           @apply rounded-xl border-solid border-2 border-primary px-2 hover:bg-primary transition-colors cursor-pointer;
@@ -128,13 +128,27 @@
         <slot></slot>
       </div>
     </template>
+    <template id="tabContainerTemplate">
+      <style>
+        div {
+          @apply hidden flex-col gap-1;
+        }
+
+        .active {
+          @apply flex;
+        }
+      </style>
+      <div>
+        <slot></slot>
+      </div>
+    </template>
     <div class="max-w-screen max-h-screen portrait:hidden">
       <div
         id="menuContainer"
         class="flex flex-col justify-between bg-cute bg-no-repeat bg-center bg-cover p-5 items-center h-screen w-screen"
       >
         <div class="flex gap-5 justify-center items-center">
-          <h1 id="title" class="text-5xl font-bold" role="button">
+          <h1 class="text-5xl font-bold">
             <span class="text-emerald-300">Turtle</span>
             <span class="text-cyan-500">Core</span>
           </h1>
@@ -263,47 +277,6 @@
         <pretty-button id="closeInstructionsBtn">Close</pretty-button>
       </div>
     </pretty-dialog>
-    <pretty-dialog id="aboutDialog">
-      <span slot="title">About Turtle Core</span>
-      <div slot="content">
-        <div class="flex flex-col justify-center items-center gap-2">
-          <i data-lucide="turtle" class="w-16 h-16 text-primary"></i>
-          <a
-            id="version"
-            href="https://github.com/danieldesira/TurtleQuest/blob/master/changelog.md"
-            target="_blank"
-            title="Changelog"
-          >
-          </a>
-          <div class="flex gap-2">
-            <a
-              href="https://github.com/danieldesira/TurtleQuest/blob/master/contributors.md"
-              target="_blank"
-              title="Credits"
-            >
-              Credits
-            </a>
-            <a
-              href="https://github.com/danieldesira/TurtleQuest/blob/master/license.md"
-              target="_blank"
-              title="License"
-            >
-              License
-            </a>
-            <a
-              href="https://github.com/danieldesira/TurtleQuest/blob/master/DEDICATIONS.md"
-              target="_blank"
-              title="License"
-            >
-              Dedications
-            </a>
-          </div>
-        </div>
-      </div>
-      <div slot="footer">
-        <pretty-button id="closeAboutBtn">Close</pretty-button>
-      </div>
-    </pretty-dialog>
     <pretty-dialog id="customDialog">
       <span slot="title" id="customDialogTitle"></span>
       <div slot="content" id="customDialogContent"></div>
@@ -319,13 +292,14 @@
         <pretty-button id="gameEndDialogCloseBtn">Close</pretty-button>
       </div>
     </pretty-dialog>
-    <div
+    <dialog
       id="overlay"
-      class="hidden flex-col justify-center items-center fixed top-0 h-screen w-screen bg-slate-950 opacity-0 transition-opacity transition-duration-[400ms] z-50"
+      closedBy="none"
+      class="fixed inset-0 flex-col justify-center items-center p-0 m-0 w-full h-full bg-slate-950 bg-opacity-95 border-none z-50 max-h-none max-w-none"
     >
       <i class="text-primary animate-bounce h-10 w-10" data-lucide="turtle"></i>
       <span id="overlayText" class="text-primary text-3xl font-bold"></span>
-    </div>
+    </dialog>
     <pretty-dialog id="gamePausedDialog">
       <span slot="title">Game Paused</span>
       <div slot="content">
@@ -366,8 +340,55 @@
       <div slot="content">
         <div class="flex flex-col gap-4">
           <div class="flex gap-1">
-            <pretty-tab>Profile</pretty-tab>
-            <pretty-tab>Controls</pretty-tab>
+            <tab-pill name="settings" data-container="profile-tab" data-active
+              >Profile</tab-pill
+            >
+            <tab-pill name="settings" data-container="controls-tab"
+              >Controls</tab-pill
+            >
+            <tab-pill name="settings" data-container="about-tab"
+              >About</tab-pill
+            >
+          </div>
+          <div class="pt-2 border-t-2 border-t-solid border-t-primary">
+            <tab-container id="profile-tab">Profile settings</tab-container>
+            <tab-container id="controls-tab">Controls settings</tab-container>
+            <tab-container id="about-tab">
+              <div class="flex flex-col justify-center items-center gap-2">
+                <span class="font-bold text-primary text-xl">Turtle Core</span>
+                <i data-lucide="turtle" class="w-16 h-16 text-primary"></i>
+                <a
+                  id="version"
+                  href="https://github.com/danieldesira/TurtleQuest/blob/master/changelog.md"
+                  target="_blank"
+                  title="Changelog"
+                >
+                </a>
+                <div class="flex gap-2">
+                  <a
+                    href="https://github.com/danieldesira/TurtleQuest/blob/master/contributors.md"
+                    target="_blank"
+                    title="Credits"
+                  >
+                    Credits
+                  </a>
+                  <a
+                    href="https://github.com/danieldesira/TurtleQuest/blob/master/license.md"
+                    target="_blank"
+                    title="License"
+                  >
+                    License
+                  </a>
+                  <a
+                    href="https://github.com/danieldesira/TurtleQuest/blob/master/DEDICATIONS.md"
+                    target="_blank"
+                    title="License"
+                  >
+                    Dedications
+                  </a>
+                </div>
+              </div>
+            </tab-container>
           </div>
         </div>
       </div>

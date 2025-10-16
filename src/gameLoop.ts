@@ -141,6 +141,7 @@ const checkIfBestPersonalScore = () => {
 
 const handleGameEnd = async (hasWon: boolean) => {
   checkIfBestPersonalScore();
+  Game.instance.exit();
 
   showOverlay("Saving score");
   await deleteLastGameAndSaveScore(hasWon);

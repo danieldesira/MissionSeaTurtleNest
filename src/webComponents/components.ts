@@ -3,7 +3,8 @@ import PrettyButton from "./form/PrettyButton";
 import GameControl from "./gameplay/GameControl";
 import GameGauge from "./gameplay/GameGauge";
 import MenuItem from "./mainMenu/MenuItem";
-import PrettyTab from "./tabs/PrettyTab";
+import TabContainer from "./tabs/TabContainer";
+import TabPill from "./tabs/TabPill";
 
 const components: {
   tag: string;
@@ -14,7 +15,8 @@ const components: {
   { tag: "pretty-button", Constructor: PrettyButton },
   { tag: "game-control", Constructor: GameControl },
   { tag: "game-gauge", Constructor: GameGauge },
-  { tag: "pretty-tab", Constructor: PrettyTab },
+  { tag: "tab-pill", Constructor: TabPill },
+  { tag: "tab-container", Constructor: TabContainer },
 ];
 
 export const registerComponents = () =>

@@ -14,6 +14,7 @@ import {
   handleGoogleAuthResponse,
   isAuthenticated,
 } from "./authentication";
+import TabPill from "../webComponents/tabs/TabPill";
 
 export const launchCustomDialog = (title: string, text: string | string[]) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;
@@ -98,12 +99,6 @@ export const setupGameShareBtn = () => {
 };
 
 export const setupAboutDialog = () => {
-  const aboutDialog = document.getElementById("aboutDialog") as PrettyDialog;
-  aboutDialog.closeButtonIds = ["closeAboutBtn"];
-
-  const title = document.getElementById("title");
-  title.addEventListener("click", () => aboutDialog.show());
-
   const versionLink = document.getElementById("version");
   versionLink.innerText = version;
 };
@@ -121,11 +116,8 @@ export const setupInstructionsDialog = () => {
 };
 
 export const showOverlay = (message: string) => {
-  const overlay = document.getElementById("overlay");
-  overlay.classList.remove("opacity-0");
-  overlay.classList.add("opacity-90");
-  overlay.classList.remove("hidden");
-  overlay.classList.add("flex");
+  const overlay = document.getElementById("overlay") as HTMLDialogElement;
+  overlay.showModal();
 
   updateOverlayText(message);
 };
@@ -136,11 +128,8 @@ const updateOverlayText = (message: string) => {
 };
 
 export const hideOverlay = () => {
-  const overlay = document.getElementById("overlay");
-  overlay.classList.add("opacity-0");
-  overlay.classList.remove("opacity-90");
-  overlay.classList.remove("flex");
-  overlay.classList.add("hidden");
+  const overlay = document.getElementById("overlay") as HTMLDialogElement;
+  overlay.close();
 };
 
 export const disableContextMenu = () =>
@@ -273,6 +262,7 @@ export const setupLoginButtons = () => {
     "settingsDialog"
   ) as PrettyDialog;
   settingsBtn.callback = () => settingsDialog.show();
+  setupTabPills("settings");
 };
 
 export const hideLoginDialog = () => {
@@ -296,4 +286,16 @@ export const updateAuthenticationUI = () => {
     authenticatedContainer.classList.add("hidden");
     authenticatedContainer.classList.remove("flex");
   }
+};
+
+const setupTabPills = (group: string) => {
+  const tabPills = document.querySelectorAll(
+    `tab-pill[name="${group}"]`
+  ) as NodeListOf<TabPill>;
+  tabPills.forEach((pill) =>
+    pill.addEventListener("click", () => {
+      tabPills.forEach((p) => (p.isActive = false));
+      pill.isActive = true;
+    })
+  );
 };
