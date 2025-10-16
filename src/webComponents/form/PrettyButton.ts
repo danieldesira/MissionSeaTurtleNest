@@ -6,13 +6,14 @@ class PrettyButton extends HTMLElement {
     loadTemplate("prettyButtonTemplate", this);
   }
 
-  set callback(value: () => void) {
-    this.addEventListener("click", value);
+  connectedCallback() {
+    const variant = this.getAttribute("variant") ?? "default";
+    const button = this.shadowRoot.querySelector("button");
+    button.classList.add(variant);
   }
 
-  set class(value: string) {
-    const button = this.shadowRoot.querySelector("button");
-    button.classList.add(value);
+  set callback(value: () => void) {
+    this.addEventListener("click", value);
   }
 }
 

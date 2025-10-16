@@ -16,6 +16,8 @@ import {
 } from "./authentication";
 import TabPill from "../webComponents/tabs/TabPill";
 import { requestLogout } from "../services/api";
+import RadioSelection from "../webComponents/form/RadioSelection";
+import ControlSettingsStore from "../singletons/cacheStores/ControlSettingsStore";
 
 export const launchCustomDialog = (title: string, text: string | string[]) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;
@@ -253,7 +255,6 @@ export const setupLoginButtons = () => {
   loginBtn.callback = () => loginDialog.show();
 
   const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
-  logoutBtn.class = "danger";
   logoutBtn.callback = async () => {
     clearCurrentPlayerStores();
     updateAuthenticationUI();
@@ -266,6 +267,8 @@ export const setupLoginButtons = () => {
   ) as PrettyDialog;
   settingsBtn.callback = () => settingsDialog.show();
   setupTabPills("settings");
+  setupControlSettings();
+  setupSettingsCloseBtn();
 };
 
 export const hideLoginDialog = () => {
@@ -301,6 +304,43 @@ const setupTabPills = (group: string) => {
       pill.isActive = true;
     })
   );
+};
+
+const setupControlSettings = () => {
+  const screenControlPositionRadio = document.getElementById(
+    "screenControlPositionRadio"
+  ) as RadioSelection;
+  screenControlPositionRadio.config = {
+    name: "screenControlPosition",
+    options: [
+      { label: "Left", value: "Left" },
+      { label: "Right", value: "Right" },
+    ],
+    selectedValue: ControlSettingsStore.instance.screenControlsPosition,
+  };
+};
+
+const setupSettingsCloseBtn = () => {
+  const closeSettingsBtn = document.getElementById(
+    "closeSettingsBtn"
+  ) as PrettyButton;
+  closeSettingsBtn.callback = () => {
+    const tabPills = document.querySelectorAll(
+      `tab-pill[name="settings"]`
+    ) as NodeListOf<TabPill>;
+    let activePill: TabPill = null;
+    tabPills.forEach((pill) => {
+      if (pill.isActive) {
+        activePill = pill;
+      }
+    });
+
+    const form = document
+      .getElementById(activePill.dataset.container)
+      .querySelector("form");
+    form.addEventListener("submit", () => console.log("submit"));
+    form?.requestSubmit();
+  };
 };
 
 export const toggleContinueGameBtn = () => {

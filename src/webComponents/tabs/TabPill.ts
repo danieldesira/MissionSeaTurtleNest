@@ -26,6 +26,13 @@ class TabPill extends HTMLElement {
     }
   }
 
+  get isActive() {
+    const pill = this.shadowRoot.querySelector(
+      '[role="button"]'
+    ) as HTMLElement;
+    return pill.classList.contains("active");
+  }
+
   private showTabContainer() {
     const container = document.getElementById(
       this.dataset.container
