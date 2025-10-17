@@ -7,11 +7,13 @@ class ImageUploader extends HTMLElement {
   }
 
   set currentImageUrl(value: string) {
-    const imagePreview = document.querySelector(".imagePreview") as HTMLElement;
+    const imagePreview = this.shadowRoot.querySelector(
+      ".imagePreview"
+    ) as HTMLElement;
     imagePreview.style.backgroundImage = `url(${value})`;
   }
 
-  set changeCallback(value: () => void) {
+  set changeCallback(value: (_: Event) => void) {
     const fileInput = this.shadowRoot.querySelector(
       'input[type="file"]'
     ) as HTMLElement;

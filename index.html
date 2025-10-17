@@ -131,7 +131,7 @@
     <template id="tabContainerTemplate">
       <style>
         div {
-          @apply hidden flex-col gap-1;
+          @apply hidden flex-col gap-1 justify-center items-center;
         }
 
         .active {
@@ -205,7 +205,7 @@
       </style>
       <div class="imagePreview" role="button">
         Upload...
-        <input type="file" />
+        <input type="file" accept=".jpg,.png,.webp,.gif" />
       </div>
     </template>
     <div class="max-w-screen max-h-screen portrait:hidden">
@@ -426,10 +426,12 @@
                   class="font-semibold text-xl text-primary"
                 ></span>
                 <image-uploader id="profilePicUploader"></image-uploader>
-                <text-input id="playerNameInput">Name</text-input>
-                <text-input id="playerDobInput" type="date"
-                  >Date of Birth</text-input
-                >
+                <div class="flex flex-col gap-1 w-full">
+                  <text-input id="playerNameInput">Name</text-input>
+                  <text-input id="playerDobInput" type="date"
+                    >Date of Birth</text-input
+                  >
+                </div>
               </tab-container>
               <tab-container id="controls-tab">
                 <radio-selection id="screenControlPositionRadio"

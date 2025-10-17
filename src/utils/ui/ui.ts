@@ -253,3 +253,6 @@ export const toggleContinueGameBtn = () => {
     continueGameBtn.hide();
   }
 };
+
+export const deleteChildren = (parent: HTMLElement) =>
+  Array.from(parent.children).forEach((child) => parent.removeChild(child));

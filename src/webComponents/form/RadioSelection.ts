@@ -1,3 +1,4 @@
+import { deleteChildren } from "../../utils/ui/ui";
 import { loadTemplate } from "../components";
 
 type RadioOptionsConfig = {
@@ -13,26 +14,19 @@ class RadioSelection extends HTMLElement {
   }
 
   set config(value: RadioOptionsConfig) {
-    const container = this.shadowRoot.querySelector(".options");
-    value.options.forEach(({ label: optionLabel, value: optionValue }) => {
-      const radioOption = document.createElement("input");
-      radioOption.type = "radio";
-      radioOption.name = value.name;
-      radioOption.id = `${value.name}-${optionValue}`;
-      radioOption.value = optionValue;
-      radioOption.classList.add("radio");
-      if (value.selectedValue && value.selectedValue === optionValue) {
-        radioOption.checked = true;
-      }
+    const container = this.shadowRoot.querySelector(".options") as HTMLElement;
 
-      const radioLabel = document.createElement("label");
-      radioLabel.htmlFor = radioOption.id;
-      radioLabel.innerText = optionLabel;
-      radioLabel.classList.add("label");
+    deleteChildren(container);
 
-      container.appendChild(radioOption);
-      container.appendChild(radioLabel);
-    });
+    value.options.forEach(({ label: optionLabel, value: optionValue }) =>
+      this.attachRadioOption(
+        container,
+        optionLabel,
+        optionValue,
+        value.name,
+        value.selectedValue
+      )
+    );
   }
 
   get currentSelection() {
@@ -46,6 +40,32 @@ class RadioSelection extends HTMLElement {
       }
     });
     return value;
+  }
+
+  private attachRadioOption(
+    container: HTMLElement,
+    optionLabel: string,
+    optionValue: string,
+    name: string,
+    selectedValue: string
+  ) {
+    const radioOption = document.createElement("input");
+    radioOption.type = "radio";
+    radioOption.name = name;
+    radioOption.id = `${name}-${optionValue}`;
+    radioOption.value = optionValue;
+    radioOption.classList.add("radio");
+    if (selectedValue && selectedValue === optionValue) {
+      radioOption.checked = true;
+    }
+
+    const radioLabel = document.createElement("label");
+    radioLabel.htmlFor = radioOption.id;
+    radioLabel.innerText = optionLabel;
+    radioLabel.classList.add("label");
+
+    container.appendChild(radioOption);
+    container.appendChild(radioLabel);
   }
 }
 

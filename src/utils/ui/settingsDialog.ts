@@ -1,4 +1,8 @@
-import { updateProfile, updateSettings } from "../../services/api";
+import {
+  updateProfile,
+  updateSettings,
+  uploadProfilePicture,
+} from "../../services/api";
 import ControlSettingsStore from "../../singletons/cacheStores/ControlSettingsStore";
 import ProfileStore from "../../singletons/cacheStores/ProfileStore";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
@@ -89,4 +93,9 @@ export const setupSettingsProfileTab = () => {
     "profilePicUploader"
   ) as ImageUploader;
   profilePicUploader.currentImageUrl = ProfileStore.instance.profile_pic_url;
+  profilePicUploader.changeCallback = async (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const res = await uploadProfilePicture(target.files[0]);
+    profilePicUploader.currentImageUrl = res.profilePicUrl;
+  };
 };
