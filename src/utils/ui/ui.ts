@@ -1,23 +1,22 @@
-import Game from "../singletons/Game";
-import PrettyDialog from "../webComponents/dialog/PrettyDialog";
-import PrettyButton from "../webComponents/form/PrettyButton";
-import GameControl from "../webComponents/gameplay/GameControl";
-import { version } from "../../package.json";
-import MenuItem from "../webComponents/mainMenu/MenuItem";
-import GameGauge from "../webComponents/gameplay/GameGauge";
-import { resizeCanvas } from "./generic";
-import { getLastGameLocalStorage } from "./lastGameLocalStorage";
-import { runGameLoop } from "../gameLoop";
-import GameData from "../restoreGame/GameData";
+import Game from "../../singletons/Game";
+import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
+import PrettyButton from "../../webComponents/form/PrettyButton";
+import GameControl from "../../webComponents/gameplay/GameControl";
+import { version } from "../../../package.json";
+import MenuItem from "../../webComponents/mainMenu/MenuItem";
+import GameGauge from "../../webComponents/gameplay/GameGauge";
+import { resizeCanvas } from "../generic";
+import { getLastGameLocalStorage } from "../lastGameLocalStorage";
+import { runGameLoop } from "../../gameLoop";
+import GameData from "../../restoreGame/GameData";
 import {
   clearCurrentPlayerStores,
   handleGoogleAuthResponse,
   isAuthenticated,
-} from "./authentication";
-import TabPill from "../webComponents/tabs/TabPill";
-import { requestLogout, updateSettings } from "../services/api";
-import RadioSelection from "../webComponents/form/RadioSelection";
-import ControlSettingsStore from "../singletons/cacheStores/ControlSettingsStore";
+} from "../authentication";
+import { requestLogout } from "../../services/api";
+import ControlSettingsStore from "../../singletons/cacheStores/ControlSettingsStore";
+import { setupSettingsDialog } from "./settingsDialog";
 
 export const launchCustomDialog = (title: string, text: string | string[]) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;
@@ -242,116 +241,6 @@ export const setupAppVisibilityHandler = () => {
       showGamePausedDialog();
     }
   });
-};
-
-const initialiseGoogleSignInButton = () => {
-  window.google?.accounts?.id?.initialize({
-    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-    callback: handleGoogleAuthResponse,
-  });
-
-  window.google?.accounts?.id?.renderButton(
-    document.getElementById("googleSignInButton"),
-    { theme: "outline", size: "large" }
-  );
-};
-
-export const setupLoginButtons = () => {
-  const loginBtn = document.getElementById("loginBtn") as PrettyButton;
-  const loginDialog = document.getElementById("loginDialog") as PrettyDialog;
-
-  initialiseGoogleSignInButton();
-
-  loginDialog.closeButtonIds = ["closeLoginBtn"];
-  loginDialog.show();
-  loginBtn.callback = () => loginDialog.show();
-
-  const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
-  logoutBtn.callback = async () => {
-    clearCurrentPlayerStores();
-    updateAuthenticationUI();
-    await requestLogout();
-  };
-
-  const settingsBtn = document.getElementById("settingsBtn") as PrettyButton;
-  const settingsDialog = document.getElementById(
-    "settingsDialog"
-  ) as PrettyDialog;
-  settingsDialog.closeButtonIds = ["closeSettingsBtn"];
-  settingsDialog.closeCallback = handleSettingsDialogClose;
-  settingsBtn.callback = () => settingsDialog.show();
-  setupTabPills("settings");
-};
-
-export const hideLoginDialog = () => {
-  const loginDialog = document.getElementById("loginDialog") as PrettyDialog;
-  loginDialog.hide();
-};
-
-export const updateAuthenticationUI = () => {
-  const loginContainer = document.getElementById("loginContainer");
-  const authenticatedContainer = document.getElementById(
-    "authenticatedContainer"
-  );
-  if (isAuthenticated()) {
-    loginContainer.classList.add("hidden");
-    loginContainer.classList.remove("flex");
-    authenticatedContainer.classList.add("flex");
-    authenticatedContainer.classList.remove("hidden");
-  } else {
-    loginContainer.classList.add("flex");
-    loginContainer.classList.remove("hidden");
-    authenticatedContainer.classList.add("hidden");
-    authenticatedContainer.classList.remove("flex");
-  }
-};
-
-const setupTabPills = (group: string) => {
-  const tabPills = document.querySelectorAll(
-    `tab-pill[name="${group}"]`
-  ) as NodeListOf<TabPill>;
-  tabPills.forEach((pill) =>
-    pill.addEventListener("click", () => {
-      tabPills.forEach((p) => (p.isActive = false));
-      pill.isActive = true;
-    })
-  );
-};
-
-export const setupControlSettings = () => {
-  const screenControlPositionRadio = document.getElementById(
-    "screenControlPositionRadio"
-  ) as RadioSelection;
-  screenControlPositionRadio.config = {
-    name: "screenControlPosition",
-    options: [
-      { label: "Left", value: "Left" },
-      { label: "Right", value: "Right" },
-    ],
-    selectedValue: ControlSettingsStore.instance.screenControlsPosition,
-  };
-};
-
-const submitControlSettings = async () => {
-  const screenControlPositionRadio = document.getElementById(
-    "screenControlPositionRadio"
-  ) as RadioSelection;
-  ControlSettingsStore.instance.screenControlsPosition =
-    screenControlPositionRadio.currentSelection as "Left" | "Right";
-  await updateSettings({
-    controlPosition: ControlSettingsStore.instance.screenControlsPosition,
-  });
-};
-
-const handleSettingsDialogClose = () => {
-  const form = document.getElementById("settingsForm") as HTMLFormElement;
-  form.addEventListener(
-    "submit",
-    async () => await Promise.all([submitControlSettings()])
-  );
-  if (form?.checkValidity()) {
-    form?.requestSubmit();
-  }
 };
 
 export const toggleContinueGameBtn = () => {

@@ -169,6 +169,26 @@
         <div class="options"></div>
       </div>
     </template>
+    <template id="textInputTemplate">
+      <style>
+        .container {
+          @apply flex flex-col gap-1;
+        }
+
+        label {
+          @apply text-primary cursor-pointer select-none font-semibold;
+        }
+
+        input {
+          @apply border-primary border-solid border-2 rounded-sm focus:ring-2 focus:ring-primary
+           px-2 py-1 text-primary font-semibold text-xl bg-transparent focus:outline-none;
+        }
+      </style>
+      <div class="container">
+        <label><slot></slot></label>
+        <input type="text" />
+      </div>
+    </template>
     <div class="max-w-screen max-h-screen portrait:hidden">
       <div
         id="menuContainer"
@@ -381,7 +401,16 @@
           </div>
           <div class="pt-2 border-t-2 border-t-solid border-t-primary">
             <form id="settingsForm" method="dialog">
-              <tab-container id="profile-tab">Profile settings</tab-container>
+              <tab-container id="profile-tab">
+                <span
+                  id="playerEmailReadonlyField"
+                  class="font-semibold text-xl text-primary"
+                ></span>
+                <text-input id="playerNameInput">Name</text-input>
+                <text-input id="playerDobInput" type="date"
+                  >Date of Birth</text-input
+                >
+              </tab-container>
               <tab-container id="controls-tab">
                 <radio-selection id="screenControlPositionRadio"
                   >Screen Controls Position</radio-selection

@@ -9,7 +9,7 @@ import {
   launchGameEndDialog,
   showOverlay,
   toggleMode,
-} from "./utils/ui";
+} from "./utils/ui/ui";
 import {
   deleteLastGameLocalStorage,
   deleteLastGameTimestampLocalStorage,

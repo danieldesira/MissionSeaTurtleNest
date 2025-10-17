@@ -1,5 +1,5 @@
 import Game from "../singletons/Game";
-import { updateGauge } from "../utils/ui";
+import { updateGauge } from "../utils/ui/ui";
 import Character from "./abstract/Character";
 import CharacterOptions from "./interfaces/CharacterOptions";
 import IMainCharacter from "./interfaces/IMainCharacter";

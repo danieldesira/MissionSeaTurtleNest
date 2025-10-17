@@ -4,7 +4,7 @@ import { restoreCharacters } from "../restoreGame/parseGameData";
 import ILevel from "./ILevel";
 import LevelCharacter from "./LevelCharacter";
 import GameData from "../restoreGame/GameData";
-import { launchCustomDialog } from "../utils/ui";
+import { launchCustomDialog } from "../utils/ui/ui";
 import Game from "../singletons/Game";
 
 abstract class Level implements ILevel {

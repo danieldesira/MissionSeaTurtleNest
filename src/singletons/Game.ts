@@ -3,7 +3,7 @@ import ILevel from "../levels/ILevel";
 import { createLevelInstance } from "../levels/levels";
 import GameData from "../restoreGame/GameData";
 import { resizeCanvas } from "../utils/generic";
-import { hideOverlay, showOverlay } from "../utils/ui";
+import { hideOverlay, showOverlay } from "../utils/ui/ui";
 
 class Game {
   private static _instance: Game;

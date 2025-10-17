@@ -1,6 +1,7 @@
 import PrettyDialog from "./dialog/PrettyDialog";
 import PrettyButton from "./form/PrettyButton";
 import RadioSelection from "./form/RadioSelection";
+import TextInput from "./form/TextInput";
 import GameControl from "./gameplay/GameControl";
 import GameGauge from "./gameplay/GameGauge";
 import MenuItem from "./mainMenu/MenuItem";
@@ -19,6 +20,7 @@ const components: {
   { tag: "tab-container", Constructor: TabContainer }, // needs to be defined before tab-pill/dependency
   { tag: "tab-pill", Constructor: TabPill },
   { tag: "radio-selection", Constructor: RadioSelection },
+  { tag: "text-input", Constructor: TextInput },
 ];
 
 export const registerComponents = () =>

@@ -9,15 +9,14 @@ import {
   saveLastGameLocalStorage,
   saveLastGameTimestampLocalStorage,
 } from "./lastGameLocalStorage";
+import { hideLoginDialog, updateAuthenticationUI } from "./ui/authUi";
+import { setupControlSettings, setupSettingsProfileTab } from "./ui/settingsDialog";
 import {
-  hideLoginDialog,
   hideOverlay,
   launchCustomDialog,
-  setupControlSettings,
   showOverlay,
   toggleContinueGameBtn,
-  updateAuthenticationUI,
-} from "./ui";
+} from "./ui/ui";
 
 export const handleGoogleAuthResponse = async ({
   credential,
@@ -82,6 +81,7 @@ const populatePlayerProfile = (accountData: LoginResponse) => {
     ProfileStore.instance.name = player.name;
     ProfileStore.instance.profile_pic_url = player.profile_pic_url;
     ProfileStore.instance.date_of_birth = new Date(player.date_of_birth);
+    setupSettingsProfileTab();
   }
 };
 

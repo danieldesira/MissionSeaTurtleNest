@@ -12,16 +12,16 @@ import {
   setupGameControls,
   setupGameShareBtn,
   setupInstructionsDialog,
-  setupLoginButtons,
   setupNewGameMenuBtn,
   setupPauseBtn,
   setupResumeBtn,
-} from "./utils/ui";
+} from "./utils/ui/ui";
 import {
   setupKeyboardControls,
   setupMouseWheelControls,
 } from "./utils/controls";
 import { registerServiceWorker } from "./utils/serviceWorkers";
+import { setupLoginButtons } from "./utils/ui/authUi";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");
