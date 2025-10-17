@@ -2,6 +2,7 @@ import { updateProfile, updateSettings } from "../../services/api";
 import ControlSettingsStore from "../../singletons/cacheStores/ControlSettingsStore";
 import ProfileStore from "../../singletons/cacheStores/ProfileStore";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
+import ImageUploader from "../../webComponents/form/ImageUploader";
 import PrettyButton from "../../webComponents/form/PrettyButton";
 import RadioSelection from "../../webComponents/form/RadioSelection";
 import TextInput from "../../webComponents/form/TextInput";
@@ -83,4 +84,9 @@ export const setupSettingsProfileTab = () => {
 
   const playerDobInput = document.getElementById("playerDobInput") as TextInput;
   playerDobInput.value = ProfileStore.instance.date_of_birth;
+
+  const profilePicUploader = document.getElementById(
+    "profilePicUploader"
+  ) as ImageUploader;
+  profilePicUploader.currentImageUrl = ProfileStore.instance.profile_pic_url;
 };

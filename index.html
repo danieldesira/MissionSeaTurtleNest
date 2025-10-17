@@ -189,6 +189,25 @@
         <input type="text" />
       </div>
     </template>
+    <template id="imageUploaderTemplate">
+      <style>
+        .imagePreview {
+          @apply flex justify-center items-center w-20 h-20 rounded-sm cursor-pointer;
+        }
+
+        img {
+          @apply object-cover;
+        }
+
+        input[type="file"] {
+          @apply hidden;
+        }
+      </style>
+      <div class="imagePreview" role="button">
+        Upload...
+        <input type="file" />
+      </div>
+    </template>
     <div class="max-w-screen max-h-screen portrait:hidden">
       <div
         id="menuContainer"
@@ -406,6 +425,7 @@
                   id="playerEmailReadonlyField"
                   class="font-semibold text-xl text-primary"
                 ></span>
+                <image-uploader id="profilePicUploader"></image-uploader>
                 <text-input id="playerNameInput">Name</text-input>
                 <text-input id="playerDobInput" type="date"
                   >Date of Birth</text-input

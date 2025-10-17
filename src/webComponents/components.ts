@@ -1,4 +1,5 @@
 import PrettyDialog from "./dialog/PrettyDialog";
+import ImageUploader from "./form/ImageUploader";
 import PrettyButton from "./form/PrettyButton";
 import RadioSelection from "./form/RadioSelection";
 import TextInput from "./form/TextInput";
@@ -21,6 +22,7 @@ const components: {
   { tag: "tab-pill", Constructor: TabPill },
   { tag: "radio-selection", Constructor: RadioSelection },
   { tag: "text-input", Constructor: TextInput },
+  { tag: "image-uploader", Constructor: ImageUploader },
 ];
 
 export const registerComponents = () =>
