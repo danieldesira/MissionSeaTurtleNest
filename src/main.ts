@@ -4,17 +4,9 @@ import { setupSocialButtons } from "./socials";
 import {
   disableContextMenu,
   preventNavigation,
-  setupAboutDialog,
-  setupAppVisibilityHandler,
-  setupBackToMenuBtn,
-  setupCanvasSize,
   setupContinueGameBtn,
-  setupGameControls,
-  setupGameShareBtn,
   setupInstructionsDialog,
   setupNewGameMenuBtn,
-  setupPauseBtn,
-  setupResumeBtn,
 } from "./utils/ui/ui";
 import {
   setupKeyboardControls,
@@ -22,6 +14,15 @@ import {
 } from "./utils/controls";
 import { registerServiceWorker } from "./utils/serviceWorkers";
 import { setupLoginButtons } from "./utils/ui/authUi";
+import {
+  setupAppVisibilityHandler,
+  setupBackToMenuBtn,
+  setupCanvasSize,
+  setupGameControls,
+  setupGameShareBtn,
+  setupPauseBtn,
+  setupResumeBtn,
+} from "./utils/ui/gameplay";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");
@@ -36,7 +37,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupContinueGameBtn();
 
   setupInstructionsDialog();
-  setupAboutDialog();
   setupLoginButtons();
 
   setupGameControls();

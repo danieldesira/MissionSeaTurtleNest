@@ -2,7 +2,7 @@ import Game from "../../singletons/Game";
 import checkBoundingBoxCollision, {
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
-import { updateXpSpan } from "../../utils/ui/ui";
+import { updateXpSpan } from "../../utils/ui/gameplay";
 import INonMainCharacter from "../interfaces/INonMainCharacter";
 import Character from "./Character";
 

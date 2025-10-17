@@ -11,6 +11,7 @@ import PrettyButton from "../../webComponents/form/PrettyButton";
 import RadioSelection from "../../webComponents/form/RadioSelection";
 import TextInput from "../../webComponents/form/TextInput";
 import { setupTabPills } from "./tabPills";
+import { version } from "../../../package.json";
 
 export const setupControlSettings = () => {
   const screenControlPositionRadio = document.getElementById(
@@ -73,6 +74,7 @@ export const setupSettingsDialog = () => {
   settingsDialog.closeCallback = handleSettingsDialogClose;
   settingsBtn.callback = () => settingsDialog.show();
   setupTabPills("settings");
+  setupAboutTab();
 };
 
 export const setupSettingsProfileTab = () => {
@@ -98,4 +100,9 @@ export const setupSettingsProfileTab = () => {
     const res = await uploadProfilePicture(target.files[0]);
     profilePicUploader.currentImageUrl = res.profilePicUrl;
   };
+};
+
+const setupAboutTab = () => {
+  const versionLink = document.getElementById("version");
+  versionLink.innerText = version;
 };

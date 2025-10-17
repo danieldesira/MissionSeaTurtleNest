@@ -6,7 +6,6 @@ import { deleteLastGame, saveScore } from "./services/api";
 import {
   hideOverlay,
   launchCustomDialog,
-  launchGameEndDialog,
   showOverlay,
   toggleMode,
 } from "./utils/ui/ui";
@@ -18,6 +17,7 @@ import {
 } from "./utils/lastGameLocalStorage";
 import PersonalBestStore from "./singletons/cacheStores/PersonalBestStore";
 import { isAuthenticated } from "./utils/authentication";
+import { launchGameEndDialog } from "./utils/ui/gameplay";
 
 export const runGameLoop = async (canvas: HTMLCanvasElement) => {
   if (!Game.instance.isGameScreenActive) {
