@@ -11,6 +11,7 @@ const parseGameData = (json: string) => {
   const data = JSON.parse(json) as GameData;
   restoreTurtle(data);
   restoreGame(data);
+  return data;
 };
 
 const restoreTurtle = (data: GameData) => {

@@ -1,13 +1,18 @@
 import { runGameLoop } from "../../gameLoop";
 import GameData from "../../restoreGame/GameData";
+import { saveGame } from "../../services/api";
 import ControlSettingsStore from "../../singletons/cacheStores/ControlSettingsStore";
 import Game from "../../singletons/Game";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
 import GameControl from "../../webComponents/gameplay/GameControl";
 import GameGauge from "../../webComponents/gameplay/GameGauge";
+import { isAuthenticated } from "../authentication";
 import { resizeCanvas } from "../generic";
-import { getLastGameLocalStorage } from "../lastGameLocalStorage";
+import {
+  getLastGameLocalStorage,
+  getLastGameTimestampLocalStorage,
+} from "../lastGameLocalStorage";
 import { launchCustomDialog, toggleMode } from "./ui";
 
 export const setupGameControls = () => {
@@ -99,7 +104,6 @@ export const initialiseGame = async (isNewGame: boolean) => {
   await Game.instance.start({
     canvas,
     isNewGame,
-    gameData: JSON.parse(getLastGameLocalStorage()) as GameData,
   });
   await runGameLoop(canvas);
   updateXpSpan();
@@ -115,13 +119,39 @@ export const setupAppVisibilityHandler = () => {
 
 export const setupBackToMenuBtn = () => {
   const backBtn = document.getElementById("backBtn") as PrettyButton;
-  backBtn.callback = () => {
+  backBtn.callback = async () => {
     Game.instance.exit();
     toggleMode("menu");
+    if (isAuthenticated()) {
+      showGameProgressUpload();
+      try {
+        await saveGame({
+          lastGame: JSON.parse(getLastGameLocalStorage()),
+          timestamp: Number(getLastGameTimestampLocalStorage()),
+        });
+      } catch {
+        launchCustomDialog(
+          "Game progress upload",
+          "There was a problem uploading game progress!"
+        );
+      } finally {
+        hideGameProgressUpload();
+      }
+    }
   };
 };
 
 export const setupCanvasSize = () => {
   const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
   window.addEventListener("resize", () => resizeCanvas(canvas));
+};
+
+const showGameProgressUpload = () => {
+  const gameProgressNotice = document.getElementById("gameProgressNotice");
+  gameProgressNotice.classList.remove("hidden");
+};
+
+const hideGameProgressUpload = () => {
+  const gameProgressNotice = document.getElementById("gameProgressNotice");
+  gameProgressNotice.classList.add("hidden");
 };

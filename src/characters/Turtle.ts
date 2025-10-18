@@ -43,6 +43,10 @@ class Turtle extends Character implements IMainCharacter {
     this._foodGauge = 100;
     this._lifeGauge = 100;
     this._oxygenGauge = 100;
+    updateGauge("apetiteGauge", this._apetiteGauge);
+    updateGauge("foodGauge", this._foodGauge);
+    updateGauge("lifeGauge", this._lifeGauge);
+    updateGauge("oxygenGauge", this._oxygenGauge);
   }
 
   /**

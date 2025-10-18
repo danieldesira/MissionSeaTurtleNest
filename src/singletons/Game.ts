@@ -2,7 +2,9 @@ import Turtle from "../characters/Turtle";
 import ILevel from "../levels/ILevel";
 import { createLevelInstance } from "../levels/levels";
 import GameData from "../restoreGame/GameData";
+import parseGameData from "../restoreGame/parseGameData";
 import { resizeCanvas } from "../utils/generic";
+import { getLastGameLocalStorage } from "../utils/lastGameLocalStorage";
 import { hideOverlay, showOverlay } from "../utils/ui/ui";
 
 class Game {
@@ -118,10 +120,15 @@ class Game {
    * @param options The game options.
    * @author Daniel Desira
    */
-  async start({ canvas, isNewGame, gameData }: GameOptions) {
+  async start({ canvas, isNewGame }: GameOptions) {
     try {
       Game._instance.reset();
       await Game._instance.turtle.loadImage();
+
+      const gameData = isNewGame
+        ? null
+        : parseGameData(getLastGameLocalStorage());
+
       await Game._instance.loadNewLevel(isNewGame, gameData);
       resizeCanvas(canvas);
       this._isGameScreenActive = true;
@@ -138,7 +145,6 @@ class Game {
 type GameOptions = {
   canvas: HTMLCanvasElement;
   isNewGame: boolean;
-  gameData: GameData;
 };
 
 export default Game;
