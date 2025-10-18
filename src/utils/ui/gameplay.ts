@@ -57,8 +57,8 @@ export const setupGameShareBtn = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: "Turtle Core",
-          text: `I just reached level ${Game.instance.currentLevelNo} with ${Game.instance.xp} points in Turtle Core!`,
+          title: "Mission Sea Turtle Nest",
+          text: `I just reached level ${Game.instance.currentLevelNo} with ${Game.instance.xp} points in Mission Sea Turtle Nest!`,
           url: window.location.href,
         });
       } catch {

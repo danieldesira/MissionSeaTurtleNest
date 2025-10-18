@@ -1,7 +1,7 @@
 {
   "manifest_version": 1.1,
-  "name": "Turtle Core",
-  "short_name": "Turtle Core",
+  "name": "Mission Sea Turtle Nest",
+  "short_name": "Mission Turtle",
   "version": "0.7.7",
   "display": "fullscreen",
   "orientation": "landscape",
