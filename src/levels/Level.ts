@@ -7,18 +7,43 @@ import GameData from "../restoreGame/GameData";
 import { launchCustomDialog } from "../utils/ui/ui";
 import Game from "../singletons/Game";
 
-abstract class Level implements ILevel {
-  protected abstract readonly _backgroundImageFilename: string;
-  protected abstract readonly _initialCharacters: LevelCharacter[];
-  protected _backgroundImage: HTMLImageElement | null;
-  protected _characters: Set<INonMainCharacter> = new Set();
-  protected _bgOffsetX: number;
-  protected _bgOffsetY: number;
-  protected abstract readonly _benthicOffsetY: number;
-  protected abstract readonly _currentSpeed: number;
-  protected abstract readonly _points: number;
-  protected abstract readonly _levelDescription: string[];
-  protected readonly _imageBasePath: string = "/images/backgrounds/";
+export type LevelConstructorOptions = {
+  backgroundImageFilename: string;
+  initialCharacters: LevelCharacter[];
+  benthicOffsetY: number;
+  currentSpeed: number;
+  points: number;
+  levelDescription: string[];
+};
+
+class Level implements ILevel {
+  private readonly _backgroundImageFilename: string;
+  private readonly _initialCharacters: LevelCharacter[];
+  private _backgroundImage: HTMLImageElement | null;
+  private _characters: Set<INonMainCharacter> = new Set();
+  private _bgOffsetX: number;
+  private _bgOffsetY: number;
+  private readonly _benthicOffsetY: number;
+  private readonly _currentSpeed: number;
+  private readonly _points: number;
+  private readonly _levelDescription: string[];
+  private readonly _imageBasePath: string = "/images/backgrounds/";
+
+  constructor({
+    backgroundImageFilename,
+    initialCharacters,
+    benthicOffsetY,
+    currentSpeed,
+    points,
+    levelDescription,
+  }: LevelConstructorOptions) {
+    this._backgroundImageFilename = backgroundImageFilename;
+    this._initialCharacters = initialCharacters;
+    this._benthicOffsetY = benthicOffsetY;
+    this._currentSpeed = currentSpeed;
+    this._points = points;
+    this._levelDescription = levelDescription;
+  }
 
   /**
    * Initialises level.

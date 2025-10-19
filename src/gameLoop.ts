@@ -1,6 +1,6 @@
 import Game from "./singletons/Game";
 import { paintLevelBg } from "./levels/background";
-import { getLevelText, levelMap } from "./levels/levels";
+import { getLevelText, levelExists } from "./levels/levels";
 import stringifyGameData from "./restoreGame/stringifyGameData";
 import { deleteLastGame, saveScore } from "./services/api";
 import {
@@ -81,7 +81,7 @@ const checkTurtleAndGameProgress = async (): Promise<boolean> => {
   const backgroundImage = Game.instance.level.bgImg;
   if (backgroundImage && mainCharacter.x >= backgroundImage.width) {
     await handleOffBgWidth();
-    if (!levelMap[Game.instance.currentLevelNo]) {
+    if (!levelExists(Game.instance.currentLevelNo)) {
       return false;
     }
   }
@@ -96,7 +96,7 @@ const checkTurtleAndGameProgress = async (): Promise<boolean> => {
 const handleOffBgWidth = async (): Promise<void> => {
   Game.instance.gainPoints(Game.instance.level.points);
   Game.instance.incrementCurrentLevelNo();
-  if (levelMap[Game.instance.currentLevelNo]) {
+  if (levelExists(Game.instance.currentLevelNo)) {
     await Game.instance.loadNewLevel(true);
   } else {
     await handleWin();

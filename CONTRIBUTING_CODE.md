@@ -35,10 +35,12 @@ Please follow these steps:
    abstract class, placing it under `/src/characters`.
 3. Implement the override the abstract class as desired.
 4. Add an entry for the image filepath in the `precacheResources` array in
-   `serviceWorker.js` located at the root.
-5. In `/src/levels/LevelCharacter.ts`, add a string for the given character
+   `serviceWorkers/cacheServiceWorker.ts`.
+5. You will then need to run `npm run build` and manually move the new
+   `cacheServiceWorker.js` from `dist` to `public`.
+6. In `/src/levels/LevelCharacter.ts`, add a string for the given character
    in the `CharacterType` custom type.
-6. Add a key and constructor for the respective character in the
+7. Add a key and constructor for the respective character in the
    `characterMap` object located in `createCharacterInstance.ts` inside the
    `characters` folder like in the following snippet:
 
@@ -46,6 +48,6 @@ Please follow these steps:
 TigerShark: TigerShark, // Key to match the _type field in the character class
 ```
 
-7. Add the character with the desired quantity/ies in the level/s desired, by
-   modifying the `_initialCharacters` field. Locate desired level/s at
-   `src/levels/Level<x>.ts`.
+8. Add the character with the desired quantity/ies in the level/s desired, by
+   modifying the `initialCharacters` field. Locate desired level/s in the
+   `levelsConfig` object at `src/levels.ts`.

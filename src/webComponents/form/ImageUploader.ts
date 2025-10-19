@@ -1,4 +1,5 @@
 import { loadTemplate } from "../components";
+import FormField from "./FormField";
 
 class ImageUploader extends HTMLElement {
   constructor() {
@@ -27,6 +28,9 @@ class ImageUploader extends HTMLElement {
       ) as HTMLElement;
       fileInput.click();
     });
+
+    const formField = this.shadowRoot.querySelector("form-field") as FormField;
+    formField.id = this.id;
   }
 }
 

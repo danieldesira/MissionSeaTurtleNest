@@ -142,6 +142,21 @@
         <slot></slot>
       </div>
     </template>
+    <template id="formFieldTemplate">
+      <style>
+        .container {
+          @apply flex flex-col gap-1;
+        }
+
+        label {
+          @apply text-primary cursor-pointer select-none font-semibold;
+        }
+      </style>
+      <div class="container">
+        <label><slot name="label"></slot></label>
+        <slot name="field"></slot>
+      </div>
+    </template>
     <template id="radioSelectionTemplate">
       <style>
         .container {
@@ -171,23 +186,15 @@
     </template>
     <template id="textInputTemplate">
       <style>
-        .container {
-          @apply flex flex-col gap-1;
-        }
-
-        label {
-          @apply text-primary cursor-pointer select-none font-semibold;
-        }
-
         input {
           @apply border-primary border-solid border-2 rounded-sm focus:ring-2 focus:ring-primary
            px-2 py-1 text-primary font-semibold text-xl bg-transparent focus:outline-none;
         }
       </style>
-      <div class="container">
-        <label><slot></slot></label>
-        <input type="text" />
-      </div>
+      <form-field>
+        <slot slot="label"></slot>
+        <input slot="field" type="text" />
+      </form-field>
     </template>
     <template id="imageUploaderTemplate">
       <style>
@@ -199,10 +206,13 @@
           @apply hidden;
         }
       </style>
-      <div class="imagePreview" role="button">
-        Upload...
-        <input type="file" accept=".jpg,.png,.webp,.gif" />
-      </div>
+      <form-field>
+        <slot slot="label"></slot>
+        <div class="imagePreview" role="button" slot="field">
+          Upload...
+          <input type="file" accept=".jpg,.png,.webp,.gif" />
+        </div>
+      </form-field>
     </template>
     <div class="max-w-screen max-h-screen portrait:hidden">
       <div
@@ -211,8 +221,8 @@
       >
         <div class="flex gap-5 justify-center items-center">
           <h1 class="text-5xl font-bold">
-            <span class="text-emerald-300">Turtle</span>
-            <span class="text-cyan-500">Core</span>
+            <span class="text-emerald-300">Mission</span>
+            <span class="text-cyan-500">Turtle</span>
           </h1>
           <span class="text-sm font-light">Beta</span>
           <a href="_github_" target="_blank" title="_github_">
@@ -384,7 +394,6 @@
           and access it from any device and customise.
         </p>
         <div id="googleSignInButton"></div>
-        <!-- to do: add Google login button -->
         <p>Or continue as guest.</p>
       </div>
       <div
@@ -421,7 +430,9 @@
                   id="playerEmailReadonlyField"
                   class="font-semibold text-xl text-primary"
                 ></span>
-                <image-uploader id="profilePicUploader"></image-uploader>
+                <image-uploader id="profilePicUploader"
+                  >Profile Picture</image-uploader
+                >
                 <div class="flex flex-col gap-1 w-full">
                   <text-input id="playerNameInput">Name</text-input>
                   <text-input id="playerDobInput" type="date"
@@ -437,7 +448,9 @@
             </form>
             <tab-container id="about-tab">
               <div class="flex flex-col justify-center items-center gap-2">
-                <span class="font-bold text-primary text-xl">Mission Sea Turtle Nest</span>
+                <span class="font-bold text-primary text-xl"
+                  >Mission Sea Turtle Nest</span
+                >
                 <i data-lucide="turtle" class="w-16 h-16 text-primary"></i>
                 <a
                   id="version"

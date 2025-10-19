@@ -1,4 +1,5 @@
 import PrettyDialog from "./dialog/PrettyDialog";
+import FormField from "./form/FormField";
 import ImageUploader from "./form/ImageUploader";
 import PrettyButton from "./form/PrettyButton";
 import RadioSelection from "./form/RadioSelection";
@@ -23,6 +24,7 @@ const components: {
   { tag: "radio-selection", Constructor: RadioSelection },
   { tag: "text-input", Constructor: TextInput },
   { tag: "image-uploader", Constructor: ImageUploader },
+  { tag: "form-field", Constructor: FormField },
 ];
 
 export const registerComponents = () =>

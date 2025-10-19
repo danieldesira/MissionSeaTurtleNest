@@ -1,4 +1,5 @@
 import { loadTemplate } from "../components";
+import FormField from "./FormField";
 
 class TextInput extends HTMLElement {
   constructor() {
@@ -23,13 +24,13 @@ class TextInput extends HTMLElement {
     if (this.id) {
       input.id = this.id;
       input.name = this.id;
-
-      const label = this.shadowRoot.querySelector("label");
-      label.htmlFor = this.id;
     }
 
     const inputType = this.getAttribute("type") ?? "text";
     input.type = inputType;
+
+    const formField = this.shadowRoot.querySelector("form-field") as FormField;
+    formField.id = this.id;
   }
 }
 
