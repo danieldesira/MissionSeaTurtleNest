@@ -44,7 +44,7 @@ const registerComponentWithDependencies = ({
   dependencies,
 }: ComponentRegistration) => {
   if (dependencies) {
-    dependencies.forEach((dep) => registerComponentWithDependencies(dep));
+    dependencies.forEach(registerComponentWithDependencies);
   }
   customElements.define(tag, Constructor);
 };

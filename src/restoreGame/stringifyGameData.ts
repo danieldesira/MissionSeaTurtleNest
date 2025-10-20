@@ -2,7 +2,7 @@ import Game from "../singletons/Game";
 import GameData from "./GameData";
 
 /**
- * Gets game data as a JSON string.
+ * Gets game state data as a JSON string.
  * @returns JSON string represantation of game data.
  * @author Daniel Desira
  */

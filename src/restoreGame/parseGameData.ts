@@ -5,6 +5,7 @@ import GameData from "./GameData";
 /**
  * Restore game state from JSON string.
  * @param json The game data as a JSON string.
+ * @returns The parsed game data.
  * @author Daniel Desira
  */
 const parseGameData = (json: string) => {
@@ -30,7 +31,7 @@ const restoreGame = (data: GameData) => {
 };
 
 /**
- * Restores characters
+ * Restores characters into game state.
  * @param data The game data
  * @author Daniel Desira
  */
