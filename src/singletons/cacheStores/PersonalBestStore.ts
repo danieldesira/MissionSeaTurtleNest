@@ -11,7 +11,7 @@ class PersonalBestStore {
    * Singleton instance accessor.
    * @author Daniel Desira
    */
-  public static get instance() {
+  static get instance() {
     if (!PersonalBestStore._instance) {
       PersonalBestStore._instance = new PersonalBestStore();
     }
@@ -22,7 +22,7 @@ class PersonalBestStore {
    * Points setter.
    * @author Daniel Desira
    */
-  public set points(value: number) {
+  set points(value: number) {
     this._points = value;
   }
 
@@ -30,7 +30,7 @@ class PersonalBestStore {
    * Level setter.
    * @author Daniel Desira
    */
-  public set level(value: number) {
+  set level(value: number) {
     this._level = value;
   }
 
@@ -38,7 +38,7 @@ class PersonalBestStore {
    * Points getter.
    * @author Daniel Desira
    */
-  public get points() {
+  get points() {
     return this._points;
   }
 
@@ -46,7 +46,7 @@ class PersonalBestStore {
    * Level getter.
    * @author Daniel Desira
    */
-  public get level() {
+  get level() {
     return this._level;
   }
 
@@ -54,7 +54,7 @@ class PersonalBestStore {
    * Resets personal best score states.
    * @author Daniel Desira
    */
-  public reset() {
+  reset() {
     this._points = 0;
     this._level = 0;
   }

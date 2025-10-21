@@ -14,7 +14,7 @@ class ProfileStore {
    * Singleton instance accessor.
    * @author Daniel Desira
    */
-  public static get instance() {
+  static get instance() {
     if (!ProfileStore._instance) {
       ProfileStore._instance = new ProfileStore();
     }
@@ -25,7 +25,7 @@ class ProfileStore {
    * Email setter.
    * @author Daniel Desira
    */
-  public set email(value: string) {
+  set email(value: string) {
     this._email = value;
   }
 
@@ -33,7 +33,7 @@ class ProfileStore {
    * Email getter.
    * @author Daniel Desira
    */
-  public get email() {
+  get email() {
     return this._email;
   }
 
@@ -41,7 +41,7 @@ class ProfileStore {
    * Name setter.
    * @author Daniel Desira
    */
-  public set name(value: string) {
+  set name(value: string) {
     this._name = value;
   }
 
@@ -49,7 +49,7 @@ class ProfileStore {
    * Name getter.
    * @author Daniel Desira
    */
-  public get name() {
+  get name() {
     return this._name;
   }
 
@@ -57,7 +57,7 @@ class ProfileStore {
    * Profile pic url setter.
    * @author Daniel Desira
    */
-  public set profile_pic_url(value: string) {
+  set profile_pic_url(value: string) {
     this._profile_pic_url = value;
   }
 
@@ -65,7 +65,7 @@ class ProfileStore {
    * Profile pic url getter.
    * @author Daniel Desira
    */
-  public get profile_pic_url() {
+  get profile_pic_url() {
     return this._profile_pic_url;
   }
 
@@ -73,7 +73,7 @@ class ProfileStore {
    * Date of birth setter.
    * @author Daniel Desira
    */
-  public set date_of_birth(value: Date) {
+  set date_of_birth(value: Date) {
     this._date_of_birth = value;
   }
 
@@ -81,7 +81,7 @@ class ProfileStore {
    * Date of birth getter.
    * @author Daniel Desira
    */
-  public get date_of_birth() {
+  get date_of_birth() {
     return this._date_of_birth;
   }
 
@@ -89,7 +89,7 @@ class ProfileStore {
    * Resets profile state.
    * @author Daniel Desira
    */
-  public reset() {
+  reset() {
     this._email = "";
     this._name = "";
     this._profile_pic_url = "";

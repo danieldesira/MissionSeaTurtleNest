@@ -10,7 +10,7 @@ class ControlSettingsStore {
    * Singleton instance accessor.
    * @author Daniel Desira
    */
-  public static get instance() {
+  static get instance() {
     if (!ControlSettingsStore._instance) {
       ControlSettingsStore._instance = new ControlSettingsStore();
     }
@@ -21,7 +21,7 @@ class ControlSettingsStore {
    * Screen controls position setter.
    * @author Daniel Desira
    */
-  public set screenControlsPosition(value: "Left" | "Right") {
+  set screenControlsPosition(value: "Left" | "Right") {
     this._screenControlsPosition = value;
   }
 
@@ -29,7 +29,7 @@ class ControlSettingsStore {
    * Screen controls position getter.
    * @author Daniel Desira
    */
-  public get screenControlsPosition() {
+  get screenControlsPosition() {
     return this._screenControlsPosition;
   }
 
@@ -37,7 +37,7 @@ class ControlSettingsStore {
    * Resets setting states.
    * @author Daniel Desira
    */
-  public reset() {
+  reset() {
     this._screenControlsPosition = "Right";
   }
 }
