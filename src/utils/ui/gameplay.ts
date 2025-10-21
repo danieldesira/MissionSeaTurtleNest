@@ -1,5 +1,3 @@
-import { runGameLoop } from "../../gameLoop";
-import GameData from "../../restoreGame/GameData";
 import { saveGame } from "../../services/api";
 import ControlSettingsStore from "../../singletons/cacheStores/ControlSettingsStore";
 import Game from "../../singletons/Game";
@@ -105,7 +103,6 @@ export const initialiseGame = async (isNewGame: boolean) => {
     canvas,
     isNewGame,
   });
-  await runGameLoop(canvas);
   updateXpSpan();
 };
 

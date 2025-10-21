@@ -1,11 +1,14 @@
 import Turtle from "../characters/Turtle";
+import { paintLevelBg } from "../levels/background";
 import ILevel from "../levels/ILevel";
-import { createLevelInstance } from "../levels/levels";
+import { createLevelInstance, levelExists } from "../levels/levels";
 import GameData from "../restoreGame/GameData";
 import parseGameData from "../restoreGame/parseGameData";
+import { checkIfBestPersonalScore, deleteLastGameAndSaveScore, saveGameProgress } from "../utils/gameplay";
 import { resizeCanvas } from "../utils/generic";
 import { getLastGameLocalStorage } from "../utils/lastGameLocalStorage";
-import { hideOverlay, showOverlay } from "../utils/ui/ui";
+import { launchGameEndDialog } from "../utils/ui/gameplay";
+import { hideOverlay, showOverlay, toggleMode } from "../utils/ui/ui";
 
 class Game {
   private static _instance: Game;
@@ -48,22 +51,6 @@ class Game {
    */
   get level() {
     return this._level;
-  }
-
-  /**
-   * Animation timer setter.
-   * @author Daniel Desira
-   */
-  set animationTimer(value: number) {
-    this._animationTimer = value;
-  }
-
-  /**
-   * Animation timer getter.
-   * @author Daniel Desira
-   */
-  get animationTimer() {
-    return this._animationTimer;
   }
 
   /**
@@ -196,6 +183,8 @@ class Game {
       );
       resizeCanvas(canvas);
       this._isGameScreenActive = true;
+
+      this.runGameLoop(canvas);
     } catch (error) {
       throw new Error(error);
     }
@@ -207,6 +196,103 @@ class Game {
    */
   exit() {
     this._isGameScreenActive = false;
+  }
+
+  private async runGameLoop(canvas: HTMLCanvasElement) {
+    if (!this._isGameScreenActive) {
+      cancelAnimationFrame(this._animationTimer);
+      return;
+    }
+
+    if (!this._isPaused) {
+      try {
+        const gameRunning = await this.checkTurtleAndGameProgress();
+        const context = canvas.getContext("2d");
+
+        paintLevelBg({ canvas, context });
+        this._turtle.paint(context);
+        this._level.paintCharacters(context);
+
+        saveGameProgress();
+
+        if (!gameRunning) {
+          cancelAnimationFrame(this._animationTimer);
+          return;
+        }
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    this._animationTimer = requestAnimationFrame(
+      async () => await this.runGameLoop(canvas)
+    );
+  }
+
+  private async checkTurtleAndGameProgress() {
+    const mainCharacter = this._turtle;
+
+    mainCharacter.useFood();
+    mainCharacter.recoverApetite();
+
+    if (
+      mainCharacter.foodGauge <= 0 ||
+      mainCharacter.oxygenGauge <= 0 ||
+      mainCharacter.lifeGauge <= 0
+    ) {
+      await this.handleLoss();
+      return false;
+    }
+
+    if (mainCharacter.y <= 0) {
+      mainCharacter.breath();
+    } else {
+      mainCharacter.useOxygen();
+    }
+
+    const backgroundImage = this._level.bgImg;
+    if (backgroundImage && mainCharacter.x >= backgroundImage.width) {
+      await this.handleOffBgWidth();
+      if (!levelExists(this._currentLevelNo)) {
+        return false;
+      }
+    }
+
+    this._level.checkIfTurtleMeetsCharacters();
+
+    this._level.moveCharacters();
+
+    return true;
+  }
+
+  private async handleOffBgWidth() {
+    this.gainPoints(this._level.points);
+    this.incrementCurrentLevelNo();
+    if (levelExists(this._currentLevelNo)) {
+      await this.loadNewLevel(true);
+    } else {
+      await this.handleWin();
+    }
+  }
+
+  private async handleLoss() {
+    await this.handleGameEnd(false);
+    launchGameEndDialog("Game over", "You lose! Better luck next time.");
+  }
+
+  private async handleWin() {
+    await this.handleGameEnd(true);
+    launchGameEndDialog("Game Complete", "You win. Congratulations!");
+  }
+
+  private async handleGameEnd(hasWon: boolean) {
+    checkIfBestPersonalScore();
+    this.exit();
+
+    showOverlay("Saving score");
+    await deleteLastGameAndSaveScore(hasWon);
+    hideOverlay();
+    toggleMode("menu");
   }
 }
 

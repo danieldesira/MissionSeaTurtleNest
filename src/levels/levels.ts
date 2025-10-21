@@ -51,7 +51,7 @@ const levelsConfig: {
 };
 
 /**
- * Instantiates a level responding to a level number.
+ * Instantiates a level corresponding to a level number.
  * @param levelNo The level number
  * @returns The instance
  * @author Daniel Desira
@@ -64,15 +64,5 @@ export const createLevelInstance = (levelNo: number): Level => {
     throw new Error("Level undefined");
   }
 };
-
-/**
- * Returns the text representation of a level number.
- * If the level is not defined, it assumes game completion.
- * @param levelNo The level number
- * @returns The text representation of the level
- * @author Daniel Desira
- */
-export const getLevelText = (levelNo: number): string =>
-  levelsConfig[levelNo] ? levelNo.toString() : "Completed";
 
 export const levelExists = (levelNo: number) => !!levelsConfig[levelNo];
