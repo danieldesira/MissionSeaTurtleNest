@@ -216,14 +216,14 @@ class Game {
 
     if (!this._isPaused) {
       try {
+        saveGameProgress();
+
         const gameRunning = await this.checkTurtleAndGameProgress();
         const context = canvas.getContext("2d");
 
         paintLevelBg({ canvas, context });
         this._turtle.paint(context);
         this._level.paintCharacters(context);
-
-        saveGameProgress();
 
         if (!gameRunning) {
           this.clearAnimationFrameTimer();

@@ -1,4 +1,6 @@
-const getUserEmail = () => sessionStorage.getItem("userEmail");
+import ProfileStore from "../singletons/cacheStores/ProfileStore";
+
+const getUserEmail = () => ProfileStore.instance.email;
 
 const getUserLastGameKey = () => `${getUserEmail()}LastGame`;
 

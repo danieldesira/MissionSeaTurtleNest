@@ -20,6 +20,7 @@ import {
 import { setupScoresDialog } from "./utils/ui/scores";
 import {
   setupContinueGameBtn,
+  setupGameOverwriteDialog,
   setupInstructionsDialog,
   setupNewGameMenuBtn,
 } from "./utils/ui/mainMenu";
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   setupNewGameMenuBtn();
   setupContinueGameBtn();
+  setupGameOverwriteDialog();
 
   setupInstructionsDialog();
   setupLoginButtons();

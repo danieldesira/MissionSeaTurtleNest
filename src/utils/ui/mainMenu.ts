@@ -1,4 +1,5 @@
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
+import PrettyButton from "../../webComponents/form/PrettyButton";
 import MenuItem from "../../webComponents/mainMenu/MenuItem";
 import { isAuthenticated } from "../authentication";
 import { getLastGameLocalStorage } from "../lastGameLocalStorage";
@@ -41,8 +42,11 @@ export const setupInstructionsDialog = () => {
 export const setupNewGameMenuBtn = () => {
   const newGameBtn = document.getElementById("newGameBtn") as MenuItem;
   newGameBtn.callback = async () => {
-    toggleMode("game");
-    await initialiseGame(true);
+    if (isAuthenticated() && getLastGameLocalStorage()) {
+      showGameOverwriteDialog();
+    } else {
+      await initGame(true);
+    }
   };
 };
 
@@ -51,19 +55,43 @@ export const setupContinueGameBtn = () => {
     "continueGameBtn"
   ) as MenuItem;
   continueGameBtn.hide();
-  continueGameBtn.callback = async () => {
-    toggleMode("game");
-    await initialiseGame(false);
-  };
+  continueGameBtn.callback = async () => await initGame(false);
 };
 
 export const toggleContinueGameBtn = () => {
   const continueGameBtn = document.getElementById(
     "continueGameBtn"
   ) as MenuItem;
-  if (isAuthenticated() && getLastGameLocalStorage() !== null) {
+  if (isAuthenticated() && getLastGameLocalStorage()) {
     continueGameBtn.show();
   } else {
     continueGameBtn.hide();
   }
+};
+
+const showGameOverwriteDialog = () => {
+  const gameOverwriteDialog = document.getElementById(
+    "gameOverwriteDialog"
+  ) as PrettyDialog;
+  gameOverwriteDialog.show();
+};
+
+export const setupGameOverwriteDialog = () => {
+  const gameOverwriteDialog = document.getElementById(
+    "gameOverwriteDialog"
+  ) as PrettyDialog;
+  gameOverwriteDialog.closeButtonIds = [
+    "cancelNewGameBtn",
+    "confirmNewGameBtn",
+  ];
+
+  const confirmNewGameBtn = document.getElementById(
+    "confirmNewGameBtn"
+  ) as PrettyButton;
+  confirmNewGameBtn.callback = async () => await initGame(true);
+};
+
+const initGame = async (newGame: boolean) => {
+  toggleMode("game");
+  await initialiseGame(newGame);
 };
