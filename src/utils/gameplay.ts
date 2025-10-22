@@ -10,7 +10,7 @@ import {
 } from "./lastGameLocalStorage";
 import PersonalBestStore from "../singletons/cacheStores/PersonalBestStore";
 import { isAuthenticated } from "./authentication";
-import { formatLevelAsText } from "./ui/levelText";
+import { formatLevelAsText, updatePersonalBestPlaceholders } from "./ui/scores";
 
 export const saveGameProgress = () => {
   if (isAuthenticated()) {
@@ -54,5 +54,7 @@ export const checkIfBestPersonalScore = () => {
     );
     PersonalBestStore.instance.level = Game.instance.currentLevelNo;
     PersonalBestStore.instance.points = Game.instance.xp;
+
+    updatePersonalBestPlaceholders();
   }
 };

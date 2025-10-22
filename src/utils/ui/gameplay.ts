@@ -12,6 +12,7 @@ import {
   getLastGameTimestampLocalStorage,
 } from "../lastGameLocalStorage";
 import { launchCustomDialog, toggleMode } from "./ui";
+import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 
 export const setupGameControls = () => {
   const upControl = document.getElementById("upControl") as GameControl;
@@ -120,7 +121,7 @@ export const setupBackToMenuBtn = () => {
     Game.instance.exit();
     toggleMode("menu");
     if (isAuthenticated()) {
-      showGameProgressUpload();
+      showWaitingNotice("Uploading game progress...");
       try {
         await saveGame({
           lastGame: JSON.parse(getLastGameLocalStorage()),
@@ -132,7 +133,7 @@ export const setupBackToMenuBtn = () => {
           "There was a problem uploading game progress!"
         );
       } finally {
-        hideGameProgressUpload();
+        hideWaitingNotice();
       }
     }
   };
@@ -141,14 +142,4 @@ export const setupBackToMenuBtn = () => {
 export const setupCanvasSize = () => {
   const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
   window.addEventListener("resize", () => resizeCanvas(canvas));
-};
-
-const showGameProgressUpload = () => {
-  const gameProgressNotice = document.getElementById("gameProgressNotice");
-  gameProgressNotice.classList.remove("hidden");
-};
-
-const hideGameProgressUpload = () => {
-  const gameProgressNotice = document.getElementById("gameProgressNotice");
-  gameProgressNotice.classList.add("hidden");
 };

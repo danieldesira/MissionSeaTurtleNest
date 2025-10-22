@@ -10,7 +10,11 @@ import {
   saveLastGameTimestampLocalStorage,
 } from "./lastGameLocalStorage";
 import { hideLoginDialog, updateAuthenticationUI } from "./ui/authUi";
-import { setupControlSettings, setupSettingsProfileTab } from "./ui/settingsDialog";
+import { updatePersonalBestPlaceholders } from "./ui/scores";
+import {
+  setupControlSettings,
+  setupSettingsProfileTab,
+} from "./ui/settingsDialog";
 import {
   hideOverlay,
   launchCustomDialog,
@@ -66,6 +70,8 @@ const populatePersonalBest = (accountData: LoginResponse) => {
   if (personalBest) {
     PersonalBestStore.instance.level = personalBest.level;
     PersonalBestStore.instance.points = personalBest.points;
+
+    updatePersonalBestPlaceholders();
   }
 };
 

@@ -240,6 +240,9 @@
             ></pretty-button>
           </div>
           <div id="authenticatedContainer" class="hidden gap-1">
+            <pretty-button id="scoresBtn" title="Scores"
+              ><i data-lucide="trophy"></i
+            ></pretty-button>
             <pretty-button id="settingsBtn" title="Settings"
               ><i data-lucide="settings"></i
             ></pretty-button>
@@ -495,11 +498,40 @@
         <pretty-button id="closeSettingsBtn">Close</pretty-button>
       </div>
     </pretty-dialog>
+    <pretty-dialog id="scoresDialog">
+      <span slot="title">Scores</span>
+      <div slot="content">
+        <div class="flex flex-col gap-4 text-primary">
+          <div class="flex gap-1">
+            <span class="font-bold text-xl">Level:</span>
+            <span id="personalBestLevel" class="font-semibold text-xl"></span>
+            <span class="font-bold text-xl">Points:</span>
+            <span id="personalBestPoints" class="font-semibold text-xl"></span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="font-bold text-xl">Leaderboard</span>
+            <table class="table border-separate border-spacing-x-2">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="font-bold text-lg">Player</th>
+                  <th class="font-bold text-lg">Level</th>
+                  <th class="font-bold text-lg">Points</th>
+                  <th class="font-bold text-lg">Outcome</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboardTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div slot="footer">
+        <pretty-button id="closeScoresBtn">Close</pretty-button>
+      </div>
+    </pretty-dialog>
     <div
-      id="gameProgressNotice"
+      id="waitingNotice"
       class="fixed top-1 right-1 p-2 bg-green-600 text-primary font-semibold text-sm rounded-sm hidden opacity-90"
-    >
-      Uploading game progress...
-    </div>
+    ></div>
   </body>
 </html>

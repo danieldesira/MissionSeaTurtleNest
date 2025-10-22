@@ -23,6 +23,7 @@ import {
   setupPauseBtn,
   setupResumeBtn,
 } from "./utils/ui/gameplay";
+import { setupScoresDialog } from "./utils/ui/scores";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");
@@ -48,4 +49,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupCanvasSize();
   setupBackToMenuBtn();
   setupAppVisibilityHandler();
+
+  setupScoresDialog();
 });
