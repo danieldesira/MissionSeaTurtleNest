@@ -4,11 +4,16 @@ import ILevel from "../levels/ILevel";
 import { createLevelInstance, levelExists } from "../levels/levels";
 import GameData from "../restoreGame/GameData";
 import parseGameData from "../restoreGame/parseGameData";
-import { checkIfBestPersonalScore, deleteLastGameAndSaveScore, saveGameProgress } from "../utils/gameplay";
+import {
+  checkIfBestPersonalScore,
+  deleteLastGameAndSaveScore,
+  saveGameProgress,
+} from "../utils/gameplay";
 import { resizeCanvas } from "../utils/generic";
 import { getLastGameLocalStorage } from "../utils/lastGameLocalStorage";
 import { launchGameEndDialog } from "../utils/ui/gameplay";
-import { hideOverlay, showOverlay, toggleMode } from "../utils/ui/ui";
+import { toggleMode } from "../utils/ui/mainMenu";
+import { hideOverlay, showOverlay } from "../utils/ui/overlay";
 
 class Game {
   private static _instance: Game;
@@ -196,11 +201,16 @@ class Game {
    */
   exit() {
     this._isGameScreenActive = false;
+    this.clearAnimationFrameTimer();
+  }
+
+  private clearAnimationFrameTimer() {
+    cancelAnimationFrame(this._animationTimer);
   }
 
   private async runGameLoop(canvas: HTMLCanvasElement) {
     if (!this._isGameScreenActive) {
-      cancelAnimationFrame(this._animationTimer);
+      this.clearAnimationFrameTimer();
       return;
     }
 
@@ -216,7 +226,7 @@ class Game {
         saveGameProgress();
 
         if (!gameRunning) {
-          cancelAnimationFrame(this._animationTimer);
+          this.clearAnimationFrameTimer();
           return;
         }
       } catch (error) {

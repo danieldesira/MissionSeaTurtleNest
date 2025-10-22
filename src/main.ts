@@ -1,13 +1,7 @@
 import "./main.css";
 import { registerComponents } from "./webComponents/components";
 import { setupSocialButtons } from "./socials";
-import {
-  disableContextMenu,
-  preventNavigation,
-  setupContinueGameBtn,
-  setupInstructionsDialog,
-  setupNewGameMenuBtn,
-} from "./utils/ui/ui";
+import { disableContextMenu, preventNavigation } from "./utils/ui/ui";
 import {
   setupKeyboardControls,
   setupMouseWheelControls,
@@ -24,6 +18,11 @@ import {
   setupResumeBtn,
 } from "./utils/ui/gameplay";
 import { setupScoresDialog } from "./utils/ui/scores";
+import {
+  setupContinueGameBtn,
+  setupInstructionsDialog,
+  setupNewGameMenuBtn,
+} from "./utils/ui/mainMenu";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");

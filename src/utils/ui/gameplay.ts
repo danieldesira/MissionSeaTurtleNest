@@ -11,7 +11,8 @@ import {
   getLastGameLocalStorage,
   getLastGameTimestampLocalStorage,
 } from "../lastGameLocalStorage";
-import { launchCustomDialog, toggleMode } from "./ui";
+import { toggleMode } from "./mainMenu";
+import { launchCustomDialog } from "./ui";
 import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 
 export const setupGameControls = () => {

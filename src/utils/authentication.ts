@@ -10,17 +10,14 @@ import {
   saveLastGameTimestampLocalStorage,
 } from "./lastGameLocalStorage";
 import { hideLoginDialog, updateAuthenticationUI } from "./ui/authUi";
+import { toggleContinueGameBtn } from "./ui/mainMenu";
+import { hideOverlay, showOverlay } from "./ui/overlay";
 import { updatePersonalBestPlaceholders } from "./ui/scores";
 import {
   setupControlSettings,
   setupSettingsProfileTab,
 } from "./ui/settingsDialog";
-import {
-  hideOverlay,
-  launchCustomDialog,
-  showOverlay,
-  toggleContinueGameBtn,
-} from "./ui/ui";
+import { launchCustomDialog } from "./ui/ui";
 
 export const handleGoogleAuthResponse = async ({
   credential,
