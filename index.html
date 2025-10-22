@@ -426,6 +426,9 @@
             <tab-pill name="settings" data-container="controls-tab"
               >Controls</tab-pill
             >
+            <tab-pill name="settings" data-container="notifications-tab"
+              >Notifications</tab-pill
+            >
             <tab-pill name="settings" data-container="about-tab"
               >About</tab-pill
             >
@@ -453,6 +456,13 @@
                 >
               </tab-container>
             </form>
+            <tab-container id="notifications-tab">
+              <div class="flex flex-col justify-center items-center gap-2">
+                <pretty-button id="desktopNotificationsBtn"
+                  >Enable Desktop Notifications</pretty-button
+                >
+              </div>
+            </tab-container>
             <tab-container id="about-tab">
               <div class="flex flex-col justify-center items-center gap-2">
                 <span class="font-bold text-primary text-xl"
