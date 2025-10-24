@@ -13,6 +13,7 @@ import TextInput from "../../webComponents/form/TextInput";
 import { setupTabPills } from "./tabPills";
 import { version } from "../../../package.json";
 import { registerServiceWorker } from "../serviceWorkers";
+import { checkNotificationPermission } from "../notifications";
 
 export const setupControlSettings = () => {
   const screenControlPositionRadio = document.getElementById(
@@ -113,19 +114,6 @@ const setupNotificationsTab = () => {
   const desktopNotificationsBtn = document.getElementById(
     "desktopNotificationsBtn"
   ) as PrettyButton;
-  desktopNotificationsBtn.callback = async () => {
-    await Notification?.requestPermission();
-    if (Notification?.permission === "granted") {
-      await registerServiceWorker("notification");
-      launchDemoNotification();
-    } else {
-      throw new Error("Notification permission not granted");
-    }
-  };
+  desktopNotificationsBtn.callback = async () =>
+    await checkNotificationPermission();
 };
-
-const launchDemoNotification = () =>
-  new Notification("Turtle Quest", {
-    body: "Desktop notifications enabled!",
-    icon: "/favicon.svg",
-  });
