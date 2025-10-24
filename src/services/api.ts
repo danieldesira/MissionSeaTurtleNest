@@ -1,15 +1,16 @@
 import GameData from "../restoreGame/GameData";
 import {
-  GetScoresResponse,
+  HighScore,
   LoginResponse,
-  SaveScoreRequest,
+  SaveScorePayload,
   Settings,
   UpdatePlayerPayload,
+  UpdateProfilePictureResponse,
 } from "./interfaces";
-import { del, get, post, put } from "./utils";
+import FetchRequest from "./FetchRequest";
 
 export const login = async (credential: string) =>
-  (await post("api/login", {
+  (await FetchRequest.post("api/login", {
     token: credential,
     service: "google",
   })) as LoginResponse;
@@ -17,24 +18,30 @@ export const login = async (credential: string) =>
 export const saveGame = async (data: {
   lastGame: GameData;
   timestamp: number;
-}) => await put("api/game", data);
+}) => await FetchRequest.put("api/game", data);
 
-export const saveScore = async ({ points, level, hasWon }: SaveScoreRequest) =>
-  await post("api/points", {
+export const saveScore = async ({ points, level, hasWon }: SaveScorePayload) =>
+  await FetchRequest.post("api/points", {
     points,
     level,
     hasWon,
   });
 
 export const fetchHighScores = async () =>
-  await get<GetScoresResponse>("api/points");
+  await FetchRequest.get<HighScore[]>("api/high-scores");
 
-export const deleteLastGame = async () => await del("api/game");
+export const deleteLastGame = async () => await FetchRequest.delete("api/game");
 
 export const updateSettings = async (settings: Settings) =>
-  await put("api/settings", settings);
+  await FetchRequest.put("api/settings", settings);
 
 export const updateProfile = async (profile: UpdatePlayerPayload) =>
-  await put("api/player", profile);
+  await FetchRequest.put("api/player", profile);
 
-export const requestLogout = async () => await post("api/logout");
+export const requestLogout = async () => await FetchRequest.post("api/logout");
+
+export const uploadProfilePicture = async (file: File) =>
+  await FetchRequest.uploadFile<UpdateProfilePictureResponse>(
+    "api/profile-pic",
+    file
+  );

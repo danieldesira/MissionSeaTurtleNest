@@ -1,5 +1,5 @@
-import Game from "../Game";
-import { isCustomDialogOpen } from "../utils/generic";
+import Game from "../singletons/Game";
+import { updateGauge } from "../utils/ui/gameplay";
 import Character from "./abstract/Character";
 import CharacterOptions from "./interfaces/CharacterOptions";
 import IMainCharacter from "./interfaces/IMainCharacter";
@@ -10,6 +10,10 @@ class Turtle extends Character implements IMainCharacter {
   protected readonly _speed: number = 1;
   protected readonly _width: number;
   protected readonly _height: number;
+  protected _foodGauge: number;
+  protected _lifeGauge: number;
+  protected _apetiteGauge: number;
+  protected _oxygenGauge: number;
 
   constructor({ speed, width, height }: CharacterOptions = {}) {
     super();
@@ -17,6 +21,7 @@ class Turtle extends Character implements IMainCharacter {
     this._speed = speed ?? 1;
     this._width = width ?? 130;
     this._height = height ?? 80;
+    this.resetGauges();
   }
 
   /**
@@ -30,15 +35,28 @@ class Turtle extends Character implements IMainCharacter {
   }
 
   /**
+   * Resets turtle gauges with regards to life, oxygen, food and apetite.
+   * @author Daniel Desira
+   */
+  resetGauges() {
+    this._apetiteGauge = 100;
+    this._foodGauge = 100;
+    this._lifeGauge = 100;
+    this._oxygenGauge = 100;
+    updateGauge("apetiteGauge", this._apetiteGauge);
+    updateGauge("foodGauge", this._foodGauge);
+    updateGauge("lifeGauge", this._lifeGauge);
+    updateGauge("oxygenGauge", this._oxygenGauge);
+  }
+
+  /**
    * Decrements turtle y position and rotates it upwards.
    * @author Daniel Desira
    */
   moveUp() {
-    if (!isCustomDialogOpen()) {
-      this._direction = "Up";
-      if (this._y > 0) {
-        this._y -= this._speed;
-      }
+    this._direction = "Up";
+    if (this._y > 0) {
+      this._y -= this._speed;
     }
   }
 
@@ -47,11 +65,9 @@ class Turtle extends Character implements IMainCharacter {
    * @author Daniel Desira
    */
   moveDown() {
-    if (!isCustomDialogOpen()) {
-      this._direction = "Down";
-      if (this._y < Game.instance.level.bgImg.height) {
-        this._y += this._speed;
-      }
+    this._direction = "Down";
+    if (this._y < Game.instance.level.bgImg.height) {
+      this._y += this._speed;
     }
   }
 
@@ -60,11 +76,9 @@ class Turtle extends Character implements IMainCharacter {
    * @author Daniel Desira
    */
   moveLeft() {
-    if (!isCustomDialogOpen()) {
-      this._direction = "Left";
-      if (this._x > 0) {
-        this._x -= this._speed;
-      }
+    this._direction = "Left";
+    if (this._x > 0) {
+      this._x -= this._speed;
     }
   }
 
@@ -73,10 +87,8 @@ class Turtle extends Character implements IMainCharacter {
    * @author Daniel Desira
    */
   moveRight() {
-    if (!isCustomDialogOpen()) {
-      this._direction = "Right";
-      this._x += this._speed;
-    }
+    this._direction = "Right";
+    this._x += this._speed;
   }
 
   // /**
@@ -97,6 +109,98 @@ class Turtle extends Character implements IMainCharacter {
   //   );
   //   context.restore();
   // }
+
+  get foodGauge() {
+    return this._foodGauge;
+  }
+
+  set foodGauge(value: number) {
+    this._foodGauge = value;
+    updateGauge("foodGauge", this._foodGauge);
+  }
+
+  get lifeGauge() {
+    return this._lifeGauge;
+  }
+
+  set lifeGauge(value: number) {
+    this._lifeGauge = value;
+    updateGauge("lifeGauge", this._lifeGauge);
+  }
+
+  get apetiteGauge() {
+    return this._apetiteGauge;
+  }
+
+  set apetiteGauge(value: number) {
+    this._apetiteGauge = value;
+    updateGauge("apetiteGauge", this._apetiteGauge);
+  }
+
+  get oxygenGauge() {
+    return this._oxygenGauge;
+  }
+
+  set oxygenGauge(value: number) {
+    this._oxygenGauge - value;
+    updateGauge("oxygenGauge", this._oxygenGauge);
+  }
+
+  private incrementValue(value: number, increment: number): number {
+    if (value + increment < 100) {
+      value += increment;
+    } else {
+      value = 100;
+    }
+    return value;
+  }
+
+  private decrementValue(value: number, decrement: number): number {
+    if (value - decrement > 0) {
+      value -= decrement;
+    } else {
+      value = 0;
+    }
+    return value;
+  }
+
+  eat(foodIncrement: number) {
+    this._foodGauge = this.incrementValue(this._foodGauge, foodIncrement);
+    updateGauge("foodGauge", this._foodGauge);
+  }
+
+  takeDamage(lifeDecrement: number) {
+    this._lifeGauge = this.decrementValue(this._lifeGauge, lifeDecrement);
+    updateGauge("lifeGauge", this._lifeGauge);
+  }
+
+  decrementApetite(apetiteDecrement: number) {
+    this._apetiteGauge = this.decrementValue(
+      this._apetiteGauge,
+      apetiteDecrement
+    );
+    updateGauge("apetiteGauge", this._apetiteGauge);
+  }
+
+  useFood() {
+    this._foodGauge = this.decrementValue(this._foodGauge, 0.005);
+    updateGauge("foodGauge", this._foodGauge);
+  }
+
+  useOxygen() {
+    this._oxygenGauge = this.decrementValue(this._oxygenGauge, 0.001);
+    updateGauge("oxygenGauge", this._oxygenGauge);
+  }
+
+  recoverApetite() {
+    this._apetiteGauge = this.incrementValue(this.apetiteGauge, 0.00005);
+    updateGauge("apetiteGauge", this._apetiteGauge);
+  }
+
+  breath() {
+    this._oxygenGauge = this.incrementValue(this._oxygenGauge, 0.5);
+    updateGauge("oxygenGauge", this._oxygenGauge);
+  }
 }
 
 export default Turtle;

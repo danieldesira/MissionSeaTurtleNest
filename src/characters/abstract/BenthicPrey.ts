@@ -1,4 +1,4 @@
-import Game from "../../Game";
+import Game from "../../singletons/Game";
 import Prey from "./Prey";
 
 abstract class BenthicPrey extends Prey {

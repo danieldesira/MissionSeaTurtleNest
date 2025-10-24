@@ -1,0 +1,314 @@
+import Turtle from "../characters/Turtle";
+import { paintLevelBg } from "../levels/background";
+import ILevel from "../levels/ILevel";
+import { createLevelInstance, levelExists } from "../levels/levels";
+import GameData from "../restoreGame/GameData";
+import parseGameData from "../restoreGame/parseGameData";
+import {
+  checkIfBestPersonalScore,
+  deleteLastGameAndSaveScore,
+  saveGameProgress,
+} from "../utils/gameplay";
+import { resizeCanvas } from "../utils/generic";
+import { getLastGameLocalStorage } from "../utils/lastGameLocalStorage";
+import { launchGameEndDialog } from "../utils/ui/gameplay";
+import { toggleMode } from "../utils/ui/mainMenu";
+import { hideOverlay, showOverlay } from "../utils/ui/overlay";
+
+class Game {
+  private static _instance: Game;
+
+  private constructor() {
+    this._turtle = new Turtle();
+    this.reset();
+  }
+
+  /**
+   * Singleton accessor property.
+   * @author Daniel Desira
+   */
+  static get instance(): Game {
+    if (!this._instance) {
+      this._instance = new Game();
+    }
+    return this._instance;
+  }
+
+  private _animationTimer: number = 0;
+  private _turtle: Turtle;
+  private _level: ILevel;
+  private _xp: number;
+  private _currentLevelNo: number;
+  private _isPaused: boolean;
+  private _isGameScreenActive: boolean;
+
+  /**
+   * Turtle instance getter.
+   * @author Daniel Desira
+   */
+  get turtle() {
+    return this._turtle;
+  }
+
+  /**
+   * Level instance getter.
+   * @author Daniel Desira
+   */
+  get level() {
+    return this._level;
+  }
+
+  /**
+   * XP/points getter.
+   * @author Daniel Desira
+   */
+  get xp() {
+    return this._xp;
+  }
+
+  /**
+   * XP/points setter.
+   * @author Daniel Desira
+   */
+  set xp(value: number) {
+    this._xp = value;
+  }
+
+  /**
+   * Current level no. getter.
+   * @author Daniel Desira
+   */
+  get currentLevelNo() {
+    return this._currentLevelNo;
+  }
+
+  /**
+   * Current level no. setter.
+   * @author Daniel Desira
+   */
+  set currentLevelNo(value: number) {
+    this._currentLevelNo = value;
+  }
+
+  /**
+   * Paused flag getter.
+   * @author Daniel Desira
+   */
+  get isPaused() {
+    return this._isPaused;
+  }
+
+  /**
+   * Game screen active flag getter.
+   * @author Daniel Desira
+   */
+  get isGameScreenActive() {
+    return this._isGameScreenActive;
+  }
+
+  /**
+   * Resets game state.
+   * @author Daniel Desira
+   */
+  reset() {
+    this._currentLevelNo = 1;
+    this._xp = 0;
+    this._turtle.resetPosition();
+    this._turtle.resetGauges();
+  }
+
+  /**
+   * Marks game as paused.
+   * @author Daniel Desira
+   */
+  pause() {
+    this._isPaused = true;
+  }
+
+  /**
+   * Marks game as running/not-paused.
+   * @author Daniel Desira
+   */
+  resume() {
+    this._isPaused = false;
+  }
+
+  /**
+   * Increments current level.
+   * @author Daniel Desira
+   */
+  incrementCurrentLevelNo() {
+    this._currentLevelNo++;
+  }
+
+  /**
+   * Increments/decrements points by a given value.
+   * @param xp Value for increment. If negative, it results in a decrement.
+   * @author Daniel Desira
+   */
+  gainPoints(xp: number) {
+    this._xp += xp;
+  }
+
+  /**
+   * Loads the current level as per _currentLevelNo.
+   * @param isFreshLevel Flag used to determine whether level is fresh or restored.
+   * @param gameData The game data in case it is a restored level.
+   * @author Daniel Desira
+   */
+  async loadNewLevel(isFreshLevel: boolean, gameData: GameData = null) {
+    try {
+      this._level = createLevelInstance(this._currentLevelNo);
+      if (this._level) {
+        showOverlay(`Loading level ${this.currentLevelNo}`);
+        await this._level.init(isFreshLevel, gameData);
+        hideOverlay();
+      }
+      if (isFreshLevel) {
+        this.turtle.resetPosition();
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * Initialises game.
+   * @param options The game options.
+   * @author Daniel Desira
+   */
+  async start({ canvas, isNewGame }: GameOptions) {
+    try {
+      Game._instance.reset();
+      await Game._instance.turtle.loadImage();
+
+      await Game._instance.loadNewLevel(
+        isNewGame,
+        isNewGame ? null : parseGameData(getLastGameLocalStorage())
+      );
+      resizeCanvas(canvas);
+      this._isGameScreenActive = true;
+
+      this.runGameLoop(canvas);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  /**
+   * Marks the game as not running.
+   * @author Daniel Desira
+   */
+  exit() {
+    this._isGameScreenActive = false;
+    this.clearAnimationFrameTimer();
+  }
+
+  private clearAnimationFrameTimer() {
+    cancelAnimationFrame(this._animationTimer);
+  }
+
+  private async runGameLoop(canvas: HTMLCanvasElement) {
+    if (!this._isGameScreenActive) {
+      this.clearAnimationFrameTimer();
+      return;
+    }
+
+    if (!this._isPaused) {
+      try {
+        saveGameProgress();
+
+        const gameRunning = await this.checkTurtleAndGameProgress();
+        const context = canvas.getContext("2d");
+
+        paintLevelBg({ canvas, context });
+        this._turtle.paint(context);
+        this._level.paintCharacters(context);
+
+        if (!gameRunning) {
+          this.clearAnimationFrameTimer();
+          return;
+        }
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    this._animationTimer = requestAnimationFrame(
+      async () => await this.runGameLoop(canvas)
+    );
+  }
+
+  private async checkTurtleAndGameProgress() {
+    const mainCharacter = this._turtle;
+
+    mainCharacter.useFood();
+    mainCharacter.recoverApetite();
+
+    if (
+      mainCharacter.foodGauge <= 0 ||
+      mainCharacter.oxygenGauge <= 0 ||
+      mainCharacter.lifeGauge <= 0
+    ) {
+      await this.handleLoss();
+      return false;
+    }
+
+    if (mainCharacter.y <= 0) {
+      mainCharacter.breath();
+    } else {
+      mainCharacter.useOxygen();
+    }
+
+    const backgroundImage = this._level.bgImg;
+    if (backgroundImage && mainCharacter.x >= backgroundImage.width) {
+      await this.handleOffBgWidth();
+      if (!levelExists(this._currentLevelNo)) {
+        return false;
+      }
+    }
+
+    this._level.checkIfTurtleMeetsCharacters();
+
+    this._level.moveCharacters();
+
+    return true;
+  }
+
+  private async handleOffBgWidth() {
+    this.gainPoints(this._level.points);
+    this.incrementCurrentLevelNo();
+    if (levelExists(this._currentLevelNo)) {
+      await this.loadNewLevel(true);
+    } else {
+      await this.handleWin();
+    }
+  }
+
+  private async handleLoss() {
+    await this.handleGameEnd(false);
+    launchGameEndDialog("Game over", "You lose! Better luck next time.");
+  }
+
+  private async handleWin() {
+    await this.handleGameEnd(true);
+    launchGameEndDialog("Game Complete", "You win. Congratulations!");
+  }
+
+  private async handleGameEnd(hasWon: boolean) {
+    checkIfBestPersonalScore();
+    this.exit();
+
+    showOverlay("Saving score");
+    await deleteLastGameAndSaveScore(hasWon);
+    hideOverlay();
+    toggleMode("menu");
+  }
+}
+
+type GameOptions = {
+  canvas: HTMLCanvasElement;
+  isNewGame: boolean;
+};
+
+export default Game;

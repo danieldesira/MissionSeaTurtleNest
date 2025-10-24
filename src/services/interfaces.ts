@@ -4,14 +4,12 @@ export interface Settings {
   controlPosition: "Left" | "Right";
 }
 
-export interface GetScoresResponse {
-  highScores: {
-    points: number;
-    level: number;
-    player_won: string;
-    players: { name: string };
-    outcomes: { desc: string };
-  }[];
+export interface HighScore {
+  points: number;
+  level: number;
+  playerName: string;
+  playerProfilePicUrl: string;
+  outcome: string;
 }
 
 export interface Player {
@@ -21,7 +19,7 @@ export interface Player {
   name: string;
   email: string;
   created_at?: string;
-  profile_pic?: string;
+  profile_pic_url?: string;
   date_of_birth?: string;
   last_login_at?: string;
   settings?: Settings;
@@ -36,7 +34,7 @@ export interface LoginResponse {
   personalBest?: { points: number; level: number; player_won: string } | null;
 }
 
-export interface SaveScoreRequest {
+export interface SaveScorePayload {
   points: number;
   level: number;
   hasWon: boolean;
@@ -45,5 +43,9 @@ export interface SaveScoreRequest {
 export interface UpdatePlayerPayload {
   name: string;
   date_of_birth: string;
-  profile_pic: string;
+}
+
+export interface UpdateProfilePictureResponse {
+  profilePicUrl?: string;
+  message?: string;
 }

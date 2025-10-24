@@ -1,6 +1,4 @@
-import Game from "../../Game";
-import { eat } from "../../features/turtleMonitor/turtleReducers";
-import store from "../../store";
+import Game from "../../singletons/Game";
 import IPrey from "../interfaces/IPrey";
 import NonMain from "./NonMain";
 
@@ -20,11 +18,9 @@ abstract class Prey extends NonMain implements IPrey {
    */
   handleTurtleCollision(): void {
     const canTurtleEatCharacter =
-      store.getState().turtleMonitor.turtle.stomachCapacity.value -
-        this._stomachImpact >
-      0;
+      Game.instance.turtle.apetiteGauge - this._stomachImpact > 0;
     if (canTurtleEatCharacter) {
-      store.dispatch(eat({ turtle: { foodValue: this._foodValue } }));
+      Game.instance.turtle.eat(this._foodValue);
       super.handleTurtleCollision();
     }
   }

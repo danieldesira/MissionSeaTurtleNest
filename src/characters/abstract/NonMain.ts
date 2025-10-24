@@ -1,12 +1,8 @@
-import Game from "../../Game";
-import {
-  decrementStomachCapacity,
-  gainPoints,
-} from "../../features/turtleMonitor/turtleReducers";
-import store from "../../store";
+import Game from "../../singletons/Game";
 import checkBoundingBoxCollision, {
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
+import { updateXpSpan } from "../../utils/ui/gameplay";
 import INonMainCharacter from "../interfaces/INonMainCharacter";
 import Character from "./Character";
 
@@ -70,13 +66,10 @@ abstract class NonMain extends Character implements INonMainCharacter {
    * @author Daniel Desira
    */
   handleTurtleCollision(): void {
-    store.dispatch(
-      decrementStomachCapacity({
-        turtle: { stomachValue: this._stomachImpact },
-      })
-    );
-    store.dispatch(gainPoints({ turtle: { xpValue: this._points } }));
+    Game.instance.turtle.decrementApetite(this._stomachImpact);
+    Game.instance.gainPoints(this._points);
     Game.instance.level.characters.delete(this);
+    updateXpSpan();
   }
 
   abstract swim(): void;

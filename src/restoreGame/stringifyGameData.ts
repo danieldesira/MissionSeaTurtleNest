@@ -1,9 +1,8 @@
-import Game from "../Game";
-import store from "../store";
+import Game from "../singletons/Game";
 import GameData from "./GameData";
 
 /**
- * Gets game data as a JSON string.
+ * Gets game state data as a JSON string.
  * @returns JSON string represantation of game data.
  * @author Daniel Desira
  */
@@ -13,11 +12,10 @@ const stringifyGameData = (): string => {
       x: Game.instance.turtle.x,
       y: Game.instance.turtle.y,
       direction: Game.instance.turtle.direction,
-      food: store.getState().turtleMonitor.turtle.food.value,
-      oxygen: store.getState().turtleMonitor.turtle.oxygen.value,
-      health: store.getState().turtleMonitor.turtle.life.value,
-      stomachCapacity:
-        store.getState().turtleMonitor.turtle.stomachCapacity.value,
+      food: Game.instance.turtle.foodGauge,
+      oxygen: Game.instance.turtle.oxygenGauge,
+      health: Game.instance.turtle.lifeGauge,
+      stomachCapacity: Game.instance.turtle.apetiteGauge,
     },
     characters: [...Game.instance.level.characters].map((c) => {
       return {
@@ -27,8 +25,8 @@ const stringifyGameData = (): string => {
         type: c.type,
       };
     }),
-    levelNo: store.getState().levels.level.value,
-    xp: store.getState().turtleMonitor.turtle.xp.value,
+    levelNo: Game.instance.currentLevelNo,
+    xp: Game.instance.xp,
   };
   return JSON.stringify(data);
 };

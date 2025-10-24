@@ -1,10 +1,44 @@
-# 0.7.5 Beta (Malta hatching Edition) - 
+# 0.7.7 Beta -
+
+- Migrate to vanilla JS and web components reducing the JS bundle size by over 75%
+- Minor UI changes including tabbed settings dialog, smooth transitions and adopting Lucide icons
+- Rename game to _Mission Sea Turtle Nest_ or _Mission Turtle_ in short
+- Add desktop notifications
+- Mobile: Add 300ms vibration on collision with obstacles
+- Gameplay: Bugfix: Only handle left click on onscreen controls [#55](https://github.com/danieldesira/TurtleQuest/issues/55)
+- Implement game pause on tab/window change
+- Change license to GNU GPL3 and update contibutor manual
+- Refactor level selection eliminating class inheritance
+
+# 0.7.6.2 Beta (Malta&Gozo hatching Edition) - 27/08/2025 15:00 UTC+1
+
+- [Turtle-14]: Add Vercel rewrite rule
+
+# 0.7.6.1 Beta (Malta&Gozo hatching Edition) - 25/08/2025 17:20 UTC+1
+
+- [Turtle-14]: Attempt to fix Vercel PWA issue
+
+# 0.7.6 Beta (Malta&Gozo hatching Edition) - 25/08/2025 17:05 UTC+1
+
+- Improve responsive layout in menu and a few dialogs
+- Add social media config file and add YouTube
+- Minor app manifest changes
+
+# 0.7.5 Beta (Malta&Gozo hatching Edition) - 25/08/2025 13:25 UTC+1
 
 - Add Share button in win/lose dialog
 - Open login dialog on initial page load
 - Move edition section to about dialog
-- Adjust /player PUT service method to only send necessary properties in payload
+- Adjust `/player` PUT service method to only send necessary properties in payload
 - Adopt pink primary brand colour more consistently
+- Upload image on profile picture change event
+- Refactor request helper methods as static `Request` class
+- Add player profile pictures to high scores dialog
+- Rename `LoadingIndicator` to `LoadingOverlay` and increase its z-index to match dialog
+- Show player profile picture in members area instead of generic icon
+- Fix bug [TURTLE-10]: Reset personal best on logout
+- Fix bug [TURTLE-11]: Do not show login dialog if authenticated
+- New Game dialog when there is already a saved game for authenticated player
 
 # 0.7.4 Beta - 14/08/2025 14:10 UTC+1
 

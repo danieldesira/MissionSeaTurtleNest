@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turtle Escape</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mission Sea Turtle Nest</title>
     <link rel="manifest" href="./manifest.json" />
     <link rel="icon" href="favicon.svg" />
-    <meta property="og:title" content="Turtle Quest" />
+    <meta property="og:title" content="Mission Sea Turtle Nest" />
     <meta property="og:description" content="Educational game for kids" />
     <meta
       property="og:image"
@@ -14,16 +14,537 @@
     />
     <meta property="og:image:alt" content="Gameplay screenshot" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Turtle Quest" />
+    <meta name="twitter:title" content="Mission Sea Turtle Nest" />
     <meta name="twitter:description" content="Educational game for kids" />
     <meta
       name="twitter:image"
       content="https://turtle-quest.vercel.app/images/screenshot.png"
     />
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+    <script type="module" src="src/main.ts" blocking="render"></script>
   </head>
-  <body class="bg-primary select-none touch-none">
-    <div id="root"></div>
-    <script type="module" src="src/main.tsx"></script>
+  <body class="select-none touch-none">
+    <template id="menuItemTemplate">
+      <style>
+        span {
+          @apply text-primary text-5xl cursor-pointer;
+        }
+
+        .hide {
+          @apply hidden;
+        }
+      </style>
+      <span role="button"><slot></slot></span>
+    </template>
+    <template id="prettyDialogTemplate">
+      <style>
+        dialog:open {
+          @apply inset-0 border-0 flex flex-col gap-2 items-center justify-center text-white w-4/5 opacity-80 focus:opacity-95 transition-opacity duration-500 bg-gray-900 p-5 rounded-3xl max-w-xl z-40;
+        }
+
+        .heading {
+          @apply flex justify-center items-center gap-2 border-b-white border-b-2 pb-2;
+        }
+
+        .title {
+          @apply text-xl font-extrabold text-primary;
+        }
+
+        .content {
+          @apply flex flex-col gap-2 max-h-32 sm:max-h-full overflow-y-auto;
+        }
+
+        .footer {
+          @apply flex gap-2 justify-center items-center w-full;
+        }
+      </style>
+      <dialog role="dialog">
+        <div class="heading">
+          <h1 class="title"><slot name="title"></slot></h1>
+        </div>
+        <div class="content">
+          <slot name="content"></slot>
+        </div>
+        <div class="footer">
+          <slot name="footer"></slot>
+        </div>
+      </dialog>
+    </template>
+    <template id="prettyButtonTemplate">
+      <style>
+        button {
+          @apply rounded-md text-xl text-white pl-2 pr-2 w-fit border-none cursor-pointer transition-colors duration-500;
+        }
+
+        .default {
+          @apply bg-primary hover:bg-pink-700;
+        }
+
+        .danger {
+          @apply bg-danger hover:bg-red-800;
+        }
+      </style>
+      <button type="button" role="button">
+        <slot></slot>
+      </button>
+    </template>
+    <template id="gameControlTemplate">
+      <style>
+        button {
+          @apply rounded-7xl w-20 h-20 bg-black opacity-50 hover:opacity-70 text-white cursor-pointer flex justify-center items-center transition-opacity duration-500 border-0;
+        }
+      </style>
+      <button type="button"><slot></slot></button>
+    </template>
+    <template id="gameGaugeTemplate">
+      <style>
+        .outerContainer {
+          @apply flex flex-col gap-1;
+        }
+
+        .label {
+          @apply flex gap-2 items-center text-primary font-semibold text-lg;
+        }
+      </style>
+      <div class="outerContainer">
+        <div class="label">
+          <slot name="icon"></slot><slot name="label"></slot>
+        </div>
+        <meter max="100" min="0" low="30" value="100" title="100%"></meter>
+      </div>
+    </template>
+    <template id="tabPillTemplate">
+      <style>
+        [role="button"] {
+          @apply rounded-xl border-solid border-2 border-primary px-2 hover:bg-primary transition-colors duration-500 cursor-pointer;
+        }
+
+        [role="button"].active {
+          @apply bg-primary;
+        }
+      </style>
+      <div role="button">
+        <slot></slot>
+      </div>
+    </template>
+    <template id="tabContainerTemplate">
+      <style>
+        div {
+          @apply hidden flex-col gap-1 justify-center items-center;
+        }
+
+        .active {
+          @apply flex;
+        }
+      </style>
+      <div>
+        <slot></slot>
+      </div>
+    </template>
+    <template id="formFieldTemplate">
+      <style>
+        .container {
+          @apply flex flex-col gap-1;
+        }
+
+        label {
+          @apply text-primary cursor-pointer select-none font-semibold;
+        }
+      </style>
+      <div class="container">
+        <label><slot name="label"></slot></label>
+        <slot name="field"></slot>
+      </div>
+    </template>
+    <template id="radioSelectionTemplate">
+      <style>
+        .container {
+          @apply flex flex-col gap-1;
+        }
+
+        .options {
+          @apply flex gap-1 flex-wrap;
+        }
+
+        .description {
+          @apply text-primary font-bold;
+        }
+
+        .label {
+          @apply text-primary cursor-pointer select-none font-semibold;
+        }
+
+        .radio {
+          @apply appearance-none w-4 h-4 border-primary border-solid border-2 rounded-sm checked:bg-primary focus:ring-2 focus:ring-primary px-2 py-1;
+        }
+      </style>
+      <div class="container">
+        <span class="description"><slot></slot></span>
+        <div class="options"></div>
+      </div>
+    </template>
+    <template id="textInputTemplate">
+      <style>
+        input {
+          @apply border-primary border-solid border-2 rounded-sm focus:ring-2 focus:ring-primary
+           px-2 py-1 text-primary font-semibold text-xl bg-transparent focus:outline-none;
+        }
+      </style>
+      <form-field>
+        <slot slot="label"></slot>
+        <input slot="field" type="text" />
+      </form-field>
+    </template>
+    <template id="imageUploaderTemplate">
+      <style>
+        .imagePreview {
+          @apply flex justify-center items-center w-20 h-20 rounded-sm cursor-pointer bg-cover bg-center;
+        }
+
+        input[type="file"] {
+          @apply hidden;
+        }
+      </style>
+      <form-field>
+        <slot slot="label"></slot>
+        <div class="imagePreview" role="button" slot="field">
+          Upload...
+          <input type="file" accept=".jpg,.png,.webp,.gif" />
+        </div>
+      </form-field>
+    </template>
+    <div class="max-w-screen max-h-screen portrait:hidden">
+      <div
+        id="menuContainer"
+        class="flex flex-col justify-between bg-cute bg-no-repeat bg-center bg-cover p-5 items-center h-screen w-screen"
+      >
+        <div class="flex gap-5 justify-center items-center">
+          <h1 class="text-5xl font-bold">
+            <span class="text-emerald-300">Mission</span>
+            <span class="text-cyan-500">Turtle</span>
+          </h1>
+          <span class="text-sm font-light">Beta</span>
+          <a href="_github_" target="_blank" title="_github_">
+            <i data-lucide="github" class="text-primary text-4xl"></i>
+          </a>
+          <a href="_instagram_" target="_blank" title="_instagram_">
+            <i data-lucide="instagram" class="text-primary text-4xl"></i>
+          </a>
+          <a href="_youtube_" target="_blank" title="_youtube_">
+            <i data-lucide="youtube" class="text-primary text-4xl"></i>
+          </a>
+          <div id="loginContainer" class="flex gap-1">
+            <pretty-button id="loginBtn" title="Login"
+              ><i data-lucide="log-in"></i
+            ></pretty-button>
+          </div>
+          <div id="authenticatedContainer" class="hidden gap-1">
+            <pretty-button id="scoresBtn" title="Scores"
+              ><i data-lucide="trophy"></i
+            ></pretty-button>
+            <pretty-button id="settingsBtn" title="Settings"
+              ><i data-lucide="settings"></i
+            ></pretty-button>
+            <pretty-button id="logoutBtn" variant="danger" title="Logout"
+              ><i data-lucide="log-out"></i
+            ></pretty-button>
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-5">
+          <menu-item id="continueGameBtn">Continue Game</menu-item>
+          <menu-item id="newGameBtn">New Game</menu-item>
+          <menu-item id="instructionsBtn">Instructions</menu-item>
+        </div>
+      </div>
+      <div
+        id="gameContainer"
+        class="hidden h-screen items-center justify-center flex-col"
+      >
+        <div class="flex gap-2 items-center">
+          <pretty-button id="backBtn" title="Back to menu">
+            <i class="text-white" data-lucide="chevron-left"></i>
+          </pretty-button>
+          <pretty-button id="pauseBtn" title="Pause game">
+            <i role="button" class="text-white" data-lucide="pause"></i
+          ></pretty-button>
+          <div class="text-primary text-3xl font-semibold">
+            <span id="xpSpan">0</span> XP
+          </div>
+          <game-gauge id="lifeGauge"
+            ><span slot="icon"><i data-lucide="heart-pulse"></i></span
+            ><span slot="label">Life</span></game-gauge
+          >
+          <game-gauge id="foodGauge"
+            ><span slot="icon"><i data-lucide="shrimp"></i></span
+            ><span slot="label">Food</span></game-gauge
+          >
+          <game-gauge id="apetiteGauge"
+            ><span slot="label">Apetite</span></game-gauge
+          >
+          <game-gauge id="oxygenGauge"
+            ><span slot="icon"><i data-lucide="air-vent"></i></span
+            ><span slot="label">Oxygen</span></game-gauge
+          >
+        </div>
+        <canvas id="gameCanvas" height="400" width="700" tab-index="1"></canvas>
+        <div id="onscreenControls" class="fixed bottom-1 right-1">
+          <div class="mb-1 flex justify-center">
+            <game-control id="upControl"
+              ><i
+                data-lucide="circle-chevron-up"
+                class="text-primary w-9 h-9"
+              ></i
+            ></game-control>
+          </div>
+          <div class="flex gap-1">
+            <game-control id="leftControl"
+              ><i
+                data-lucide="circle-chevron-left"
+                class="text-primary w-9 h-9"
+              ></i
+            ></game-control>
+            <game-control id="downControl"
+              ><i
+                data-lucide="circle-chevron-down"
+                class="text-primary w-9 h-9"
+              ></i>
+            </game-control>
+            <game-control id="rightControl">
+              <i
+                data-lucide="circle-chevron-right"
+                class="text-primary w-9 h-9"
+              ></i>
+            </game-control>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="landscape:hidden flex justify-center items-center bg-red-700">
+      <p class="text-white">
+        Unable to play game in portrait mode. Please switch your device to
+        landscape mode or install the Progressive Web App in Chrome, Edge or
+        Firefox with the Progressive Web App addon.
+      </p>
+    </div>
+    <pretty-dialog id="instructionsDialog">
+      <span slot="title">Instructions</span>
+      <div slot="content">
+        <div class="flex flex-col gap-1 justify-center items-center">
+          <p>
+            Help Peppa the loggerhead turtle to her nesting grounds. Use the
+            provided on-screen arrows to move the turtle. W,A,S,D or arrow keys
+            may also be used to control the turtle.
+          </p>
+          <p>
+            Move Peppa to the right end of the screen in order to pass each
+            level. Eat prey and avoid obstacles.
+          </p>
+          <p>Good luck!</p>
+          <p>
+            Yours turtley,
+            <br />
+            Daniel - Game Developer
+          </p>
+        </div>
+        <figure class="flex flex-col justify-center items-center gap-1">
+          <img src="/images/babyTurtle.jpg" alt="Baby turtle" class="w-full" />
+          <figcaption class="font-light italic text-sm">
+            Photo by Steff Cutajar from Għadira nest excavation (2025)
+          </figcaption>
+        </figure>
+      </div>
+      <div slot="footer">
+        <pretty-button id="closeInstructionsBtn">Close</pretty-button>
+      </div>
+    </pretty-dialog>
+    <pretty-dialog id="customDialog">
+      <span slot="title" id="customDialogTitle"></span>
+      <div slot="content" id="customDialogContent"></div>
+      <div slot="footer" id="customDialogFooter">
+        <pretty-button id="closeCustomDialogBtn">OK</pretty-button>
+      </div>
+    </pretty-dialog>
+    <pretty-dialog id="gameEndDialog">
+      <span slot="title" id="gameEndDialogTitle"></span>
+      <div slot="content" id="gameEndDialogContent"></div>
+      <div slot="footer">
+        <pretty-button id="gameEndDialogShareBtn">Share</pretty-button>
+        <pretty-button id="gameEndDialogCloseBtn">Close</pretty-button>
+      </div>
+    </pretty-dialog>
+    <dialog
+      id="overlay"
+      closedBy="none"
+      class="fixed inset-0 flex-col justify-center items-center p-0 m-0 w-full h-full bg-slate-950 bg-opacity-95 border-none z-50 max-h-none max-w-none"
+    >
+      <i class="text-primary animate-bounce h-10 w-10" data-lucide="turtle"></i>
+      <span id="overlayText" class="text-primary text-3xl font-bold"></span>
+    </dialog>
+    <pretty-dialog id="gamePausedDialog">
+      <span slot="title">Game Paused</span>
+      <div slot="content">
+        Game paused. Click the <strong>Resume</strong> button to continue.
+      </div>
+      <div slot="footer">
+        <pretty-button id="resumeBtn">Resume</pretty-button>
+      </div>
+    </pretty-dialog>
+    <pretty-dialog id="loginDialog">
+      <span slot="title">Login</span>
+      <div
+        slot="content"
+        class="flex flex-col items-center justify-center gap-2"
+      >
+        <p>
+          Login with your Google account to save your game progress to the cloud
+          and access it from any device and customise.
+        </p>
+        <div id="googleSignInButton"></div>
+        <p>Or continue as guest.</p>
+      </div>
+      <div
+        slot="footer"
+        class="flex flex-col items-center justify-center gap-2"
+      >
+        <p class="italic text-center">
+          Please note that the accounts feature makes use of cookies for secure
+          authenitication. By logging in, you are agreeing to the use of
+          cookies.
+        </p>
+        <pretty-button id="closeLoginBtn">Close</pretty-button>
+      </div>
+    </pretty-dialog>
+    <pretty-dialog id="settingsDialog">
+      <span slot="title">Settings</span>
+      <div slot="content">
+        <div class="flex flex-col gap-4">
+          <div class="flex gap-1">
+            <tab-pill name="settings" data-container="profile-tab" data-active
+              >Profile</tab-pill
+            >
+            <tab-pill name="settings" data-container="controls-tab"
+              >Controls</tab-pill
+            >
+            <tab-pill name="settings" data-container="about-tab"
+              >About</tab-pill
+            >
+          </div>
+          <div class="pt-2 border-t-2 border-t-solid border-t-primary">
+            <form id="settingsForm" method="dialog">
+              <tab-container id="profile-tab">
+                <span
+                  id="playerEmailReadonlyField"
+                  class="font-semibold text-xl text-primary"
+                ></span>
+                <image-uploader id="profilePicUploader"
+                  >Profile Picture</image-uploader
+                >
+                <div class="flex flex-col gap-1 w-full">
+                  <text-input id="playerNameInput">Name</text-input>
+                  <text-input id="playerDobInput" type="date"
+                    >Date of Birth</text-input
+                  >
+                </div>
+              </tab-container>
+              <tab-container id="controls-tab">
+                <radio-selection id="screenControlPositionRadio"
+                  >Screen Controls Position</radio-selection
+                >
+              </tab-container>
+            </form>
+            <tab-container id="about-tab">
+              <div class="flex flex-col justify-center items-center gap-2">
+                <span class="font-bold text-primary text-xl"
+                  >Mission Sea Turtle Nest</span
+                >
+                <i data-lucide="turtle" class="w-16 h-16 text-primary"></i>
+                <a
+                  id="version"
+                  href="https://github.com/danieldesira/TurtleQuest/blob/master/changelog.md"
+                  target="_blank"
+                  title="Changelog"
+                >
+                </a>
+                <div class="flex gap-2">
+                  <a
+                    href="https://github.com/danieldesira/TurtleQuest/blob/master/contributors.md"
+                    target="_blank"
+                    title="Credits"
+                  >
+                    Credits
+                  </a>
+                  <a
+                    href="https://github.com/danieldesira/TurtleQuest/blob/master/license.md"
+                    target="_blank"
+                    title="License"
+                  >
+                    License
+                  </a>
+                  <a
+                    href="https://github.com/danieldesira/TurtleQuest/blob/master/DEDICATIONS.md"
+                    target="_blank"
+                    title="License"
+                  >
+                    Dedications
+                  </a>
+                </div>
+              </div>
+            </tab-container>
+          </div>
+        </div>
+      </div>
+      <div slot="footer">
+        <pretty-button id="closeSettingsBtn">Close</pretty-button>
+      </div>
+    </pretty-dialog>
+    <pretty-dialog id="scoresDialog">
+      <span slot="title">Scores</span>
+      <div slot="content">
+        <div class="flex flex-col gap-4 text-primary">
+          <div class="flex gap-1">
+            <span class="font-bold text-xl">Level:</span>
+            <span id="personalBestLevel" class="font-semibold text-xl"></span>
+            <span class="font-bold text-xl">Points:</span>
+            <span id="personalBestPoints" class="font-semibold text-xl"></span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="font-bold text-xl">Leaderboard</span>
+            <table class="table border-separate border-spacing-x-2">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="font-bold text-lg">Player</th>
+                  <th class="font-bold text-lg">Level</th>
+                  <th class="font-bold text-lg">Points</th>
+                  <th class="font-bold text-lg">Outcome</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboardTbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div slot="footer">
+        <pretty-button id="closeScoresBtn">Close</pretty-button>
+      </div>
+    </pretty-dialog>
+    <div
+      id="waitingNotice"
+      class="fixed top-1 right-1 p-2 bg-green-600 text-primary font-semibold text-sm rounded-sm hidden opacity-90"
+    ></div>
+    <pretty-dialog id="gameOverwriteDialog">
+      <span slot="title">Previous Game Overwrite</span>
+      <div slot="content">
+        You still did not finish your previous game. Proceeding will result in
+        lose of data. Are you sure that you want to start a new game?
+      </div>
+      <div slot="footer">
+        <pretty-button id="confirmNewGameBtn" variant="danger"
+          >Yes</pretty-button
+        >
+        <pretty-button id="cancelNewGameBtn">No</pretty-button>
+      </div>
+    </pretty-dialog>
   </body>
 </html>

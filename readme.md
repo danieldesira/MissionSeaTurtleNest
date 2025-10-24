@@ -1,4 +1,4 @@
-# Turtle Quest
+# Mission Sea Turtle Nest
 A simple educational game about loggerhead turtles.
 
 ## Access

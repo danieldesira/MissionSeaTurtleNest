@@ -1,5 +1,5 @@
 import { Direction, Directions } from "../../constants";
-import Game from "../../Game";
+import Game from "../../singletons/Game";
 import ICharacter from "../interfaces/ICharacter";
 
 abstract class Character implements ICharacter {

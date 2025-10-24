@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#overlay:open {
+  @apply flex opacity-90;
+}
