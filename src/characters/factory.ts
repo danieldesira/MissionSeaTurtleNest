@@ -21,7 +21,7 @@ const characterMap: { [key: string]: new () => NonMain } = {
  * @returns The instance
  * @author Daniel Desira
  */
-const createCharacterInstance = (className: string): NonMain => {
+export const createCharacterInstance = (className: string): NonMain => {
   const CharacterConstructor = characterMap[className];
   if (CharacterConstructor) {
     return new CharacterConstructor();
@@ -29,5 +29,3 @@ const createCharacterInstance = (className: string): NonMain => {
     throw new Error("Character undefined");
   }
 };
-
-export default createCharacterInstance;

@@ -12,7 +12,6 @@ import RadioSelection from "../../webComponents/form/RadioSelection";
 import TextInput from "../../webComponents/form/TextInput";
 import { setupTabPills } from "./tabPills";
 import { version } from "../../../package.json";
-import { registerServiceWorker } from "../serviceWorkers";
 import { checkNotificationPermission } from "../notifications";
 
 export const setupControlSettings = () => {

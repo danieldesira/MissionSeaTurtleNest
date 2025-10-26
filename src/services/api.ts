@@ -1,11 +1,11 @@
 import GameData from "../restoreGame/GameData";
 import {
-  HighScore,
-  LoginResponse,
-  SaveScorePayload,
-  Settings,
-  UpdatePlayerPayload,
-  UpdateProfilePictureResponse,
+  type HighScore,
+  type LoginResponse,
+  type SaveScorePayload,
+  type Settings,
+  type UpdatePlayerPayload,
+  type UpdateProfilePictureResponse,
 } from "./interfaces";
 import FetchRequest from "./FetchRequest";
 

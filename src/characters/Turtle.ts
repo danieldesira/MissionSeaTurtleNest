@@ -1,8 +1,8 @@
 import Game from "../singletons/Game";
 import { updateGauge } from "../utils/ui/gameplay";
 import Character from "./abstract/Character";
-import CharacterOptions from "./interfaces/CharacterOptions";
 import IMainCharacter from "./interfaces/IMainCharacter";
+import { type CharacterOptions } from "./types";
 
 class Turtle extends Character implements IMainCharacter {
   static scientificName: string = "Carretta carretta";

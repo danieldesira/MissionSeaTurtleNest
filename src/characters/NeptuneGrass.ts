@@ -1,5 +1,5 @@
 import BenthicPrey from "./abstract/BenthicPrey";
-import CharacterOptions from "./interfaces/CharacterOptions";
+import { type CharacterOptions } from "./types";
 
 class NeptuneGrass extends BenthicPrey {
   protected readonly _imageFilename: string;

@@ -1,9 +1,7 @@
-import CharacterOptions from "../characters/interfaces/CharacterOptions";
+import { type CharacterOptions } from "../characters/types";
 import INonMainCharacter from "../characters/interfaces/INonMainCharacter";
 
-interface LevelCharacter {
+export type LevelCharacter = {
   Constructor: new (options?: CharacterOptions) => INonMainCharacter;
   amount: number;
-}
-
-export default LevelCharacter;
+};

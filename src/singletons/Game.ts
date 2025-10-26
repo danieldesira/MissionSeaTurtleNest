@@ -2,7 +2,7 @@ import Turtle from "../characters/Turtle";
 import { paintLevelBg } from "../levels/background";
 import ILevel from "../levels/ILevel";
 import { createLevelInstance, levelExists } from "../levels/levels";
-import GameData from "../restoreGame/GameData";
+import type GameData from "../restoreGame/GameData";
 import parseGameData from "../restoreGame/parseGameData";
 import {
   checkIfBestPersonalScore,

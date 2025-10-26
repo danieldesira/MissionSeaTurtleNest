@@ -1,4 +1,4 @@
-interface CharacterOptions {
+export type CharacterOptions = {
   imageFilename?: string;
   speed?: number;
   stomachImpact?: number;
@@ -7,6 +7,4 @@ interface CharacterOptions {
   foodValue?: number;
   width?: number;
   height?: number;
-}
-
-export default CharacterOptions;
+};

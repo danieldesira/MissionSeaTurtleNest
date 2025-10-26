@@ -2,7 +2,7 @@ import PackPrey from "../characters/abstract/PackPrey";
 import INonMainCharacter from "../characters/interfaces/INonMainCharacter";
 import { restoreCharacters } from "../restoreGame/parseGameData";
 import ILevel from "./ILevel";
-import LevelCharacter from "./LevelCharacter";
+import { type LevelCharacter } from "./types";
 import GameData from "../restoreGame/GameData";
 import { launchCustomDialog } from "../utils/ui/ui";
 import Game from "../singletons/Game";

@@ -1,4 +1,4 @@
-import GameData from "../restoreGame/GameData";
+import type GameData from "../restoreGame/GameData";
 
 export interface Settings {
   controlPosition: "Left" | "Right";
