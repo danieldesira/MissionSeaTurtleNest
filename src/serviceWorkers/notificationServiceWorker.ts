@@ -30,8 +30,3 @@ notificationSW.addEventListener("activate", async () => {
   });
   await savePushSubscription(subscription);
 });
-
-notificationSW.addEventListener("push", async () => {
-  const notificationList = await notificationSW.registration.getNotifications();
-  console.log(notificationList);
-});

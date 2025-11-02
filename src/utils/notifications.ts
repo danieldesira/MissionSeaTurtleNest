@@ -1,4 +1,4 @@
-import { launchCustomDialog } from "./ui/ui";
+import { launchCustomDialog } from "./ui/customDialog";
 import { friendlyName } from "../../package.json";
 
 export const checkNotificationPermission = async () => {

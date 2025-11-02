@@ -24,6 +24,7 @@ import {
   setupInstructionsDialog,
   setupNewGameMenuBtn,
 } from "./utils/ui/mainMenu";
+import { setupCustomDialog } from "./utils/ui/customDialog";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");
@@ -33,6 +34,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   registerComponents();
   setupSocialButtons();
   window.lucide?.createIcons();
+
+  setupCustomDialog();
 
   setupNewGameMenuBtn();
   setupContinueGameBtn();

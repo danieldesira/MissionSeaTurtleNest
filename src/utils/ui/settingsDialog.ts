@@ -73,7 +73,7 @@ export const setupSettingsDialog = () => {
   ) as PrettyDialog;
   settingsDialog.closeButtonIds = ["closeSettingsBtn"];
   settingsDialog.closeCallback = handleSettingsDialogClose;
-  settingsBtn.callback = () => settingsDialog.show();
+  settingsBtn.callback = () => settingsDialog.open();
   setupTabPills("settings");
   setupAboutTab();
   setupNotificationsTab();

@@ -3,7 +3,8 @@ import { fetchHighScores } from "../../services/api";
 import PersonalBestStore from "../../singletons/cacheStores/PersonalBestStore";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
-import { deleteChildren, launchCustomDialog } from "./ui";
+import { launchCustomDialog } from "./customDialog";
+import { deleteChildren } from "./ui";
 import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 
 export const formatLevelAsText = (levelNo: number) =>
@@ -14,7 +15,7 @@ export const setupScoresDialog = () => {
   const scoresBtn = document.getElementById("scoresBtn") as PrettyButton;
 
   scoresBtn.callback = async () => {
-    scoresDialog.show();
+    scoresDialog.open();
     await populateLeaderBoard();
   };
 

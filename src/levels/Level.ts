@@ -4,7 +4,7 @@ import { restoreCharacters } from "../restoreGame/parseGameData";
 import ILevel from "./ILevel";
 import { type LevelCharacter } from "./types";
 import GameData from "../restoreGame/GameData";
-import { launchCustomDialog } from "../utils/ui/ui";
+import { launchCustomDialog } from "../utils/ui/customDialog";
 import Game from "../singletons/Game";
 
 export type LevelConstructorOptions = {

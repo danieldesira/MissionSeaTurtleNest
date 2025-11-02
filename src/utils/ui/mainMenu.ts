@@ -36,7 +36,7 @@ export const setupInstructionsDialog = () => {
   const instructionsBtn = document.getElementById(
     "instructionsBtn"
   ) as MenuItem;
-  instructionsBtn.callback = () => instructionsDialog.show();
+  instructionsBtn.callback = () => instructionsDialog.open();
 };
 
 export const setupNewGameMenuBtn = () => {
@@ -73,7 +73,7 @@ const showGameOverwriteDialog = () => {
   const gameOverwriteDialog = document.getElementById(
     "gameOverwriteDialog"
   ) as PrettyDialog;
-  gameOverwriteDialog.show();
+  gameOverwriteDialog.open();
 };
 
 export const setupGameOverwriteDialog = () => {

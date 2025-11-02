@@ -17,7 +17,7 @@ import {
   setupControlSettings,
   setupSettingsProfileTab,
 } from "./ui/settingsDialog";
-import { launchCustomDialog } from "./ui/ui";
+import { launchCustomDialog } from "./ui/customDialog";
 
 export const handleGoogleAuthResponse = async ({
   credential,

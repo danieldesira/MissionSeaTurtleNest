@@ -1,7 +1,7 @@
 import Game from "../singletons/Game";
 import stringifyGameData from "../restoreGame/stringifyGameData";
 import { deleteLastGame, saveScore } from "../services/api";
-import { launchCustomDialog } from "./ui/ui";
+import { launchCustomDialog } from "./ui/customDialog";
 import {
   deleteLastGameLocalStorage,
   deleteLastGameTimestampLocalStorage,

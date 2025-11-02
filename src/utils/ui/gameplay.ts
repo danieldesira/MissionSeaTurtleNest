@@ -12,7 +12,7 @@ import {
   getLastGameTimestampLocalStorage,
 } from "../lastGameLocalStorage";
 import { toggleMode } from "./mainMenu";
-import { launchCustomDialog } from "./ui";
+import { launchCustomDialog } from "./customDialog";
 import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 
 export const setupGameControls = () => {
@@ -41,7 +41,7 @@ export const launchGameEndDialog = (title: string, text: string) => {
   const gameEndDialog = document.getElementById(
     "gameEndDialog"
   ) as PrettyDialog;
-  gameEndDialog.show();
+  gameEndDialog.open();
   gameEndDialog.closeButtonIds = ["gameEndDialogCloseBtn"];
   const gameEndDialogTitle = document.getElementById("gameEndDialogTitle");
   gameEndDialogTitle.innerText = title;
@@ -85,13 +85,15 @@ export const setupResumeBtn = () => {
     "gamePausedDialog"
   ) as PrettyDialog;
   gamePausedDialog.closeButtonIds = ["resumeBtn"];
+  gamePausedDialog.openCallback = () => Game.instance.pause();
+  gamePausedDialog.closeCallback = () => Game.instance.resume();
 };
 
 const showGamePausedDialog = () => {
   const gamePausedDialog = document.getElementById(
     "gamePausedDialog"
   ) as PrettyDialog;
-  gamePausedDialog.show();
+  gamePausedDialog.open();
 };
 
 export const setupPauseBtn = () => {
