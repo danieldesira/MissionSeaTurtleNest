@@ -1,4 +1,4 @@
-import ICharacter from "./ICharacter";
+import type ICharacter from "./ICharacter";
 
 export type CollisionCallbacks = {
   eat: (foodValue: number) => void;

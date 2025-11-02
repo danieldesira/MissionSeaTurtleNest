@@ -1,20 +1,11 @@
 import PackPrey from "../characters/abstract/PackPrey";
-import INonMainCharacter from "../characters/interfaces/INonMainCharacter";
+import type INonMainCharacter from "../characters/interfaces/INonMainCharacter";
 import { restoreCharacters } from "../restoreGame/parseGameData";
-import ILevel from "./ILevel";
-import { type LevelCharacter } from "./types";
-import GameData from "../restoreGame/GameData";
+import type ILevel from "./ILevel";
+import { type LevelConstructorOptions, type LevelCharacter } from "./types";
+import type GameData from "../restoreGame/GameData";
 import { launchCustomDialog } from "../utils/ui/customDialog";
 import Game from "../singletons/Game";
-
-export type LevelConstructorOptions = {
-  backgroundImageFilename: string;
-  initialCharacters: LevelCharacter[];
-  benthicOffsetY: number;
-  currentSpeed: number;
-  points: number;
-  levelDescription: string[];
-};
 
 class Level implements ILevel {
   private readonly _backgroundImageFilename: string;

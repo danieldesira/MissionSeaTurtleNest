@@ -1,4 +1,4 @@
-import INonMainCharacter from "../characters/interfaces/INonMainCharacter";
+import type INonMainCharacter from "../characters/interfaces/INonMainCharacter";
 import type GameData from "../restoreGame/GameData";
 
 interface ILevel {

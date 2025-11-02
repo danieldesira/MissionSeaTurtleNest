@@ -198,18 +198,31 @@
     </template>
     <template id="imageUploaderTemplate">
       <style>
-        .imagePreview {
-          @apply flex justify-center items-center w-20 h-20 rounded-sm cursor-pointer bg-cover bg-center;
+        .btn {
+          @apply flex justify-start p-2 rounded-sm border-solid border-2 border-primary cursor-pointer;
+        }
+
+        .btn.error {
+          @apply border-danger;
+        }
+
+        .btnText {
+          @apply flex justify-center items-center w-full text-sm font-semibold text-primary;
         }
 
         input[type="file"] {
           @apply hidden;
         }
+
+        img {
+          @apply w-5 h-5 rounded-sm;
+        }
       </style>
       <form-field>
         <slot slot="label"></slot>
-        <div class="imagePreview" role="button" slot="field">
-          Upload...
+        <div class="btn" role="button" slot="field">
+          <img alt="" />
+          <div class="btnText">Upload... (10MB max)</div>
           <input type="file" accept=".jpg,.png,.webp,.gif" />
         </div>
       </form-field>
@@ -426,9 +439,9 @@
             <tab-pill name="settings" data-container="controls-tab"
               >Controls</tab-pill
             >
-            <tab-pill name="settings" data-container="notifications-tab"
+            <!--<tab-pill name="settings" data-container="notifications-tab"
               >Notifications</tab-pill
-            >
+            >-->
             <tab-pill name="settings" data-container="about-tab"
               >About</tab-pill
             >
@@ -440,10 +453,10 @@
                   id="playerEmailReadonlyField"
                   class="font-semibold text-xl text-primary"
                 ></span>
-                <image-uploader id="profilePicUploader"
-                  >Profile Picture</image-uploader
-                >
-                <div class="flex flex-col gap-1 w-full">
+                <div class="flex flex-col gap-1">
+                  <image-uploader id="profilePicUploader"
+                    >Profile Picture</image-uploader
+                  >
                   <text-input id="playerNameInput">Name</text-input>
                   <text-input id="playerDobInput" type="date"
                     >Date of Birth</text-input

@@ -1,14 +1,15 @@
-# 0.7.7 Beta -
+# 0.7.7 Beta - 02/11/2025 18:00 UTC+1
 
 - Migrate to vanilla JS and web components reducing the JS bundle size by over 75%
 - Minor UI changes including tabbed settings dialog, smooth transitions and adopting Lucide icons
 - Rename game to _Mission Sea Turtle Nest_ or _Mission Turtle_ in short
-- Add desktop notifications
+- Initial work on desktop notifications (currently not available in UI)
 - Mobile: Add 300ms vibration on collision with obstacles
 - Gameplay: Bugfix: Only handle left click on onscreen controls [#55](https://github.com/danieldesira/TurtleQuest/issues/55)
 - Implement game pause on tab/window change
 - Change license to GNU GPL3 and update contibutor manual
 - Refactor level selection eliminating class inheritance
+- Transform image uploader to a field-like `html <div>`
 
 # 0.7.6.2 Beta (Malta&Gozo hatching Edition) - 27/08/2025 15:00 UTC+1
 

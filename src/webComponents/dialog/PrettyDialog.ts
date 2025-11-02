@@ -1,4 +1,3 @@
-import Game from "../../singletons/Game";
 import { loadTemplate } from "../components";
 
 class PrettyDialog extends HTMLElement {
