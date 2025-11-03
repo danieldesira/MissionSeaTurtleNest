@@ -298,11 +298,9 @@ class Game {
   private async handleGameEnd(hasWon: boolean) {
     checkIfBestPersonalScore();
     this.exit();
-
-    showOverlay("Saving score");
-    await deleteLastGameAndSaveScore(hasWon);
-    hideOverlay();
     toggleMode("menu");
+
+    await deleteLastGameAndSaveScore(hasWon);
   }
 }
 

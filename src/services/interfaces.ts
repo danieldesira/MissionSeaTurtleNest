@@ -1,6 +1,6 @@
 import type GameData from "../restoreGame/GameData";
 
-export interface Settings {
+interface Settings {
   controlPosition: "Left" | "Right";
 }
 
@@ -43,9 +43,15 @@ export interface SaveScorePayload {
 export interface UpdatePlayerPayload {
   name: string;
   date_of_birth: string;
+  settings: Settings;
 }
 
 export interface UpdateProfilePictureResponse {
   profilePicUrl?: string;
   message?: string;
+}
+
+export interface SaveGamePayload {
+  lastGame: GameData;
+  timestamp: number;
 }

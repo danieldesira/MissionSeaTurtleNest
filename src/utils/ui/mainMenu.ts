@@ -69,6 +69,13 @@ export const toggleContinueGameBtn = () => {
   }
 };
 
+export const hideContinueGameBtn = () => {
+  const continueGameBtn = document.getElementById(
+    "continueGameBtn"
+  ) as MenuItem;
+  continueGameBtn.hide();
+};
+
 const showGameOverwriteDialog = () => {
   const gameOverwriteDialog = document.getElementById(
     "gameOverwriteDialog"

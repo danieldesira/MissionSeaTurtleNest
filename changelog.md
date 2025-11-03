@@ -1,3 +1,8 @@
+# 0.7.8 Beta -
+
+- Refactor API interfaces to match new endpoint signatures (API 0.1.5)
+- Improve settings submission and game end UI response with new waiting notice
+
 # 0.7.7 Beta - 02/11/2025 18:00 UTC+1
 
 - Migrate to vanilla JS and web components reducing the JS bundle size by over 75%
@@ -9,7 +14,7 @@
 - Implement game pause on tab/window change
 - Change license to GNU GPL3 and update contibutor manual
 - Refactor level selection eliminating class inheritance
-- Transform image uploader to a field-like `html <div>`
+- Transform image uploader to a field-like `<div>` and set a 10mb limit
 
 # 0.7.6.2 Beta (Malta&Gozo hatching Edition) - 27/08/2025 15:00 UTC+1
 

@@ -1,6 +1,6 @@
 import Game from "../singletons/Game";
 import stringifyGameData from "../restoreGame/stringifyGameData";
-import { deleteLastGame, saveScore } from "../services/api";
+import { saveScore } from "../services/api";
 import { launchCustomDialog } from "./ui/customDialog";
 import {
   deleteLastGameLocalStorage,
@@ -11,6 +11,8 @@ import {
 import PersonalBestStore from "../singletons/cacheStores/PersonalBestStore";
 import { isAuthenticated } from "./authentication";
 import { formatLevelAsText, updatePersonalBestPlaceholders } from "./ui/scores";
+import { hideWaitingNotice, showWaitingNotice } from "./ui/waitingNotice";
+import { hideContinueGameBtn, toggleContinueGameBtn } from "./ui/mainMenu";
 
 export const saveGameProgress = () => {
   if (isAuthenticated()) {
@@ -22,22 +24,22 @@ export const saveGameProgress = () => {
 export const deleteLastGameAndSaveScore = async (
   hasWon: boolean
 ): Promise<void> => {
+  hideContinueGameBtn();
+  showWaitingNotice("Saving score!");
   try {
     if (isAuthenticated()) {
-      await Promise.all([
-        deleteLastGame(),
-        saveScore({
-          points: Game.instance.xp,
-          level: Game.instance.currentLevelNo,
-          hasWon,
-        }),
-      ]);
+      await saveScore({
+        points: Game.instance.xp,
+        level: Game.instance.currentLevelNo,
+        hasWon,
+      });
     }
   } catch {
     launchCustomDialog("Error", "Failed to save game score");
   } finally {
     deleteLastGameLocalStorage();
     deleteLastGameTimestampLocalStorage();
+    hideWaitingNotice();
   }
 };
 
