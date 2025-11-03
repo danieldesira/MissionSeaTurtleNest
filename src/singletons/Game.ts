@@ -281,17 +281,17 @@ class Game {
     if (levelExists(this._currentLevelNo)) {
       await this.loadNewLevel(true);
     } else {
-      await this.handleWin();
+      this.handleWin();
     }
   }
 
-  private async handleLoss() {
-    await this.handleGameEnd(false);
+  private handleLoss() {
+    this.handleGameEnd(false);
     launchGameEndDialog("Game over", "You lose! Better luck next time.");
   }
 
-  private async handleWin() {
-    await this.handleGameEnd(true);
+  private handleWin() {
+    this.handleGameEnd(true);
     launchGameEndDialog("Game Complete", "You win. Congratulations!");
   }
 

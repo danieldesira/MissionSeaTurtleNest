@@ -12,7 +12,7 @@ import PersonalBestStore from "../singletons/cacheStores/PersonalBestStore";
 import { isAuthenticated } from "./authentication";
 import { formatLevelAsText, updatePersonalBestPlaceholders } from "./ui/scores";
 import { hideWaitingNotice, showWaitingNotice } from "./ui/waitingNotice";
-import { hideContinueGameBtn, toggleContinueGameBtn } from "./ui/mainMenu";
+import { hideContinueGameBtn } from "./ui/mainMenu";
 
 export const saveGameProgress = () => {
   if (isAuthenticated()) {
