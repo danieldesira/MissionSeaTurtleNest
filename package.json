@@ -1,7 +1,7 @@
 {
   "name": "mission-sea-turtle-nest",
   "friendlyName": "Mission Sea Turtle Nest",
-  "version": "0.7.7",
+  "version": "0.7.8",
   "homepage": "https://turtle-quest.vercel.app/",
   "type": "module",
   "private": true,
@@ -14,10 +14,10 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "dev": "npx vite",
+    "dev": "node mergeHtml.cjs && npx vite",
     "start": "npm run dev",
     "docs": "npx typedoc src/characters/abstract/* src/characters/interfaces/* src/levels/* src/utils/* src/enums/* src/Background.ts src/checkTurtle.ts src/Game.ts --name TurtleQuest --out dev/docs/",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && node mergeHtml.cjs && vite build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },

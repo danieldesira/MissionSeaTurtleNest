@@ -1,0 +1,31 @@
+<template id="imageUploaderTemplate">
+  <style>
+    .btn {
+      @apply flex justify-start p-2 rounded-sm border-solid border-2 border-primary cursor-pointer;
+    }
+
+    .btn.error {
+      @apply border-danger;
+    }
+
+    .btnText {
+      @apply flex justify-center items-center w-full text-sm font-semibold text-primary;
+    }
+
+    input[type="file"] {
+      @apply hidden;
+    }
+
+    img {
+      @apply w-5 h-5 rounded-sm;
+    }
+  </style>
+  <form-field>
+    <slot slot="label"></slot>
+    <div class="btn" role="button" slot="field">
+      <img alt="" />
+      <div class="btnText">Upload... (10MB max)</div>
+      <input type="file" accept=".jpg,.png,.webp,.gif" />
+    </div>
+  </form-field>
+</template>

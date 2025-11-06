@@ -4,7 +4,7 @@
 - Improve settings submission and game end UI response with new waiting notice
 - Refine gameplay UI to include same background as in menu and place controls
   relative to gameplay section and provide a more responsive design
--
+- 
 
 # 0.7.7 Beta - 02/11/2025 18:00 UTC+1
 

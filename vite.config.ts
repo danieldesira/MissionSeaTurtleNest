@@ -2,6 +2,17 @@ import { defineConfig } from "vite";
 import fs from "fs";
 import path from "path";
 
+const getHtmlEntries = (dir: string) => {
+  const htmlFiles = fs
+    .readdirSync(dir)
+    .filter((file) => file.endsWith(".html"));
+  const entries: Record<string, string> = {};
+  htmlFiles.forEach((file) => (entries[file] = path.resolve(dir, file)));
+  return entries;
+};
+
+const htmlTemplates = getHtmlEntries(path.resolve(__dirname, "src"));
+
 export default defineConfig({
   build: {
     rollupOptions: {
@@ -15,6 +26,7 @@ export default defineConfig({
           __dirname,
           "src/serviceWorkers/notificationServiceWorker.ts"
         ),
+        //...htmlTemplates,
       },
       output: {
         entryFileNames: (assetInfo) => {

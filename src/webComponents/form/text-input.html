@@ -1,0 +1,12 @@
+<template id="textInputTemplate">
+  <style>
+    input {
+      @apply border-primary border-solid border-2 rounded-sm focus:ring-2 focus:ring-primary
+           px-2 py-1 text-primary font-semibold text-xl bg-transparent focus:outline-none;
+    }
+  </style>
+  <form-field>
+    <slot slot="label"></slot>
+    <input slot="field" type="text" />
+  </form-field>
+</template>
