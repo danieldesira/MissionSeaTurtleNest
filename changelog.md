@@ -5,12 +5,14 @@
 - Refine gameplay UI to include same background as in menu and place controls
   relative to gameplay section and provide a more responsive design
 - Build internal HTML fragment merging pre-build tool to split up `index.base.html`
+- Introduce dialog when guest player clicks Back button during game
+- Extend automatic game pause for all dialogs
 
 # 0.7.7 Beta - 02/11/2025 18:00 UTC+1
 
 - Migrate to vanilla JS and web components reducing the JS bundle size by over 75%
 - Minor UI changes including tabbed settings dialog, smooth transitions and adopting Lucide icons
-- Rename game to _Mission Sea Turtle Nest_ or _Mission Turtle_ in short
+- Rename game to _Mission Sea Turtle Nest_ or _MissioIntroduce dialog when guest player clicks Back button during gamen Turtle_ in short
 - Initial work on desktop notifications (currently not available in UI)
 - Mobile: Add 300ms vibration on collision with obstacles
 - Gameplay: Bugfix: Only handle left click on onscreen controls [#55](https://github.com/danieldesira/TurtleQuest/issues/55)

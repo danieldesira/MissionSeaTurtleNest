@@ -14,6 +14,7 @@ import {
 import { toggleMode } from "./mainMenu";
 import { launchCustomDialog } from "./customDialog";
 import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
+import { showLoginInvitationDialog } from "./loginInvitationDialog";
 
 export const setupGameControls = () => {
   const upControl = document.getElementById("upControl") as GameControl;
@@ -121,9 +122,9 @@ export const setupAppVisibilityHandler = () => {
 export const setupBackToMenuBtn = () => {
   const backBtn = document.getElementById("backBtn") as PrettyButton;
   backBtn.callback = async () => {
-    Game.instance.exit();
-    toggleMode("menu");
     if (isAuthenticated()) {
+      Game.instance.exit();
+      toggleMode("menu");
       showWaitingNotice("Uploading game progress...");
       try {
         await saveGame({
@@ -138,6 +139,8 @@ export const setupBackToMenuBtn = () => {
       } finally {
         hideWaitingNotice();
       }
+    } else {
+      showLoginInvitationDialog();
     }
   };
 };
@@ -146,3 +149,11 @@ export const setupCanvasSize = () => {
   const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
   window.addEventListener("resize", () => resizeCanvas(canvas));
 };
+
+export const setupGamePauseOnDialogOpen = () =>
+  Array.from(document.querySelectorAll("pretty-dialog")).forEach(
+    (dialog: PrettyDialog) => {
+      dialog.openCallback = () => Game.instance.pause();
+      dialog.closeCallback = () => Game.instance.resume();
+    }
+  );

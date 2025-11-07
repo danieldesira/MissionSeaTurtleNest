@@ -1,4 +1,3 @@
-import Game from "../../singletons/Game";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 
 export const launchCustomDialog = (title: string, text: string | string[]) => {
@@ -19,10 +18,4 @@ export const launchCustomDialog = (title: string, text: string | string[]) => {
       customDialogContent.appendChild(br);
     });
   }
-};
-
-export const setupCustomDialog = () => {
-  const customDialog = document.getElementById("customDialog") as PrettyDialog;
-  customDialog.openCallback = () => Game.instance.pause();
-  customDialog.closeCallback = () => Game.instance.resume();
 };

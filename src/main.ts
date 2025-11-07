@@ -13,6 +13,7 @@ import {
   setupBackToMenuBtn,
   setupCanvasSize,
   setupGameControls,
+  setupGamePauseOnDialogOpen,
   setupGameShareBtn,
   setupPauseBtn,
   setupResumeBtn,
@@ -24,7 +25,7 @@ import {
   setupInstructionsDialog,
   setupNewGameMenuBtn,
 } from "./utils/ui/mainMenu";
-import { setupCustomDialog } from "./utils/ui/customDialog";
+import { setupLoginInvitationDialog } from "./utils/ui/loginInvitationDialog";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");
@@ -34,8 +35,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   registerComponents();
   setupSocialButtons();
   window.lucide?.createIcons();
-
-  setupCustomDialog();
 
   setupNewGameMenuBtn();
   setupContinueGameBtn();
@@ -53,6 +52,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupCanvasSize();
   setupBackToMenuBtn();
   setupAppVisibilityHandler();
+  setupLoginInvitationDialog();
+  setupGamePauseOnDialogOpen();
 
   setupScoresDialog();
 });

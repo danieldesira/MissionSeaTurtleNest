@@ -6,6 +6,7 @@ import {
   handleGoogleAuthResponse,
   isAuthenticated,
 } from "../authentication";
+import { hideContinueGameBtn } from "./mainMenu";
 import { setupSettingsDialog } from "./settingsDialog";
 
 const initialiseGoogleSignInButton = () => {
@@ -34,6 +35,7 @@ export const setupLoginButtons = () => {
   logoutBtn.callback = async () => {
     clearCurrentPlayerStores();
     updateAuthenticationUI();
+    hideContinueGameBtn();
     await requestLogout();
   };
 

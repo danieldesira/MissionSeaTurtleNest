@@ -10,11 +10,13 @@ let indexContent = fs.readFileSync(inputIndex, "utf-8");
 let indexPosition = 0;
 let closingPosition = 0;
 while (indexPosition < indexContent.length && indexPosition !== -1) {
-  indexPosition = indexContent.indexOf("<!--", closingPosition);
-  closingPosition = indexContent.indexOf("-->", indexPosition);
+  const commentOpenBracket = "<!--";
+  const commentCloseBracket = "-->";
+  indexPosition = indexContent.indexOf(commentOpenBracket, closingPosition);
+  closingPosition = indexContent.indexOf(commentCloseBracket, indexPosition);
   if (closingPosition !== -1) {
     const commentContent = indexContent.substring(
-      indexPosition + 4,
+      indexPosition + commentOpenBracket.length,
       closingPosition
     );
     const keyword = "@inject";
