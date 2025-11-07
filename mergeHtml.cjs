@@ -13,13 +13,22 @@ while (indexPosition < indexContent.length && indexPosition !== -1) {
   indexPosition = indexContent.indexOf("<!--", closingPosition);
   closingPosition = indexContent.indexOf("-->", indexPosition);
   if (closingPosition !== -1) {
-    const templatePath = indexContent.substring(
+    const commentContent = indexContent.substring(
       indexPosition + 4,
       closingPosition
     );
-    if (fs.existsSync(templatePath)) {
-      const content = fs.readFileSync(templatePath, "utf-8");
-      indexContent = indexContent.replace(`<!--${templatePath}-->`, content);
+    const keyword = "@inject";
+    if (commentContent.includes(keyword)) {
+      const templatePath = commentContent
+        .substring(commentContent.indexOf(keyword) + keyword.length)
+        .trim();
+      if (fs.existsSync(templatePath)) {
+        const content = fs.readFileSync(templatePath, "utf-8");
+        indexContent = indexContent.replace(
+          `<!--${commentContent}-->`,
+          content
+        );
+      }
     }
   }
 }

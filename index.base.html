@@ -25,17 +25,17 @@
     <script type="module" src="src/main.ts" blocking="render"></script>
   </head>
   <body class="select-none touch-none">
-    <!--src/webComponents/mainMenu/menu-item.html-->
-    <!--src/webComponents/dialog/pretty-dialog.html-->
-    <!--src/webComponents/form/pretty-button.html-->
-    <!--src/webComponents/gameplay/game-control.html-->
-    <!--src/webComponents/gameplay/game-gauge.html-->
-    <!--src/webComponents/tabs/tab-pill.html-->
-    <!--src/webComponents/tabs/tab-container.html-->
-    <!--src/webComponents/form/form-field.html-->
-    <!--src/webComponents/form/radio-selection.html-->
-    <!--src/webComponents/form/text-input.html-->
-    <!--src/webComponents/form/image-uploader.html-->
+    <!-- @inject src/webComponents/mainMenu/menu-item.html -->
+    <!-- @inject src/webComponents/dialog/pretty-dialog.html -->
+    <!-- @inject src/webComponents/form/pretty-button.html -->
+    <!-- @inject src/webComponents/gameplay/game-control.html -->
+    <!-- @inject src/webComponents/gameplay/game-gauge.html -->
+    <!-- @inject src/webComponents/tabs/tab-pill.html -->
+    <!-- @inject src/webComponents/tabs/tab-container.html -->
+    <!-- @inject src/webComponents/form/form-field.html -->
+    <!-- @inject src/webComponents/form/radio-selection.html -->
+    <!-- @inject src/webComponents/form/text-input.html -->
+    <!-- @inject src/webComponents/form/image-uploader.html -->
     <div
       class="w-screen h-screen portrait:hidden bg-cute bg-no-repeat bg-center bg-cover flex items-center"
     >
@@ -151,7 +151,7 @@
         Firefox with the Progressive Web App addon.
       </p>
     </div>
-    <!--src/htmlFragments/instructions-dialog.html-->
+    <!-- @inject src/htmlFragments/instructions-dialog.html -->
     <pretty-dialog id="customDialog">
       <span slot="title" id="customDialogTitle"></span>
       <div slot="content" id="customDialogContent"></div>
@@ -159,13 +159,13 @@
         <pretty-button id="closeCustomDialogBtn">OK</pretty-button>
       </div>
     </pretty-dialog>
-    <!--src/htmlFragments/game-end-dialog.html-->
-    <!--src/htmlFragments/game-paused-dialog.html-->
-    <!--src/htmlFragments/game-overwrite-dialog.html-->
-    <!--src/htmlFragments/overlay.html-->
-    <!--src/htmlFragments/login-dialog.html-->
-    <!--src/htmlFragments/settings-dialog.html-->
-    <!--src/htmlFragments/scores-dialog.html-->
+    <!-- @inject src/htmlFragments/game-end-dialog.html -->
+    <!-- @inject src/htmlFragments/game-paused-dialog.html -->
+    <!-- @inject src/htmlFragments/game-overwrite-dialog.html -->
+    <!-- @inject src/htmlFragments/overlay.html -->
+    <!-- @inject src/htmlFragments/login-dialog.html -->
+    <!-- @inject src/htmlFragments/settings-dialog.html -->
+    <!-- @inject src/htmlFragments/scores-dialog.html -->
     <div
       id="waitingNotice"
       class="fixed top-1 right-1 p-2 bg-green-600 text-primary font-semibold text-sm rounded-sm hidden opacity-90"
