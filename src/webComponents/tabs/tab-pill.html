@@ -1,0 +1,14 @@
+<template id="tabPillTemplate">
+  <style>
+    [role="button"] {
+      @apply rounded-xl border-solid border-2 border-primary px-2 hover:bg-primary transition-colors duration-500 cursor-pointer;
+    }
+
+    [role="button"].active {
+      @apply bg-primary;
+    }
+  </style>
+  <div role="button">
+    <slot></slot>
+  </div>
+</template>

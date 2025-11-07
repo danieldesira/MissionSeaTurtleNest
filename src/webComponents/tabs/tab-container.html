@@ -1,0 +1,14 @@
+<template id="tabContainerTemplate">
+  <style>
+    div {
+      @apply hidden flex-col gap-1 justify-center items-center;
+    }
+
+    .active {
+      @apply flex;
+    }
+  </style>
+  <div>
+    <slot></slot>
+  </div>
+</template>

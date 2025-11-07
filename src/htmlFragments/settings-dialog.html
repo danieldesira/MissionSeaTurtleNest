@@ -1,0 +1,91 @@
+<pretty-dialog id="settingsDialog">
+  <span slot="title">Settings</span>
+  <div slot="content">
+    <div class="flex flex-col gap-4">
+      <div class="flex gap-1">
+        <tab-pill name="settings" data-container="profile-tab" data-active
+          >Profile</tab-pill
+        >
+        <tab-pill name="settings" data-container="controls-tab"
+          >Controls</tab-pill
+        >
+        <!--<tab-pill name="settings" data-container="notifications-tab"
+              >Notifications</tab-pill
+            >-->
+        <tab-pill name="settings" data-container="about-tab">About</tab-pill>
+      </div>
+      <div class="pt-2 border-t-2 border-t-solid border-t-primary">
+        <form id="settingsForm" method="dialog">
+          <tab-container id="profile-tab">
+            <span
+              id="playerEmailReadonlyField"
+              class="font-semibold text-xl text-primary"
+            ></span>
+            <div class="flex flex-col gap-1">
+              <image-uploader id="profilePicUploader"
+                >Profile Picture</image-uploader
+              >
+              <text-input id="playerNameInput">Name</text-input>
+              <text-input id="playerDobInput" type="date"
+                >Date of Birth</text-input
+              >
+            </div>
+          </tab-container>
+          <tab-container id="controls-tab">
+            <radio-selection id="screenControlPositionRadio"
+              >Screen Controls Position</radio-selection
+            >
+          </tab-container>
+        </form>
+        <tab-container id="notifications-tab">
+          <div class="flex flex-col justify-center items-center gap-2">
+            <pretty-button id="desktopNotificationsBtn"
+              >Enable Desktop Notifications</pretty-button
+            >
+          </div>
+        </tab-container>
+        <tab-container id="about-tab">
+          <div class="flex flex-col justify-center items-center gap-2">
+            <span class="font-bold text-primary text-xl"
+              >Mission Sea Turtle Nest</span
+            >
+            <i data-lucide="turtle" class="w-16 h-16 text-primary"></i>
+            <a
+              id="version"
+              href="https://github.com/danieldesira/TurtleQuest/blob/master/changelog.md"
+              target="_blank"
+              title="Changelog"
+            >
+            </a>
+            <div class="flex gap-2">
+              <a
+                href="https://github.com/danieldesira/TurtleQuest/blob/master/contributors.md"
+                target="_blank"
+                title="Credits"
+              >
+                Credits
+              </a>
+              <a
+                href="https://github.com/danieldesira/TurtleQuest/blob/master/license.md"
+                target="_blank"
+                title="License"
+              >
+                License
+              </a>
+              <a
+                href="https://github.com/danieldesira/TurtleQuest/blob/master/DEDICATIONS.md"
+                target="_blank"
+                title="License"
+              >
+                Dedications
+              </a>
+            </div>
+          </div>
+        </tab-container>
+      </div>
+    </div>
+  </div>
+  <div slot="footer">
+    <pretty-button id="closeSettingsBtn">Close</pretty-button>
+  </div>
+</pretty-dialog>

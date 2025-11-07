@@ -8,16 +8,19 @@ console.log("Merging index.html");
 
 let indexContent = fs.readFileSync(inputIndex, "utf-8");
 let indexPosition = 0;
+let closingPosition = 0;
 while (indexPosition < indexContent.length && indexPosition !== -1) {
-  indexPosition = indexContent.indexOf("<!--", indexPosition);
-  const closingPosition = indexContent.indexOf("-->", indexPosition);
+  indexPosition = indexContent.indexOf("<!--", closingPosition);
+  closingPosition = indexContent.indexOf("-->", indexPosition);
   if (closingPosition !== -1) {
     const templatePath = indexContent.substring(
       indexPosition + 4,
       closingPosition
     );
-    const content = fs.readFileSync(templatePath, "utf-8");
-    indexContent = indexContent.replace(`<!--${templatePath}-->`, content);
+    if (fs.existsSync(templatePath)) {
+      const content = fs.readFileSync(templatePath, "utf-8");
+      indexContent = indexContent.replace(`<!--${templatePath}-->`, content);
+    }
   }
 }
 

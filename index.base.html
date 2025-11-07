@@ -25,90 +25,13 @@
     <script type="module" src="src/main.ts" blocking="render"></script>
   </head>
   <body class="select-none touch-none">
-    <template id="menuItemTemplate">
-      <style>
-        span {
-          @apply text-primary text-5xl cursor-pointer;
-        }
-
-        .hide {
-          @apply hidden;
-        }
-      </style>
-      <span role="button"><slot></slot></span>
-    </template>
+    <!--src/webComponents/mainMenu/menu-item.html-->
     <!--src/webComponents/dialog/pretty-dialog.html-->
-    <template id="prettyButtonTemplate">
-      <style>
-        button {
-          @apply rounded-md text-xl text-white pl-2 pr-2 w-fit border-none cursor-pointer transition-colors duration-500;
-        }
-
-        .default {
-          @apply bg-primary hover:bg-pink-700;
-        }
-
-        .danger {
-          @apply bg-danger hover:bg-red-800;
-        }
-      </style>
-      <button type="button" role="button">
-        <slot></slot>
-      </button>
-    </template>
-    <template id="gameControlTemplate">
-      <style>
-        button {
-          @apply rounded-7xl w-20 h-20 bg-black opacity-50 hover:opacity-70 text-white cursor-pointer flex justify-center items-center transition-opacity duration-500 border-0;
-        }
-      </style>
-      <button type="button"><slot></slot></button>
-    </template>
-    <template id="gameGaugeTemplate">
-      <style>
-        .outerContainer {
-          @apply flex flex-col gap-1;
-        }
-
-        .label {
-          @apply flex gap-2 items-center text-primary font-semibold text-lg;
-        }
-      </style>
-      <div class="outerContainer">
-        <div class="label">
-          <slot name="icon"></slot><slot name="label"></slot>
-        </div>
-        <meter max="100" min="0" low="30" value="100" title="100%"></meter>
-      </div>
-    </template>
-    <template id="tabPillTemplate">
-      <style>
-        [role="button"] {
-          @apply rounded-xl border-solid border-2 border-primary px-2 hover:bg-primary transition-colors duration-500 cursor-pointer;
-        }
-
-        [role="button"].active {
-          @apply bg-primary;
-        }
-      </style>
-      <div role="button">
-        <slot></slot>
-      </div>
-    </template>
-    <template id="tabContainerTemplate">
-      <style>
-        div {
-          @apply hidden flex-col gap-1 justify-center items-center;
-        }
-
-        .active {
-          @apply flex;
-        }
-      </style>
-      <div>
-        <slot></slot>
-      </div>
-    </template>
+    <!--src/webComponents/form/pretty-button.html-->
+    <!--src/webComponents/gameplay/game-control.html-->
+    <!--src/webComponents/gameplay/game-gauge.html-->
+    <!--src/webComponents/tabs/tab-pill.html-->
+    <!--src/webComponents/tabs/tab-container.html-->
     <!--src/webComponents/form/form-field.html-->
     <!--src/webComponents/form/radio-selection.html-->
     <!--src/webComponents/form/text-input.html-->
@@ -228,37 +151,7 @@
         Firefox with the Progressive Web App addon.
       </p>
     </div>
-    <pretty-dialog id="instructionsDialog">
-      <span slot="title">Instructions</span>
-      <div slot="content">
-        <div class="flex flex-col gap-1 justify-center items-center">
-          <p>
-            Help Peppa the loggerhead turtle to her nesting grounds. Use the
-            provided on-screen arrows to move the turtle. W,A,S,D or arrow keys
-            may also be used to control the turtle.
-          </p>
-          <p>
-            Move Peppa to the right end of the screen in order to pass each
-            level. Eat prey and avoid obstacles.
-          </p>
-          <p>Good luck!</p>
-          <p>
-            Yours turtley,
-            <br />
-            Daniel - Game Developer
-          </p>
-        </div>
-        <figure class="flex flex-col justify-center items-center gap-1">
-          <img src="/images/babyTurtle.jpg" alt="Baby turtle" class="w-full" />
-          <figcaption class="font-light italic text-sm">
-            Photo by Steff Cutajar from Għadira nest excavation (2025)
-          </figcaption>
-        </figure>
-      </div>
-      <div slot="footer">
-        <pretty-button id="closeInstructionsBtn">Close</pretty-button>
-      </div>
-    </pretty-dialog>
+    <!--src/htmlFragments/instructions-dialog.html-->
     <pretty-dialog id="customDialog">
       <span slot="title" id="customDialogTitle"></span>
       <div slot="content" id="customDialogContent"></div>
@@ -291,155 +184,9 @@
         <pretty-button id="resumeBtn">Resume</pretty-button>
       </div>
     </pretty-dialog>
-    <pretty-dialog id="loginDialog">
-      <span slot="title">Login</span>
-      <div
-        slot="content"
-        class="flex flex-col items-center justify-center gap-2"
-      >
-        <p>
-          Login with your Google account to save your game progress to the cloud
-          and access it from any device and customise.
-        </p>
-        <div id="googleSignInButton"></div>
-        <p>Or continue as guest.</p>
-      </div>
-      <div
-        slot="footer"
-        class="flex flex-col items-center justify-center gap-2"
-      >
-        <p class="italic text-center">
-          Please note that the accounts feature makes use of cookies for secure
-          authenitication. By logging in, you are agreeing to the use of
-          cookies.
-        </p>
-        <pretty-button id="closeLoginBtn">Close</pretty-button>
-      </div>
-    </pretty-dialog>
-    <pretty-dialog id="settingsDialog">
-      <span slot="title">Settings</span>
-      <div slot="content">
-        <div class="flex flex-col gap-4">
-          <div class="flex gap-1">
-            <tab-pill name="settings" data-container="profile-tab" data-active
-              >Profile</tab-pill
-            >
-            <tab-pill name="settings" data-container="controls-tab"
-              >Controls</tab-pill
-            >
-            <!--<tab-pill name="settings" data-container="notifications-tab"
-              >Notifications</tab-pill
-            >-->
-            <tab-pill name="settings" data-container="about-tab"
-              >About</tab-pill
-            >
-          </div>
-          <div class="pt-2 border-t-2 border-t-solid border-t-primary">
-            <form id="settingsForm" method="dialog">
-              <tab-container id="profile-tab">
-                <span
-                  id="playerEmailReadonlyField"
-                  class="font-semibold text-xl text-primary"
-                ></span>
-                <div class="flex flex-col gap-1">
-                  <image-uploader id="profilePicUploader"
-                    >Profile Picture</image-uploader
-                  >
-                  <text-input id="playerNameInput">Name</text-input>
-                  <text-input id="playerDobInput" type="date"
-                    >Date of Birth</text-input
-                  >
-                </div>
-              </tab-container>
-              <tab-container id="controls-tab">
-                <radio-selection id="screenControlPositionRadio"
-                  >Screen Controls Position</radio-selection
-                >
-              </tab-container>
-            </form>
-            <tab-container id="notifications-tab">
-              <div class="flex flex-col justify-center items-center gap-2">
-                <pretty-button id="desktopNotificationsBtn"
-                  >Enable Desktop Notifications</pretty-button
-                >
-              </div>
-            </tab-container>
-            <tab-container id="about-tab">
-              <div class="flex flex-col justify-center items-center gap-2">
-                <span class="font-bold text-primary text-xl"
-                  >Mission Sea Turtle Nest</span
-                >
-                <i data-lucide="turtle" class="w-16 h-16 text-primary"></i>
-                <a
-                  id="version"
-                  href="https://github.com/danieldesira/TurtleQuest/blob/master/changelog.md"
-                  target="_blank"
-                  title="Changelog"
-                >
-                </a>
-                <div class="flex gap-2">
-                  <a
-                    href="https://github.com/danieldesira/TurtleQuest/blob/master/contributors.md"
-                    target="_blank"
-                    title="Credits"
-                  >
-                    Credits
-                  </a>
-                  <a
-                    href="https://github.com/danieldesira/TurtleQuest/blob/master/license.md"
-                    target="_blank"
-                    title="License"
-                  >
-                    License
-                  </a>
-                  <a
-                    href="https://github.com/danieldesira/TurtleQuest/blob/master/DEDICATIONS.md"
-                    target="_blank"
-                    title="License"
-                  >
-                    Dedications
-                  </a>
-                </div>
-              </div>
-            </tab-container>
-          </div>
-        </div>
-      </div>
-      <div slot="footer">
-        <pretty-button id="closeSettingsBtn">Close</pretty-button>
-      </div>
-    </pretty-dialog>
-    <pretty-dialog id="scoresDialog">
-      <span slot="title">Scores</span>
-      <div slot="content">
-        <div class="flex flex-col gap-4 text-primary">
-          <div class="flex gap-1">
-            <span class="font-bold text-xl">Level:</span>
-            <span id="personalBestLevel" class="font-semibold text-xl"></span>
-            <span class="font-bold text-xl">Points:</span>
-            <span id="personalBestPoints" class="font-semibold text-xl"></span>
-          </div>
-          <div class="flex flex-col gap-1">
-            <span class="font-bold text-xl">Leaderboard</span>
-            <table class="table border-separate border-spacing-x-2">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th class="font-bold text-lg">Player</th>
-                  <th class="font-bold text-lg">Level</th>
-                  <th class="font-bold text-lg">Points</th>
-                  <th class="font-bold text-lg">Outcome</th>
-                </tr>
-              </thead>
-              <tbody id="leaderboardTbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div slot="footer">
-        <pretty-button id="closeScoresBtn">Close</pretty-button>
-      </div>
-    </pretty-dialog>
+    <!--src/htmlFragments/login-dialog.html-->
+    <!--src/htmlFragments/settings-dialog.html-->
+    <!--src/htmlFragments/scores-dialog.html-->
     <div
       id="waitingNotice"
       class="fixed top-1 right-1 p-2 bg-green-600 text-primary font-semibold text-sm rounded-sm hidden opacity-90"
