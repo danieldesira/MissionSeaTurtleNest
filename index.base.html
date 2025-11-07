@@ -159,31 +159,10 @@
         <pretty-button id="closeCustomDialogBtn">OK</pretty-button>
       </div>
     </pretty-dialog>
-    <pretty-dialog id="gameEndDialog">
-      <span slot="title" id="gameEndDialogTitle"></span>
-      <div slot="content" id="gameEndDialogContent"></div>
-      <div slot="footer">
-        <pretty-button id="gameEndDialogShareBtn">Share</pretty-button>
-        <pretty-button id="gameEndDialogCloseBtn">Close</pretty-button>
-      </div>
-    </pretty-dialog>
-    <dialog
-      id="overlay"
-      closedBy="none"
-      class="fixed inset-0 flex-col justify-center items-center p-0 m-0 w-full h-full bg-slate-950 bg-opacity-95 border-none z-50 max-h-none max-w-none"
-    >
-      <i class="text-primary animate-bounce h-10 w-10" data-lucide="turtle"></i>
-      <span id="overlayText" class="text-primary text-3xl font-bold"></span>
-    </dialog>
-    <pretty-dialog id="gamePausedDialog">
-      <span slot="title">Game Paused</span>
-      <div slot="content">
-        Game paused. Click the <strong>Resume</strong> button to continue.
-      </div>
-      <div slot="footer">
-        <pretty-button id="resumeBtn">Resume</pretty-button>
-      </div>
-    </pretty-dialog>
+    <!--src/htmlFragments/game-end-dialog.html-->
+    <!--src/htmlFragments/game-paused-dialog.html-->
+    <!--src/htmlFragments/game-overwrite-dialog.html-->
+    <!--src/htmlFragments/overlay.html-->
     <!--src/htmlFragments/login-dialog.html-->
     <!--src/htmlFragments/settings-dialog.html-->
     <!--src/htmlFragments/scores-dialog.html-->
@@ -191,18 +170,5 @@
       id="waitingNotice"
       class="fixed top-1 right-1 p-2 bg-green-600 text-primary font-semibold text-sm rounded-sm hidden opacity-90"
     ></div>
-    <pretty-dialog id="gameOverwriteDialog">
-      <span slot="title">Previous Game Overwrite</span>
-      <div slot="content">
-        You still did not finish your previous game. Proceeding will result in
-        lose of data. Are you sure that you want to start a new game?
-      </div>
-      <div slot="footer">
-        <pretty-button id="confirmNewGameBtn" variant="danger"
-          >Yes</pretty-button
-        >
-        <pretty-button id="cancelNewGameBtn">No</pretty-button>
-      </div>
-    </pretty-dialog>
   </body>
 </html>
