@@ -51,3 +51,15 @@ TigerShark: TigerShark, // Key to match the _type field in the character class
 8. Add the character with the desired quantity/ies in the level/s desired, by
    modifying the `initialCharacters` field. Locate desired level/s in the
    `levelsConfig` object at `src/levels.ts`.
+
+## UI
+
+Commonly occurring elements are defined through Web Components placed under
+`/src/webComponents`. HTML `<template>`s for these web components are to be
+found in the same directory as the component classes. Moreover,
+`/src/htmlFragments` contains HTML fragments pertaining to UI elements.
+
+Any such HTML fragments, need to be added to `index.base.html` through the
+`<!-- @inject path_here -->` syntax. In order for changes to fragments to be
+reflected in the locally running app, the server needs to be stopped and restarted
+via `Ctrl/Cmd` + `C` and `npm start`.

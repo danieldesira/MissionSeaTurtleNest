@@ -2,14 +2,17 @@
   <span slot="title">Scores</span>
   <div slot="content">
     <div class="flex flex-col gap-4 text-primary">
-      <div class="flex gap-1">
-        <span class="font-bold text-xl">Level:</span>
-        <span id="personalBestLevel" class="font-semibold text-xl"></span>
-        <span class="font-bold text-xl">Points:</span>
-        <span id="personalBestPoints" class="font-semibold text-xl"></span>
-      </div>
-      <div class="flex flex-col gap-1">
-        <span class="font-bold text-xl">Leaderboard</span>
+      <section class="flex flex-col gap-1">
+        <h3 class="font-bold text-xl">Personal Best</h3>
+        <div class="flex gap-1">
+          <span class="font-bold text-lg">Level:</span>
+          <span id="personalBestLevel" class="font-semibold text-xl"></span>
+          <span class="font-bold text-lg">Points:</span>
+          <span id="personalBestPoints" class="font-semibold text-xl"></span>
+        </div>
+      </section>
+      <section class="flex flex-col gap-1">
+        <h3 class="font-bold text-xl">Leaderboard</h3>
         <table class="table border-separate border-spacing-x-2">
           <thead>
             <tr>
@@ -22,7 +25,7 @@
           </thead>
           <tbody id="leaderboardTbody"></tbody>
         </table>
-      </div>
+      </section>
     </div>
   </div>
   <div slot="footer">

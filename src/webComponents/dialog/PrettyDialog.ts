@@ -7,7 +7,6 @@ class PrettyDialog extends HTMLElement {
   }
 
   private _openCallback: () => void = null;
-  private _closeCallback: () => void = null;
 
   open() {
     const dialog = this.shadowRoot.querySelector("dialog");
@@ -21,10 +20,6 @@ class PrettyDialog extends HTMLElement {
   close() {
     const dialog = this.shadowRoot.querySelector("dialog");
     dialog.close();
-
-    if (this._closeCallback) {
-      this._closeCallback();
-    }
   }
 
   set closeButtonIds(value: string[]) {
@@ -41,7 +36,8 @@ class PrettyDialog extends HTMLElement {
   }
 
   set closeCallback(value: () => void) {
-    this._closeCallback = value;
+    const dialog = this.shadowRoot.querySelector("dialog");
+    dialog.addEventListener("close", value);
   }
 
   set openCallback(value: () => void) {

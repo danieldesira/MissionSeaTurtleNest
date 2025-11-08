@@ -1,4 +1,4 @@
-# 0.7.8 Beta -
+# 0.7.8 Beta - 08/11/2025 18:45 UTC+1
 
 - Refactor API interfaces to match new endpoint signatures (API 0.1.5)
 - Improve settings submission and game end UI response with new waiting notice
@@ -7,6 +7,9 @@
 - Build internal HTML fragment merging pre-build tool to split up `index.base.html`
 - Introduce dialog when guest player clicks Back button during game
 - Extend automatic game pause for all dialogs
+- Fix a couple of quirks around the _Continue Game_ menu item
+- Improve look of scores dialog
+- Allow for multiple dialog close handlers
 
 # 0.7.7 Beta - 02/11/2025 18:00 UTC+1
 

@@ -4,6 +4,8 @@ import ControlSettingsStore from "../singletons/cacheStores/ControlSettingsStore
 import PersonalBestStore from "../singletons/cacheStores/PersonalBestStore";
 import ProfileStore from "../singletons/cacheStores/ProfileStore";
 import {
+  deleteLastGameLocalStorage,
+  deleteLastGameTimestampLocalStorage,
   getLastGameLocalStorage,
   getLastGameTimestampLocalStorage,
   saveLastGameLocalStorage,
@@ -57,9 +59,11 @@ const populateGameData = (accountData: LoginResponse) => {
     } else {
       storeAccountGameDataLocally(accountData);
     }
-
-    toggleContinueGameBtn();
+  } else {
+    deleteLastGameLocalStorage();
+    deleteLastGameTimestampLocalStorage();
   }
+  toggleContinueGameBtn();
 };
 
 const populatePersonalBest = (accountData: LoginResponse) => {
