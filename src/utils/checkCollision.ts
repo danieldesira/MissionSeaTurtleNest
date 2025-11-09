@@ -44,10 +44,10 @@ export const getCharacterBoundingBox = (character: ICharacter): BoundingBox => {
     case "Up":
     case "Down":
       box = {
-        minX: character.x - character.width / 2,
-        maxX: character.x + character.width / 2,
+        minX: character.x - character.height / 2,
+        maxX: character.x + character.height / 2,
         minY: character.y - character.width / 2,
-        maxY: character.y + character.height / 2,
+        maxY: character.y + character.width / 2,
       };
       break;
     case "Left":
@@ -60,6 +60,18 @@ export const getCharacterBoundingBox = (character: ICharacter): BoundingBox => {
       };
       break;
   }
+  if (
+    character.imagePath.indexOf("shrimp") !== -1 ||
+    character.imagePath.indexOf("turtle") !== -1
+  )
+    console.log(
+      `Direction:${character.direction}`,
+      `Image path: ${character.imagePath}`,
+      `Box min x:${box.minX}, X: ${character.x}`,
+      `Box max x:${box.maxX}, X: ${character.x}`,
+      `Box min y: ${box.minY}, Y: ${character.y}`,
+      `Box max y: ${box.maxY}, Y: ${character.y}`
+    );
   return box;
 };
 

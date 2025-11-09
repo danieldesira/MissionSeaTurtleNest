@@ -1,8 +1,8 @@
 export const Directions = {
-  Right: 0,
-  Left: Math.PI,
-  Up: Math.PI * 1.5,
-  Down: Math.PI * 0.5,
+  Right: { angle: 0 },
+  Left: { angle: Math.PI },
+  Up: { angle: Math.PI * 1.5 },
+  Down: { angle: Math.PI * 0.5 },
 } as const;
 
-export type Direction = "Right" | "Left" | "Up" | "Down";
+export type Direction = keyof typeof Directions;

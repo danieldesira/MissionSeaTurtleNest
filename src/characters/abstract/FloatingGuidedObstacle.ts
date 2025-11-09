@@ -64,6 +64,18 @@ abstract class FloatingGuidedObstacle extends Obstacle {
     };
     return checkBoundingBoxCollision(turtleBox, obstacleBox);
   }
+
+  paint(context: CanvasRenderingContext2D): void {
+    if (this._image) {
+      context.drawImage(
+        this._image,
+        this._x - this._width / 2,
+        this._y - this._height / 2,
+        this._width,
+        this._height
+      );
+    }
+  }
 }
 
 export default FloatingGuidedObstacle;
