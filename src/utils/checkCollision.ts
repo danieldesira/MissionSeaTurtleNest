@@ -1,11 +1,11 @@
 import type ICharacter from "../characters/interfaces/ICharacter";
 
-interface BoundingBox {
+type BoundingBox = {
   minX: number;
   maxX: number;
   minY: number;
   maxY: number;
-}
+};
 
 /**
  * Checks for collisions using the bounding box algorithm.
@@ -13,7 +13,7 @@ interface BoundingBox {
  * @param boxB The second bounding box.
  * @author GPT 3.5
  */
-const checkBoundingBoxCollision = (
+export const checkBoundingBoxCollision = (
   boxA: BoundingBox,
   boxB: BoundingBox
 ): boolean => {
@@ -45,7 +45,7 @@ export const getCharacterBoundingBox = (character: ICharacter): BoundingBox => {
     case "Down":
       box = {
         minX: character.x - character.width / 2,
-        maxX: character.x + character.height / 2,
+        maxX: character.x + character.width / 2,
         minY: character.y - character.width / 2,
         maxY: character.y + character.height / 2,
       };
@@ -63,4 +63,20 @@ export const getCharacterBoundingBox = (character: ICharacter): BoundingBox => {
   return box;
 };
 
-export default checkBoundingBoxCollision;
+export const debugDrawBoundingBox = (
+  context: CanvasRenderingContext2D,
+  box: BoundingBox,
+  color: string = "rgba(255, 0, 0, 0.5)"
+): void => {
+  context.save();
+  context.strokeStyle = color;
+  context.fillStyle = color;
+  context.globalAlpha = 0.3;
+  context.fillRect(
+    box.minX,
+    box.minY,
+    box.maxX - box.minX,
+    box.maxY - box.minY
+  );
+  context.restore();
+};

@@ -2,7 +2,7 @@ import Game from "../singletons/Game";
 import { updateGauge } from "../utils/ui/gameplay";
 import Character from "./abstract/Character";
 import IMainCharacter from "./interfaces/IMainCharacter";
-import { type CharacterOptions } from "./types";
+import type { CharacterOptions } from "./types";
 
 class Turtle extends Character implements IMainCharacter {
   static scientificName: string = "Carretta carretta";
@@ -90,25 +90,6 @@ class Turtle extends Character implements IMainCharacter {
     this._direction = "Right";
     this._x += this._speed;
   }
-
-  // /**
-  //  * Paints turtle while taking direction into account.
-  //  * @param context The canvas 2D context
-  //  * @override
-  //  * @author Daniel Desira
-  //  */
-  // paint(context: CanvasRenderingContext2D) {
-  //   context.save();
-  //   this.applyRotation(context);
-  //   context.drawImage(
-  //     this._image,
-  //     -this._width / 2,
-  //     -this._height / 2,
-  //     this._width,
-  //     this._height
-  //   );
-  //   context.restore();
-  // }
 
   get foodGauge() {
     return this._foodGauge;

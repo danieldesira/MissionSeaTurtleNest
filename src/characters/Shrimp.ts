@@ -1,5 +1,5 @@
 import Prey from "./abstract/Prey";
-import { type CharacterOptions } from "./types";
+import type { CharacterOptions } from "./types";
 
 class Shrimp extends Prey {
   protected readonly _imageFilename: string;

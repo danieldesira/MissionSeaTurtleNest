@@ -1,5 +1,5 @@
 import PackPrey from "./abstract/PackPrey";
-import { type CharacterOptions } from "./types";
+import type { CharacterOptions } from "./types";
 
 class Sardine extends PackPrey {
   protected readonly _imageFilename: string;

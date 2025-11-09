@@ -1,5 +1,6 @@
 import Game from "../../singletons/Game";
-import checkBoundingBoxCollision, {
+import {
+  checkBoundingBoxCollision,
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
 import { generateRandomBit } from "../../utils/generic";

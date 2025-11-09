@@ -1,5 +1,6 @@
 import Game from "../../singletons/Game";
-import checkBoundingBoxCollision, {
+import {
+  checkBoundingBoxCollision,
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
 import { updateXpSpan } from "../../utils/ui/gameplay";

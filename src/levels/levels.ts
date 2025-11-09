@@ -5,7 +5,7 @@ import PlasticBag from "../characters/PlasticBag";
 import Sardine from "../characters/Sardine";
 import Shrimp from "../characters/Shrimp";
 import Level from "./Level";
-import { type LevelConstructorOptions } from "./types";
+import type { LevelConstructorOptions } from "./types";
 
 const levelsConfig: {
   [key: number]: LevelConstructorOptions;

@@ -1,4 +1,4 @@
-import { type CharacterOptions } from "../characters/types";
+import type { CharacterOptions } from "../characters/types";
 import type INonMainCharacter from "../characters/interfaces/INonMainCharacter";
 
 export type LevelCharacter = {

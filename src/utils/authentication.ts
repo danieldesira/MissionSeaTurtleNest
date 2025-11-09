@@ -1,5 +1,5 @@
 import { login } from "../services/api";
-import { type LoginResponse } from "../services/interfaces";
+import type { LoginResponse } from "../services/interfaces";
 import ControlSettingsStore from "../singletons/cacheStores/ControlSettingsStore";
 import PersonalBestStore from "../singletons/cacheStores/PersonalBestStore";
 import ProfileStore from "../singletons/cacheStores/ProfileStore";
