@@ -1,3 +1,7 @@
+# 0.7.9 Beta -
+
+- Convert mergeHtml script to a Vite plugin allowing for a continuous watch of fragment edits
+
 # 0.7.8 Beta - 08/11/2025 18:45 UTC+1
 
 - Refactor API interfaces to match new endpoint signatures (API 0.1.5)

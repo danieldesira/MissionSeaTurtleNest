@@ -60,6 +60,4 @@ found in the same directory as the component classes. Moreover,
 `/src/htmlFragments` contains HTML fragments pertaining to UI elements.
 
 Any such HTML fragments, need to be added to `index.base.html` through the
-`<!-- @inject path_here -->` syntax. In order for changes to fragments to be
-reflected in the locally running app, the server needs to be stopped and restarted
-via `Ctrl/Cmd` + `C` and `npm start`.
+`<!-- @inject path_here -->` syntax.
