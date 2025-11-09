@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mission Sea Turtle Nest</title>
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" href="favicon.svg" />
+    <meta property="og:title" content="Mission Sea Turtle Nest" />
+    <meta property="og:description" content="Educational game for kids" />
+    <meta
+      property="og:image"
+      content="https://turtle-quest.vercel.app/images/screenshot.png"
+    />
+    <meta property="og:image:alt" content="Gameplay screenshot" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mission Sea Turtle Nest" />
+    <meta name="twitter:description" content="Educational game for kids" />
+    <meta
+      name="twitter:image"
+      content="https://turtle-quest.vercel.app/images/screenshot.png"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+    <script type="module" src="src/main.ts" blocking="render"></script>
+  </head>
+  <body class="select-none touch-none">
+    <!-- @inject src/webComponents/mainMenu/menu-item.html -->
+    <!-- @inject src/webComponents/dialog/pretty-dialog.html -->
+    <!-- @inject src/webComponents/form/pretty-button.html -->
+    <!-- @inject src/webComponents/gameplay/game-control.html -->
+    <!-- @inject src/webComponents/gameplay/game-gauge.html -->
+    <!-- @inject src/webComponents/tabs/tab-pill.html -->
+    <!-- @inject src/webComponents/tabs/tab-container.html -->
+    <!-- @inject src/webComponents/form/form-field.html -->
+    <!-- @inject src/webComponents/form/radio-selection.html -->
+    <!-- @inject src/webComponents/form/text-input.html -->
+    <!-- @inject src/webComponents/form/image-uploader.html -->
+    <div
+      class="w-screen h-screen portrait:hidden bg-cute bg-no-repeat bg-center bg-cover flex items-center"
+    >
+      <div
+        id="menuContainer"
+        class="flex flex-col justify-between h-full w-full p-5"
+      >
+        <div class="flex gap-5 justify-center items-center">
+          <h1 class="text-5xl font-bold">
+            <span class="text-emerald-300">Mission</span>
+            <span class="text-cyan-500">Turtle</span>
+          </h1>
+          <span class="text-sm font-light">Beta</span>
+          <a href="_github_" target="_blank" title="_github_">
+            <i data-lucide="github" class="text-primary text-4xl"></i>
+          </a>
+          <a href="_instagram_" target="_blank" title="_instagram_">
+            <i data-lucide="instagram" class="text-primary text-4xl"></i>
+          </a>
+          <a href="_youtube_" target="_blank" title="_youtube_">
+            <i data-lucide="youtube" class="text-primary text-4xl"></i>
+          </a>
+          <div id="loginContainer" class="flex gap-1">
+            <pretty-button id="loginBtn" title="Login"
+              ><i data-lucide="log-in"></i
+            ></pretty-button>
+          </div>
+          <div id="authenticatedContainer" class="hidden gap-1">
+            <pretty-button id="scoresBtn" title="Scores"
+              ><i data-lucide="trophy"></i
+            ></pretty-button>
+            <pretty-button id="settingsBtn" title="Settings"
+              ><i data-lucide="settings"></i
+            ></pretty-button>
+            <pretty-button id="logoutBtn" variant="danger" title="Logout"
+              ><i data-lucide="log-out"></i
+            ></pretty-button>
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-5">
+          <menu-item id="continueGameBtn">Continue Game</menu-item>
+          <menu-item id="newGameBtn">New Game</menu-item>
+          <menu-item id="instructionsBtn">Instructions</menu-item>
+        </div>
+      </div>
+      <div
+        id="gameContainer"
+        class="hidden max-h-screen items-center justify-center relative"
+      >
+        <div class="absolute top-0 left-0 flex gap-2 items-center w-full">
+          <pretty-button id="backBtn" title="Back to menu">
+            <i class="text-white" data-lucide="chevron-left"></i>
+          </pretty-button>
+          <pretty-button id="pauseBtn" title="Pause game">
+            <i role="button" class="text-white" data-lucide="pause"></i
+          ></pretty-button>
+          <div class="text-primary text-3xl font-semibold">
+            <span id="xpSpan">0</span> XP
+          </div>
+          <game-gauge id="lifeGauge"
+            ><span slot="icon"><i data-lucide="heart-pulse"></i></span
+            ><span slot="label">Life</span></game-gauge
+          >
+          <game-gauge id="foodGauge"
+            ><span slot="icon"><i data-lucide="shrimp"></i></span
+            ><span slot="label">Food</span></game-gauge
+          >
+          <game-gauge id="apetiteGauge"
+            ><span slot="label">Apetite</span></game-gauge
+          >
+          <game-gauge id="oxygenGauge"
+            ><span slot="icon"><i data-lucide="air-vent"></i></span
+            ><span slot="label">Oxygen</span></game-gauge
+          >
+        </div>
+        <canvas id="gameCanvas" height="400" width="700" tab-index="1"></canvas>
+        <div id="onscreenControls" class="absolute bottom-1 right-1">
+          <div class="mb-1 flex justify-center">
+            <game-control id="upControl"
+              ><i
+                data-lucide="circle-chevron-up"
+                class="text-primary w-9 h-9"
+              ></i
+            ></game-control>
+          </div>
+          <div class="flex gap-1">
+            <game-control id="leftControl"
+              ><i
+                data-lucide="circle-chevron-left"
+                class="text-primary w-9 h-9"
+              ></i
+            ></game-control>
+            <game-control id="downControl"
+              ><i
+                data-lucide="circle-chevron-down"
+                class="text-primary w-9 h-9"
+              ></i>
+            </game-control>
+            <game-control id="rightControl">
+              <i
+                data-lucide="circle-chevron-right"
+                class="text-primary w-9 h-9"
+              ></i>
+            </game-control>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="landscape:hidden flex justify-center items-center bg-red-700">
+      <p class="text-white">
+        Unable to play game in portrait mode. Please switch your device to
+        landscape mode or install the Progressive Web App in Chrome, Edge or
+        Firefox with the Progressive Web App addon.
+      </p>
+    </div>
+    <!-- @inject src/htmlFragments/instructions-dialog.html -->
+    <pretty-dialog id="customDialog">
+      <span slot="title" id="customDialogTitle"></span>
+      <div slot="content" id="customDialogContent"></div>
+      <div slot="footer" id="customDialogFooter">
+        <pretty-button id="closeCustomDialogBtn">OK</pretty-button>
+      </div>
+    </pretty-dialog>
+    <!-- @inject src/htmlFragments/game-end-dialog.html -->
+    <!-- @inject src/htmlFragments/game-paused-dialog.html -->
+    <!-- @inject src/htmlFragments/game-overwrite-dialog.html -->
+    <!-- @inject src/htmlFragments/overlay.html -->
+    <!-- @inject src/htmlFragments/login-dialog.html -->
+    <!-- @inject src/htmlFragments/settings-dialog.html -->
+    <!-- @inject src/htmlFragments/scores-dialog.html -->
+    <!-- @inject src/htmlFragments/login-invitation-dialog.html -->
+    <div
+      id="waitingNotice"
+      class="fixed top-1 right-1 p-2 bg-green-600 text-primary font-semibold text-sm rounded-sm hidden opacity-90"
+    ></div>
+  </body>
+</html>

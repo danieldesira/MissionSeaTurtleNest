@@ -1,0 +1,15 @@
+<template id="gameGaugeTemplate">
+  <style>
+    .outerContainer {
+      @apply flex flex-col gap-1;
+    }
+
+    .label {
+      @apply flex gap-2 items-center text-primary font-semibold text-lg;
+    }
+  </style>
+  <div class="outerContainer">
+    <div class="label"><slot name="icon"></slot><slot name="label"></slot></div>
+    <meter max="100" min="0" low="30" value="100" title="100%"></meter>
+  </div>
+</template>

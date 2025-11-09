@@ -1,11 +1,10 @@
-import GameData from "../restoreGame/GameData";
 import {
-  HighScore,
-  LoginResponse,
-  SaveScorePayload,
-  Settings,
-  UpdatePlayerPayload,
-  UpdateProfilePictureResponse,
+  type SaveGamePayload,
+  type HighScore,
+  type LoginResponse,
+  type SaveScorePayload,
+  type UpdatePlayerPayload,
+  type UpdateProfilePictureResponse,
 } from "./interfaces";
 import FetchRequest from "./FetchRequest";
 
@@ -15,10 +14,8 @@ export const login = async (credential: string) =>
     service: "google",
   })) as LoginResponse;
 
-export const saveGame = async (data: {
-  lastGame: GameData;
-  timestamp: number;
-}) => await FetchRequest.put("api/game", data);
+export const saveGame = async (data: SaveGamePayload) =>
+  await FetchRequest.put("api/game", data);
 
 export const saveScore = async ({ points, level, hasWon }: SaveScorePayload) =>
   await FetchRequest.post("api/points", {
@@ -29,11 +26,6 @@ export const saveScore = async ({ points, level, hasWon }: SaveScorePayload) =>
 
 export const fetchHighScores = async () =>
   await FetchRequest.get<HighScore[]>("api/high-scores");
-
-export const deleteLastGame = async () => await FetchRequest.delete("api/game");
-
-export const updateSettings = async (settings: Settings) =>
-  await FetchRequest.put("api/settings", settings);
 
 export const updateProfile = async (profile: UpdatePlayerPayload) =>
   await FetchRequest.put("api/player", profile);

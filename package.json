@@ -1,6 +1,7 @@
 {
-  "name": "turtle-quest",
-  "version": "0.7.7",
+  "name": "mission-sea-turtle-nest",
+  "friendlyName": "Mission Sea Turtle Nest",
+  "version": "0.7.9",
   "homepage": "https://turtle-quest.vercel.app/",
   "type": "module",
   "private": true,

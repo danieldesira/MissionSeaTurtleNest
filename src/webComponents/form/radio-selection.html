@@ -1,0 +1,27 @@
+<template id="radioSelectionTemplate">
+  <style>
+    .container {
+      @apply flex flex-col gap-1;
+    }
+
+    .options {
+      @apply flex gap-1 flex-wrap;
+    }
+
+    .description {
+      @apply text-primary font-bold;
+    }
+
+    .label {
+      @apply text-primary cursor-pointer select-none font-semibold;
+    }
+
+    .radio {
+      @apply appearance-none w-4 h-4 border-primary border-solid border-2 rounded-sm checked:bg-primary focus:ring-2 focus:ring-primary px-2 py-1;
+    }
+  </style>
+  <div class="container">
+    <span class="description"><slot></slot></span>
+    <div class="options"></div>
+  </div>
+</template>

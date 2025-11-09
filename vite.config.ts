@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import fs from "fs";
 import path from "path";
+import mergeHtmlPlugin from "./mergeHtmlPlugin";
 
 export default defineConfig({
   build: {
@@ -35,4 +36,5 @@ export default defineConfig({
       cert: fs.readFileSync(path.resolve(__dirname, "certs/localhost+2.pem")),
     },
   },
+  plugins: [mergeHtmlPlugin()],
 });

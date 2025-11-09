@@ -1,8 +1,4 @@
-import {
-  updateProfile,
-  updateSettings,
-  uploadProfilePicture,
-} from "../../services/api";
+import { updateProfile, uploadProfilePicture } from "../../services/api";
 import ControlSettingsStore from "../../singletons/cacheStores/ControlSettingsStore";
 import ProfileStore from "../../singletons/cacheStores/ProfileStore";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
@@ -12,6 +8,9 @@ import RadioSelection from "../../webComponents/form/RadioSelection";
 import TextInput from "../../webComponents/form/TextInput";
 import { setupTabPills } from "./tabPills";
 import { version } from "../../../package.json";
+import { checkNotificationPermission } from "../notifications";
+import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
+import { launchCustomDialog } from "./customDialog";
 
 export const setupControlSettings = () => {
   const screenControlPositionRadio = document.getElementById(
@@ -27,39 +26,48 @@ export const setupControlSettings = () => {
   };
 };
 
-const submitControlSettings = async () => {
+const cacheControlSettings = async () => {
   const screenControlPositionRadio = document.getElementById(
     "screenControlPositionRadio"
   ) as RadioSelection;
   ControlSettingsStore.instance.screenControlsPosition =
     screenControlPositionRadio.currentSelection as "Left" | "Right";
-  await updateSettings({
-    controlPosition: ControlSettingsStore.instance.screenControlsPosition,
-  });
 };
 
-const submitProfileSettings = async () => {
+const cacheProfileSettings = async () => {
   const playerNameInput = document.getElementById(
     "playerNameInput"
   ) as TextInput;
   const playerDobInput = document.getElementById("playerDobInput") as TextInput;
   ProfileStore.instance.name = playerNameInput.value.toString();
   ProfileStore.instance.date_of_birth = playerDobInput.value as Date;
-  await updateProfile({
-    name: ProfileStore.instance.name,
-    date_of_birth: ProfileStore.instance.date_of_birth
-      .toISOString()
-      .split("T")[0],
-  });
+};
+
+const submitSettings = async () => {
+  cacheControlSettings();
+  cacheProfileSettings();
+  
+  showWaitingNotice("Saving settings");
+  try {
+    await updateProfile({
+      name: ProfileStore.instance.name,
+      date_of_birth: ProfileStore.instance.date_of_birth
+        .toISOString()
+        .split("T")[0],
+      settings: {
+        controlPosition: ControlSettingsStore.instance.screenControlsPosition,
+      },
+    });
+  } catch {
+    launchCustomDialog("Saving failed", "Failed to save settings!");
+  } finally {
+    hideWaitingNotice();
+  }
 };
 
 const handleSettingsDialogClose = () => {
   const form = document.getElementById("settingsForm") as HTMLFormElement;
-  form.addEventListener(
-    "submit",
-    async () =>
-      await Promise.all([submitControlSettings(), submitProfileSettings()])
-  );
+  form.addEventListener("submit", async () => await submitSettings());
   if (form?.checkValidity()) {
     form?.requestSubmit();
   }
@@ -72,9 +80,10 @@ export const setupSettingsDialog = () => {
   ) as PrettyDialog;
   settingsDialog.closeButtonIds = ["closeSettingsBtn"];
   settingsDialog.closeCallback = handleSettingsDialogClose;
-  settingsBtn.callback = () => settingsDialog.show();
+  settingsBtn.callback = () => settingsDialog.open();
   setupTabPills("settings");
   setupAboutTab();
+  setupNotificationsTab();
 };
 
 export const setupSettingsProfileTab = () => {
@@ -105,4 +114,12 @@ export const setupSettingsProfileTab = () => {
 const setupAboutTab = () => {
   const versionLink = document.getElementById("version");
   versionLink.innerText = version;
+};
+
+const setupNotificationsTab = () => {
+  const desktopNotificationsBtn = document.getElementById(
+    "desktopNotificationsBtn"
+  ) as PrettyButton;
+  desktopNotificationsBtn.callback = async () =>
+    await checkNotificationPermission();
 };

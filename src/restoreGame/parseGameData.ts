@@ -1,6 +1,6 @@
+import { createCharacterInstance } from "../characters/factory";
 import Game from "../singletons/Game";
-import createCharacterInstance from "../characters/createCharacterInstance";
-import GameData from "./GameData";
+import type GameData from "./GameData";
 
 /**
  * Restore game state from JSON string.

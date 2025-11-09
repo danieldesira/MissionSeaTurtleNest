@@ -1,9 +1,9 @@
 import Game from "../singletons/Game";
 
-interface Options {
+type Options = {
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
-}
+};
 
 /**
  * Renders visible part of background.
@@ -11,7 +11,7 @@ interface Options {
  * @author Daniel Desira
  */
 export const paintLevelBg = (options: Options) => {
-  const backgroundImage = Game.instance.level.bgImg;
+  const backgroundImage = Game.instance.level?.bgImg;
   if (backgroundImage) {
     const horizontalSegments = calculateScreenCutOffPoints(
       backgroundImage.width,
@@ -67,11 +67,11 @@ const calculateScreenCutOffPoints = (
  * @author Daniel Desira
  */
 export const readjustCanvasForBg = (canvas: HTMLCanvasElement) => {
-  const bgImg = Game.instance.level.bgImg;
-  if (bgImg.height < canvas.height) {
+  const bgImg = Game.instance.level?.bgImg;
+  if (bgImg?.height < canvas.height) {
     canvas.height = bgImg.height;
   }
-  if (bgImg.width < canvas.width) {
+  if (bgImg?.width < canvas.width) {
     canvas.width = bgImg.width;
   }
 };

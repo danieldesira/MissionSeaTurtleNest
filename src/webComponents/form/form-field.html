@@ -1,0 +1,15 @@
+<template id="formFieldTemplate">
+  <style>
+    .container {
+      @apply flex flex-col gap-1;
+    }
+
+    label {
+      @apply text-primary cursor-pointer select-none font-semibold;
+    }
+  </style>
+  <div class="container">
+    <label><slot name="label"></slot></label>
+    <slot name="field"></slot>
+  </div>
+</template>

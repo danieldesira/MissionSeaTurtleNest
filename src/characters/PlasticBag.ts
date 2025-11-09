@@ -1,5 +1,5 @@
 import Obstacle from "./abstract/Obstacle";
-import CharacterOptions from "./interfaces/CharacterOptions";
+import { type CharacterOptions } from "./types";
 
 class PlasticBag extends Obstacle {
   protected readonly _imageFilename: string;

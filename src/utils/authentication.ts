@@ -1,9 +1,11 @@
 import { login } from "../services/api";
-import { LoginResponse } from "../services/interfaces";
+import { type LoginResponse } from "../services/interfaces";
 import ControlSettingsStore from "../singletons/cacheStores/ControlSettingsStore";
 import PersonalBestStore from "../singletons/cacheStores/PersonalBestStore";
 import ProfileStore from "../singletons/cacheStores/ProfileStore";
 import {
+  deleteLastGameLocalStorage,
+  deleteLastGameTimestampLocalStorage,
   getLastGameLocalStorage,
   getLastGameTimestampLocalStorage,
   saveLastGameLocalStorage,
@@ -17,7 +19,7 @@ import {
   setupControlSettings,
   setupSettingsProfileTab,
 } from "./ui/settingsDialog";
-import { launchCustomDialog } from "./ui/ui";
+import { launchCustomDialog } from "./ui/customDialog";
 
 export const handleGoogleAuthResponse = async ({
   credential,
@@ -57,9 +59,11 @@ const populateGameData = (accountData: LoginResponse) => {
     } else {
       storeAccountGameDataLocally(accountData);
     }
-
-    toggleContinueGameBtn();
+  } else {
+    deleteLastGameLocalStorage();
+    deleteLastGameTimestampLocalStorage();
   }
+  toggleContinueGameBtn();
 };
 
 const populatePersonalBest = (accountData: LoginResponse) => {

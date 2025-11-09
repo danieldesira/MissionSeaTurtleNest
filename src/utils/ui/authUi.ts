@@ -6,6 +6,7 @@ import {
   handleGoogleAuthResponse,
   isAuthenticated,
 } from "../authentication";
+import { hideContinueGameBtn } from "./mainMenu";
 import { setupSettingsDialog } from "./settingsDialog";
 
 const initialiseGoogleSignInButton = () => {
@@ -27,13 +28,14 @@ export const setupLoginButtons = () => {
   initialiseGoogleSignInButton();
 
   loginDialog.closeButtonIds = ["closeLoginBtn"];
-  loginDialog.show();
-  loginBtn.callback = () => loginDialog.show();
+  loginDialog.open();
+  loginBtn.callback = () => loginDialog.open();
 
   const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
   logoutBtn.callback = async () => {
     clearCurrentPlayerStores();
     updateAuthenticationUI();
+    hideContinueGameBtn();
     await requestLogout();
   };
 
@@ -42,7 +44,7 @@ export const setupLoginButtons = () => {
 
 export const hideLoginDialog = () => {
   const loginDialog = document.getElementById("loginDialog") as PrettyDialog;
-  loginDialog.hide();
+  loginDialog.close();
 };
 
 export const updateAuthenticationUI = () => {

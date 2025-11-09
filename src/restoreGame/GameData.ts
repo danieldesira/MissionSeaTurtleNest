@@ -1,13 +1,13 @@
 import { Direction } from "../constants";
 
-interface GameData {
+type GameData = {
   turtle: TurtleData;
   characters: CharacterData[];
   levelNo: number;
   xp: number;
-}
+};
 
-interface TurtleData {
+type TurtleData = {
   x: number;
   y: number;
   direction: Direction;
@@ -15,13 +15,13 @@ interface TurtleData {
   food: number;
   health: number;
   stomachCapacity: number;
-}
+};
 
-interface CharacterData {
+type CharacterData = {
   type: string;
   x: number;
   y: number;
   direction: Direction;
-}
+};
 
 export default GameData;

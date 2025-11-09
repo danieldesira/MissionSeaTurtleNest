@@ -1,5 +1,5 @@
-import INonMainCharacter from "../characters/interfaces/INonMainCharacter";
-import GameData from "../restoreGame/GameData";
+import type INonMainCharacter from "../characters/interfaces/INonMainCharacter";
+import type GameData from "../restoreGame/GameData";
 
 interface ILevel {
   init(isFreshLevel: boolean, gameData: GameData): Promise<void>;

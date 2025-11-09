@@ -2,7 +2,7 @@ import Turtle from "../characters/Turtle";
 import { paintLevelBg } from "../levels/background";
 import ILevel from "../levels/ILevel";
 import { createLevelInstance, levelExists } from "../levels/levels";
-import GameData from "../restoreGame/GameData";
+import type GameData from "../restoreGame/GameData";
 import parseGameData from "../restoreGame/parseGameData";
 import {
   checkIfBestPersonalScore,
@@ -281,28 +281,26 @@ class Game {
     if (levelExists(this._currentLevelNo)) {
       await this.loadNewLevel(true);
     } else {
-      await this.handleWin();
+      this.handleWin();
     }
   }
 
-  private async handleLoss() {
-    await this.handleGameEnd(false);
+  private handleLoss() {
+    this.handleGameEnd(false);
     launchGameEndDialog("Game over", "You lose! Better luck next time.");
   }
 
-  private async handleWin() {
-    await this.handleGameEnd(true);
+  private handleWin() {
+    this.handleGameEnd(true);
     launchGameEndDialog("Game Complete", "You win. Congratulations!");
   }
 
   private async handleGameEnd(hasWon: boolean) {
     checkIfBestPersonalScore();
     this.exit();
-
-    showOverlay("Saving score");
-    await deleteLastGameAndSaveScore(hasWon);
-    hideOverlay();
     toggleMode("menu");
+
+    await deleteLastGameAndSaveScore(hasWon);
   }
 }
 

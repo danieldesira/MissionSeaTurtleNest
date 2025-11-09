@@ -36,7 +36,7 @@ export const setupInstructionsDialog = () => {
   const instructionsBtn = document.getElementById(
     "instructionsBtn"
   ) as MenuItem;
-  instructionsBtn.callback = () => instructionsDialog.show();
+  instructionsBtn.callback = () => instructionsDialog.open();
 };
 
 export const setupNewGameMenuBtn = () => {
@@ -69,11 +69,18 @@ export const toggleContinueGameBtn = () => {
   }
 };
 
+export const hideContinueGameBtn = () => {
+  const continueGameBtn = document.getElementById(
+    "continueGameBtn"
+  ) as MenuItem;
+  continueGameBtn.hide();
+};
+
 const showGameOverwriteDialog = () => {
   const gameOverwriteDialog = document.getElementById(
     "gameOverwriteDialog"
   ) as PrettyDialog;
-  gameOverwriteDialog.show();
+  gameOverwriteDialog.open();
 };
 
 export const setupGameOverwriteDialog = () => {

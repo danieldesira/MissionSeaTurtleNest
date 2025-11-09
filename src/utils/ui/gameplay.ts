@@ -12,8 +12,9 @@ import {
   getLastGameTimestampLocalStorage,
 } from "../lastGameLocalStorage";
 import { toggleMode } from "./mainMenu";
-import { launchCustomDialog } from "./ui";
+import { launchCustomDialog } from "./customDialog";
 import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
+import { showLoginInvitationDialog } from "./loginInvitationDialog";
 
 export const setupGameControls = () => {
   const upControl = document.getElementById("upControl") as GameControl;
@@ -41,7 +42,7 @@ export const launchGameEndDialog = (title: string, text: string) => {
   const gameEndDialog = document.getElementById(
     "gameEndDialog"
   ) as PrettyDialog;
-  gameEndDialog.show();
+  gameEndDialog.open();
   gameEndDialog.closeButtonIds = ["gameEndDialogCloseBtn"];
   const gameEndDialogTitle = document.getElementById("gameEndDialogTitle");
   gameEndDialogTitle.innerText = title;
@@ -85,13 +86,15 @@ export const setupResumeBtn = () => {
     "gamePausedDialog"
   ) as PrettyDialog;
   gamePausedDialog.closeButtonIds = ["resumeBtn"];
+  gamePausedDialog.openCallback = () => Game.instance.pause();
+  gamePausedDialog.closeCallback = () => Game.instance.resume();
 };
 
 const showGamePausedDialog = () => {
   const gamePausedDialog = document.getElementById(
     "gamePausedDialog"
   ) as PrettyDialog;
-  gamePausedDialog.show();
+  gamePausedDialog.open();
 };
 
 export const setupPauseBtn = () => {
@@ -119,9 +122,9 @@ export const setupAppVisibilityHandler = () => {
 export const setupBackToMenuBtn = () => {
   const backBtn = document.getElementById("backBtn") as PrettyButton;
   backBtn.callback = async () => {
-    Game.instance.exit();
-    toggleMode("menu");
     if (isAuthenticated()) {
+      Game.instance.exit();
+      toggleMode("menu");
       showWaitingNotice("Uploading game progress...");
       try {
         await saveGame({
@@ -136,6 +139,8 @@ export const setupBackToMenuBtn = () => {
       } finally {
         hideWaitingNotice();
       }
+    } else {
+      showLoginInvitationDialog();
     }
   };
 };
@@ -144,3 +149,11 @@ export const setupCanvasSize = () => {
   const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
   window.addEventListener("resize", () => resizeCanvas(canvas));
 };
+
+export const setupGamePauseOnDialogOpen = () =>
+  Array.from(document.querySelectorAll("pretty-dialog")).forEach(
+    (dialog: PrettyDialog) => {
+      dialog.openCallback = () => Game.instance.pause();
+      dialog.closeCallback = () => Game.instance.resume();
+    }
+  );

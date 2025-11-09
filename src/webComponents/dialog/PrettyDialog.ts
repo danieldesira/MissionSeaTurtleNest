@@ -1,4 +1,3 @@
-import Game from "../../singletons/Game";
 import { loadTemplate } from "../components";
 
 class PrettyDialog extends HTMLElement {
@@ -7,30 +6,28 @@ class PrettyDialog extends HTMLElement {
     loadTemplate("prettyDialogTemplate", this);
   }
 
-  show() {
+  private _openCallback: () => void = null;
+
+  open() {
     const dialog = this.shadowRoot.querySelector("dialog");
     dialog.showModal();
 
-    this.handleDialogShow();
+    if (this._openCallback) {
+      this._openCallback();
+    }
   }
 
-  hide() {
+  close() {
     const dialog = this.shadowRoot.querySelector("dialog");
     dialog.close();
-
-    this.handleDialogClose();
   }
-
-  private handleDialogShow = () => Game.instance.pause();
-
-  private handleDialogClose = () => Game.instance.resume();
 
   set closeButtonIds(value: string[]) {
     value.forEach((id) => {
       const element = document.getElementById(id);
       if (element) {
         element.addEventListener("click", () => {
-          this.hide();
+          this.close();
         });
       } else {
         console.warn(`PrettyDialog: closeButtonIds: ${id} not found in DOM`);
@@ -43,14 +40,8 @@ class PrettyDialog extends HTMLElement {
     dialog.addEventListener("close", value);
   }
 
-  connectedCallback() {
-    const dialog = this.shadowRoot.querySelector("dialog");
-    dialog.addEventListener("close", this.handleDialogClose);
-  }
-
-  disconnectedCallack() {
-    const dialog = this.shadowRoot.querySelector("dialog");
-    dialog.removeEventListener("close", this.handleDialogClose);
+  set openCallback(value: () => void) {
+    this._openCallback = value;
   }
 }
 

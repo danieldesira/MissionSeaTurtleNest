@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 
-const swSelf = self as unknown as ServiceWorkerGlobalScope;
+const notificationSW = self as unknown as ServiceWorkerGlobalScope;
 
 const apiBaseUrl =
   location.hostname === "localhost"
@@ -22,15 +22,11 @@ const savePushSubscription = async (subscription: PushSubscription) => {
   return await res.json();
 };
 
-swSelf.addEventListener("activate", async () => {
-  const subscription = await swSelf.registration.pushManager.subscribe({
+notificationSW.addEventListener("activate", async () => {
+  const subscription = await notificationSW.registration.pushManager.subscribe({
     userVisibleOnly: true,
     applicationServerKey:
       "BEfuj-su_7dqT40eFWTa4wh8FZDJ5oPUiu8AqxFQ260hZotE3i0ZH5B8Esc2J126zJgxLSEKSBRsrtFbKPXRo4Y",
   });
   await savePushSubscription(subscription);
-});
-
-swSelf.addEventListener("push", () => {
-  swSelf.registration.getNotifications();
 });

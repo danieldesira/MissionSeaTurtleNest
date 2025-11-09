@@ -1,5 +1,5 @@
 import Game from "../singletons/Game";
-import GameData from "./GameData";
+import type GameData from "./GameData";
 
 /**
  * Gets game state data as a JSON string.

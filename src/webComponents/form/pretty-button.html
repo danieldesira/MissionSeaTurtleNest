@@ -1,0 +1,18 @@
+<template id="prettyButtonTemplate">
+  <style>
+    button {
+      @apply rounded-md text-xl text-white pl-2 pr-2 w-fit border-none cursor-pointer transition-colors duration-500;
+    }
+
+    .default {
+      @apply bg-primary hover:bg-pink-700;
+    }
+
+    .danger {
+      @apply bg-danger hover:bg-red-800;
+    }
+  </style>
+  <button type="button" role="button">
+    <slot></slot>
+  </button>
+</template>

@@ -1,0 +1,34 @@
+<pretty-dialog id="scoresDialog">
+  <span slot="title">Scores</span>
+  <div slot="content">
+    <div class="flex flex-col gap-4 text-primary">
+      <section class="flex flex-col gap-1">
+        <h3 class="font-bold text-xl">Personal Best</h3>
+        <div class="flex gap-1">
+          <span class="font-bold text-lg">Level:</span>
+          <span id="personalBestLevel" class="font-semibold text-xl"></span>
+          <span class="font-bold text-lg">Points:</span>
+          <span id="personalBestPoints" class="font-semibold text-xl"></span>
+        </div>
+      </section>
+      <section class="flex flex-col gap-1">
+        <h3 class="font-bold text-xl">Leaderboard</h3>
+        <table class="table border-separate border-spacing-x-2">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="font-bold text-lg">Player</th>
+              <th class="font-bold text-lg">Level</th>
+              <th class="font-bold text-lg">Points</th>
+              <th class="font-bold text-lg">Outcome</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardTbody"></tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+  <div slot="footer">
+    <pretty-button id="closeScoresBtn">Close</pretty-button>
+  </div>
+</pretty-dialog>
