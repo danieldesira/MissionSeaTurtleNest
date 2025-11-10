@@ -1,4 +1,5 @@
 import type ICharacter from "../characters/interfaces/ICharacter";
+import Game from "../singletons/Game";
 
 type BoundingBox = {
   minX: number;
@@ -72,6 +73,16 @@ export const getCharacterBoundingBox = (character: ICharacter): BoundingBox => {
       `Box min y: ${box.minY}, Y: ${character.y}`,
       `Box max y: ${box.maxY}, Y: ${character.y}`
     );
+  if (character.imagePath.indexOf("crab") !== -1)
+    console.log(
+      "crab---",
+      `Direction:${character.direction}`,
+      `Image path: ${character.imagePath}`,
+      `Box min x:${box.minX}, X: ${character.x}`,
+      `Box max x:${box.maxX}, X: ${character.x}`,
+      `Box min y: ${box.minY}, Y: ${character.y}`,
+      `Box max y: ${box.maxY}, Y: ${character.y}`
+    );
   return box;
 };
 
@@ -85,8 +96,8 @@ export const debugDrawBoundingBox = (
   context.fillStyle = color;
   context.globalAlpha = 0.3;
   context.fillRect(
-    box.minX,
-    box.minY,
+    box.minX - Game.instance.level.bgOffsetX,
+    box.minY - Game.instance.level.bgOffsetY,
     box.maxX - box.minX,
     box.maxY - box.minY
   );
