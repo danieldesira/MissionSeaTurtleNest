@@ -1,6 +1,7 @@
 # 0.7.9 Beta -
 
 - Convert mergeHtml script to a Vite plugin allowing for a continuous watch of fragment edits
+- Readjust spacing for in-game header (Horizontal padding and space between)
 
 # 0.7.8 Beta - 08/11/2025 18:45 UTC+1
 

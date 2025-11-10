@@ -85,31 +85,37 @@
         id="gameContainer"
         class="hidden max-h-screen items-center justify-center relative"
       >
-        <div class="absolute top-0 left-0 flex gap-2 items-center w-full">
-          <pretty-button id="backBtn" title="Back to menu">
-            <i class="text-white" data-lucide="chevron-left"></i>
-          </pretty-button>
-          <pretty-button id="pauseBtn" title="Pause game">
-            <i role="button" class="text-white" data-lucide="pause"></i
-          ></pretty-button>
+        <div
+          class="absolute top-0 left-0 flex gap-2 items-center w-full justify-between px-2"
+        >
+          <div class="flex gap-2">
+            <pretty-button id="backBtn" title="Back to menu">
+              <i class="text-white" data-lucide="chevron-left"></i>
+            </pretty-button>
+            <pretty-button id="pauseBtn" title="Pause game">
+              <i role="button" class="text-white" data-lucide="pause"></i
+            ></pretty-button>
+          </div>
           <div class="text-primary text-3xl font-semibold">
             <span id="xpSpan">0</span> XP
           </div>
-          <game-gauge id="lifeGauge"
-            ><span slot="icon"><i data-lucide="heart-pulse"></i></span
-            ><span slot="label">Life</span></game-gauge
-          >
-          <game-gauge id="foodGauge"
-            ><span slot="icon"><i data-lucide="shrimp"></i></span
-            ><span slot="label">Food</span></game-gauge
-          >
-          <game-gauge id="apetiteGauge"
-            ><span slot="label">Apetite</span></game-gauge
-          >
-          <game-gauge id="oxygenGauge"
-            ><span slot="icon"><i data-lucide="air-vent"></i></span
-            ><span slot="label">Oxygen</span></game-gauge
-          >
+          <div class="flex gap-2">
+            <game-gauge id="lifeGauge"
+              ><span slot="icon"><i data-lucide="heart-pulse"></i></span
+              ><span slot="label">Life</span></game-gauge
+            >
+            <game-gauge id="foodGauge"
+              ><span slot="icon"><i data-lucide="shrimp"></i></span
+              ><span slot="label">Food</span></game-gauge
+            >
+            <game-gauge id="apetiteGauge"
+              ><span slot="label">Apetite</span></game-gauge
+            >
+            <game-gauge id="oxygenGauge"
+              ><span slot="icon"><i data-lucide="air-vent"></i></span
+              ><span slot="label">Oxygen</span></game-gauge
+            >
+          </div>
         </div>
         <canvas id="gameCanvas" height="400" width="700" tab-index="1"></canvas>
         <div id="onscreenControls" class="absolute bottom-1 right-1">
