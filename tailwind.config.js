@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export const content = ["index.html", "src/**/*.{ts,tsx,js,html}"];
+export const content = ["index.base.html", "src/**/*.{ts,tsx,js,html}"];
 export const theme = {
   extend: {
     borderRadius: {
