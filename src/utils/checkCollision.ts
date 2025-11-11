@@ -73,16 +73,6 @@ export const getCharacterBoundingBox = (character: ICharacter): BoundingBox => {
       `Box min y: ${box.minY}, Y: ${character.y}`,
       `Box max y: ${box.maxY}, Y: ${character.y}`
     );
-  if (character.imagePath.indexOf("crab") !== -1)
-    console.log(
-      "crab---",
-      `Direction:${character.direction}`,
-      `Image path: ${character.imagePath}`,
-      `Box min x:${box.minX}, X: ${character.x}`,
-      `Box max x:${box.maxX}, X: ${character.x}`,
-      `Box min y: ${box.minY}, Y: ${character.y}`,
-      `Box max y: ${box.maxY}, Y: ${character.y}`
-    );
   return box;
 };
 

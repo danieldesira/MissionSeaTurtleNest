@@ -26,7 +26,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
   }
 
   protected get initialPositionYTo(): number {
-    return Game.instance.level.bgImg.height;
+    return Game.instance.level.bgImg.height - this._height / 2;
   }
 
   get stomachImpact() {
@@ -51,7 +51,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
    * </ul>
    * @author Daniel Desira
    */
-  setInitialPosition(): void {
+  setInitialPosition() {
     this._x =
       Math.random() * (this.initialPositionXTo - this.initialPositionXFrom) +
       this.initialPositionXFrom;
@@ -66,7 +66,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
    * applying points (+ve/-ve) and deleting character from set
    * @author Daniel Desira
    */
-  handleTurtleCollision(): void {
+  handleTurtleCollision() {
     Game.instance.turtle.decrementApetite(this._stomachImpact);
     Game.instance.gainPoints(this._points);
     Game.instance.level.characters.delete(this);
