@@ -7,7 +7,7 @@ import { generateRandomBit } from "../../utils/generic";
 import Obstacle from "./Obstacle";
 
 abstract class FloatingGuidedObstacle extends Obstacle {
-  protected get initialPositionXFrom(): number {
+  protected get initialPositionXFrom() {
     return Game.instance.level.bgImg.width / 2;
   }
 
@@ -16,7 +16,7 @@ abstract class FloatingGuidedObstacle extends Obstacle {
    * @override
    * @author Daniel Desira
    */
-  setInitialPosition(): void {
+  setInitialPosition() {
     this._x =
       Math.random() * (this.initialPositionXTo - this.initialPositionXFrom) +
       this.initialPositionXFrom;
@@ -24,7 +24,7 @@ abstract class FloatingGuidedObstacle extends Obstacle {
     this.setInitialDirection();
   }
 
-  private setInitialDirection(): void {
+  private setInitialDirection() {
     this._direction = generateRandomBit() ? "Left" : "Right";
   }
 
@@ -33,7 +33,7 @@ abstract class FloatingGuidedObstacle extends Obstacle {
    * @override
    * @author Daniel Desira
    */
-  swim(): void {
+  swim() {
     if (this._direction === "Left") {
       this._x -= this._speed;
       if (this._x <= 0) {
@@ -54,7 +54,7 @@ abstract class FloatingGuidedObstacle extends Obstacle {
    * @override
    * @author Daniel Desira
    */
-  isCollidingWithTurtle(): boolean {
+  isCollidingWithTurtle() {
     const turtleBox = getCharacterBoundingBox(Game.instance.turtle);
     const obstacleBox = {
       minX: this._x,
@@ -65,7 +65,7 @@ abstract class FloatingGuidedObstacle extends Obstacle {
     return checkBoundingBoxCollision(turtleBox, obstacleBox);
   }
 
-  paint(context: CanvasRenderingContext2D): void {
+  paint(context: CanvasRenderingContext2D) {
     if (this._image) {
       context.drawImage(
         this._image,

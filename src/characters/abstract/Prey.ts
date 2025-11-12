@@ -60,26 +60,6 @@ abstract class Prey extends NonMain implements IPrey {
       }
     }
   }
-
-  /**
-   * Paints prey while taking direction into account.
-   * @param context The canvas 2D context
-   * @override
-   * @author Daniel Desira
-   */
-  paint(context: CanvasRenderingContext2D) {
-    this.applyRotation(context);
-    if (this._image) {
-      context.drawImage(
-        this._image,
-        this._x - Game.instance.level.bgOffsetX,
-        this._y - Game.instance.level.bgOffsetY,
-        this._width,
-        this._height
-      );
-    }
-    context.resetTransform();
-  }
 }
 
 export default Prey;

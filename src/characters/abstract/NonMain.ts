@@ -13,19 +13,19 @@ abstract class NonMain extends Character implements INonMainCharacter {
   protected abstract readonly _points: number;
   protected abstract readonly _type: string;
 
-  protected get initialPositionXFrom(): number {
+  protected get initialPositionXFrom() {
     return 0;
   }
 
-  protected get initialPositionXTo(): number {
+  protected get initialPositionXTo() {
     return Game.instance.level.bgImg.width;
   }
 
-  protected get initialPositionYFrom(): number {
+  protected get initialPositionYFrom() {
     return 0;
   }
 
-  protected get initialPositionYTo(): number {
+  protected get initialPositionYTo() {
     return Game.instance.level.bgImg.height - this._height / 2;
   }
 
@@ -79,7 +79,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
    * Checks if character has just collided with turtle.
    * @author Daniel Desira
    */
-  isCollidingWithTurtle(): boolean {
+  isCollidingWithTurtle() {
     const turtleBox = getCharacterBoundingBox(Game.instance.turtle);
     const characterBox = getCharacterBoundingBox(this);
     return checkBoundingBoxCollision(turtleBox, characterBox);

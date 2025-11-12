@@ -16,7 +16,7 @@ abstract class Obstacle extends NonMain implements IObstacle {
    * @override
    * @author Daniel Desira
    */
-  handleTurtleCollision(): void {
+  handleTurtleCollision() {
     Game.instance.turtle.takeDamage(this._damage);
     super.handleTurtleCollision();
     vibrate();
@@ -27,7 +27,7 @@ abstract class Obstacle extends NonMain implements IObstacle {
    * @override
    * @author Daniel Desira
    */
-  swim(): void {
+  swim() {
     const speed = Game.instance.level.currentSpeed;
     this._x -= speed;
     const randomVerticalDirection = generateRandomBit();

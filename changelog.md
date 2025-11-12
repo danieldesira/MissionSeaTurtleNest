@@ -2,6 +2,11 @@
 
 - Convert mergeHtml script to a Vite plugin allowing for a continuous watch of fragment edits
 - Readjust spacing for in-game header (Horizontal padding and space between)
+- Move turtle around center
+- Modify bounding box calculation to reflect character positioning on screen and
+  introduce function for bounding box on-screen debugging
+- Fix `index.base.html` references (sorts Vercel deployment errors)
+- Delete redundant method return type definitions for cleaner code
 
 # 0.7.8 Beta - 08/11/2025 18:45 UTC+1
 

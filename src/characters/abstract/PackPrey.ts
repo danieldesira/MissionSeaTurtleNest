@@ -6,25 +6,25 @@ abstract class PackPrey extends Prey {
   private _previousCharacterY: number = 0;
   private static readonly maxDistance = 20;
 
-  protected get initialPositionXFrom(): number {
+  protected get initialPositionXFrom() {
     return this._previousCharacterX
       ? this._previousCharacterX - PackPrey.maxDistance
       : 0;
   }
 
-  protected get initialPositionXTo(): number {
+  protected get initialPositionXTo() {
     return this._previousCharacterX
       ? this._previousCharacterX + PackPrey.maxDistance
       : Game.instance.level.bgImg.width;
   }
 
-  protected get initialPositionYFrom(): number {
+  protected get initialPositionYFrom() {
     return this._previousCharacterY
       ? this._previousCharacterY - PackPrey.maxDistance
       : 0;
   }
-  
-  protected get initialPositionYTo(): number {
+
+  protected get initialPositionYTo() {
     return this._previousCharacterY
       ? this._previousCharacterY + PackPrey.maxDistance
       : Game.instance.level.bgImg.height;

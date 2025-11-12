@@ -1,9 +1,5 @@
 import { Direction, Directions } from "../../constants";
 import Game from "../../singletons/Game";
-import {
-  debugDrawBoundingBox,
-  getCharacterBoundingBox,
-} from "../../utils/checkCollision";
 import ICharacter from "../interfaces/ICharacter";
 
 abstract class Character implements ICharacter {
@@ -43,7 +39,7 @@ abstract class Character implements ICharacter {
    * @param context Canvas context.
    * @author Daniel Desira
    */
-  paint(context: CanvasRenderingContext2D): void {
+  paint(context: CanvasRenderingContext2D) {
     if (this._image) {
       context.save();
       this.applyRotation(context);
@@ -56,11 +52,6 @@ abstract class Character implements ICharacter {
       );
       context.restore();
     }
-    debugDrawBoundingBox(
-      context,
-      getCharacterBoundingBox(this),
-      "rgba(0, 255, 0, 0.5)"
-    );
   }
 
   get x() {
@@ -99,7 +90,7 @@ abstract class Character implements ICharacter {
     this._direction = direction;
   }
 
-  get imagePath(): string {
+  get imagePath() {
     return this._imageBasePath + this._imageFilename;
   }
 

@@ -85,11 +85,11 @@ class Level implements ILevel {
     this._bgOffsetY = offsetY;
   }
 
-  get bgOffsetX(): number {
+  get bgOffsetX() {
     return this._bgOffsetX;
   }
 
-  get bgOffsetY(): number {
+  get bgOffsetY() {
     return this._bgOffsetY;
   }
 
@@ -109,11 +109,11 @@ class Level implements ILevel {
     return this._points;
   }
 
-  get levelDescription(): string[] {
+  get levelDescription() {
     return this._levelDescription;
   }
 
-  get imagePath(): string {
+  get imagePath() {
     return this._imageBasePath + this._backgroundImageFilename;
   }
 
@@ -154,7 +154,7 @@ class Level implements ILevel {
    * @param context The canvas 2D context
    * @author Daniel Desira
    */
-  paintCharacters(context: CanvasRenderingContext2D): void {
+  paintCharacters(context: CanvasRenderingContext2D) {
     for (const character of this._characters) {
       character.paint(context, this._bgOffsetX, this._bgOffsetY);
     }
@@ -164,13 +164,13 @@ class Level implements ILevel {
    * Loops through characters and applies respective moves.
    * @author Daniel Desira
    */
-  moveCharacters(): void {
+  moveCharacters() {
     for (const character of this._characters) {
       character.swim();
     }
   }
 
-  get currentSpeed(): number {
+  get currentSpeed() {
     return this._currentSpeed;
   }
 
@@ -178,7 +178,7 @@ class Level implements ILevel {
    * Loops through characters and checks for collisions.
    * @author Daniel Desira
    */
-  checkIfTurtleMeetsCharacters(): void {
+  checkIfTurtleMeetsCharacters() {
     for (const character of this._characters) {
       if (character.isCollidingWithTurtle()) {
         character.handleTurtleCollision();
