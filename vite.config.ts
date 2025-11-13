@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, "index.base.html"),
+        main: path.resolve(__dirname, "src/index.base.html"),
         cacheServiceWorker: path.resolve(
           __dirname,
           "src/serviceWorkers/cacheServiceWorker.ts"

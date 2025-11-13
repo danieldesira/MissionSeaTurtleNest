@@ -6,7 +6,7 @@ import type { ViteDevServer } from "vite";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const runJob = () => {
-  const inputIndex = path.resolve(__dirname, "index.base.html");
+  const inputIndex = path.resolve(__dirname, "src/index.base.html");
   const outputIndex = path.resolve(__dirname, "index.html");
 
   console.log("Merging index.html");

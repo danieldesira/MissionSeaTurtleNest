@@ -59,5 +59,5 @@ Commonly occurring elements are defined through Web Components placed under
 found in the same directory as the component classes. Moreover,
 `/src/htmlFragments` contains HTML fragments pertaining to UI elements.
 
-Any such HTML fragments, need to be added to `index.base.html` through the
+Any such HTML fragments, need to be added to `src/index.base.html` through the
 `<!-- @inject path_here -->` syntax.
