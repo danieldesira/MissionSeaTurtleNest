@@ -1,4 +1,4 @@
-import { Direction } from "../constants";
+import type { Direction } from "../types";
 
 type GameData = {
   turtle: TurtleData;

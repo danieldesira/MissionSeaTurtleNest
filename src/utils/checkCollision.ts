@@ -1,4 +1,4 @@
-import type ICharacter from "../characters/interfaces/ICharacter";
+import type { ICharacter } from "../characters/interfaces";
 import Game from "../singletons/Game";
 
 type BoundingBox = {

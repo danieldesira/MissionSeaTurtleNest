@@ -4,7 +4,7 @@ import {
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
 import { updateXpSpan } from "../../utils/ui/gameplay";
-import type INonMainCharacter from "../interfaces/INonMainCharacter";
+import type { INonMainCharacter } from "../interfaces";
 import Character from "./Character";
 
 abstract class NonMain extends Character implements INonMainCharacter {

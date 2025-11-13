@@ -4,5 +4,3 @@ export const Directions = {
   Up: { angle: Math.PI * 1.5 },
   Down: { angle: Math.PI * 0.5 },
 } as const;
-
-export type Direction = keyof typeof Directions;

@@ -1,7 +1,7 @@
 import Game from "../singletons/Game";
 import { updateGauge } from "../utils/ui/gameplay";
 import Character from "./abstract/Character";
-import IMainCharacter from "./interfaces/IMainCharacter";
+import type { IMainCharacter } from "./interfaces";
 import type { CharacterOptions } from "./types";
 
 class Turtle extends Character implements IMainCharacter {

@@ -1,3 +1,5 @@
+import { Directions } from "./constants";
+
 export {};
 
 declare global {
@@ -10,3 +12,5 @@ declare global {
     };
   }
 }
+
+export type Direction = keyof typeof Directions;

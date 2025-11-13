@@ -1,6 +1,6 @@
 import Turtle from "../characters/Turtle";
 import { paintLevelBg } from "../levels/background";
-import ILevel from "../levels/ILevel";
+import type { ILevel } from "../levels/interfaces";
 import { createLevelInstance, levelExists } from "../levels/levels";
 import type GameData from "../restoreGame/GameData";
 import parseGameData from "../restoreGame/parseGameData";

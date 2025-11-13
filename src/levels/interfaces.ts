@@ -1,7 +1,7 @@
-import type INonMainCharacter from "../characters/interfaces/INonMainCharacter";
+import type { INonMainCharacter } from "../characters/interfaces";
 import type GameData from "../restoreGame/GameData";
 
-interface ILevel {
+export interface ILevel {
   init(isFreshLevel: boolean, gameData: GameData): Promise<void>;
   get bgImg(): HTMLImageElement | null;
   set bgOffsetX(offsetX: number);
@@ -18,5 +18,3 @@ interface ILevel {
   get levelDescription(): string[];
   get imagePath(): string;
 }
-
-export default ILevel;

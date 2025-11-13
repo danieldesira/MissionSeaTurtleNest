@@ -1,6 +1,7 @@
-import { Direction, Directions } from "../../constants";
+import { Directions } from "../../constants";
 import Game from "../../singletons/Game";
-import ICharacter from "../interfaces/ICharacter";
+import type { Direction } from "../../types";
+import type { ICharacter } from "../interfaces";
 
 abstract class Character implements ICharacter {
   protected _x: number;

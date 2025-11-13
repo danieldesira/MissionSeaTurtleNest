@@ -1,5 +1,5 @@
 import Game from "../../singletons/Game";
-import IPrey from "../interfaces/IPrey";
+import type { IPrey } from "../interfaces";
 import NonMain from "./NonMain";
 
 abstract class Prey extends NonMain implements IPrey {

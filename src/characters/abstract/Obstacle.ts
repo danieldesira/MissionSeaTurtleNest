@@ -1,6 +1,6 @@
 import Game from "../../singletons/Game";
 import { generateRandomBit, vibrate } from "../../utils/generic";
-import IObstacle from "../interfaces/IObstacle";
+import type { IObstacle } from "../interfaces";
 import NonMain from "./NonMain";
 
 abstract class Obstacle extends NonMain implements IObstacle {

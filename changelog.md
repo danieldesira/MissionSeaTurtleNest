@@ -6,7 +6,7 @@
 - Modify bounding box calculation to reflect character positioning on screen and
   introduce function for bounding box on-screen debugging
 - Fix `index.base.html` references (sorts Vercel deployment errors)
-- Delete redundant method return type definitions for cleaner code
+- Delete redundant method return type definitions for cleaner code along with other refactoring
 
 # 0.7.8 Beta - 08/11/2025 18:45 UTC+1
 
