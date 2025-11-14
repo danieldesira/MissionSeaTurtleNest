@@ -5,22 +5,19 @@ import type { ViteDevServer } from "vite";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const runJob = () => {
-  const inputIndex = path.resolve(__dirname, "src/index.base.html");
-  const outputIndex = path.resolve(__dirname, "index.html");
+const processFile = (path: string) => {
+  console.log(`Processing file: ${path}`);
 
-  console.log("Merging index.html");
-
-  let indexContent = fs.readFileSync(inputIndex, "utf-8");
+  let content = fs.readFileSync(path, "utf-8");
   let indexPosition = 0;
   let closingPosition = 0;
-  while (indexPosition < indexContent.length && indexPosition !== -1) {
+  while (indexPosition < content.length && indexPosition !== -1) {
     const commentOpenBracket = "<!--";
     const commentCloseBracket = "-->";
-    indexPosition = indexContent.indexOf(commentOpenBracket, closingPosition);
-    closingPosition = indexContent.indexOf(commentCloseBracket, indexPosition);
+    indexPosition = content.indexOf(commentOpenBracket, closingPosition);
+    closingPosition = content.indexOf(commentCloseBracket, indexPosition);
     if (closingPosition !== -1) {
-      const commentContent = indexContent.substring(
+      const commentContent = content.substring(
         indexPosition + commentOpenBracket.length,
         closingPosition
       );
@@ -30,19 +27,27 @@ const runJob = () => {
           .substring(commentContent.indexOf(keyword) + keyword.length)
           .trim();
         if (fs.existsSync(templatePath)) {
-          const content = fs.readFileSync(templatePath, "utf-8");
-          indexContent = indexContent.replace(
+          content = content.replace(
             `<!--${commentContent}-->`,
-            content
+            processFile(templatePath)
           );
         }
       }
     }
   }
+  return content;
+};
 
-  fs.writeFileSync(outputIndex, indexContent, "utf-8");
+const runJob = () => {
+  const inputPath = path.resolve(__dirname, "src/index.base.html");
+  const outputIndex = path.resolve(__dirname, "index.html");
 
-  console.log("Finished merging index.html");
+  console.log("Creating index.html...");
+
+  const content = processFile(inputPath);
+  fs.writeFileSync(outputIndex, content, "utf-8");
+
+  console.log("index.html created successfully!");
 };
 
 const pathsToWatch = ["src/webComponents", "src/htmlFragments"];
@@ -60,6 +65,9 @@ const mergeHtmlPlugin = () => ({
         server.ws.send({ type: "full-reload" });
       }
     });
+  },
+  buildStart() {
+    runJob();
   },
 });
 
