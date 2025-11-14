@@ -1,12 +1,14 @@
-# 0.7.9 Beta -
+# 0.7.9 Beta - 14/11/2025 11:00 UTC+1
 
 - Convert mergeHtml script to a Vite plugin allowing for a continuous watch
   of fragment edits with recursive processing
 - Readjust spacing for in-game header (Horizontal padding and space between)
 - Move turtle around center
 - Modify bounding box calculation to reflect character positioning on screen and
-  introduce function for bounding box on-screen debugging
-- Delete redundant method return type definitions for cleaner code along with other refactoring
+  introduce internal function for bounding box on-screen debugging
+- Delete redundant method return type definitions for cleaner code along
+  with other refactoring, move `index.base.html` to `src` folder and drop
+  Tailwind check for `tsx` files
 
 # 0.7.8 Beta - 08/11/2025 18:45 UTC+1
 
