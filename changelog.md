@@ -1,3 +1,8 @@
+# 0.7.9.1 Beta - 15/11/2025 9:45 UTC+1
+
+- Refactor `merge-html-plugin` to compute full path of currently processed file
+- Unify personal best and game end dialogs
+
 # 0.7.9 Beta - 14/11/2025 11:00 UTC+1
 
 - Convert mergeHtml script to a Vite plugin allowing for a continuous watch

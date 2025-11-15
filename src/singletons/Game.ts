@@ -41,6 +41,7 @@ class Game {
   private _currentLevelNo: number;
   private _isPaused: boolean;
   private _isGameScreenActive: boolean;
+  private _isPersonalBest: boolean;
 
   /**
    * Turtle instance getter.
@@ -106,6 +107,14 @@ class Game {
     return this._isGameScreenActive;
   }
 
+  set isPersonalBest(value: boolean) {
+    this._isPersonalBest = value;
+  }
+
+  get isPersonalBest() {
+    return this._isPersonalBest;
+  }
+
   /**
    * Resets game state.
    * @author Daniel Desira
@@ -113,6 +122,7 @@ class Game {
   reset() {
     this._currentLevelNo = 1;
     this._xp = 0;
+    this._isPersonalBest = false;
     this._turtle.resetPosition();
     this._turtle.resetGauges();
   }

@@ -15,6 +15,8 @@ import { toggleMode } from "./mainMenu";
 import { launchCustomDialog } from "./customDialog";
 import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 import { showLoginInvitationDialog } from "./loginInvitationDialog";
+import { deleteChildren } from "./ui";
+import { formatLevelAsText } from "./scores";
 
 export const setupGameControls = () => {
   const upControl = document.getElementById("upControl") as GameControl;
@@ -47,7 +49,14 @@ export const launchGameEndDialog = (title: string, text: string) => {
   const gameEndDialogTitle = document.getElementById("gameEndDialogTitle");
   gameEndDialogTitle.innerText = title;
   const gameEndDialogContent = document.getElementById("gameEndDialogContent");
-  gameEndDialogContent.innerText = text;
+  deleteChildren(gameEndDialogContent);
+  const messageSpan = document.createElement("span");
+  messageSpan.innerText = text;
+  gameEndDialogContent.appendChild(messageSpan);
+
+  if (Game.instance.isPersonalBest) {
+    addPersonalBestLineToGameEndDialog(gameEndDialogContent);
+  }
 };
 
 export const setupGameShareBtn = () => {
@@ -68,6 +77,7 @@ export const setupGameShareBtn = () => {
     }
   };
 };
+
 export const updateXpSpan = () => {
   const xpSpan = document.getElementById("xpSpan");
   xpSpan.innerText = Game.instance.xp.toString();
@@ -157,3 +167,15 @@ export const setupGamePauseOnDialogOpen = () =>
       dialog.closeCallback = () => Game.instance.resume();
     }
   );
+
+const addPersonalBestLineToGameEndDialog = (
+  gameEndDialogContent: HTMLElement
+) => {
+  const br = document.createElement("br");
+  gameEndDialogContent.appendChild(br);
+  const messageSpan = document.createElement("span");
+  messageSpan.innerText = `Congratulations, this is your personal best score! ${
+    Game.instance.xp
+  } points, ${formatLevelAsText(Game.instance.currentLevelNo)}.`;
+  gameEndDialogContent.appendChild(messageSpan);
+};

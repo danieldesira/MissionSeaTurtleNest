@@ -10,7 +10,7 @@ import {
 } from "./lastGameLocalStorage";
 import PersonalBestStore from "../singletons/cacheStores/PersonalBestStore";
 import { isAuthenticated } from "./authentication";
-import { formatLevelAsText, updatePersonalBestPlaceholders } from "./ui/scores";
+import { updatePersonalBestPlaceholders } from "./ui/scores";
 import { hideWaitingNotice, showWaitingNotice } from "./ui/waitingNotice";
 import { hideContinueGameBtn } from "./ui/mainMenu";
 
@@ -48,14 +48,9 @@ export const checkIfBestPersonalScore = () => {
     PersonalBestStore.instance.level <= Game.instance.currentLevelNo &&
     PersonalBestStore.instance.points < Game.instance.xp
   ) {
-    launchCustomDialog(
-      "New Personal Best",
-      `Congratulations! ${Game.instance.xp} points at ${formatLevelAsText(
-        Game.instance.currentLevelNo
-      )}`
-    );
     PersonalBestStore.instance.level = Game.instance.currentLevelNo;
     PersonalBestStore.instance.points = Game.instance.xp;
+    Game.instance.isPersonalBest = true;
 
     updatePersonalBestPlaceholders();
   }

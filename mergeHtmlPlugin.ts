@@ -5,10 +5,10 @@ import type { ViteDevServer } from "vite";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const processFile = (path: string) => {
-  console.log(`Processing file: ${path}`);
+const processFile = (filePath: string) => {
+  console.log(`Processing file: ${filePath}`);
 
-  let content = fs.readFileSync(path, "utf-8");
+  let content = fs.readFileSync(filePath, "utf-8");
   let indexPosition = 0;
   let closingPosition = 0;
   while (indexPosition < content.length && indexPosition !== -1) {
@@ -29,7 +29,7 @@ const processFile = (path: string) => {
         if (fs.existsSync(templatePath)) {
           content = content.replace(
             `<!--${commentContent}-->`,
-            processFile(templatePath)
+            processFile(path.resolve(__dirname, templatePath))
           );
         }
       }
