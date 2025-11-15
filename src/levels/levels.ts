@@ -11,6 +11,7 @@ const levelsConfig: {
   [key: number]: LevelConstructorOptions;
 } = {
   1: {
+    title: "Warm Up Level",
     backgroundImageFilename: "level1.png",
     initialCharacters: [
       { Constructor: Shrimp, amount: 20 },
@@ -29,6 +30,7 @@ const levelsConfig: {
     ],
   },
   2: {
+    title: "Mind the Boat",
     backgroundImageFilename: "level2.png",
     initialCharacters: [
       { Constructor: PlasticBag, amount: 10 },

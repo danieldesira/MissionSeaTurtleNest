@@ -19,6 +19,7 @@ class Level implements ILevel {
   private readonly _points: number;
   private readonly _levelDescription: string[];
   private readonly _imageBasePath: string = "/images/backgrounds/";
+  private readonly _title: string;
 
   constructor({
     backgroundImageFilename,
@@ -27,6 +28,7 @@ class Level implements ILevel {
     currentSpeed,
     points,
     levelDescription,
+    title,
   }: LevelConstructorOptions) {
     this._backgroundImageFilename = backgroundImageFilename;
     this._initialCharacters = initialCharacters;
@@ -34,6 +36,7 @@ class Level implements ILevel {
     this._currentSpeed = currentSpeed;
     this._points = points;
     this._levelDescription = levelDescription;
+    this._title = title;
   }
 
   /**
@@ -59,7 +62,7 @@ class Level implements ILevel {
 
   private showLevelDialog() {
     launchCustomDialog(
-      `Level ${Game.instance.currentLevelNo}`,
+      `Level ${Game.instance.currentLevelNo} - ${this._title}`,
       this._levelDescription
     );
   }

@@ -13,4 +13,5 @@ export type LevelConstructorOptions = {
   currentSpeed: number;
   points: number;
   levelDescription: string[];
+  title: string;
 };
