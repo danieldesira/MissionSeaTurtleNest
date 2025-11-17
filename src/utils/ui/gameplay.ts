@@ -179,3 +179,6 @@ const addPersonalBestLineToGameEndDialog = (
   } points, ${formatLevelAsText(Game.instance.currentLevelNo)}.`;
   gameEndDialogContent.appendChild(messageSpan);
 };
+
+export const getCanvas = () =>
+  document.getElementById("gameCanvas") as HTMLCanvasElement;

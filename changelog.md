@@ -1,3 +1,7 @@
+# 0.7.9.2 Beta -
+
+- Add level title to level start dialog
+
 # 0.7.9.1 Beta - 15/11/2025 9:45 UTC+1
 
 - Refactor `merge-html-plugin` to compute full path of currently processed file

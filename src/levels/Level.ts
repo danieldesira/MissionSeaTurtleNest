@@ -159,7 +159,11 @@ class Level implements ILevel {
    */
   paintCharacters(context: CanvasRenderingContext2D) {
     for (const character of this._characters) {
-      character.paint(context, this._bgOffsetX, this._bgOffsetY);
+      if (character.isOnScreen()) {
+        character.paint(context);
+      } else {
+        console.log("Character off screen, not painting");
+      }
     }
   }
 

@@ -2,11 +2,7 @@ import type { Direction } from "../types";
 
 export interface ICharacter {
   loadImage(): Promise<void>;
-  paint(
-    context: CanvasRenderingContext2D,
-    bgOffsetX?: number,
-    bgOffsetY?: number
-  ): void;
+  paint(context: CanvasRenderingContext2D): void;
   get x(): number;
   get y(): number;
   set x(x: number);
@@ -36,6 +32,7 @@ export interface INonMainCharacter extends ICharacter {
   get points(): number;
   get type(): string;
   isCollidingWithTurtle(): boolean;
+  isOnScreen(): boolean;
 }
 
 export interface IObstacle {
