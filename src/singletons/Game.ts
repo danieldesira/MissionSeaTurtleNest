@@ -15,6 +15,11 @@ import { launchGameEndDialog } from "../utils/ui/gameplay";
 import { toggleMode } from "../utils/ui/mainMenu";
 import { hideOverlay, showOverlay } from "../utils/ui/overlay";
 
+type GameOptions = {
+  canvas: HTMLCanvasElement;
+  isNewGame: boolean;
+};
+
 class Game {
   private static _instance: Game;
 
@@ -260,7 +265,7 @@ class Game {
       mainCharacter.oxygenGauge <= 0 ||
       mainCharacter.lifeGauge <= 0
     ) {
-      await this.handleLoss();
+      this.handleLoss();
       return false;
     }
 
@@ -313,10 +318,5 @@ class Game {
     await deleteLastGameAndSaveScore(hasWon);
   }
 }
-
-type GameOptions = {
-  canvas: HTMLCanvasElement;
-  isNewGame: boolean;
-};
 
 export default Game;

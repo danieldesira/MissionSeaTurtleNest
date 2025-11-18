@@ -1,9 +1,10 @@
-# 0.7.9.2 Beta -
+# 0.7.9.2 Beta - 19:00 UTC+1
 
 - Add level title to level start dialog
 - Fix edge case in `FloatingGuidedObstacle`'s `paint` method
 - Add off-screen character (prey/obstacle) indicators on the right
-- 
+- Login Invitation Dialog: Adjust `flex-direction` for the footer to `row` and
+  update title to **Please Consider Logging-in**
 
 # 0.7.9.1 Beta - 15/11/2025 9:45 UTC+1
 
