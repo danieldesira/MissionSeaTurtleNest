@@ -69,8 +69,8 @@ abstract class FloatingGuidedObstacle extends Obstacle {
     if (this._image) {
       context.drawImage(
         this._image,
-        this._x - this._width / 2,
-        this._y - this._height / 2,
+        this._x - this._width / 2 - Game.instance.level.bgOffsetX,
+        this._y - this._height / 2 - Game.instance.level.bgOffsetY,
         this._width,
         this._height
       );

@@ -1,6 +1,8 @@
 # 0.7.9.2 Beta -
 
 - Add level title to level start dialog
+- Fix edge case in `FloatingGuidedObstacle`'s `paint` method
+- 
 
 # 0.7.9.1 Beta - 15/11/2025 9:45 UTC+1
 

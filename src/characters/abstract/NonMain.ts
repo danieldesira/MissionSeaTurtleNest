@@ -3,7 +3,7 @@ import {
   checkBoundingBoxCollision,
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
-import { updateXpSpan } from "../../utils/ui/gameplay";
+import { getCanvas, updateXpSpan } from "../../utils/ui/gameplay";
 import type { INonMainCharacter } from "../interfaces";
 import Character from "./Character";
 
@@ -83,6 +83,17 @@ abstract class NonMain extends Character implements INonMainCharacter {
     const turtleBox = getCharacterBoundingBox(Game.instance.turtle);
     const characterBox = getCharacterBoundingBox(this);
     return checkBoundingBoxCollision(turtleBox, characterBox);
+  }
+
+  isOnScreen() {
+    const { bgOffsetX, bgOffsetY } = Game.instance.level;
+    const { width: canvasWidth, height: canvasHeight } = getCanvas();
+    return (
+      bgOffsetX < this._x + this._width / 2 &&
+      this._x - this._width / 2 < bgOffsetX + canvasWidth &&
+      bgOffsetY < this._y + this._height / 2 &&
+      this._y - this._height / 2 < bgOffsetY + canvasHeight
+    );
   }
 }
 

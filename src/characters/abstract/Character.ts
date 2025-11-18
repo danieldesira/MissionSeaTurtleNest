@@ -1,7 +1,6 @@
 import { Directions } from "../../constants";
 import Game from "../../singletons/Game";
 import type { Direction } from "../../types";
-import { getCanvas } from "../../utils/ui/gameplay";
 import type { ICharacter } from "../interfaces";
 
 abstract class Character implements ICharacter {
@@ -107,19 +106,6 @@ abstract class Character implements ICharacter {
     const y = this._y - Game.instance.level.bgOffsetY;
     context.translate(x, y);
     context.rotate(Directions[this._direction].angle);
-  }
-
-  isOnScreen() {
-    const { bgOffsetX, bgOffsetY } = Game.instance.level;
-    const screenX = this._x - bgOffsetX;
-    const screenY = this._y - bgOffsetY;
-    const { width: canvasWidth, height: canvasHeight } = getCanvas();
-    return (
-      screenX + this._width / 2 >= 0 &&
-      screenX - this._width / 2 <= canvasWidth &&
-      screenY + this._height / 2 >= 0 &&
-      screenY - this._height / 2 <= canvasHeight
-    );
   }
 }
 

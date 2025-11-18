@@ -162,7 +162,6 @@ class Level implements ILevel {
       if (character.isOnScreen()) {
         character.paint(context);
       } else {
-        console.log("Character off screen, not painting");
       }
     }
   }
