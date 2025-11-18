@@ -5,6 +5,7 @@ import NonMain from "./NonMain";
 
 abstract class Obstacle extends NonMain implements IObstacle {
   protected abstract readonly _damage: number;
+  protected readonly _offscreenIndicatorColor: string = "rgba(255, 0, 0, 0.5)";
 
   get damage() {
     return this._damage;

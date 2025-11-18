@@ -1,4 +1,5 @@
 import Game from "../../singletons/Game";
+import { paintCircle } from "../../utils/canvas";
 import {
   checkBoundingBoxCollision,
   getCharacterBoundingBox,
@@ -12,6 +13,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
   protected abstract readonly _stomachImpact: number;
   protected abstract readonly _points: number;
   protected abstract readonly _type: string;
+  protected abstract readonly _offscreenIndicatorColor: string;
 
   protected get initialPositionXFrom() {
     return 0;
@@ -93,6 +95,19 @@ abstract class NonMain extends Character implements INonMainCharacter {
       this._x - this._width / 2 < bgOffsetX + canvasWidth &&
       bgOffsetY < this._y + this._height / 2 &&
       this._y - this._height / 2 < bgOffsetY + canvasHeight
+    );
+  }
+
+  paintOffScreenIndicator(context: CanvasRenderingContext2D) {
+    const x = getCanvas().width - 10;
+    const radius = 10;
+    paintCircle(
+      context,
+      x,
+      this._y,
+      radius,
+      this._offscreenIndicatorColor,
+      this._offscreenIndicatorColor
     );
   }
 }

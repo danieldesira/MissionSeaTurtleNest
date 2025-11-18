@@ -52,13 +52,11 @@ const calculateScreenCutOffPoints = (
   bgSize: number,
   canvasSize: number
 ): Array<number> => {
-  const points = [];
   const noOfFits = Math.floor(bgSize / canvasSize);
-  for (let i = 1; i < noOfFits; i++) {
-    points.push(i * canvasSize);
-  }
-  points.push(bgSize - noOfFits * canvasSize);
-  return points;
+  return [
+    ...Array.from({ length: noOfFits - 1 }, (_, i) => (i + 1) * canvasSize),
+    bgSize - noOfFits * canvasSize,
+  ];
 };
 
 /**

@@ -4,6 +4,7 @@ import NonMain from "./NonMain";
 
 abstract class Prey extends NonMain implements IPrey {
   protected abstract readonly _foodValue: number;
+  protected readonly _offscreenIndicatorColor: string = "rgba(0, 255, 0, 0.5)";
 
   get foodValue() {
     return this._foodValue;
