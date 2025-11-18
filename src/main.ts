@@ -2,10 +2,7 @@ import "./main.css";
 import { registerComponents } from "./webComponents/components";
 import { setupSocialButtons } from "./socials";
 import { disableContextMenu, preventNavigation } from "./utils/ui/ui";
-import {
-  setupKeyboardControls,
-  setupMouseWheelControls,
-} from "./utils/controls";
+import { setupKeyboardControls } from "./utils/controls";
 import { registerServiceWorker } from "./utils/serviceWorkers";
 import { setupLoginButtons } from "./utils/ui/authUi";
 import {
@@ -48,7 +45,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupPauseBtn();
   setupResumeBtn();
   setupKeyboardControls();
-  setupMouseWheelControls();
   setupCanvasSize();
   setupBackToMenuBtn();
   setupAppVisibilityHandler();

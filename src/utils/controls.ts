@@ -30,26 +30,3 @@ export const setupKeyboardControls = () => {
     }
   };
 };
-
-export const setupMouseWheelControls = () => {
-  const canvas = document.getElementById("gameCanvas");
-  canvas.addEventListener("wheel", (event: WheelEvent) => {
-    event.preventDefault();
-
-    if (!Game.instance.isPaused) {
-      const mainCharacter = Game.instance.turtle;
-      if (event.deltaX < 0) {
-        mainCharacter.moveLeft();
-      }
-      if (event.deltaX > 0) {
-        mainCharacter.moveRight();
-      }
-      if (event.deltaY < 0) {
-        mainCharacter.moveUp();
-      }
-      if (event.deltaY > 0) {
-        mainCharacter.moveDown();
-      }
-    }
-  });
-};

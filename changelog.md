@@ -1,3 +1,8 @@
+# 0.7.10 Beta -
+
+- Remove mouse wheel control
+- 
+
 # 0.7.9.2 Beta - 19:00 UTC+1
 
 - Add level title to level start dialog
