@@ -98,17 +98,47 @@ abstract class NonMain extends Character implements INonMainCharacter {
     );
   }
 
-  paintOffScreenIndicator(context: CanvasRenderingContext2D) {
-    const x = getCanvas().width - 10;
-    const radius = 10;
-    paintCircle(
-      context,
-      x,
-      this._y,
-      radius,
-      this._offscreenIndicatorColor,
-      this._offscreenIndicatorColor
+  private isOffScreenX() {
+    const { bgOffsetX } = Game.instance.level;
+    const { width: canvasWidth } = getCanvas();
+    return (
+      this._x + this._width / 2 < bgOffsetX ||
+      this._x - this._width / 2 > bgOffsetX + canvasWidth
     );
+  }
+
+  private isOffScreenY() {
+    const { bgOffsetY } = Game.instance.level;
+    const { height: canvasHeight } = getCanvas();
+    return (
+      this._y + this._height / 2 < bgOffsetY ||
+      this._y - this._height / 2 > bgOffsetY + canvasHeight
+    );
+  }
+
+  paintOffScreenIndicator(context: CanvasRenderingContext2D) {
+    const radius = 10;
+    if (this.isOffScreenX()) {
+      const x = getCanvas().width - 10;
+      paintCircle(
+        context,
+        x,
+        this._y,
+        radius,
+        this._offscreenIndicatorColor,
+        this._offscreenIndicatorColor
+      );
+    } else if (this.isOffScreenY()) {
+      const y = getCanvas().height - 10;
+      paintCircle(
+        context,
+        this._x,
+        y,
+        radius,
+        this._offscreenIndicatorColor,
+        this._offscreenIndicatorColor
+      );
+    }
   }
 }
 
