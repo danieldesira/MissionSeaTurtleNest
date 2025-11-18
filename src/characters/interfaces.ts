@@ -22,6 +22,16 @@ export interface IMainCharacter {
   moveDown(): void;
   moveLeft(): void;
   moveRight(): void;
+  set isPregnant(value: boolean);
+  get isPregnant(): boolean;
+  get foodGauge(): number;
+  set foodGauge(value: number);
+  get lifeGauge(): number;
+  set lifeGauge(value: number);
+  get apetiteGauge(): number;
+  set apetiteGauge(value: number);
+  get oxygenGauge(): number;
+  set oxygenGauge(value: number);
 }
 
 export interface INonMainCharacter extends ICharacter {

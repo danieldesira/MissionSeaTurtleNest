@@ -11,6 +11,7 @@ import {
 } from "../utils/gameplay";
 import { resizeCanvas } from "../utils/generic";
 import { getLastGameLocalStorage } from "../utils/lastGameLocalStorage";
+import { launchCustomDialog } from "../utils/ui/customDialog";
 import { launchGameEndDialog } from "../utils/ui/gameplay";
 import { toggleMode } from "../utils/ui/mainMenu";
 import { hideOverlay, showOverlay } from "../utils/ui/overlay";
@@ -130,6 +131,7 @@ class Game {
     this._isPersonalBest = false;
     this._turtle.resetPosition();
     this._turtle.resetGauges();
+    this._turtle.isPregnant = false;
   }
 
   /**
@@ -172,18 +174,19 @@ class Game {
    * @author Daniel Desira
    */
   async loadNewLevel(isFreshLevel: boolean, gameData: GameData = null) {
+    showOverlay(`Loading level ${this.currentLevelNo}`);
     try {
       this._level = createLevelInstance(this._currentLevelNo);
       if (this._level) {
-        showOverlay(`Loading level ${this.currentLevelNo}`);
         await this._level.init(isFreshLevel, gameData);
-        hideOverlay();
       }
       if (isFreshLevel) {
         this.turtle.resetPosition();
       }
     } catch (error) {
-      throw new Error(error);
+      launchCustomDialog("Game Error", error.toString());
+    } finally {
+      hideOverlay();
     }
   }
 

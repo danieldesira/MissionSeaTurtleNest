@@ -14,4 +14,5 @@ export type LevelConstructorOptions = {
   points: number;
   levelDescription: string[];
   title: string;
+  objectives?: Array<() => boolean>;
 };

@@ -4,6 +4,7 @@ import NeptuneGrass from "../characters/NeptuneGrass";
 import PlasticBag from "../characters/PlasticBag";
 import Sardine from "../characters/Sardine";
 import Shrimp from "../characters/Shrimp";
+import Game from "../singletons/Game";
 import Level from "./Level";
 import type { LevelConstructorOptions } from "./types";
 
@@ -50,6 +51,26 @@ const levelsConfig: {
       "Reach the right end of the level to complete it.",
       "Good luck!",
     ],
+  },
+  3: {
+    title: "Love Abounds",
+    backgroundImageFilename: "level3.png",
+    initialCharacters: [
+      { Constructor: Shrimp, amount: 250 },
+      { Constructor: Sardine, amount: 100 },
+      { Constructor: PlasticBag, amount: 5 },
+    ],
+    benthicOffsetY: 9999,
+    currentSpeed: 0.2,
+    points: 50,
+    levelDescription: [
+      "In this level, you first need to mate with Maximus, the male turtle. He is recognisable through his bigger tail.",
+      "Eat sardines and shrimp and avoid plastic bags and nurdle.",
+      "Move around using the arrow keys.",
+      "Reach the right end of the level to complete it but first, you need to touch the male turtle.",
+      "Good luck!",
+    ],
+    objectives: [() => Game.instance.turtle.isPregnant],
   },
 };
 

@@ -20,6 +20,7 @@ class Level implements ILevel {
   private readonly _levelDescription: string[];
   private readonly _imageBasePath: string = "/images/backgrounds/";
   private readonly _title: string;
+  private readonly _objectives: Array<() => boolean>;
 
   constructor({
     backgroundImageFilename,
@@ -29,6 +30,7 @@ class Level implements ILevel {
     points,
     levelDescription,
     title,
+    objectives,
   }: LevelConstructorOptions) {
     this._backgroundImageFilename = backgroundImageFilename;
     this._initialCharacters = initialCharacters;
@@ -37,6 +39,7 @@ class Level implements ILevel {
     this._points = points;
     this._levelDescription = levelDescription;
     this._title = title;
+    this._objectives = objectives;
   }
 
   /**

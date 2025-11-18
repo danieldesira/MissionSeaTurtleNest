@@ -5,7 +5,6 @@
 
 ## Testers
 - Liza Sountsova
-- Lenka Portelli
 - Corinne Wood
 - Marcos Méndez
 - Yazan Enayeh
@@ -13,3 +12,4 @@
 - Zac Decelis
 - Juliane Wachsmann
 - Kamilla Boross
+- Manuel Micallef
