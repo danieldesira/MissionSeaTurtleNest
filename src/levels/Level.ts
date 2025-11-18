@@ -6,6 +6,9 @@ import type GameData from "../restoreGame/GameData";
 import { launchCustomDialog } from "../utils/ui/customDialog";
 import Game from "../singletons/Game";
 import type { INonMainCharacter } from "../characters/interfaces";
+import Prey from "../characters/abstract/Prey";
+import { paintCircle } from "../utils/canvas";
+import { getCanvas } from "../utils/ui/gameplay";
 
 class Level implements ILevel {
   private readonly _backgroundImageFilename: string;
@@ -162,6 +165,18 @@ class Level implements ILevel {
       if (character.isOnScreen()) {
         character.paint(context);
       } else {
+        const circleColour =
+          character instanceof Prey
+            ? "rgba(0, 255, 0, 0.6)"
+            : "rgba(255, 0, 0, 0.6)";
+        paintCircle(
+          context,
+          getCanvas().width - 10,
+          character.y,
+          10,
+          circleColour,
+          circleColour
+        );
       }
     }
   }
