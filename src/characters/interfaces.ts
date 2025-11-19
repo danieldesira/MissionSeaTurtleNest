@@ -53,3 +53,7 @@ export interface IObstacle {
 export interface IPrey {
   get foodValue(): number;
 }
+
+export interface IProspectiveMate extends ICharacter {
+  mateWithFemale(turtle: IMainCharacter): void;
+}
