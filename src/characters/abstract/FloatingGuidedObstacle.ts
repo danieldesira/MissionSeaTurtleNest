@@ -1,8 +1,4 @@
 import Game from "../../singletons/Game";
-import {
-  checkBoundingBoxCollision,
-  getCharacterBoundingBox,
-} from "../../utils/checkCollision";
 import { generateRandomBit } from "../../utils/generic";
 import Obstacle from "./Obstacle";
 
@@ -47,33 +43,21 @@ abstract class FloatingGuidedObstacle extends Obstacle {
     }
   }
 
-  /**
-   * Checks whether obstacle collided with turtle. Adapted for objects that don't have a
-   * change in coordinates for a left/right direction change.
-   * @returns Flag showing collision.
-   * @override
-   * @author Daniel Desira
-   */
-  isCollidingWithTurtle() {
-    const turtleBox = getCharacterBoundingBox(Game.instance.turtle);
-    const obstacleBox = {
-      minX: this._x,
-      maxX: this._x + this._width,
-      minY: this._y,
-      maxY: this._y + this._height,
-    };
-    return checkBoundingBoxCollision(turtleBox, obstacleBox);
-  }
-
   paint(context: CanvasRenderingContext2D) {
     if (this._image) {
+      context.save();
+      context.translate(
+        this._x - Game.instance.level.bgOffsetX,
+        this._y - Game.instance.level.bgOffsetY
+      );
       context.drawImage(
         this._image,
-        this._x - this._width / 2 - Game.instance.level.bgOffsetX,
-        this._y - this._height / 2 - Game.instance.level.bgOffsetY,
+        -this._width / 2,
+        -this._height / 2,
         this._width,
         this._height
       );
+      context.restore();
     }
   }
 }

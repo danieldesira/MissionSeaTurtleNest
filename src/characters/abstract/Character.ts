@@ -43,7 +43,11 @@ abstract class Character implements ICharacter {
   paint(context: CanvasRenderingContext2D) {
     if (this._image) {
       context.save();
-      this.applyRotation(context);
+      context.translate(
+        this._x - Game.instance.level.bgOffsetX,
+        this._y - Game.instance.level.bgOffsetY
+      );
+      context.rotate(Directions[this._direction].angle);
       context.drawImage(
         this._image,
         -this._width / 2,
@@ -93,19 +97,6 @@ abstract class Character implements ICharacter {
 
   get imagePath() {
     return this._imageBasePath + this._imageFilename;
-  }
-
-  /**
-   * Applies the respective character's rotation. To be called before
-   * painting character.
-   * @param context The canvas 2D context
-   * @author Daniel Desira
-   */
-  protected applyRotation(context: CanvasRenderingContext2D) {
-    const x = this._x - Game.instance.level.bgOffsetX;
-    const y = this._y - Game.instance.level.bgOffsetY;
-    context.translate(x, y);
-    context.rotate(Directions[this._direction].angle);
   }
 }
 

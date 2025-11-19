@@ -1,6 +1,7 @@
 # 0.7.10 Beta -
 
 - Remove mouse wheel control
+- More accurate boat collisions and character paint cleanup
 - 
 
 # 0.7.9.2 Beta - 19:00 UTC+1
