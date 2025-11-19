@@ -182,3 +182,14 @@ const addPersonalBestLineToGameEndDialog = (
 
 export const getCanvas = () =>
   document.getElementById("gameCanvas") as HTMLCanvasElement;
+
+export const launchHeartMatingAnimation = async () => {
+  const heartMatingAnimation = document.getElementById("heartMatingAnimation");
+  heartMatingAnimation.classList.add("flex");
+  heartMatingAnimation.classList.remove("hidden");
+  Game.instance.pause();
+  await new Promise((resolve) => setTimeout(resolve, 1500));
+  Game.instance.resume();
+  heartMatingAnimation.classList.add("hidden");
+  heartMatingAnimation.classList.remove("flex");
+};
