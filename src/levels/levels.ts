@@ -1,9 +1,9 @@
-import Boat from "../characters/Boat";
-import Crab from "../characters/Crab";
-import NeptuneGrass from "../characters/NeptuneGrass";
-import PlasticBag from "../characters/PlasticBag";
-import Sardine from "../characters/Sardine";
-import Shrimp from "../characters/Shrimp";
+import Boat from "../characters/obstacles/Boat";
+import Crab from "../characters/prey/Crab";
+import NeptuneGrass from "../characters/prey/NeptuneGrass";
+import PlasticBag from "../characters/obstacles/PlasticBag";
+import Sardine from "../characters/prey/Sardine";
+import Shrimp from "../characters/prey/Shrimp";
 import Game from "../singletons/Game";
 import Level from "./Level";
 import type { LevelConstructorOptions } from "./types";

@@ -1,7 +1,7 @@
-import PackPrey from "./abstract/PackPrey";
-import type { CharacterOptions } from "./types";
+import BenthicPrey from "../abstract/BenthicPrey";
+import type { CharacterOptions } from "../types";
 
-class Sardine extends PackPrey {
+class Crab extends BenthicPrey {
   protected readonly _imageFilename: string;
   protected readonly _foodValue: number;
   protected readonly _speed: number;
@@ -21,15 +21,15 @@ class Sardine extends PackPrey {
     height,
   }: CharacterOptions = {}) {
     super();
-    this._imageFilename = imageFilename ?? "sardine.svg";
-    this._foodValue = foodValue ?? 0.6;
-    this._speed = speed ?? 1.3;
-    this._stomachImpact = stomachImpact ?? 1;
-    this._points = points ?? 10;
-    this._width = width ?? 15;
-    this._height = height ?? 6;
-    this._type = "Sardine";
+    this._imageFilename = imageFilename ?? "benthicCrab.svg";
+    this._foodValue = foodValue ?? 20;
+    this._speed = speed ?? 0.6;
+    this._stomachImpact = stomachImpact ?? 10;
+    this._points = points ?? 20;
+    this._width = width ?? 50;
+    this._height = height ?? 50;
+    this._type = "Crab";
   }
 }
 
-export default Sardine;
+export default Crab;

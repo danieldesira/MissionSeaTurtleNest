@@ -1,7 +1,7 @@
-import Prey from "./abstract/Prey";
-import type { CharacterOptions } from "./types";
+import PackPrey from "../abstract/PackPrey";
+import type { CharacterOptions } from "../types";
 
-class Shrimp extends Prey {
+class Sardine extends PackPrey {
   protected readonly _imageFilename: string;
   protected readonly _foodValue: number;
   protected readonly _speed: number;
@@ -21,15 +21,15 @@ class Shrimp extends Prey {
     height,
   }: CharacterOptions = {}) {
     super();
-    this._imageFilename = imageFilename ?? "shrimp.svg";
-    this._foodValue = foodValue ?? 0.01;
-    this._speed = speed ?? 0.6;
-    this._stomachImpact = stomachImpact ?? 0.05;
-    this._points = points ?? 4;
-    this._width = width ?? 11;
-    this._height = height ?? 4;
-    this._type = "Shrimp";
+    this._imageFilename = imageFilename ?? "sardine.svg";
+    this._foodValue = foodValue ?? 0.6;
+    this._speed = speed ?? 1.3;
+    this._stomachImpact = stomachImpact ?? 1;
+    this._points = points ?? 10;
+    this._width = width ?? 15;
+    this._height = height ?? 6;
+    this._type = "Sardine";
   }
 }
 
-export default Shrimp;
+export default Sardine;

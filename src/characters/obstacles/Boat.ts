@@ -1,5 +1,5 @@
-import FloatingGuidedObstacle from "./abstract/FloatingGuidedObstacle";
-import type { CharacterOptions } from "./types";
+import FloatingGuidedObstacle from "../abstract/FloatingGuidedObstacle";
+import type { CharacterOptions } from "../types";
 
 class Boat extends FloatingGuidedObstacle {
   protected readonly _damage: number;

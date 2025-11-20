@@ -1,10 +1,10 @@
 import NonMain from "./abstract/NonMain";
-import Boat from "./Boat";
-import Crab from "./Crab";
-import NeptuneGrass from "./NeptuneGrass";
-import PlasticBag from "./PlasticBag";
-import Sardine from "./Sardine";
-import Shrimp from "./Shrimp";
+import Boat from "./obstacles/Boat";
+import Crab from "./prey/Crab";
+import NeptuneGrass from "./prey/NeptuneGrass";
+import PlasticBag from "./obstacles/PlasticBag";
+import Sardine from "./prey/Sardine";
+import Shrimp from "./prey/Shrimp";
 
 const characterMap: { [key: string]: new () => NonMain } = {
   Boat: Boat,

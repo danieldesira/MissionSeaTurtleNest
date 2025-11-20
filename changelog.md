@@ -2,7 +2,8 @@
 
 - Remove mouse wheel control
 - More accurate boat collisions and character paint cleanup
-- 
+- Organise characters into `prey` and `obstacles` folders and introduce CLI tool for
+  quick creation of prey and obstacles
 
 # 0.7.9.2 Beta - 19:00 UTC+1
 

@@ -52,6 +52,9 @@ TigerShark: TigerShark, // Key to match the _type field in the character class
    modifying the `initialCharacters` field. Locate desired level/s in the
    `levelsConfig` object at `src/levels.ts`.
 
+It is also possible to add characters using `node --experimental-strip-types prey <NewPrey>` or
+`node --experimental-strip-types obstacle <NewObstacle>`.
+ 
 ## UI
 
 Commonly occurring elements are defined through Web Components placed under
