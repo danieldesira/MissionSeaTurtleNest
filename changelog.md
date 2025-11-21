@@ -4,6 +4,7 @@
 - More accurate boat collisions and character paint cleanup
 - Organise characters into `prey` and `obstacles` folders and introduce CLI tool for
   quick creation of prey and obstacles
+- New obstacle: nurdles/micro-plastic
 
 # 0.7.9.2 Beta - 19:00 UTC+1
 

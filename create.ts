@@ -34,11 +34,26 @@ const config: Record<string, EntityConfig> = {
   },
 };
 
+const supportedEntityTypes = Object.keys(config);
+
+if (!config[entityType]) {
+  console.error(`Unknown entity type: ${entityType}`);
+  console.error(`Supported entity types: ${supportedEntityTypes.join(", ")}`);
+  process.exit(1);
+}
+
 const templateFile = path.join(templatesDir, config[entityType]?.templateFile);
 const newFile = path.join(config[entityType]?.outputDir, `${entityName}.ts`);
 
 if (!templateFile || !fs.existsSync(templateFile)) {
   console.error(`Template for entity type "${entityType}" does not exist.`);
+  process.exit(1);
+}
+
+if (fs.existsSync(newFile)) {
+  console.error(
+    `A file named "${entityName}.ts" already exists in ${config[entityType].outputDir}.`
+  );
   process.exit(1);
 }
 

@@ -67,7 +67,7 @@ const levelsConfig: {
     points: 50,
     levelDescription: [
       "In this level, you first need to mate with Maximus, the male turtle. He is recognisable through his bigger tail.",
-      "Eat sardines and shrimp and avoid plastic bags and nurdle.",
+      "Eat sardines and shrimp and avoid plastic bags and nurdles.",
       "Move around using the arrow keys.",
       "Reach the right end of the level to complete it but first, you need to touch the male turtle.",
       "Good luck!",

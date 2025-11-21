@@ -19,7 +19,9 @@
     "docs": "npx typedoc src/characters/abstract/* src/characters/interfaces/* src/levels/* src/utils/* src/enums/* src/Background.ts src/checkTurtle.ts src/Game.ts --name TurtleQuest --out dev/docs/",
     "build": "tsc -b && vite build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "create:prey": "node --experimental-strip-types create.ts prey",
+    "create:obstacle": "node --experimental-strip-types create.ts obstacle"
   },
   "dependencies": {
     "vite": "^5.4.10"
