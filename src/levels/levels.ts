@@ -7,6 +7,7 @@ import Shrimp from "../characters/prey/Shrimp";
 import Game from "../singletons/Game";
 import Level from "./Level";
 import type { LevelConstructorOptions } from "./types";
+import Nurdle from "../characters/obstacles/Nurdle";
 
 const levelsConfig: {
   [key: number]: LevelConstructorOptions;
@@ -59,6 +60,7 @@ const levelsConfig: {
       { Constructor: Shrimp, amount: 250 },
       { Constructor: Sardine, amount: 100 },
       { Constructor: PlasticBag, amount: 5 },
+      { Constructor: Nurdle, amount: 60 },
     ],
     benthicOffsetY: 9999,
     currentSpeed: 0.2,

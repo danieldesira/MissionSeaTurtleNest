@@ -21,11 +21,11 @@ class Nurdle extends Obstacle {
   }: CharacterOptions = {}) {
     super();
     this._imageFilename = imageFilename ?? "nurdle.svg";
-    this._damage = damage ?? 8;
-    this._stomachImpact = stomachImpact ?? 20;
-    this._points = points ?? -20;
-    this._width = width ?? 45;
-    this._height = height ?? 45;
+    this._damage = damage ?? 0.001;
+    this._stomachImpact = stomachImpact ?? 0.001;
+    this._points = points ?? -1;
+    this._width = width ?? 5;
+    this._height = height ?? 5;
     this._type = "Nurdle";
   }
 }

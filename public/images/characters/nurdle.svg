@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="45mm"
+   height="45mm"
+   viewBox="0 0 45 45"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="nurdle.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.97386896"
+     inkscape:cx="329.61313"
+     inkscape:cy="97.035642"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#e6e6e6;stroke-width:0.264583"
+       id="path3"
+       sodipodi:type="arc"
+       sodipodi:cx="22.54966"
+       sodipodi:cy="22.821344"
+       sodipodi:rx="22.006296"
+       sodipodi:ry="22.006298"
+       sodipodi:start="6.0230513"
+       sodipodi:end="6.0201891"
+       sodipodi:arc-type="slice"
+       d="M 43.815565,17.161103 A 22.006296,22.006298 0 0 1 28.225116,44.083196 22.006296,22.006298 0 0 1 1.2918761,28.512013 22.006296,22.006298 0 0 1 16.843782,1.5676363 22.006296,22.006298 0 0 1 43.799278,17.100259 L 22.54966,22.821344 Z" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2" />
+  <path
+     style="fill:#e6e6e6;stroke-width:0.264583"
+     id="path2"
+     sodipodi:type="arc"
+     sodipodi:cx="27.032425"
+     sodipodi:cy="17.25185"
+     sodipodi:rx="7.1995912"
+     sodipodi:ry="16.436802"
+     sodipodi:start="0"
+     sodipodi:end="0.038941344"
+     sodipodi:arc-type="slice"
+     d="m 34.232016,17.25185 a 7.1995912,16.436802 0 0 1 -0.0055,0.63991 l -7.194133,-0.63991 z" />
+</svg>
