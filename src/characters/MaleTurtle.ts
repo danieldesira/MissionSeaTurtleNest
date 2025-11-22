@@ -10,8 +10,8 @@ class MaleTurtle extends ProspectiveMate {
   constructor({ imageFilename, width, height }: CharacterOptions = {}) {
     super();
     this._imageFilename = imageFilename ?? "maleTurtle.svg";
-    this._width = width ?? 140;
-    this._height = height ?? 33;
+    this._width = width ?? 135;
+    this._height = height ?? 36;
     this._type = "MaleTurtle";
   }
 }

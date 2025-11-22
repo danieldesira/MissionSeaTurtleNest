@@ -55,5 +55,5 @@ export interface IPrey {
 }
 
 export interface IProspectiveMate extends ICharacter {
-  mateWithFemale(turtle: IMainCharacter): void;
+  checkCurrentObstacleCollisions(): void;
 }

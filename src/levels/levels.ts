@@ -8,6 +8,7 @@ import Game from "../singletons/Game";
 import Level from "./Level";
 import type { LevelConstructorOptions } from "./types";
 import Nurdle from "../characters/obstacles/Nurdle";
+import MaleTurtle from "../characters/MaleTurtle";
 
 const levelsConfig: {
   [key: number]: LevelConstructorOptions;
@@ -50,6 +51,7 @@ const levelsConfig: {
       { Constructor: Sardine, amount: 100 },
       { Constructor: PlasticBag, amount: 5 },
       { Constructor: Nurdle, amount: 60 },
+      { Constructor: MaleTurtle, amount: 1 },
     ],
     benthicOffsetY: 9999,
     currentSpeed: 0.2,
