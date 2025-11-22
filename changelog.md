@@ -6,7 +6,7 @@
   quick creation of prey and obstacles
 - New obstacle: nurdles/micro-plastic
 - Add Prey and Obstacles sections to level start dialog
-- 
+- Fix: update score in UI when advancing to next level
 
 # 0.7.9.2 Beta - 19:00 UTC+1
 

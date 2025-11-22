@@ -12,7 +12,7 @@ import {
 import { resizeCanvas } from "../utils/generic";
 import { getLastGameLocalStorage } from "../utils/lastGameLocalStorage";
 import { launchCustomDialog } from "../utils/ui/customDialog";
-import { launchGameEndDialog } from "../utils/ui/gameplay";
+import { launchGameEndDialog, updateXpSpan } from "../utils/ui/gameplay";
 import { toggleMode } from "../utils/ui/mainMenu";
 import { hideOverlay, showOverlay } from "../utils/ui/overlay";
 
@@ -295,6 +295,7 @@ class Game {
 
   private async handleOffBgWidth() {
     this.gainPoints(this._level.points);
+    updateXpSpan()
     this.incrementCurrentLevelNo();
     if (levelExists(this._currentLevelNo)) {
       await this.loadNewLevel(true);
