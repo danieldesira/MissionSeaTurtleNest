@@ -23,13 +23,8 @@ const levelsConfig: {
     benthicOffsetY: 9999,
     currentSpeed: 0.1,
     points: 10,
-    levelDescription: [
-      "Welcome to the warm up level!",
-      "You need to avoid the plastic bags and eat the shrimp and sardines.",
-      "You can move around using the arrow keys.",
-      "Reach the right end of the level to complete it.",
-      "Good luck!",
-    ],
+    levelDescription:
+      "Welcome to the warm up level! Reach the right end of the level while avoiding obstacles and eating prey.",
   },
   2: {
     title: "Mind the Boat",
@@ -44,14 +39,8 @@ const levelsConfig: {
     benthicOffsetY: 550,
     currentSpeed: 0.15,
     points: 10,
-    levelDescription: [
-      "Mind the boat. It injures sea turtles but in the game it will kill you instantly!",
-      "You may also eat crabs at the bottom for extra points!",
-      "Avoid plastic bags as these impact your appetite and cause damage.",
-      "Move around using the arrow keys.",
-      "Reach the right end of the level to complete it.",
-      "Good luck!",
-    ],
+    levelDescription:
+      "Mind the boat. It injures sea turtles but in the game it will kill you instantly! You may also eat crabs for extra points.",
   },
   3: {
     title: "Love Abounds",
@@ -65,13 +54,8 @@ const levelsConfig: {
     benthicOffsetY: 9999,
     currentSpeed: 0.2,
     points: 50,
-    levelDescription: [
-      "In this level, you first need to mate with Maximus, the male turtle. He is recognisable through his bigger tail.",
-      "Eat sardines and shrimp and avoid plastic bags and nurdles.",
-      "Move around using the arrow keys.",
-      "Reach the right end of the level to complete it but first, you need to touch the male turtle.",
-      "Good luck!",
-    ],
+    levelDescription:
+      "Find and mate with Maximus, the male turtle. He is recognisable through his bigger tail.",
     objectives: [() => Game.instance.turtle.isPregnant],
   },
 };

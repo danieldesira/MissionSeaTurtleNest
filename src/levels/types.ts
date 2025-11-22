@@ -12,7 +12,7 @@ export type LevelConstructorOptions = {
   benthicOffsetY: number;
   currentSpeed: number;
   points: number;
-  levelDescription: string[];
+  levelDescription: string;
   title: string;
   objectives?: Array<() => boolean>;
 };

@@ -17,6 +17,11 @@ import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 import { showLoginInvitationDialog } from "./loginInvitationDialog";
 import { deleteChildren } from "./ui";
 import { formatLevelAsText } from "./scores";
+import Level from "../../levels/Level";
+import Obstacle from "../../characters/abstract/Obstacle";
+import Prey from "../../characters/abstract/Prey";
+import NonMain from "../../characters/abstract/NonMain";
+import { LevelCharacter } from "../../levels/types";
 
 export const setupGameControls = () => {
   const upControl = document.getElementById("upControl") as GameControl;
@@ -192,4 +197,78 @@ export const launchHeartMatingAnimation = async () => {
   Game.instance.resume();
   heartMatingAnimation.classList.add("hidden");
   heartMatingAnimation.classList.remove("flex");
+};
+
+export const launchLevelStartDialog = ({
+  title,
+  levelDescription,
+  initialCharacters,
+}: Level) => {
+  const levelStartDialog = document.getElementById(
+    "levelStartDialog"
+  ) as PrettyDialog;
+  levelStartDialog.open();
+
+  const levelStartDialogTitle = document.getElementById(
+    "levelStartDialogTitle"
+  );
+  levelStartDialogTitle.innerText = `Level ${Game.instance.currentLevelNo} - ${title}`;
+
+  const levelStartDialogMessage = document.getElementById(
+    "levelStartDialogMessage"
+  );
+  levelStartDialogMessage.innerText = levelDescription;
+
+  const levelStartDialogObstacles = document.getElementById(
+    "levelStartDialogObstacles"
+  );
+  populateCharacterList(
+    initialCharacters,
+    "obstacle",
+    levelStartDialogObstacles
+  );
+
+  const levelStartDialogPrey = document.getElementById("levelStartDialogPrey");
+  populateCharacterList(initialCharacters, "prey", levelStartDialogPrey);
+};
+
+const populateCharacterList = (
+  initialCharacters: LevelCharacter[],
+  characterType: "prey" | "obstacle",
+  container: HTMLElement
+) => {
+  deleteChildren(container);
+  initialCharacters
+    .map((c) => new c.Constructor())
+    .filter((c) => c instanceof (characterType === "prey" ? Prey : Obstacle))
+    .forEach((c) => {
+      const characterContainer = document.createElement("div");
+      characterContainer.classList.add(
+        "flex",
+        "items-center",
+        "gap-1",
+        "bg-slate-500",
+        "rounded-sm",
+        "p-1"
+      );
+
+      const image = document.createElement("img");
+      image.height = 32;
+      image.width = 32;
+      image.src = c.imagePath;
+      characterContainer.appendChild(image);
+
+      const span = document.createElement("span");
+      span.innerText = c.type;
+      characterContainer.appendChild(span);
+
+      container.appendChild(characterContainer);
+    });
+};
+
+export const setupLevelStartDialog = () => {
+  const levelStartDialog = document.getElementById(
+    "levelStartDialog"
+  ) as PrettyDialog;
+  levelStartDialog.closeButtonIds = ["levelStartDialogCloseBtn"];
 };

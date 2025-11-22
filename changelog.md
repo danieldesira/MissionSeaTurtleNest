@@ -5,6 +5,8 @@
 - Organise characters into `prey` and `obstacles` folders and introduce CLI tool for
   quick creation of prey and obstacles
 - New obstacle: nurdles/micro-plastic
+- Add Prey and Obstacles sections to level start dialog
+- 
 
 # 0.7.9.2 Beta - 19:00 UTC+1
 

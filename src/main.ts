@@ -12,6 +12,7 @@ import {
   setupGameControls,
   setupGamePauseOnDialogOpen,
   setupGameShareBtn,
+  setupLevelStartDialog,
   setupPauseBtn,
   setupResumeBtn,
 } from "./utils/ui/gameplay";
@@ -50,6 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupAppVisibilityHandler();
   setupLoginInvitationDialog();
   setupGamePauseOnDialogOpen();
+  setupLevelStartDialog();
 
   setupScoresDialog();
 });

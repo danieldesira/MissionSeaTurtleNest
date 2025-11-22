@@ -3,9 +3,8 @@ import { restoreCharacters } from "../restoreGame/parseGameData";
 import type { ILevel } from "./interfaces";
 import type { LevelConstructorOptions, LevelCharacter } from "./types";
 import type GameData from "../restoreGame/GameData";
-import { launchCustomDialog } from "../utils/ui/customDialog";
-import Game from "../singletons/Game";
 import type { INonMainCharacter } from "../characters/interfaces";
+import { launchLevelStartDialog } from "../utils/ui/gameplay";
 
 class Level implements ILevel {
   private readonly _backgroundImageFilename: string;
@@ -17,7 +16,7 @@ class Level implements ILevel {
   private readonly _benthicOffsetY: number;
   private readonly _currentSpeed: number;
   private readonly _points: number;
-  private readonly _levelDescription: string[];
+  private readonly _levelDescription: string;
   private readonly _imageBasePath: string = "/images/backgrounds/";
   private readonly _title: string;
   private readonly _objectives: Array<() => boolean>;
@@ -64,10 +63,7 @@ class Level implements ILevel {
   }
 
   private showLevelDialog() {
-    launchCustomDialog(
-      `Level ${Game.instance.currentLevelNo} - ${this._title}`,
-      this._levelDescription
-    );
+    launchLevelStartDialog(this);
   }
 
   private loadBgImg(): Promise<void> {
@@ -121,6 +117,14 @@ class Level implements ILevel {
 
   get imagePath() {
     return this._imageBasePath + this._backgroundImageFilename;
+  }
+
+  get initialCharacters() {
+    return this._initialCharacters;
+  }
+
+  get title() {
+    return this._title;
   }
 
   private spawnCharacters() {
