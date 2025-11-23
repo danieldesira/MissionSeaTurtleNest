@@ -15,7 +15,7 @@ import { launchCustomDialog } from "../utils/ui/customDialog";
 import { launchGameEndDialog } from "../utils/ui/gameplay";
 import { toggleMode } from "../utils/ui/mainMenu";
 import { hideOverlay, showOverlay } from "../utils/ui/overlay";
-import { showXpUpdateSpan, updateXpSpan } from "../utils/ui/xp";
+import { showXpUpdate, updateXpSpan } from "../utils/ui/xp";
 
 type GameOptions = {
   canvas: HTMLCanvasElement;
@@ -166,7 +166,7 @@ class Game {
    */
   gainPoints(xp: number) {
     this._xp += xp;
-    showXpUpdateSpan(xp);
+    showXpUpdate(xp);
   }
 
   /**
