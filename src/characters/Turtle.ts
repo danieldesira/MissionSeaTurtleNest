@@ -18,20 +18,14 @@ class Turtle extends Character implements IMainCharacter {
 
   constructor({ speed, width, height }: CharacterOptions = {}) {
     super();
-    this.resetPosition();
+    this.resetDirection();
     this._speed = speed ?? 1;
     this._width = width ?? 130;
     this._height = height ?? 80;
     this.resetGauges();
   }
 
-  /**
-   * Resets position and direction for turtle.
-   * @author Daniel Desira
-   */
-  resetPosition() {
-    this._x = 50;
-    this._y = 10;
+  resetDirection() {
     this._direction = "Right";
   }
 

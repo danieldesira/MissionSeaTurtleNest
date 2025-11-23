@@ -1,5 +1,10 @@
 import Game from "../../singletons/Game";
+import {
+  checkBoundingBoxCollision,
+  getCharacterBoundingBox,
+} from "../../utils/checkCollision";
 import { generateRandomBit } from "../../utils/generic";
+import { launchCustomDialog } from "../../utils/ui/customDialog";
 import {
   launchHeartMatingAnimation,
   updateXpSpan,
@@ -9,7 +14,7 @@ import NonMain from "./NonMain";
 import Obstacle from "./Obstacle";
 
 abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
-  protected _speed: number = 5;
+  protected _speed: number = 2;
   protected _stomachImpact: number = 0;
   protected _points: number = 100;
   protected _offscreenIndicatorColor: string = "rgba(0,255,0, 0.5)";
@@ -56,9 +61,22 @@ abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
 
   checkCurrentObstacleCollisions() {
     Game.instance.level.characters.forEach((c) => {
-      if (c instanceof Obstacle) {
+      if (
+        c instanceof Obstacle &&
+        checkBoundingBoxCollision(
+          getCharacterBoundingBox(this),
+          getCharacterBoundingBox(c)
+        )
+      ) {
         this._life -= c.damage;
         Game.instance.level.characters.delete(c);
+        if (this._life <= 0) {
+          Game.instance.level.characters.delete(this);
+          launchCustomDialog(
+            "Mate died",
+            "Prospective mate died. In case you didn't mate yet, game over!"
+          );
+        }
       }
     });
   }

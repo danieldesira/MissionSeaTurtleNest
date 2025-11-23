@@ -129,7 +129,7 @@ class Game {
     this._currentLevelNo = 1;
     this._xp = 0;
     this._isPersonalBest = false;
-    this._turtle.resetPosition();
+    this._turtle.resetDirection();
     this._turtle.resetGauges();
     this._turtle.isPregnant = false;
   }
@@ -181,7 +181,9 @@ class Game {
         await this._level.init(isFreshLevel, gameData);
       }
       if (isFreshLevel) {
-        this.turtle.resetPosition();
+        this.turtle.resetDirection();
+        this.turtle.x = 50;
+        this.turtle.y = this._level.bgImg.height / 2;
       }
     } catch (error) {
       launchCustomDialog("Game Error", error.toString());
@@ -280,13 +282,11 @@ class Game {
 
     const backgroundImage = this._level.bgImg;
     if (backgroundImage && mainCharacter.x >= backgroundImage.width) {
-      await this.handleOffBgWidth();
-      if (!levelExists(this._currentLevelNo)) {
-        return false;
-      }
+      return await this.handleOffBgWidth();
     }
 
     this._level.checkIfTurtleMeetsCharacters();
+    this._level.checkProspectiveMates();
 
     this._level.moveCharacters();
 
@@ -294,13 +294,19 @@ class Game {
   }
 
   private async handleOffBgWidth() {
-    this.gainPoints(this._level.points);
-    updateXpSpan()
-    this.incrementCurrentLevelNo();
-    if (levelExists(this._currentLevelNo)) {
-      await this.loadNewLevel(true);
+    if (this._level.objectivesMet()) {
+      this.gainPoints(this._level.points);
+      updateXpSpan();
+      this.incrementCurrentLevelNo();
+      if (levelExists(this._currentLevelNo)) {
+        await this.loadNewLevel(true);
+        return true;
+      } else {
+        this.handleWin();
+        return false;
+      }
     } else {
-      this.handleWin();
+      return true;
     }
   }
 

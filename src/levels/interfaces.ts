@@ -17,4 +17,6 @@ export interface ILevel {
   checkIfTurtleMeetsCharacters(): void;
   get levelDescription(): string;
   get imagePath(): string;
+  objectivesMet(): boolean;
+  checkProspectiveMates(): void;
 }

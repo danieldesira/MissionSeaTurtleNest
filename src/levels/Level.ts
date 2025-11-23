@@ -5,6 +5,7 @@ import type { LevelConstructorOptions, LevelCharacter } from "./types";
 import type GameData from "../restoreGame/GameData";
 import type { INonMainCharacter } from "../characters/interfaces";
 import { launchLevelStartDialog } from "../utils/ui/gameplay";
+import ProspectiveMate from "../characters/abstract/ProspectiveMate";
 
 class Level implements ILevel {
   private readonly _backgroundImageFilename: string;
@@ -196,6 +197,20 @@ class Level implements ILevel {
     for (const character of this._characters) {
       if (character.isCollidingWithTurtle()) {
         character.handleTurtleCollision();
+      }
+    }
+  }
+
+  objectivesMet() {
+    return (
+      !this._objectives || this._objectives.every((predicate) => predicate())
+    );
+  }
+
+  checkProspectiveMates() {
+    for (const character of this._characters) {
+      if (character instanceof ProspectiveMate) {
+        character.checkCurrentObstacleCollisions();
       }
     }
   }

@@ -16,7 +16,7 @@ export interface ICharacter {
 }
 
 export interface IMainCharacter {
-  resetPosition(): void;
+  resetDirection(): void;
   get direction(): Direction;
   moveUp(): void;
   moveDown(): void;
