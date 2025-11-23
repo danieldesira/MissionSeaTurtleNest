@@ -7,6 +7,8 @@
 - New obstacle: nurdles/micro-plastic
 - Add Prey and Obstacles sections to level start dialog
 - Fix: update score in UI when advancing to next level
+- Add XP update area on top of the screen active for 500ms
+- 
 
 # 0.7.9.2 Beta - 19:00 UTC+1
 

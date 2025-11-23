@@ -4,7 +4,8 @@ import {
   checkBoundingBoxCollision,
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
-import { getCanvas, updateXpSpan } from "../../utils/ui/gameplay";
+import { getCanvas } from "../../utils/ui/gameplay";
+import { updateXpSpan } from "../../utils/ui/xp";
 import type { INonMainCharacter } from "../interfaces";
 import Character from "./Character";
 

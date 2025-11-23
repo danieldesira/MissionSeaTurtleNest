@@ -12,9 +12,10 @@ import {
 import { resizeCanvas } from "../utils/generic";
 import { getLastGameLocalStorage } from "../utils/lastGameLocalStorage";
 import { launchCustomDialog } from "../utils/ui/customDialog";
-import { launchGameEndDialog, updateXpSpan } from "../utils/ui/gameplay";
+import { launchGameEndDialog } from "../utils/ui/gameplay";
 import { toggleMode } from "../utils/ui/mainMenu";
 import { hideOverlay, showOverlay } from "../utils/ui/overlay";
+import { showXpUpdateSpan, updateXpSpan } from "../utils/ui/xp";
 
 type GameOptions = {
   canvas: HTMLCanvasElement;
@@ -165,6 +166,7 @@ class Game {
    */
   gainPoints(xp: number) {
     this._xp += xp;
+    showXpUpdateSpan(xp);
   }
 
   /**

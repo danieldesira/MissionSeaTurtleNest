@@ -5,10 +5,8 @@ import {
 } from "../../utils/checkCollision";
 import { generateRandomBit } from "../../utils/generic";
 import { launchCustomDialog } from "../../utils/ui/customDialog";
-import {
-  launchHeartMatingAnimation,
-  updateXpSpan,
-} from "../../utils/ui/gameplay";
+import { launchHeartMatingAnimation } from "../../utils/ui/gameplay";
+import { updateXpSpan } from "../../utils/ui/xp";
 import type { IMainCharacter, IProspectiveMate } from "../interfaces";
 import NonMain from "./NonMain";
 import Obstacle from "./Obstacle";

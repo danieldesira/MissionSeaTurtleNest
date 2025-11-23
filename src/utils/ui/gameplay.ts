@@ -20,8 +20,8 @@ import { formatLevelAsText } from "./scores";
 import Level from "../../levels/Level";
 import Obstacle from "../../characters/abstract/Obstacle";
 import Prey from "../../characters/abstract/Prey";
-import NonMain from "../../characters/abstract/NonMain";
 import { LevelCharacter } from "../../levels/types";
+import { updateXpSpan } from "./xp";
 
 export const setupGameControls = () => {
   const upControl = document.getElementById("upControl") as GameControl;
@@ -81,11 +81,6 @@ export const setupGameShareBtn = () => {
       }
     }
   };
-};
-
-export const updateXpSpan = () => {
-  const xpSpan = document.getElementById("xpSpan");
-  xpSpan.innerText = Game.instance.xp.toString();
 };
 
 export const updateGauge = (
