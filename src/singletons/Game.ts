@@ -282,15 +282,18 @@ class Game {
       mainCharacter.useOxygen();
     }
 
-    const backgroundImage = this._level.bgImg;
-    if (backgroundImage && mainCharacter.x >= backgroundImage.width) {
-      return await this.handleOffBgWidth();
-    }
-
     this._level.checkIfTurtleMeetsCharacters();
     this._level.checkProspectiveMates();
 
     this._level.moveCharacters();
+
+    const backgroundImage = this._level.bgImg;
+    if (
+      backgroundImage &&
+      mainCharacter.x + mainCharacter.width / 2 >= backgroundImage.width
+    ) {
+      return await this.handleOffBgWidth();
+    }
 
     return true;
   }

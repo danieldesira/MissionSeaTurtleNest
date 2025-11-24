@@ -8,7 +8,9 @@
 - Add Prey and Obstacles sections to level start dialog
 - Fix: update score in UI when advancing to next level
 - Add XP update (increment/decrement) effect
--
+- Fix glitches when turtle is out of bounds
+- Add `ProspectiveMate` abstract class
+- Add Level 3 - Love Abounds
 
 # 0.7.9.2 Beta - 19:00 UTC+1
 
