@@ -19,4 +19,5 @@ export interface ILevel {
   get imagePath(): string;
   objectivesMet(): boolean;
   checkProspectiveMates(): void;
+  spawnPer30SecondObstacles(): void;
 }

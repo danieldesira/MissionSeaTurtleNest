@@ -42,6 +42,10 @@ const levelsConfig: {
     points: 10,
     levelDescription:
       "Mind the boat. It injures sea turtles but in the game it will kill you instantly! You may also eat crabs for extra points.",
+    spawnableObstaclesPer30Second: [
+      { Constructor: PlasticBag, amount: 1 },
+      { Constructor: Nurdle, amount: 10 },
+    ],
   },
   3: {
     title: "Love Abounds",
@@ -59,6 +63,10 @@ const levelsConfig: {
     levelDescription:
       "Find and mate with Maximus, the male turtle. He is recognisable through his bigger tail.",
     objectives: [() => Game.instance.turtle.isPregnant],
+    spawnableObstaclesPer30Second: [
+      { Constructor: PlasticBag, amount: 2 },
+      { Constructor: Nurdle, amount: 5 },
+    ],
   },
 };
 

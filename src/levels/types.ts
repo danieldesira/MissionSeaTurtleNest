@@ -15,4 +15,5 @@ export type LevelConstructorOptions = {
   levelDescription: string;
   title: string;
   objectives?: Array<() => boolean>;
+  spawnableObstaclesPer30Second?: LevelCharacter[];
 };

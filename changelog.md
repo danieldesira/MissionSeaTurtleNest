@@ -1,4 +1,4 @@
-# 0.7.10 Beta -
+# 0.7.10 Beta - 24/11/2025 18:20 UTC+1
 
 - Remove mouse wheel control
 - More accurate boat collisions and character paint cleanup
@@ -10,7 +10,8 @@
 - Add XP update (increment/decrement) effect
 - Fix glitches when turtle is out of bounds
 - Add `ProspectiveMate` abstract class
-- Add Level 3 - Love Abounds
+- Add Level 3 - Love Abound
+- Implement experimental obstacle spawning per 30 seconds
 
 # 0.7.9.2 Beta - 19:00 UTC+1
 

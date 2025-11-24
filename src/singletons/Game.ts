@@ -49,6 +49,7 @@ class Game {
   private _isPaused: boolean;
   private _isGameScreenActive: boolean;
   private _isPersonalBest: boolean;
+  private _currentFrameCount: number;
 
   /**
    * Turtle instance getter.
@@ -133,6 +134,7 @@ class Game {
     this._turtle.resetDirection();
     this._turtle.resetGauges();
     this._turtle.isPregnant = false;
+    this._currentFrameCount = 0;
   }
 
   /**
@@ -287,6 +289,12 @@ class Game {
 
     this._level.moveCharacters();
 
+    if (this._currentFrameCount % (60 * 30) === 0) {
+      this._level.spawnPer30SecondObstacles();
+    }
+
+    this.incrementFrameCount();
+
     const backgroundImage = this._level.bgImg;
     if (
       backgroundImage &&
@@ -331,6 +339,10 @@ class Game {
     toggleMode("menu");
 
     await deleteLastGameAndSaveScore(hasWon);
+  }
+
+  private incrementFrameCount() {
+    this._currentFrameCount++;
   }
 }
 

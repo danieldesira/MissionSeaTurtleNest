@@ -21,6 +21,7 @@ class Level implements ILevel {
   private readonly _imageBasePath: string = "/images/backgrounds/";
   private readonly _title: string;
   private readonly _objectives: Array<() => boolean>;
+  private readonly _spawnableObstaclesPer30Second: LevelCharacter[];
 
   constructor({
     backgroundImageFilename,
@@ -31,6 +32,7 @@ class Level implements ILevel {
     levelDescription,
     title,
     objectives,
+    spawnableObstaclesPer30Second,
   }: LevelConstructorOptions) {
     this._backgroundImageFilename = backgroundImageFilename;
     this._initialCharacters = initialCharacters;
@@ -40,6 +42,7 @@ class Level implements ILevel {
     this._levelDescription = levelDescription;
     this._title = title;
     this._objectives = objectives;
+    this._spawnableObstaclesPer30Second = spawnableObstaclesPer30Second;
   }
 
   /**
@@ -213,6 +216,17 @@ class Level implements ILevel {
         character.checkCurrentObstacleCollisions();
       }
     }
+  }
+
+  spawnPer30SecondObstacles() {
+    this._spawnableObstaclesPer30Second?.forEach(({ Constructor, amount }) => {
+      for (let i = 1; i <= amount; i++) {
+        const obstacle = new Constructor();
+        obstacle.x = this._backgroundImage.width;
+        obstacle.y = Math.random() * this._backgroundImage.height;
+        this.characters.add(obstacle);
+      }
+    });
   }
 }
 
