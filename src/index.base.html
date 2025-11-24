@@ -108,7 +108,7 @@
           </div>
         </div>
         <canvas id="gameCanvas" height="400" width="700" tab-index="1"></canvas>
-        <div id="onscreenControls" class="absolute bottom-1 right-1">
+        <div id="onscreenControls" class="absolute bottom-1 right-1 z-10">
           <div class="mb-1 flex justify-center">
             <game-control id="upControl"
               ><i
@@ -138,6 +138,10 @@
             </game-control>
           </div>
         </div>
+        <div
+          id="xpUpdateContainer"
+          class="fixed top-0 left-0 w-full h-full flex flex-col-reverse justify-center items-center gap-1"
+        ></div>
       </div>
     </div>
     <div class="landscape:hidden flex justify-center items-center bg-red-700">
@@ -168,10 +172,6 @@
     <div
       id="waitingNotice"
       class="fixed top-1 right-1 p-2 bg-green-600 text-primary font-semibold text-sm rounded-sm hidden opacity-90"
-    ></div>
-    <div
-      id="xpUpdateContainer"
-      class="fixed top-[50px] left-[200px] flex flex-col gap-1"
     ></div>
   </body>
 </html>
