@@ -3,6 +3,7 @@
 - Add obstacles spawnable every 30 seconds to the level start dialog
 - Add nurdle.svg to array of cachable items
 - Double shrimp in visual height/width
+- Spawnable obstacles: fix: new obstacles where not showing on screen
 
 # 0.7.10 Beta - 24/11/2025 18:20 UTC+1
 

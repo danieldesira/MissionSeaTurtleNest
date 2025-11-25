@@ -224,6 +224,7 @@ class Level implements ILevel {
         const obstacle = new Constructor();
         obstacle.x = this._backgroundImage.width;
         obstacle.y = Math.random() * this._backgroundImage.height;
+        obstacle.loadImage();
         this.characters.add(obstacle);
       }
     });
