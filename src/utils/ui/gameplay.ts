@@ -17,11 +17,11 @@ import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 import { showLoginInvitationDialog } from "./loginInvitationDialog";
 import { deleteChildren } from "./ui";
 import { formatLevelAsText } from "./scores";
-import Level from "../../levels/Level";
 import Obstacle from "../../characters/abstract/Obstacle";
 import Prey from "../../characters/abstract/Prey";
 import { LevelCharacter } from "../../levels/types";
 import { updateXpSpan } from "./xp";
+import type { ILevel } from "../../levels/interfaces";
 
 export const setupGameControls = () => {
   const upControl = document.getElementById("upControl") as GameControl;
@@ -96,8 +96,6 @@ export const setupResumeBtn = () => {
     "gamePausedDialog"
   ) as PrettyDialog;
   gamePausedDialog.closeButtonIds = ["resumeBtn"];
-  gamePausedDialog.openCallback = () => Game.instance.pause();
-  gamePausedDialog.closeCallback = () => Game.instance.resume();
 };
 
 const showGamePausedDialog = () => {
@@ -198,7 +196,8 @@ export const launchLevelStartDialog = ({
   title,
   levelDescription,
   initialCharacters,
-}: Level) => {
+  spawnableObstaclesPer30Second,
+}: ILevel) => {
   const levelStartDialog = document.getElementById(
     "levelStartDialog"
   ) as PrettyDialog;
@@ -218,7 +217,9 @@ export const launchLevelStartDialog = ({
     "levelStartDialogObstacles"
   );
   populateCharacterList(
-    initialCharacters,
+    spawnableObstaclesPer30Second
+      ? initialCharacters.concat(spawnableObstaclesPer30Second)
+      : initialCharacters,
     "obstacle",
     levelStartDialogObstacles
   );
@@ -228,37 +229,44 @@ export const launchLevelStartDialog = ({
 };
 
 const populateCharacterList = (
-  initialCharacters: LevelCharacter[],
+  levelCharacterList: LevelCharacter[],
   characterType: "prey" | "obstacle",
   container: HTMLElement
 ) => {
   deleteChildren(container);
-  initialCharacters
-    .map((c) => new c.Constructor())
-    .filter((c) => c instanceof (characterType === "prey" ? Prey : Obstacle))
-    .forEach((c) => {
-      const characterContainer = document.createElement("div");
-      characterContainer.classList.add(
-        "flex",
-        "items-center",
-        "gap-1",
-        "bg-slate-500",
-        "rounded-sm",
-        "p-1"
-      );
+  new Set(
+    levelCharacterList
+      .map(({ Constructor }) => Constructor)
+      .filter(
+        (Constructor) =>
+          new Constructor() instanceof
+          (characterType === "prey" ? Prey : Obstacle)
+      )
+  ).forEach((Constructor) => {
+    const characterContainer = document.createElement("div");
+    characterContainer.classList.add(
+      "flex",
+      "items-center",
+      "gap-1",
+      "bg-slate-500",
+      "rounded-sm",
+      "p-1"
+    );
 
-      const image = document.createElement("img");
-      image.height = 32;
-      image.width = 32;
-      image.src = c.imagePath;
-      characterContainer.appendChild(image);
+    const { imagePath, type } = new Constructor();
 
-      const span = document.createElement("span");
-      span.innerText = c.type;
-      characterContainer.appendChild(span);
+    const image = document.createElement("img");
+    image.height = 32;
+    image.width = 32;
+    image.src = imagePath;
+    characterContainer.appendChild(image);
 
-      container.appendChild(characterContainer);
-    });
+    const span = document.createElement("span");
+    span.innerText = type;
+    characterContainer.appendChild(span);
+
+    container.appendChild(characterContainer);
+  });
 };
 
 export const setupLevelStartDialog = () => {

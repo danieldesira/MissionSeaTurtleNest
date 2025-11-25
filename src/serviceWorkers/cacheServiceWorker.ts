@@ -22,6 +22,7 @@ const precacheResources = [
   "images/characters/shrimp.svg",
   "images/backgrounds/hatchingTurtles.svg",
   "https://unpkg.com/lucide@latest",
+  "images/characters/nurdle.svg",
 ];
 
 // When the service worker is installing, open the cache and add the precache resources to it

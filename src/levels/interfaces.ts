@@ -1,5 +1,6 @@
 import type { INonMainCharacter } from "../characters/interfaces";
 import type GameData from "../restoreGame/GameData";
+import { LevelCharacter } from "./types";
 
 export interface ILevel {
   init(isFreshLevel: boolean, gameData: GameData): Promise<void>;
@@ -20,4 +21,7 @@ export interface ILevel {
   objectivesMet(): boolean;
   checkProspectiveMates(): void;
   spawnPer30SecondObstacles(): void;
+  get spawnableObstaclesPer30Second(): LevelCharacter[];
+  get initialCharacters(): LevelCharacter[];
+  get title(): string;
 }

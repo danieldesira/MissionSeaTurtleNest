@@ -228,6 +228,10 @@ class Level implements ILevel {
       }
     });
   }
+
+  get spawnableObstaclesPer30Second() {
+    return this._spawnableObstaclesPer30Second;
+  }
 }
 
 export default Level;

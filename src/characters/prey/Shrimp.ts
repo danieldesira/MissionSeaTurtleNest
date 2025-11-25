@@ -26,8 +26,8 @@ class Shrimp extends Prey {
     this._speed = speed ?? 0.6;
     this._stomachImpact = stomachImpact ?? 0.05;
     this._points = points ?? 4;
-    this._width = width ?? 11;
-    this._height = height ?? 4;
+    this._width = width ?? 22;
+    this._height = height ?? 8;
     this._type = "Shrimp";
   }
 }
