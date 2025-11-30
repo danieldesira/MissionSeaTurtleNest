@@ -42,24 +42,6 @@ abstract class FloatingGuidedObstacle extends Obstacle {
       }
     }
   }
-
-  paint(context: CanvasRenderingContext2D) {
-    if (this._image) {
-      context.save();
-      context.translate(
-        this._x - Game.instance.level.bgOffsetX,
-        this._y - Game.instance.level.bgOffsetY
-      );
-      context.drawImage(
-        this._image,
-        -this._width / 2,
-        -this._height / 2,
-        this._width,
-        this._height
-      );
-      context.restore();
-    }
-  }
 }
 
 export default FloatingGuidedObstacle;

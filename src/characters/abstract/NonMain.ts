@@ -1,5 +1,6 @@
 import Game from "../../singletons/Game";
-import { paintCircle } from "../../utils/canvas";
+import { Direction } from "../../types";
+import { paintTriangle, type TrianglePoints } from "../../utils/canvas";
 import {
   checkBoundingBoxCollision,
   getCharacterBoundingBox,
@@ -89,13 +90,11 @@ abstract class NonMain extends Character implements INonMainCharacter {
   }
 
   isOnScreen() {
-    const { bgOffsetX, bgOffsetY } = Game.instance.level;
-    const { width: canvasWidth, height: canvasHeight } = getCanvas();
     return (
-      bgOffsetX < this._x + this._width / 2 &&
-      this._x - this._width / 2 < bgOffsetX + canvasWidth &&
-      bgOffsetY < this._y + this._height / 2 &&
-      this._y - this._height / 2 < bgOffsetY + canvasHeight
+      !this.isOffScreenTop() &&
+      !this.isOffScreenBottom() &&
+      !this.isOffScreenLeft() &&
+      !this.isOffScreenRight()
     );
   }
 
@@ -122,21 +121,76 @@ abstract class NonMain extends Character implements INonMainCharacter {
   }
 
   paintOffScreenIndicator(context: CanvasRenderingContext2D) {
-    const radius = 10;
+    const { width: canvasWidth, height: canvasHeight } = getCanvas();
+
+    let x1: number, y1: number;
     if (this.isOffScreenLeft()) {
-      const x = 10;
-      paintCircle(context, x, this._y, radius, this._offscreenIndicatorColor);
+      x1 = 0;
+      y1 = this._y;
     } else if (this.isOffScreenRight()) {
-      const x = getCanvas().width - 10;
-      paintCircle(context, x, this._y, radius, this._offscreenIndicatorColor);
+      x1 = canvasWidth;
+      y1 = this._y;
     } else if (this.isOffScreenTop()) {
-      const y = 10;
-      paintCircle(context, this._x, y, radius, this._offscreenIndicatorColor);
-    } else if (this.isOffScreenBottom()) {
-      const y = getCanvas().height - 10;
-      paintCircle(context, this._x, y, radius, this._offscreenIndicatorColor);
+      x1 = this._x;
+      y1 = 0;
+    } else {
+      x1 = this._x;
+      y1 = canvasHeight;
     }
+
+    const trianglePointsDirectionMap: Record<Direction, TrianglePoints> = {
+      Left: {
+        point1: { x: x1, y: y1 },
+        point2: { x: 10, y: y1 - 10 },
+        point3: { x: 10, y: y1 + 10 },
+      },
+      Right: {
+        point1: { x: x1, y: y1 },
+        point2: { x: x1 - 10, y: this._y - 10 },
+        point3: { x: x1 - 10, y: this._y + 10 },
+      },
+      Up: {
+        point1: { x: x1, y: y1 },
+        point2: { x: this._x - 10, y: this._y - 10 },
+        point3: { x: this._x + 10, y: this._y - 10 },
+      },
+      Down: {
+        point1: { x: x1, y: y1 },
+        point2: { x: this._x - 10, y: this._y - 10 },
+        point3: { x: this._x + 10, y: this._y - 10 },
+      },
+    };
+    paintTriangle(
+      context,
+      trianglePointsDirectionMap[this._direction],
+      this._offscreenIndicatorColor
+    );
   }
+
+  // paintOffScreenIndicator(context: CanvasRenderingContext2D) {
+  //   const radius = 10;
+  //   if (this.isOffScreenLeft()) {
+
+  //   } else if (this.isOffScreenRight()) {
+  //     const x = getCanvas().width - 10;
+  //     paintTriangle(
+  //       context,
+  //       {
+  //         point1: { x: 0, y: this._y },
+  //         point2: { x: 10, y: this._y - 10 },
+  //         point3: { x: 10, y: this._y + 10 },
+  //       },
+  //       this._offscreenIndicatorColor
+  //     );
+  //     paintCircle(context, x, this._y, radius, this._offscreenIndicatorColor);
+  //   } else if (this.isOffScreenTop()) {
+  //     const y = 10;
+  //     paintCircle(context, this._x, y, radius, this._offscreenIndicatorColor);
+  //   } else if (this.isOffScreenBottom()) {
+  //     const y = getCanvas().height - 10;
+  //     paintCircle(context, this._x, y, radius, this._offscreenIndicatorColor);
+  //   }
+  // }
 }
 
 export default NonMain;
