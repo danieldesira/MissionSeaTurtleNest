@@ -1,0 +1,20 @@
+[
+  "",
+  "index.html",
+  "dist/bundle.js",
+  "dist/bundle.css",
+  "favicon.svg",
+  "images/backgrounds/level1.png",
+  "images/backgrounds/level2.png",
+  "images/backgrounds/level3.png",
+  "images/characters/turtle.svg",
+  "images/characters/benthicCrab.svg",
+  "images/characters/boat.svg",
+  "images/characters/neptuneGrass.svg",
+  "images/characters/plasticBag.svg",
+  "images/characters/sardine.svg",
+  "images/characters/shrimp.svg",
+  "images/backgrounds/hatchingTurtles.svg",
+  "https://unpkg.com/lucide@latest",
+  "images/characters/nurdle.svg"
+]

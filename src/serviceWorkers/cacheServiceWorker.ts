@@ -1,29 +1,11 @@
 /// <reference lib="webworker" />
 
+import precacheResources from "./precacheResources.json";
+
 const cacheSW = self as unknown as ServiceWorkerGlobalScope;
 
 // Choose a cache name
 const cacheName = "cache-v1";
-// List the files to precache
-const precacheResources = [
-  "",
-  "index.html",
-  "dist/bundle.js",
-  "dist/bundle.css",
-  "favicon.svg",
-  "images/backgrounds/level1.png",
-  "images/backgrounds/level2.png",
-  "images/characters/turtle.svg",
-  "images/characters/benthicCrab.svg",
-  "images/characters/boat.svg",
-  "images/characters/neptuneGrass.svg",
-  "images/characters/plasticBag.svg",
-  "images/characters/sardine.svg",
-  "images/characters/shrimp.svg",
-  "images/backgrounds/hatchingTurtles.svg",
-  "https://unpkg.com/lucide@latest",
-  "images/characters/nurdle.svg",
-];
 
 // When the service worker is installing, open the cache and add the precache resources to it
 cacheSW.addEventListener("install", (event) => {

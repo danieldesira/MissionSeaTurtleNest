@@ -12,6 +12,40 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const [entityType, entityName] = process.argv.slice(2);
 
+const createCharacterClass = () => {
+  const templateContent = fs.readFileSync(templateFile, "utf-8");
+  const newContent = templateContent
+    .replaceAll(config[entityType].placeholder, entityName)
+    .replaceAll(
+      `${config[entityType].placeholder[0].toLowerCase()}${config[
+        entityType
+      ].placeholder.slice(1)}`,
+      expectedSvgFilename
+    );
+  fs.writeFileSync(newFile, newContent);
+};
+
+const appendSvgToPrecacheList = () => {
+  const precacheResourcesPath = path.join(
+    __dirname,
+    "src/serviceWorkers/precacheResources.json"
+  );
+  const precacheResourcesContent = fs.readFileSync(
+    precacheResourcesPath,
+    "utf-8"
+  );
+  const precacheResourcesList = JSON.parse(
+    precacheResourcesContent
+  ) as string[];
+  precacheResourcesList.push(`images/characters/${expectedSvgFilename}.svg`);
+  const newPrecacheResourceContent = JSON.stringify(
+    precacheResourcesList,
+    null,
+    "  "
+  );
+  fs.writeFileSync(precacheResourcesPath, newPrecacheResourceContent);
+};
+
 if (!entityType || !entityName) {
   console.error(
     "Usage: node --experimental-strip-types create.ts <entityType> <entityName>"
@@ -57,16 +91,11 @@ if (fs.existsSync(newFile)) {
   process.exit(1);
 }
 
-const templateContent = fs.readFileSync(templateFile, "utf-8");
-const newContent = templateContent
-  .replaceAll(config[entityType].placeholder, entityName)
-  .replaceAll(
-    `${config[entityType].placeholder[0].toLowerCase()}${config[
-      entityType
-    ].placeholder.slice(1)}`,
-    `${entityName[0].toLowerCase()}${entityName.slice(1)}`
-  );
+const expectedSvgFilename = `${entityName[0].toLowerCase()}${entityName.slice(
+  1
+)}`;
 
-fs.writeFileSync(newFile, newContent);
+createCharacterClass();
+appendSvgToPrecacheList();
 
 console.log(`Created new ${entityType} character: ${newFile}`);
