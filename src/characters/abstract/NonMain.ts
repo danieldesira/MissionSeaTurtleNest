@@ -99,46 +99,42 @@ abstract class NonMain extends Character implements INonMainCharacter {
     );
   }
 
-  private isOffScreenX() {
+  private isOffScreenLeft() {
     const { bgOffsetX } = Game.instance.level;
-    const { width: canvasWidth } = getCanvas();
-    return (
-      this._x + this._width / 2 < bgOffsetX ||
-      this._x - this._width / 2 > bgOffsetX + canvasWidth
-    );
+    return this._x + this._width / 2 < bgOffsetX;
   }
 
-  private isOffScreenY() {
+  private isOffScreenRight() {
+    const { bgOffsetX } = Game.instance.level;
+    const { width: canvasWidth } = getCanvas();
+    return this._x - this._width / 2 > bgOffsetX + canvasWidth;
+  }
+
+  private isOffScreenTop() {
+    const { bgOffsetY } = Game.instance.level;
+    return this._y + this._height / 2 < bgOffsetY;
+  }
+
+  private isOffScreenBottom() {
     const { bgOffsetY } = Game.instance.level;
     const { height: canvasHeight } = getCanvas();
-    return (
-      this._y + this._height / 2 < bgOffsetY ||
-      this._y - this._height / 2 > bgOffsetY + canvasHeight
-    );
+    return this._y - this._height / 2 > bgOffsetY + canvasHeight;
   }
 
   paintOffScreenIndicator(context: CanvasRenderingContext2D) {
     const radius = 10;
-    if (this.isOffScreenX()) {
+    if (this.isOffScreenLeft()) {
+      const x = 10;
+      paintCircle(context, x, this._y, radius, this._offscreenIndicatorColor);
+    } else if (this.isOffScreenRight()) {
       const x = getCanvas().width - 10;
-      paintCircle(
-        context,
-        x,
-        this._y,
-        radius,
-        this._offscreenIndicatorColor,
-        this._offscreenIndicatorColor
-      );
-    } else if (this.isOffScreenY()) {
+      paintCircle(context, x, this._y, radius, this._offscreenIndicatorColor);
+    } else if (this.isOffScreenTop()) {
+      const y = 10;
+      paintCircle(context, this._x, y, radius, this._offscreenIndicatorColor);
+    } else if (this.isOffScreenBottom()) {
       const y = getCanvas().height - 10;
-      paintCircle(
-        context,
-        this._x,
-        y,
-        radius,
-        this._offscreenIndicatorColor,
-        this._offscreenIndicatorColor
-      );
+      paintCircle(context, this._x, y, radius, this._offscreenIndicatorColor);
     }
   }
 }

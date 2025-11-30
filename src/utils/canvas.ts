@@ -3,20 +3,13 @@ export const paintCircle = (
   x: number,
   y: number,
   radius: number,
-  fillStyle: string,
-  borderStyle?: string,
-  borderWidth?: number
+  colour: string
 ) => {
   context.beginPath();
   context.arc(x, y, radius, 0, 2 * Math.PI);
-  if (fillStyle) {
-    context.fillStyle = fillStyle;
+  if (colour) {
+    context.fillStyle = colour;
     context.fill();
-  }
-  if (borderStyle && borderWidth) {
-    context.lineWidth = borderWidth;
-    context.strokeStyle = borderStyle;
-    context.stroke();
   }
   context.closePath();
 };
