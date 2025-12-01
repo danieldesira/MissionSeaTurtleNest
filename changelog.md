@@ -8,6 +8,8 @@
 - Adjust offscreen indicators to a triangular shape positioned and directed respectively
   [#77](https://github.com/danieldesira/MissionSeaTurtleNest/issues/77)
 - Code cleanup/refactoring
+- Introduce obstacles: rope and ghost net
+- Add Level 4 - Navigate Ghost Nets
 
 # 0.7.10 Beta - 24/11/2025 18:20 UTC+1
 

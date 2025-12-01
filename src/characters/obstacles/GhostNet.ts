@@ -1,7 +1,7 @@
 import Obstacle from "../abstract/Obstacle";
 import { CharacterOptions } from "../types";
 
-class GhostNest extends Obstacle {
+class GhostNet extends Obstacle {
   protected readonly _imageFilename: string;
   protected readonly _damage: number;
   protected readonly _speed: number;
@@ -20,14 +20,14 @@ class GhostNest extends Obstacle {
     height,
   }: CharacterOptions = {}) {
     super();
-    this._imageFilename = imageFilename ?? "ghostNest.svg";
+    this._imageFilename = imageFilename ?? "ghostNet.svg";
     this._damage = damage ?? 100;
     this._stomachImpact = stomachImpact ?? 20;
     this._points = points ?? -20;
-    this._width = width ?? 50;
-    this._height = height ?? 70;
-    this._type = "GhostNest";
+    this._width = width ?? 100;
+    this._height = height ?? 75;
+    this._type = "GhostNet";
   }
 }
 
-export default GhostNest;
+export default GhostNet;

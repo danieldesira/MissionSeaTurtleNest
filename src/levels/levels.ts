@@ -9,8 +9,8 @@ import Game from "../singletons/Game";
 import Level from "./Level";
 import Nurdle from "../characters/obstacles/Nurdle";
 import MaleTurtle from "../characters/MaleTurtle";
-import GhostNest from "../characters/obstacles/GhostNest";
 import Rope from "../characters/obstacles/Rope";
+import GhostNet from "../characters/obstacles/GhostNet";
 
 const levelsConfig: {
   [key: number]: LevelConstructorOptions;
@@ -77,12 +77,12 @@ const levelsConfig: {
       { Constructor: Sardine, amount: 70 },
       { Constructor: Shrimp, amount: 300 },
       { Constructor: Nurdle, amount: 50 },
-      { Constructor: GhostNest, amount: 4 },
+      { Constructor: GhostNet, amount: 4 },
       { Constructor: Rope, amount: 2 },
     ],
     spawnableObstaclesPer30Second: [
       { Constructor: Nurdle, amount: 2 },
-      { Constructor: GhostNest, amount: 1 },
+      { Constructor: GhostNet, amount: 1 },
     ],
     levelDescription:
       "Ghost nets are often lost or left unattended by fishermen. Entanglement may result in drowning and death for sea turtles. Avoid them at all cost!",
