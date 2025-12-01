@@ -43,7 +43,10 @@ export interface INonMainCharacter extends ICharacter {
   get type(): string;
   isCollidingWithTurtle(): boolean;
   isOnScreen(): boolean;
-  paintOffScreenIndicator(context: CanvasRenderingContext2D): void;
+  isOffScreenLeft(): boolean;
+  isOffScreenRight(): boolean;
+  isOffScreenTop(): boolean;
+  isOffScreenBottom(): boolean;
 }
 
 export interface IObstacle {

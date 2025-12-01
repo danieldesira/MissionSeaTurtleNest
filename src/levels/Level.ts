@@ -6,6 +6,7 @@ import type GameData from "../restoreGame/GameData";
 import type { INonMainCharacter } from "../characters/interfaces";
 import { launchLevelStartDialog } from "../utils/ui/gameplay";
 import ProspectiveMate from "../characters/abstract/ProspectiveMate";
+import { paintOffScreenIndicator } from "../characters/offscreenIndicator";
 
 class Level implements ILevel {
   private readonly _backgroundImageFilename: string;
@@ -173,7 +174,7 @@ class Level implements ILevel {
       if (character.isOnScreen()) {
         character.paint(context);
       } else {
-        character.paintOffScreenIndicator(context);
+        paintOffScreenIndicator(context, character);
       }
     }
   }

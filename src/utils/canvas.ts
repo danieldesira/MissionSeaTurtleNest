@@ -21,7 +21,7 @@ export const paintTriangle = (
   context.lineTo(x3, y3);
   context.lineTo(x1, y1);
   context.closePath();
-  context.stroke();
+  context.lineWidth = 0;
   context.fillStyle = colour;
   context.fill();
 };
