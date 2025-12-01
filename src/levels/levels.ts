@@ -1,3 +1,4 @@
+import type { LevelConstructorOptions } from "./types";
 import Boat from "../characters/obstacles/Boat";
 import Crab from "../characters/prey/Crab";
 import NeptuneGrass from "../characters/prey/NeptuneGrass";
@@ -6,9 +7,10 @@ import Sardine from "../characters/prey/Sardine";
 import Shrimp from "../characters/prey/Shrimp";
 import Game from "../singletons/Game";
 import Level from "./Level";
-import type { LevelConstructorOptions } from "./types";
 import Nurdle from "../characters/obstacles/Nurdle";
 import MaleTurtle from "../characters/MaleTurtle";
+import GhostNest from "../characters/obstacles/GhostNest";
+import Rope from "../characters/obstacles/Rope";
 
 const levelsConfig: {
   [key: number]: LevelConstructorOptions;
@@ -67,6 +69,26 @@ const levelsConfig: {
       { Constructor: PlasticBag, amount: 2 },
       { Constructor: Nurdle, amount: 5 },
     ],
+  },
+  4: {
+    title: "Navigate Ghost Nets",
+    backgroundImageFilename: "level4.png",
+    initialCharacters: [
+      { Constructor: Sardine, amount: 70 },
+      { Constructor: Shrimp, amount: 300 },
+      { Constructor: Nurdle, amount: 50 },
+      { Constructor: GhostNest, amount: 4 },
+      { Constructor: Rope, amount: 2 },
+    ],
+    spawnableObstaclesPer30Second: [
+      { Constructor: Nurdle, amount: 2 },
+      { Constructor: GhostNest, amount: 1 },
+    ],
+    levelDescription:
+      "Ghost nets are often lost or left unattended by fishermen. Entanglement may result in drowning and death for sea turtles. Avoid them at all cost!",
+    currentSpeed: 0.3,
+    points: 75,
+    benthicOffsetY: 9999,
   },
 };
 
