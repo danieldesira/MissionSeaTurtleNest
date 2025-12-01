@@ -21,7 +21,7 @@ class Rope extends Obstacle {
   }: CharacterOptions = {}) {
     super();
     this._imageFilename = imageFilename ?? "rope.svg";
-    this._damage = damage ?? 8;
+    this._damage = damage ?? 10;
     this._stomachImpact = stomachImpact ?? 20;
     this._points = points ?? -20;
     this._width = width ?? 45;

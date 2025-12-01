@@ -21,11 +21,11 @@ class GhostNest extends Obstacle {
   }: CharacterOptions = {}) {
     super();
     this._imageFilename = imageFilename ?? "ghostNest.svg";
-    this._damage = damage ?? 8;
+    this._damage = damage ?? 100;
     this._stomachImpact = stomachImpact ?? 20;
     this._points = points ?? -20;
-    this._width = width ?? 45;
-    this._height = height ?? 45;
+    this._width = width ?? 50;
+    this._height = height ?? 70;
     this._type = "GhostNest";
   }
 }
