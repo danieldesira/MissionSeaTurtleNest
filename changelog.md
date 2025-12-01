@@ -10,6 +10,7 @@
 - Code cleanup/refactoring
 - Introduce obstacles: rope and ghost net
 - Add Level 4 - Navigate Ghost Nets
+- Fix turtle not "breathing" [#78](https://github.com/danieldesira/MissionSeaTurtleNest/issues/78)
 
 # 0.7.10 Beta - 24/11/2025 18:20 UTC+1
 

@@ -278,7 +278,7 @@ class Game {
       return false;
     }
 
-    if (mainCharacter.y <= 0) {
+    if (mainCharacter.y - mainCharacter.image.height <= 0) {
       mainCharacter.breath();
     } else {
       mainCharacter.useOxygen();
