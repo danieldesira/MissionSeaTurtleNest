@@ -4,7 +4,10 @@
 - Add `nurdle.svg` and `level3.png` to array of cachable items in service worker
 - Double shrimp in visual height/width
 - Spawnable obstacles: fix: new obstacles where not showing on screen
-- Adjust `create` scripts to add new SVGs to `precacheResources.json` 
+- Adjust `create` scripts to add new SVGs to `precacheResources.json`
+- Adjust offscreen indicators to a triangular shape positioned and directed respectively
+  [#77](https://github.com/danieldesira/MissionSeaTurtleNest/issues/77)
+- Code cleanup/refactoring
 
 # 0.7.10 Beta - 24/11/2025 18:20 UTC+1
 

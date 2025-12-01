@@ -58,6 +58,6 @@ export const paintOffScreenIndicator = (
   paintTriangle(
     context,
     trianglePointsDirectionMap[character.direction],
-    "rgba(255, 0, 0, 0.8)"
+    character.offscreenIndicatorColor
   );
 };
