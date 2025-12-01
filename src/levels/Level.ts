@@ -15,7 +15,7 @@ class Level implements ILevel {
   private _characters: Set<INonMainCharacter> = new Set();
   private _bgOffsetX: number;
   private _bgOffsetY: number;
-  private readonly _benthicOffsetY: number;
+  private readonly _benthicOffsetY?: number;
   private readonly _currentSpeed: number;
   private readonly _points: number;
   private readonly _levelDescription: string;

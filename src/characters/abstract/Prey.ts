@@ -49,7 +49,10 @@ abstract class Prey extends NonMain implements IPrey {
           this._x += this._speed;
           break;
         case "Down":
-          if (this._y <= Game.instance.level.benthicOffsetY) {
+          if (
+            !Game.instance.level.benthicOffsetY ||
+            this._y <= Game.instance.level.benthicOffsetY
+          ) {
             this._y += this._speed;
           }
           break;

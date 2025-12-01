@@ -23,7 +23,6 @@ const levelsConfig: {
       { Constructor: Sardine, amount: 10 },
       { Constructor: PlasticBag, amount: 8 },
     ],
-    benthicOffsetY: 9999,
     currentSpeed: 0.1,
     points: 10,
     levelDescription:
@@ -59,7 +58,6 @@ const levelsConfig: {
       { Constructor: Nurdle, amount: 60 },
       { Constructor: MaleTurtle, amount: 1 },
     ],
-    benthicOffsetY: 9999,
     currentSpeed: 0.2,
     points: 50,
     levelDescription:
@@ -88,7 +86,6 @@ const levelsConfig: {
       "Ghost nets are often lost or left unattended by fishermen. Entanglement may result in drowning and death for sea turtles. Avoid them at all cost!",
     currentSpeed: 0.3,
     points: 75,
-    benthicOffsetY: 9999,
   },
 };
 

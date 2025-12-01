@@ -9,7 +9,7 @@ export type LevelCharacter = {
 export type LevelConstructorOptions = {
   backgroundImageFilename: string;
   initialCharacters: LevelCharacter[];
-  benthicOffsetY: number;
+  benthicOffsetY?: number;
   currentSpeed: number;
   points: number;
   levelDescription: string;
