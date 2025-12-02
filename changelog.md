@@ -1,4 +1,4 @@
-# 0.7.11 Beta -
+# 0.7.11 Beta - 02/12/2025 12:00 UTC+1
 
 - Add obstacles spawnable every 30 seconds to the level start dialog
 - Add `nurdle.svg` and `level3.png` to array of cachable items in service worker
@@ -12,6 +12,8 @@
 - Add Level 4 - Navigate Ghost Nets
 - Fix turtle not "breathing" [#78](https://github.com/danieldesira/MissionSeaTurtleNest/issues/78)
 - `benthicOffsetY` set to optional value [#79](https://github.com/danieldesira/MissionSeaTurtleNest/issues/79)
+- Distribute spawnable obstacles over a wider horizontal area
+  [#80](https://github.com/danieldesira/MissionSeaTurtleNest/issues/80)
 
 # 0.7.10 Beta - 24/11/2025 18:20 UTC+1
 

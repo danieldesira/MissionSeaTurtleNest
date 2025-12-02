@@ -62,7 +62,7 @@ const levelsConfig: {
     points: 50,
     levelDescription:
       "Find and mate with Maximus, the male turtle. He is recognisable through his bigger tail.",
-    objectives: [() => Game.instance.turtle.isPregnant],
+    objectives: [() => Game.instance.turtle.isMama],
     spawnableObstaclesPer30Second: [
       { Constructor: PlasticBag, amount: 2 },
       { Constructor: Nurdle, amount: 5 },

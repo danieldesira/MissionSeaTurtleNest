@@ -31,11 +31,11 @@ abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
   }
 
   private mateWithFemale(turtle: IMainCharacter) {
-    turtle.isPregnant = true;
+    turtle.isMama = true;
   }
 
   handleTurtleCollision() {
-    if (!Game.instance.turtle.isPregnant) {
+    if (!Game.instance.turtle.isMama) {
       launchHeartMatingAnimation();
       this.mateWithFemale(Game.instance.turtle);
       Game.instance.gainPoints(this._points);

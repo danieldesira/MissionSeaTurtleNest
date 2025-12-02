@@ -14,7 +14,7 @@ class Turtle extends Character implements IMainCharacter {
   protected _lifeGauge: number;
   protected _apetiteGauge: number;
   protected _oxygenGauge: number;
-  protected _isPregnant: boolean;
+  protected _isMama: boolean;
 
   constructor({ speed, width, height }: CharacterOptions = {}) {
     super();
@@ -124,12 +124,12 @@ class Turtle extends Character implements IMainCharacter {
     updateGauge("oxygenGauge", this._oxygenGauge);
   }
 
-  get isPregnant() {
-    return this._isPregnant;
+  get isMama() {
+    return this._isMama;
   }
 
-  set isPregnant(value: boolean) {
-    this._isPregnant = value;
+  set isMama(value: boolean) {
+    this._isMama = value;
   }
 
   private incrementValue(value: number, increment: number): number {

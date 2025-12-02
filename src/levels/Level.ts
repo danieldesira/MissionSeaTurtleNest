@@ -220,14 +220,16 @@ class Level implements ILevel {
   }
 
   spawnPer30SecondObstacles() {
+    const horizontalSpread = 100;
     this._spawnableObstaclesPer30Second?.forEach(({ Constructor, amount }) => {
-      for (let i = 1; i <= amount; i++) {
+      Array.from({ length: amount }).forEach(() => {
         const obstacle = new Constructor();
-        obstacle.x = this._backgroundImage.width;
+        obstacle.x =
+          Math.random() * horizontalSpread + this._backgroundImage.width;
         obstacle.y = Math.random() * this._backgroundImage.height;
         obstacle.loadImage();
         this.characters.add(obstacle);
-      }
+      });
     });
   }
 

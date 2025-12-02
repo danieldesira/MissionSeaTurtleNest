@@ -133,7 +133,7 @@ class Game {
     this._isPersonalBest = false;
     this._turtle.resetDirection();
     this._turtle.resetGauges();
-    this._turtle.isPregnant = false;
+    this._turtle.isMama = false;
     this._currentFrameCount = 0;
   }
 

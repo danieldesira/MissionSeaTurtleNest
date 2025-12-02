@@ -22,8 +22,8 @@ export interface IMainCharacter {
   moveDown(): void;
   moveLeft(): void;
   moveRight(): void;
-  set isPregnant(value: boolean);
-  get isPregnant(): boolean;
+  set isMama(value: boolean);
+  get isMama(): boolean;
   get foodGauge(): number;
   set foodGauge(value: number);
   get lifeGauge(): number;
