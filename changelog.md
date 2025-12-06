@@ -1,3 +1,8 @@
+# 0.8.0 Beta -
+
+- Internal:
+  - Extract some logic to the new `commonCharacterBehavior.ts` file for less code repetition
+
 # 0.7.11 Beta - 02/12/2025 12:00 UTC+1
 
 - Add obstacles spawnable every 30 seconds to the level start dialog

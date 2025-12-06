@@ -1,5 +1,6 @@
 import Game from "../../singletons/Game";
 import { generateRandomBit } from "../../utils/generic";
+import { swimHorizontally } from "../commonCharacterBehavior";
 import Obstacle from "./Obstacle";
 
 abstract class FloatingGuidedObstacle extends Obstacle {
@@ -30,17 +31,7 @@ abstract class FloatingGuidedObstacle extends Obstacle {
    * @author Daniel Desira
    */
   swim() {
-    if (this._direction === "Left") {
-      this._x -= this._speed;
-      if (this._x <= 0) {
-        this._direction = "Right";
-      }
-    } else {
-      this._x += this._speed;
-      if (this._x >= Game.instance.level.bgImg.width) {
-        this._direction = "Left";
-      }
-    }
+    swimHorizontally(this);
   }
 }
 

@@ -1,6 +1,7 @@
 import Game from "../../singletons/Game";
 import { Direction } from "../../types";
 import { generateRandomBit, vibrate } from "../../utils/generic";
+import { paintCharacter } from "../commonCharacterBehavior";
 import type { IObstacle } from "../interfaces";
 import NonMain from "./NonMain";
 
@@ -38,21 +39,7 @@ abstract class Obstacle extends NonMain implements IObstacle {
   }
 
   paint(context: CanvasRenderingContext2D) {
-    if (this._image) {
-      context.save();
-      context.translate(
-        this._x - Game.instance.level.bgOffsetX,
-        this._y - Game.instance.level.bgOffsetY
-      );
-      context.drawImage(
-        this._image,
-        -this._width / 2,
-        -this._height / 2,
-        this._width,
-        this._height
-      );
-      context.restore();
-    }
+    paintCharacter({ context, character: this });
   }
 }
 

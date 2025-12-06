@@ -48,6 +48,7 @@ export interface INonMainCharacter extends ICharacter {
   isOffScreenTop(): boolean;
   isOffScreenBottom(): boolean;
   get offscreenIndicatorColor(): string;
+  get speed(): number;
 }
 
 export interface IObstacle {

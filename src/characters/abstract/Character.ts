@@ -1,6 +1,7 @@
 import { Directions } from "../../constants";
 import Game from "../../singletons/Game";
 import type { Direction } from "../../types";
+import { paintCharacter } from "../commonCharacterBehavior";
 import type { ICharacter } from "../interfaces";
 
 abstract class Character implements ICharacter {
@@ -41,22 +42,7 @@ abstract class Character implements ICharacter {
    * @author Daniel Desira
    */
   paint(context: CanvasRenderingContext2D) {
-    if (this._image) {
-      context.save();
-      context.translate(
-        this._x - Game.instance.level.bgOffsetX,
-        this._y - Game.instance.level.bgOffsetY
-      );
-      context.rotate(Directions[this._direction].angle);
-      context.drawImage(
-        this._image,
-        -this._width / 2,
-        -this._height / 2,
-        this._width,
-        this._height
-      );
-      context.restore();
-    }
+    paintCharacter({ context, character: this, rotate: true });
   }
 
   get x() {

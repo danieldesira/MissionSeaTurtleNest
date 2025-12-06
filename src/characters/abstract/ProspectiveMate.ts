@@ -7,6 +7,7 @@ import { generateRandomBit } from "../../utils/generic";
 import { launchCustomDialog } from "../../utils/ui/customDialog";
 import { launchHeartMatingAnimation } from "../../utils/ui/gameplay";
 import { updateXpSpan } from "../../utils/ui/xp";
+import { swimHorizontally } from "../commonCharacterBehavior";
 import type { IMainCharacter, IProspectiveMate } from "../interfaces";
 import NonMain from "./NonMain";
 import Obstacle from "./Obstacle";
@@ -44,17 +45,7 @@ abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
   }
 
   swim() {
-    if (this._direction === "Right") {
-      this._x += this._speed;
-      if (this._x >= Game.instance.level.bgImg.width) {
-        this._direction = "Left";
-      }
-    } else {
-      this._x -= this._speed;
-      if (this._x <= 0) {
-        this._direction = "Right";
-      }
-    }
+    swimHorizontally(this);
   }
 
   checkCurrentObstacleCollisions() {

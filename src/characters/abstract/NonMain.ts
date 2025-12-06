@@ -47,6 +47,10 @@ abstract class NonMain extends Character implements INonMainCharacter {
     return this._offscreenIndicatorColor;
   }
 
+  get speed() {
+    return this._speed;
+  }
+
   /**
    * Randomises initial position for character depending on the following properties:
    * <ul>
