@@ -7,6 +7,7 @@ import type { INonMainCharacter } from "../characters/interfaces";
 import { launchLevelStartDialog } from "../utils/ui/gameplay";
 import ProspectiveMate from "../characters/abstract/ProspectiveMate";
 import { paintOffScreenIndicator } from "../characters/offscreenIndicator";
+import type { Direction } from "../types";
 
 class Level implements ILevel {
   private readonly _backgroundImageFilename: string;
@@ -23,6 +24,7 @@ class Level implements ILevel {
   private readonly _title: string;
   private readonly _objectives: Array<() => boolean>;
   private readonly _spawnableObstaclesPer30Second: LevelCharacter[];
+  private readonly _currentDirection: Direction;
 
   constructor({
     backgroundImageFilename,
@@ -34,6 +36,7 @@ class Level implements ILevel {
     title,
     objectives,
     spawnableObstaclesPer30Second,
+    currentDirection = "Left",
   }: LevelConstructorOptions) {
     this._backgroundImageFilename = backgroundImageFilename;
     this._initialCharacters = initialCharacters;
@@ -44,6 +47,7 @@ class Level implements ILevel {
     this._title = title;
     this._objectives = objectives;
     this._spawnableObstaclesPer30Second = spawnableObstaclesPer30Second;
+    this._currentDirection = currentDirection;
   }
 
   /**
@@ -136,9 +140,9 @@ class Level implements ILevel {
     this._characters.clear();
     let lastPackCharacter: PackPrey = null;
 
-    for (const characterInfo of this._initialCharacters) {
-      for (let i = 0; i < characterInfo.amount; i++) {
-        const character = new characterInfo.Constructor();
+    for (const { Constructor, amount, options } of this._initialCharacters) {
+      for (let i = 0; i < amount; i++) {
+        const character = new Constructor(options);
         if (character instanceof PackPrey) {
           if (lastPackCharacter) {
             character.previousCharacterX = lastPackCharacter.x;
@@ -221,20 +225,29 @@ class Level implements ILevel {
 
   spawnPer30SecondObstacles() {
     const horizontalSpread = 100;
-    this._spawnableObstaclesPer30Second?.forEach(({ Constructor, amount }) => {
-      Array.from({ length: amount }).forEach(() => {
-        const obstacle = new Constructor();
-        obstacle.x =
-          Math.random() * horizontalSpread + this._backgroundImage.width;
-        obstacle.y = Math.random() * this._backgroundImage.height;
-        obstacle.loadImage();
-        this.characters.add(obstacle);
-      });
-    });
+    this._spawnableObstaclesPer30Second?.forEach(
+      ({ Constructor, amount, options }) => {
+        Array.from({ length: amount }).forEach(() => {
+          const obstacle = new Constructor(options);
+          obstacle.x =
+            Math.random() * horizontalSpread +
+            (this._currentDirection === "Left"
+              ? this._backgroundImage.width
+              : 0);
+          obstacle.y = Math.random() * this._backgroundImage.height;
+          obstacle.loadImage();
+          this.characters.add(obstacle);
+        });
+      }
+    );
   }
 
   get spawnableObstaclesPer30Second() {
     return this._spawnableObstaclesPer30Second;
+  }
+
+  get currentDirection() {
+    return this._currentDirection;
   }
 }
 

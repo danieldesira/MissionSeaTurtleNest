@@ -1,9 +1,11 @@
 import type { CharacterOptions } from "../characters/types";
 import type { INonMainCharacter } from "../characters/interfaces";
+import type { Direction } from "../types";
 
 export type LevelCharacter = {
   Constructor: new (options?: CharacterOptions) => INonMainCharacter;
   amount: number;
+  options?: CharacterOptions;
 };
 
 export type LevelConstructorOptions = {
@@ -16,4 +18,5 @@ export type LevelConstructorOptions = {
   title: string;
   objectives?: Array<() => boolean>;
   spawnableObstaclesPer30Second?: LevelCharacter[];
+  currentDirection?: Direction;
 };

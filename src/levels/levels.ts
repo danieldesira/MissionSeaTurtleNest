@@ -87,6 +87,30 @@ const levelsConfig: {
     currentSpeed: 0.3,
     points: 75,
   },
+  5: {
+    title: "Western Currents",
+    levelDescription:
+      "Obstacles shall be coming from the left due to a different current direction. Stay focused and protect mama turtle!",
+    currentSpeed: 0.75,
+    currentDirection: "Right",
+    backgroundImageFilename: "level5.png",
+    initialCharacters: [
+      { Constructor: Nurdle, amount: 5 },
+      {
+        Constructor: Sardine,
+        amount: 30,
+      },
+      { Constructor: Shrimp, amount: 300 },
+      { Constructor: Boat, amount: 2, options: { width: 200, height: 65 } },
+      { Constructor: Boat, amount: 1, options: { speed: 5 } },
+    ],
+    spawnableObstaclesPer30Second: [
+      { Constructor: Nurdle, amount: 10 },
+      { Constructor: PlasticBag, amount: 1 },
+      { Constructor: GhostNet, amount: 1 },
+    ],
+    points: 100,
+  },
 };
 
 /**
