@@ -1,5 +1,5 @@
 import Game from "../../singletons/Game";
-import { Direction } from "../../types";
+import type { Direction } from "../../types";
 import { generateRandomBit, vibrate } from "../../utils/generic";
 import { paintCharacter } from "../commonCharacterBehavior";
 import type { IObstacle } from "../interfaces";

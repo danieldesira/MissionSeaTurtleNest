@@ -7,7 +7,7 @@ import type { INonMainCharacter } from "../characters/interfaces";
 import { launchLevelStartDialog } from "../utils/ui/gameplay";
 import ProspectiveMate from "../characters/abstract/ProspectiveMate";
 import { paintOffScreenIndicator } from "../characters/offscreenIndicator";
-import type { Direction } from "../types";
+import type { Direction, HorizontalDirection } from "../types";
 
 class Level implements ILevel {
   private readonly _backgroundImageFilename: string;
@@ -24,7 +24,7 @@ class Level implements ILevel {
   private readonly _title: string;
   private readonly _objectives: Array<() => boolean>;
   private readonly _spawnableObstaclesPer30Second: LevelCharacter[];
-  private readonly _currentDirection: Direction;
+  private readonly _currentDirection: HorizontalDirection;
 
   constructor({
     backgroundImageFilename,

@@ -1,6 +1,6 @@
 import type { INonMainCharacter } from "../characters/interfaces";
 import type GameData from "../restoreGame/GameData";
-import type { Direction } from "../types";
+import type { HorizontalDirection } from "../types";
 import type { LevelCharacter } from "./types";
 
 export interface ILevel {
@@ -25,5 +25,5 @@ export interface ILevel {
   get spawnableObstaclesPer30Second(): LevelCharacter[];
   get initialCharacters(): LevelCharacter[];
   get title(): string;
-  get currentDirection(): Direction;
+  get currentDirection(): HorizontalDirection;
 }

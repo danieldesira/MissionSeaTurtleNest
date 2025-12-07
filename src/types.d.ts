@@ -14,3 +14,5 @@ declare global {
 }
 
 export type Direction = keyof typeof Directions;
+
+export type HorizontalDirection = "Left" | "Right";

@@ -3,13 +3,14 @@
 - Internal:
   - Extract some logic to the new `commonCharacterBehavior.ts` file for less code repetition
   - Upgrade Tailwindcss to 4.1.x and migrate to their Vite plugin over Postcss
+  - Character spawns: Apply options if available
+  - Create `HorizontalDirection` type [#88](https://github.com/danieldesira/MissionSeaTurtleNest/issues/88)
 - UI:
   - Fix unclickable back&pause in-game buttons (due to `z-index` conflict with XP update container)
   - Show waiting notice when uploading profile picture [#81](https://github.com/danieldesira/MissionSeaTurtleNest/issues/81)
 - Gameplay:
   - Level 5: Western Current [#82](https://github.com/danieldesira/MissionSeaTurtleNest/issues/82)
   - Apply possibility for right current direction in level
-  - Character spawns: Apply options if available
 
 # 0.7.11 Beta - 02/12/2025 12:00 UTC+1
 
