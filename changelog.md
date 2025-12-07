@@ -2,6 +2,7 @@
 
 - Internal:
   - Extract some logic to the new `commonCharacterBehavior.ts` file for less code repetition
+  - Upgrade Tailwindcss to 4.1.x and migrate to their Vite plugin over Postcss
 
 # 0.7.11 Beta - 02/12/2025 12:00 UTC+1
 

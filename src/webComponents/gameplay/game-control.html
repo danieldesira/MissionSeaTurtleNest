@@ -1,7 +1,9 @@
 <template id="gameControlTemplate">
   <style>
+    @reference "./src/main.css";
+
     button {
-      @apply rounded-7xl w-20 h-20 bg-black opacity-50 hover:opacity-70 text-white cursor-pointer flex justify-center items-center transition-opacity duration-500 border-0;
+      @apply rounded-[45px] w-20 h-20 bg-black opacity-50 hover:opacity-70 text-white cursor-pointer flex justify-center items-center transition-opacity duration-500 border-0;
     }
   </style>
   <button type="button"><slot></slot></button>

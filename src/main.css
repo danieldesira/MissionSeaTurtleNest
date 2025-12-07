@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --background-image-cute: url("../images/backgrounds/hatchingTurtles.svg");
+  --color-primary: #db2777;
+  --color-danger: #b91c1c;
+  --font-family-sans-pro: "Source-Sans-Pro";
+}
 
 #overlay:open {
   @apply flex opacity-90;
