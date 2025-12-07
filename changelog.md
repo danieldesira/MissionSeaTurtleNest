@@ -3,8 +3,9 @@
 - Internal:
   - Extract some logic to the new `commonCharacterBehavior.ts` file for less code repetition
   - Upgrade Tailwindcss to 4.1.x and migrate to their Vite plugin over Postcss
-- Game UI:
-  - Fix unclickable back&pause buttons (due to `z-index` conflict with XP update container)
+- UI:
+  - Fix unclickable back&pause in-game buttons (due to `z-index` conflict with XP update container)
+  - Show waiting notice when uploading profile picture [#81](https://github.com/danieldesira/MissionSeaTurtleNest/issues/81)
 
 # 0.7.11 Beta - 02/12/2025 12:00 UTC+1
 

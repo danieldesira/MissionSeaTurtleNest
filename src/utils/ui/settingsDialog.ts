@@ -46,7 +46,7 @@ const cacheProfileSettings = async () => {
 const submitSettings = async () => {
   cacheControlSettings();
   cacheProfileSettings();
-  
+
   showWaitingNotice("Saving settings");
   try {
     await updateProfile({
@@ -106,8 +106,18 @@ export const setupSettingsProfileTab = () => {
   profilePicUploader.currentImageUrl = ProfileStore.instance.profile_pic_url;
   profilePicUploader.changeCallback = async (event: Event) => {
     const target = event.target as HTMLInputElement;
-    const res = await uploadProfilePicture(target.files[0]);
-    profilePicUploader.currentImageUrl = res.profilePicUrl;
+    try {
+      showWaitingNotice("Uploading a new profile picture");
+      const res = await uploadProfilePicture(target.files[0]);
+      profilePicUploader.currentImageUrl = res.profilePicUrl;
+    } catch {
+      launchCustomDialog(
+        "Upload Error",
+        "Failed to upload profile picture. Please try again!"
+      );
+    } finally {
+      hideWaitingNotice();
+    }
   };
 };
 
