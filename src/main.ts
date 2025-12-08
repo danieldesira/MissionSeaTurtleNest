@@ -24,6 +24,7 @@ import {
   setupNewGameMenuBtn,
 } from "./utils/ui/mainMenu";
 import { setupLoginInvitationDialog } from "./utils/ui/loginInvitationDialog";
+import { setupNewLevelEventHandler } from "./levels/customEvents";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");
@@ -52,6 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupLoginInvitationDialog();
   setupGamePauseOnDialogOpen();
   setupLevelStartDialog();
+  setupNewLevelEventHandler();
 
   setupScoresDialog();
 });

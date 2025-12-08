@@ -1,7 +1,11 @@
 import PackPrey from "../characters/abstract/PackPrey";
 import { restoreCharacters } from "../restoreGame/parseGameData";
 import type { ILevel } from "./interfaces";
-import type { LevelConstructorOptions, LevelCharacter } from "./types";
+import type {
+  LevelConstructorOptions,
+  LevelCharacter,
+  LevelInitOptions,
+} from "./types";
 import type GameData from "../restoreGame/GameData";
 import type { INonMainCharacter } from "../characters/interfaces";
 import { launchLevelStartDialog } from "../utils/ui/gameplay";
@@ -50,13 +54,11 @@ class Level implements ILevel {
     this._currentDirection = currentDirection;
   }
 
-  /**
-   * Initialises level.
-   * @param isFreshLevel Determines whether the level is fresh or restored.
-   * @param gameData The game data in case it is a restored level.
-   * @author Daniel Desira
-   */
-  async init(isFreshLevel: boolean, gameData: GameData = null): Promise<void> {
+  async init({
+    isFreshLevel,
+    gameData = null,
+    context,
+  }: LevelInitOptions): Promise<void> {
     try {
       await this.loadBgImg();
       if (isFreshLevel) {
@@ -65,14 +67,21 @@ class Level implements ILevel {
         this.restoreCharacters(gameData);
       }
       await this.loadCharacterImages();
+      this.paintCharacters(context);
+
+      // Hack to show characters before dialog is closed
+      await new Promise<void>((resolve) => setTimeout(() => resolve(), 1));
+      this.showLevelDialog();
     } catch {
       throw new Error("Unable to load level");
     }
-    this.showLevelDialog();
   }
 
   private showLevelDialog() {
-    launchLevelStartDialog(this);
+    const newLevelEvent = new CustomEvent("newLevel", {
+      detail: { level: this },
+    });
+    document.dispatchEvent(newLevelEvent);
   }
 
   private loadBgImg(): Promise<void> {
@@ -174,6 +183,7 @@ class Level implements ILevel {
    * @author Daniel Desira
    */
   paintCharacters(context: CanvasRenderingContext2D) {
+    console.log("painting characters");
     for (const character of this._characters) {
       if (character.isOnScreen()) {
         character.paint(context);

@@ -2,6 +2,7 @@ import Turtle from "../characters/Turtle";
 import { paintLevelBg } from "../levels/background";
 import type { ILevel } from "../levels/interfaces";
 import { createLevelInstance, levelExists } from "../levels/levels";
+import { LevelInitOptions } from "../levels/types";
 import type GameData from "../restoreGame/GameData";
 import parseGameData from "../restoreGame/parseGameData";
 import {
@@ -12,7 +13,7 @@ import {
 import { resizeCanvas } from "../utils/generic";
 import { getLastGameLocalStorage } from "../utils/lastGameLocalStorage";
 import { launchCustomDialog } from "../utils/ui/customDialog";
-import { launchGameEndDialog } from "../utils/ui/gameplay";
+import { getCanvas, launchGameEndDialog } from "../utils/ui/gameplay";
 import { toggleMode } from "../utils/ui/mainMenu";
 import { hideOverlay, showOverlay } from "../utils/ui/overlay";
 import { showXpUpdate, updateXpSpan } from "../utils/ui/xp";
@@ -177,12 +178,16 @@ class Game {
    * @param gameData The game data in case it is a restored level.
    * @author Daniel Desira
    */
-  async loadNewLevel(isFreshLevel: boolean, gameData: GameData = null) {
+  async loadNewLevel({
+    isFreshLevel,
+    gameData = null,
+    context,
+  }: LevelInitOptions) {
     showOverlay(`Loading level ${this.currentLevelNo}`);
     try {
       this._level = createLevelInstance(this._currentLevelNo);
       if (this._level) {
-        await this._level.init(isFreshLevel, gameData);
+        await this._level.init({ isFreshLevel, gameData, context });
       }
       if (isFreshLevel) {
         this.turtle.resetDirection();
@@ -206,10 +211,11 @@ class Game {
       Game._instance.reset();
       await Game._instance.turtle.loadImage();
 
-      await Game._instance.loadNewLevel(
-        isNewGame,
-        isNewGame ? null : parseGameData(getLastGameLocalStorage())
-      );
+      await Game._instance.loadNewLevel({
+        isFreshLevel: isNewGame,
+        gameData: isNewGame ? null : parseGameData(getLastGameLocalStorage()),
+        context: canvas.getContext("2d"),
+      });
       resizeCanvas(canvas);
       this._isGameScreenActive = true;
 
@@ -312,7 +318,10 @@ class Game {
       updateXpSpan();
       this.incrementCurrentLevelNo();
       if (levelExists(this._currentLevelNo)) {
-        await this.loadNewLevel(true);
+        await this.loadNewLevel({
+          isFreshLevel: true,
+          context: getCanvas().getContext("2d"),
+        });
         return true;
       } else {
         this.handleWin();

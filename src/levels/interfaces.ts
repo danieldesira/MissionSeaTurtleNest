@@ -1,10 +1,9 @@
 import type { INonMainCharacter } from "../characters/interfaces";
-import type GameData from "../restoreGame/GameData";
 import type { HorizontalDirection } from "../types";
-import type { LevelCharacter } from "./types";
+import type { LevelCharacter, LevelInitOptions } from "./types";
 
 export interface ILevel {
-  init(isFreshLevel: boolean, gameData: GameData): Promise<void>;
+  init(options: LevelInitOptions): Promise<void>;
   get bgImg(): HTMLImageElement | null;
   set bgOffsetX(offsetX: number);
   set bgOffsetY(offsetY: number);
