@@ -6,6 +6,7 @@ import {
 import { getCanvas } from "../../utils/ui/gameplay";
 import { updateXpSpan } from "../../utils/ui/xp";
 import type { INonMainCharacter } from "../interfaces";
+import type { GharacterGameClassification } from "../types";
 import Character from "./Character";
 
 abstract class NonMain extends Character implements INonMainCharacter {
@@ -51,6 +52,8 @@ abstract class NonMain extends Character implements INonMainCharacter {
     return this._speed;
   }
 
+  abstract get gameClassification(): GharacterGameClassification;
+
   /**
    * Randomises initial position for character depending on the following properties:
    * <ul>
@@ -79,7 +82,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
   handleTurtleCollision() {
     Game.instance.turtle.decrementApetite(this._stomachImpact);
     Game.instance.gainPoints(this._points);
-    Game.instance.level.characters.delete(this);
+    Game.instance.currentGameCharacterList.characters.delete(this);
     updateXpSpan();
   }
 

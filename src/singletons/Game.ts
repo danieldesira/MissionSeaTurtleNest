@@ -1,10 +1,9 @@
+import CurrentGameCharacterList from "../characters/CurrentGameCharacterList";
 import Turtle from "../characters/Turtle";
 import { paintLevelBg } from "../levels/background";
 import type { ILevel } from "../levels/interfaces";
 import { createLevelInstance, levelExists } from "../levels/levels";
-import { LevelInitOptions } from "../levels/types";
-import type GameData from "../restoreGame/GameData";
-import parseGameData from "../restoreGame/parseGameData";
+import parseGameData, { restoreCharacters } from "../restoreGame/parseGameData";
 import {
   checkIfBestPersonalScore,
   deleteLastGameAndSaveScore,
@@ -51,67 +50,36 @@ class Game {
   private _isGameScreenActive: boolean;
   private _isPersonalBest: boolean;
   private _currentFrameCount: number;
+  private _currentGameCharacterList: CurrentGameCharacterList;
 
-  /**
-   * Turtle instance getter.
-   * @author Daniel Desira
-   */
   get turtle() {
     return this._turtle;
   }
 
-  /**
-   * Level instance getter.
-   * @author Daniel Desira
-   */
   get level() {
     return this._level;
   }
 
-  /**
-   * XP/points getter.
-   * @author Daniel Desira
-   */
   get xp() {
     return this._xp;
   }
 
-  /**
-   * XP/points setter.
-   * @author Daniel Desira
-   */
   set xp(value: number) {
     this._xp = value;
   }
 
-  /**
-   * Current level no. getter.
-   * @author Daniel Desira
-   */
   get currentLevelNo() {
     return this._currentLevelNo;
   }
 
-  /**
-   * Current level no. setter.
-   * @author Daniel Desira
-   */
   set currentLevelNo(value: number) {
     this._currentLevelNo = value;
   }
 
-  /**
-   * Paused flag getter.
-   * @author Daniel Desira
-   */
   get isPaused() {
     return this._isPaused;
   }
 
-  /**
-   * Game screen active flag getter.
-   * @author Daniel Desira
-   */
   get isGameScreenActive() {
     return this._isGameScreenActive;
   }
@@ -124,10 +92,10 @@ class Game {
     return this._isPersonalBest;
   }
 
-  /**
-   * Resets game state.
-   * @author Daniel Desira
-   */
+  get currentGameCharacterList() {
+    return this._currentGameCharacterList;
+  }
+
   reset() {
     this._currentLevelNo = 1;
     this._xp = 0;
@@ -136,63 +104,40 @@ class Game {
     this._turtle.resetGauges();
     this._turtle.isMama = false;
     this._currentFrameCount = 0;
+    this._currentGameCharacterList = new CurrentGameCharacterList();
   }
 
-  /**
-   * Marks game as paused.
-   * @author Daniel Desira
-   */
   pause() {
     this._isPaused = true;
   }
 
-  /**
-   * Marks game as running/not-paused.
-   * @author Daniel Desira
-   */
   resume() {
     this._isPaused = false;
   }
 
-  /**
-   * Increments current level.
-   * @author Daniel Desira
-   */
   incrementCurrentLevelNo() {
     this._currentLevelNo++;
   }
 
-  /**
-   * Increments/decrements points by a given value.
-   * @param xp Value for increment. If negative, it results in a decrement.
-   * @author Daniel Desira
-   */
   gainPoints(xp: number) {
     this._xp += xp;
     showXpUpdate(xp);
   }
 
-  /**
-   * Loads the current level as per _currentLevelNo.
-   * @param isFreshLevel Flag used to determine whether level is fresh or restored.
-   * @param gameData The game data in case it is a restored level.
-   * @author Daniel Desira
-   */
-  async loadNewLevel({
-    isFreshLevel,
-    gameData = null,
-    context,
-  }: LevelInitOptions) {
+  async loadNewLevel(
+    context: CanvasRenderingContext2D,
+    isFreshLevel: boolean = true
+  ) {
     showOverlay(`Loading level ${this.currentLevelNo}`);
     try {
       this._level = createLevelInstance(this._currentLevelNo);
       if (this._level) {
-        await this._level.init({ isFreshLevel, gameData, context });
+        await this._level.init(context);
       }
       if (isFreshLevel) {
-        this.turtle.resetDirection();
-        this.turtle.x = 50;
-        this.turtle.y = this._level.bgImg.height / 2;
+        this._turtle.resetDirection();
+        this._turtle.x = 50;
+        this._turtle.y = this._level.bgImg.height / 2;
       }
     } catch (error) {
       launchCustomDialog("Game Error", error.toString());
@@ -201,21 +146,16 @@ class Game {
     }
   }
 
-  /**
-   * Initialises game.
-   * @param options The game options.
-   * @author Daniel Desira
-   */
   async start({ canvas, isNewGame }: GameOptions) {
     try {
-      Game._instance.reset();
-      await Game._instance.turtle.loadImage();
+      this.reset();
+      await this._turtle.loadImage();
 
-      await Game._instance.loadNewLevel({
-        isFreshLevel: isNewGame,
-        gameData: isNewGame ? null : parseGameData(getLastGameLocalStorage()),
-        context: canvas.getContext("2d"),
-      });
+      if (!isNewGame) {
+        const savedGameData = parseGameData(getLastGameLocalStorage());
+        restoreCharacters(savedGameData);
+      }
+
       resizeCanvas(canvas);
       this._isGameScreenActive = true;
 
@@ -225,10 +165,6 @@ class Game {
     }
   }
 
-  /**
-   * Marks the game as not running.
-   * @author Daniel Desira
-   */
   exit() {
     this._isGameScreenActive = false;
     this.clearAnimationFrameTimer();
@@ -248,12 +184,19 @@ class Game {
       try {
         saveGameProgress();
 
+        if (!this._level) {
+          await this.loadNewLevel(
+            canvas.getContext("2d"),
+            this._currentGameCharacterList.characters.size === 0
+          );
+        }
+
         const gameRunning = await this.checkTurtleAndGameProgress();
         const context = canvas.getContext("2d");
 
         paintLevelBg({ canvas, context });
         this._turtle.paint(context);
-        this._level.paintCharacters(context);
+        this._currentGameCharacterList.paintCharacters(context);
 
         if (!gameRunning) {
           this.clearAnimationFrameTimer();
@@ -290,10 +233,10 @@ class Game {
       mainCharacter.useOxygen();
     }
 
-    this._level.checkIfTurtleMeetsCharacters();
+    this._currentGameCharacterList.checkIfTurtleMeetsCharacters();
     this._level.checkProspectiveMates();
 
-    this._level.moveCharacters();
+    this._currentGameCharacterList.moveCharacters();
 
     if (this._currentFrameCount % (60 * 30) === 0) {
       this._level.spawnPer30SecondObstacles();
@@ -317,11 +260,9 @@ class Game {
       this.gainPoints(this._level.points);
       updateXpSpan();
       this.incrementCurrentLevelNo();
+      this._currentGameCharacterList.reset();
       if (levelExists(this._currentLevelNo)) {
-        await this.loadNewLevel({
-          isFreshLevel: true,
-          context: getCanvas().getContext("2d"),
-        });
+        await this.loadNewLevel(getCanvas().getContext("2d"));
         return true;
       } else {
         this.handleWin();

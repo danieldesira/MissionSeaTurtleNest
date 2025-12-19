@@ -1,5 +1,5 @@
 import Obstacle from "../abstract/Obstacle";
-import { CharacterOptions } from "../types";
+import type { CharacterOptions } from "../types";
 
 class Nurdle extends Obstacle {
   protected readonly _imageFilename: string;

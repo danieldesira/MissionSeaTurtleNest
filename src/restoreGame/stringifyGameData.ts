@@ -17,7 +17,7 @@ const stringifyGameData = (): string => {
       health: Game.instance.turtle.lifeGauge,
       stomachCapacity: Game.instance.turtle.apetiteGauge,
     },
-    characters: [...Game.instance.level.characters].map((c) => {
+    characters: [...Game.instance.currentGameCharacterList.characters].map((c) => {
       return {
         x: c.x,
         y: c.y,

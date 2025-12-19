@@ -1,7 +1,6 @@
 import type { CharacterOptions } from "../characters/types";
 import type { INonMainCharacter } from "../characters/interfaces";
 import type { HorizontalDirection } from "../types";
-import type GameData from "../restoreGame/GameData";
 
 export type LevelCharacter = {
   Constructor: new (options?: CharacterOptions) => INonMainCharacter;
@@ -20,10 +19,4 @@ export type LevelConstructorOptions = {
   objectives?: Array<() => boolean>;
   spawnableObstaclesPer30Second?: LevelCharacter[];
   currentDirection?: HorizontalDirection;
-};
-
-export type LevelInitOptions = {
-  isFreshLevel: boolean;
-  gameData?: GameData;
-  context: CanvasRenderingContext2D;
 };

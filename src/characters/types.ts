@@ -8,3 +8,5 @@ export type CharacterOptions = {
   width?: number;
   height?: number;
 };
+
+export type GharacterGameClassification = "Prey" | "Obstacle" | "Mate";

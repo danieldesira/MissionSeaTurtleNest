@@ -11,6 +11,7 @@ import Nurdle from "../characters/obstacles/Nurdle";
 import MaleTurtle from "../characters/MaleTurtle";
 import Rope from "../characters/obstacles/Rope";
 import GhostNet from "../characters/obstacles/GhostNet";
+import { ILevel } from "./interfaces";
 
 const levelsConfig: {
   [key: number]: LevelConstructorOptions;
@@ -119,7 +120,7 @@ const levelsConfig: {
  * @returns The instance
  * @author Daniel Desira
  */
-export const createLevelInstance = (levelNo: number): Level => {
+export const createLevelInstance = (levelNo: number) => {
   const contructorOptions = levelsConfig[levelNo];
   if (contructorOptions) {
     return new Level(contructorOptions);

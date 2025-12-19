@@ -9,8 +9,9 @@ import { launchHeartMatingAnimation } from "../../utils/ui/gameplay";
 import { updateXpSpan } from "../../utils/ui/xp";
 import { swimHorizontally } from "../commonCharacterBehavior";
 import type { IMainCharacter, IProspectiveMate } from "../interfaces";
+import type { GharacterGameClassification } from "../types";
 import NonMain from "./NonMain";
-import Obstacle from "./Obstacle";
+import type Obstacle from "./Obstacle";
 
 abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
   protected _speed: number = 2;
@@ -18,6 +19,10 @@ abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
   protected _points: number = 100;
   protected _offscreenIndicatorColor: string = "rgba(0,255,0, 0.5)";
   protected _life: number = 100;
+
+  get gameClassification(): GharacterGameClassification {
+    return "Mate";
+  }
 
   setInitialPosition() {
     this._x =
@@ -49,18 +54,18 @@ abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
   }
 
   checkCurrentObstacleCollisions() {
-    Game.instance.level.characters.forEach((c) => {
+    Game.instance.currentGameCharacterList.characters.forEach((c) => {
       if (
-        c instanceof Obstacle &&
+        c.gameClassification === "Obstacle" &&
         checkBoundingBoxCollision(
           getCharacterBoundingBox(this),
           getCharacterBoundingBox(c)
         )
       ) {
-        this._life -= c.damage;
-        Game.instance.level.characters.delete(c);
+        this._life -= (c as Obstacle).damage;
+        Game.instance.currentGameCharacterList.characters.delete(c);
         if (this._life <= 0) {
-          Game.instance.level.characters.delete(this);
+          Game.instance.currentGameCharacterList.characters.delete(this);
           launchCustomDialog(
             "Mate died",
             "Prospective mate died. In case you didn't mate yet, game over!"

@@ -1,18 +1,22 @@
-import NonMain from "./abstract/NonMain";
+import type { INonMainCharacter } from "./interfaces";
 import Boat from "./obstacles/Boat";
 import Crab from "./prey/Crab";
 import NeptuneGrass from "./prey/NeptuneGrass";
 import PlasticBag from "./obstacles/PlasticBag";
 import Sardine from "./prey/Sardine";
 import Shrimp from "./prey/Shrimp";
+import Nurdle from "./obstacles/Nurdle";
+import GhostNet from "./obstacles/GhostNet";
 
-const characterMap: { [key: string]: new () => NonMain } = {
-  Boat: Boat,
-  Crab: Crab,
-  NeptuneGrass: NeptuneGrass,
-  PlasticBag: PlasticBag,
-  Sardine: Sardine,
-  Shrimp: Shrimp,
+const characterMap: { [key: string]: new () => INonMainCharacter } = {
+  Boat,
+  Crab,
+  NeptuneGrass,
+  PlasticBag,
+  Sardine,
+  Shrimp,
+  Nurdle,
+  GhostNet,
 };
 
 /**
@@ -21,7 +25,7 @@ const characterMap: { [key: string]: new () => NonMain } = {
  * @returns The instance
  * @author Daniel Desira
  */
-export const createCharacterInstance = (className: string): NonMain => {
+export const createCharacterInstance = (className: string) => {
   const CharacterConstructor = characterMap[className];
   if (CharacterConstructor) {
     return new CharacterConstructor();

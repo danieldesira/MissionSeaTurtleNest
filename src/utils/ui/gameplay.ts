@@ -17,11 +17,10 @@ import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 import { showLoginInvitationDialog } from "./loginInvitationDialog";
 import { deleteChildren } from "./ui";
 import { formatLevelAsText } from "./scores";
-import Obstacle from "../../characters/abstract/Obstacle";
-import Prey from "../../characters/abstract/Prey";
 import { LevelCharacter } from "../../levels/types";
 import { updateXpSpan } from "./xp";
 import type { ILevel } from "../../levels/interfaces";
+import type { GharacterGameClassification } from "../../characters/types";
 
 export const setupGameControls = () => {
   const upControl = document.getElementById("upControl") as GameControl;
@@ -220,17 +219,17 @@ export const launchLevelStartDialog = ({
     spawnableObstaclesPer30Second
       ? initialCharacters.concat(spawnableObstaclesPer30Second)
       : initialCharacters,
-    "obstacle",
+    "Obstacle",
     levelStartDialogObstacles
   );
 
   const levelStartDialogPrey = document.getElementById("levelStartDialogPrey");
-  populateCharacterList(initialCharacters, "prey", levelStartDialogPrey);
+  populateCharacterList(initialCharacters, "Prey", levelStartDialogPrey);
 };
 
 const populateCharacterList = (
   levelCharacterList: LevelCharacter[],
-  characterType: "prey" | "obstacle",
+  characterType: GharacterGameClassification,
   container: HTMLElement
 ) => {
   deleteChildren(container);
@@ -238,9 +237,7 @@ const populateCharacterList = (
     levelCharacterList
       .map(({ Constructor }) => Constructor)
       .filter(
-        (Constructor) =>
-          new Constructor() instanceof
-          (characterType === "prey" ? Prey : Obstacle)
+        (Constructor) => new Constructor().gameClassification === characterType
       )
   ).forEach((Constructor) => {
     const characterContainer = document.createElement("div");

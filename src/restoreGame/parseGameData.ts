@@ -36,13 +36,13 @@ const restoreGame = (data: GameData) => {
  * @author Daniel Desira
  */
 export const restoreCharacters = (data: GameData) => {
-  Game.instance.level.characters.clear();
+  Game.instance.currentGameCharacterList.characters.clear();
 
   for (const character of data.characters) {
     const temp = createCharacterInstance(character.type);
     temp.x = character.x;
     temp.y = character.y;
-    Game.instance.level.characters.add(temp);
+    Game.instance.currentGameCharacterList.characters.add(temp);
   }
 };
 

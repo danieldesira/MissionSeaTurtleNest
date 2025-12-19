@@ -1,23 +1,13 @@
-import PackPrey from "../characters/abstract/PackPrey";
-import { restoreCharacters } from "../restoreGame/parseGameData";
 import type { ILevel } from "./interfaces";
-import type {
-  LevelConstructorOptions,
-  LevelCharacter,
-  LevelInitOptions,
-} from "./types";
-import type GameData from "../restoreGame/GameData";
-import type { INonMainCharacter } from "../characters/interfaces";
-import { launchLevelStartDialog } from "../utils/ui/gameplay";
+import type { LevelConstructorOptions, LevelCharacter } from "./types";
 import ProspectiveMate from "../characters/abstract/ProspectiveMate";
-import { paintOffScreenIndicator } from "../characters/offscreenIndicator";
-import type { Direction, HorizontalDirection } from "../types";
+import type { HorizontalDirection } from "../types";
+import Game from "../singletons/Game";
 
 class Level implements ILevel {
   private readonly _backgroundImageFilename: string;
   private readonly _initialCharacters: LevelCharacter[];
   private _backgroundImage: HTMLImageElement | null;
-  private _characters: Set<INonMainCharacter> = new Set();
   private _bgOffsetX: number;
   private _bgOffsetY: number;
   private readonly _benthicOffsetY?: number;
@@ -54,20 +44,15 @@ class Level implements ILevel {
     this._currentDirection = currentDirection;
   }
 
-  async init({
-    isFreshLevel,
-    gameData = null,
-    context,
-  }: LevelInitOptions): Promise<void> {
+  async init(context: CanvasRenderingContext2D): Promise<void> {
     try {
       await this.loadBgImg();
-      if (isFreshLevel) {
-        this.spawnCharacters();
-      } else {
-        this.restoreCharacters(gameData);
-      }
+
+      Game.instance.currentGameCharacterList.spawnCharacters(
+        this._initialCharacters
+      );
       await this.loadCharacterImages();
-      this.paintCharacters(context);
+      Game.instance.currentGameCharacterList.paintCharacters(context);
 
       // Hack to show characters before dialog is closed
       await new Promise<void>((resolve) => setTimeout(() => resolve(), 1));
@@ -117,10 +102,6 @@ class Level implements ILevel {
     return this._backgroundImage;
   }
 
-  get characters() {
-    return this._characters;
-  }
-
   get benthicOffsetY() {
     return this._benthicOffsetY;
   }
@@ -145,78 +126,20 @@ class Level implements ILevel {
     return this._title;
   }
 
-  private spawnCharacters() {
-    this._characters.clear();
-    let lastPackCharacter: PackPrey = null;
-
-    for (const { Constructor, amount, options } of this._initialCharacters) {
-      for (let i = 0; i < amount; i++) {
-        const character = new Constructor(options);
-        if (character instanceof PackPrey) {
-          if (lastPackCharacter) {
-            character.previousCharacterX = lastPackCharacter.x;
-            character.previousCharacterY = lastPackCharacter.y;
-          }
-          lastPackCharacter = character;
-        }
-        character.setInitialPosition();
-        this._characters.add(character);
-      }
-    }
-  }
-
-  private restoreCharacters(gameData: GameData) {
-    restoreCharacters(gameData);
-  }
-
   private async loadCharacterImages() {
     try {
-      Promise.all([...this._characters].map((c) => c.loadImage()));
+      await Promise.all(
+        [...Game.instance.currentGameCharacterList.characters].map((c) =>
+          c.loadImage()
+        )
+      );
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  /**
-   * Loops through characters and paints them accordingly.
-   * @param context The canvas 2D context
-   * @author Daniel Desira
-   */
-  paintCharacters(context: CanvasRenderingContext2D) {
-    console.log("painting characters");
-    for (const character of this._characters) {
-      if (character.isOnScreen()) {
-        character.paint(context);
-      } else {
-        paintOffScreenIndicator(context, character);
-      }
-    }
-  }
-
-  /**
-   * Loops through characters and applies respective moves.
-   * @author Daniel Desira
-   */
-  moveCharacters() {
-    for (const character of this._characters) {
-      character.swim();
-    }
-  }
-
   get currentSpeed() {
     return this._currentSpeed;
-  }
-
-  /**
-   * Loops through characters and checks for collisions.
-   * @author Daniel Desira
-   */
-  checkIfTurtleMeetsCharacters() {
-    for (const character of this._characters) {
-      if (character.isCollidingWithTurtle()) {
-        character.handleTurtleCollision();
-      }
-    }
   }
 
   objectivesMet() {
@@ -226,7 +149,7 @@ class Level implements ILevel {
   }
 
   checkProspectiveMates() {
-    for (const character of this._characters) {
+    for (const character of Game.instance.currentGameCharacterList.characters) {
       if (character instanceof ProspectiveMate) {
         character.checkCurrentObstacleCollisions();
       }
@@ -246,7 +169,7 @@ class Level implements ILevel {
               : 0);
           obstacle.y = Math.random() * this._backgroundImage.height;
           obstacle.loadImage();
-          this.characters.add(obstacle);
+          Game.instance.currentGameCharacterList.characters.add(obstacle);
         });
       }
     );
