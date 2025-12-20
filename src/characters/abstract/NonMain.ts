@@ -6,7 +6,7 @@ import {
 import { getCanvas } from "../../utils/ui/gameplay";
 import { updateXpSpan } from "../../utils/ui/xp";
 import type { INonMainCharacter } from "../interfaces";
-import type { GharacterGameClassification } from "../types";
+import type { CharacterGameClassification } from "../types";
 import Character from "./Character";
 
 abstract class NonMain extends Character implements INonMainCharacter {
@@ -52,7 +52,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
     return this._speed;
   }
 
-  abstract get gameClassification(): GharacterGameClassification;
+  abstract get gameClassification(): CharacterGameClassification;
 
   /**
    * Randomises initial position for character depending on the following properties:

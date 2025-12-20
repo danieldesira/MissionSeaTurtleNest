@@ -3,7 +3,7 @@ import type { Direction } from "../../types";
 import { generateRandomBit, vibrate } from "../../utils/generic";
 import { paintCharacter } from "../commonCharacterBehavior";
 import type { IObstacle } from "../interfaces";
-import type { GharacterGameClassification } from "../types";
+import type { CharacterGameClassification } from "../types";
 import NonMain from "./NonMain";
 
 abstract class Obstacle extends NonMain implements IObstacle {
@@ -15,7 +15,7 @@ abstract class Obstacle extends NonMain implements IObstacle {
     return this._damage;
   }
 
-  get gameClassification(): GharacterGameClassification {
+  get gameClassification(): CharacterGameClassification {
     return "Obstacle";
   }
 

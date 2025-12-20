@@ -1,6 +1,6 @@
 import Game from "../../singletons/Game";
 import type { IPrey } from "../interfaces";
-import type { GharacterGameClassification } from "../types";
+import type { CharacterGameClassification } from "../types";
 import NonMain from "./NonMain";
 
 abstract class Prey extends NonMain implements IPrey {
@@ -11,7 +11,7 @@ abstract class Prey extends NonMain implements IPrey {
     return this._foodValue;
   }
 
-  get gameClassification(): GharacterGameClassification {
+  get gameClassification(): CharacterGameClassification {
     return "Prey";
   }
 

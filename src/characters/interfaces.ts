@@ -1,5 +1,5 @@
 import type { Direction } from "../types";
-import type { GharacterGameClassification } from "./types";
+import type { CharacterGameClassification } from "./types";
 
 export interface ICharacter {
   loadImage(): Promise<void>;
@@ -50,7 +50,7 @@ export interface INonMainCharacter extends ICharacter {
   isOffScreenBottom(): boolean;
   get offscreenIndicatorColor(): string;
   get speed(): number;
-  get gameClassification(): GharacterGameClassification;
+  get gameClassification(): CharacterGameClassification;
 }
 
 export interface IObstacle {

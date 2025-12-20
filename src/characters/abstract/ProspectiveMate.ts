@@ -9,7 +9,7 @@ import { launchHeartMatingAnimation } from "../../utils/ui/gameplay";
 import { updateXpSpan } from "../../utils/ui/xp";
 import { swimHorizontally } from "../commonCharacterBehavior";
 import type { IMainCharacter, IProspectiveMate } from "../interfaces";
-import type { GharacterGameClassification } from "../types";
+import type { CharacterGameClassification } from "../types";
 import NonMain from "./NonMain";
 import type Obstacle from "./Obstacle";
 
@@ -20,7 +20,7 @@ abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
   protected _offscreenIndicatorColor: string = "rgba(0,255,0, 0.5)";
   protected _life: number = 100;
 
-  get gameClassification(): GharacterGameClassification {
+  get gameClassification(): CharacterGameClassification {
     return "Mate";
   }
 

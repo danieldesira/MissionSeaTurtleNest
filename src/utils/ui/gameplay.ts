@@ -20,7 +20,7 @@ import { formatLevelAsText } from "./scores";
 import { LevelCharacter } from "../../levels/types";
 import { updateXpSpan } from "./xp";
 import type { ILevel } from "../../levels/interfaces";
-import type { GharacterGameClassification } from "../../characters/types";
+import type { CharacterGameClassification } from "../../characters/types";
 
 export const setupGameControls = () => {
   const upControl = document.getElementById("upControl") as GameControl;
@@ -229,7 +229,7 @@ export const launchLevelStartDialog = ({
 
 const populateCharacterList = (
   levelCharacterList: LevelCharacter[],
-  characterType: GharacterGameClassification,
+  characterType: CharacterGameClassification,
   container: HTMLElement
 ) => {
   deleteChildren(container);
