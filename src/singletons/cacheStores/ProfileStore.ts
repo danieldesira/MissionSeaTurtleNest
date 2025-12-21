@@ -1,24 +1,11 @@
 class ProfileStore {
-  private static _instance: ProfileStore;
-
   private _email: string;
   private _name: string;
   private _profile_pic_url: string;
   private _date_of_birth: Date;
 
-  private constructor() {
+  constructor() {
     this.reset();
-  }
-
-  /**
-   * Singleton instance accessor.
-   * @author Daniel Desira
-   */
-  static get instance() {
-    if (!ProfileStore._instance) {
-      ProfileStore._instance = new ProfileStore();
-    }
-    return ProfileStore._instance;
   }
 
   /**
@@ -97,4 +84,4 @@ class ProfileStore {
   }
 }
 
-export default ProfileStore;
+export const profileStore = new ProfileStore();

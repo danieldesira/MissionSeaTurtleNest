@@ -37,7 +37,6 @@ export interface IMainCharacter {
 
 export interface INonMainCharacter extends ICharacter {
   swim(): void;
-  handleTurtleCollision(): void;
   setInitialPosition(): void;
   get stomachImpact(): number;
   get points(): number;

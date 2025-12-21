@@ -1,5 +1,5 @@
 import type { ICharacter } from "../characters/interfaces";
-import Game from "../singletons/Game";
+import { game } from "../singletons/Game";
 
 type BoundingBox = {
   minX: number;
@@ -74,8 +74,8 @@ export const debugDrawBoundingBox = (
   context.fillStyle = color;
   context.globalAlpha = 0.3;
   context.fillRect(
-    box.minX - Game.instance.level.bgOffsetX,
-    box.minY - Game.instance.level.bgOffsetY,
+    box.minX - game.level.bgOffsetX,
+    box.minY - game.level.bgOffsetY,
     box.maxX - box.minX,
     box.maxY - box.minY
   );

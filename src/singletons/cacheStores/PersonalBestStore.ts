@@ -1,21 +1,9 @@
 class PersonalBestStore {
-  private static _instance: PersonalBestStore;
   private _points: number;
   private _level: number;
 
-  private constructor() {
+  constructor() {
     this.reset();
-  }
-
-  /**
-   * Singleton instance accessor.
-   * @author Daniel Desira
-   */
-  static get instance() {
-    if (!PersonalBestStore._instance) {
-      PersonalBestStore._instance = new PersonalBestStore();
-    }
-    return PersonalBestStore._instance;
   }
 
   /**
@@ -60,4 +48,4 @@ class PersonalBestStore {
   }
 }
 
-export default PersonalBestStore;
+export const personalBestStore = new PersonalBestStore();

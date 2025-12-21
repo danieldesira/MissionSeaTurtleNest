@@ -1,4 +1,4 @@
-import Game from "../singletons/Game";
+import { game } from "../singletons/Game";
 
 type Options = {
   canvas: HTMLCanvasElement;
@@ -11,7 +11,7 @@ type Options = {
  * @author Daniel Desira
  */
 export const paintLevelBg = (options: Options) => {
-  const backgroundImage = Game.instance.level?.bgImg;
+  const backgroundImage = game.level?.bgImg;
   if (backgroundImage) {
     const horizontalSegments = calculateScreenCutOffPoints(
       backgroundImage.width,
@@ -22,16 +22,16 @@ export const paintLevelBg = (options: Options) => {
       options.canvas.height
     );
     const x =
-      Game.instance.turtle.x < options.canvas.width
+      game.turtle.x < options.canvas.width
         ? 0
         : horizontalSegments[
-            Math.floor(backgroundImage.width / Game.instance.turtle.x) - 1
+            Math.floor(backgroundImage.width / game.turtle.x) - 1
           ];
     const y =
-      Game.instance.turtle.y < options.canvas.height
+      game.turtle.y < options.canvas.height
         ? 0
         : verticalSegments[
-            Math.floor(backgroundImage.height / Game.instance.turtle.y) - 1
+            Math.floor(backgroundImage.height / game.turtle.y) - 1
           ];
     options.context.drawImage(
       backgroundImage,
@@ -65,7 +65,7 @@ const calculateScreenCutOffPoints = (
  * @author Daniel Desira
  */
 export const readjustCanvasForBg = (canvas: HTMLCanvasElement) => {
-  const bgImg = Game.instance.level?.bgImg;
+  const bgImg = game.level?.bgImg;
   if (bgImg?.height < canvas.height) {
     canvas.height = bgImg.height;
   }
@@ -75,6 +75,6 @@ export const readjustCanvasForBg = (canvas: HTMLCanvasElement) => {
 };
 
 const updateBgOffset = (x: number, y: number) => {
-  Game.instance.level.bgOffsetX = x;
-  Game.instance.level.bgOffsetY = y;
+  game.level.bgOffsetX = x;
+  game.level.bgOffsetY = y;
 };

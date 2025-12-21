@@ -1,6 +1,6 @@
 import { levelExists } from "../../levels/levels";
 import { fetchHighScores } from "../../services/api";
-import PersonalBestStore from "../../singletons/cacheStores/PersonalBestStore";
+import { personalBestStore } from "../../singletons/cacheStores/PersonalBestStore";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
 import { launchCustomDialog } from "./customDialog";
@@ -25,11 +25,11 @@ export const setupScoresDialog = () => {
 export const updatePersonalBestPlaceholders = () => {
   const levelPlaceholder = document.getElementById("personalBestLevel");
   levelPlaceholder.innerText = formatLevelAsText(
-    PersonalBestStore.instance.level
+    personalBestStore.level
   );
 
   const pointsPlaceholder = document.getElementById("personalBestPoints");
-  pointsPlaceholder.innerText = PersonalBestStore.instance.points.toString();
+  pointsPlaceholder.innerText = personalBestStore.points.toString();
 };
 
 const populateLeaderBoard = async () => {

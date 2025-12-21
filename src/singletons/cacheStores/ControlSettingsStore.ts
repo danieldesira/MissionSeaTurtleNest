@@ -1,20 +1,8 @@
 class ControlSettingsStore {
-  private static _instance: ControlSettingsStore;
   private _screenControlsPosition: "Left" | "Right";
 
-  private constructor() {
+  constructor() {
     this.reset();
-  }
-
-  /**
-   * Singleton instance accessor.
-   * @author Daniel Desira
-   */
-  static get instance() {
-    if (!ControlSettingsStore._instance) {
-      ControlSettingsStore._instance = new ControlSettingsStore();
-    }
-    return ControlSettingsStore._instance;
   }
 
   /**
@@ -42,4 +30,4 @@ class ControlSettingsStore {
   }
 }
 
-export default ControlSettingsStore;
+export const controlSettingsStore = new ControlSettingsStore();

@@ -1,6 +1,6 @@
-import ProfileStore from "../singletons/cacheStores/ProfileStore";
+import { profileStore } from "../singletons/cacheStores/ProfileStore";
 
-const getUserEmail = () => ProfileStore.instance.email;
+const getUserEmail = () => profileStore.email;
 
 const getUserLastGameKey = () => `${getUserEmail()}LastGame`;
 

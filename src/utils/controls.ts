@@ -1,14 +1,14 @@
-import Game from "../singletons/Game";
+import { game } from "../singletons/Game";
 
 export const setupKeyboardControls = () => {
   document.addEventListener("keydown", (event: KeyboardEvent) => {
-    if (!Game.instance.isPaused) {
+    if (!game.isPaused) {
       const upKeys = ["w", "W", "ArrowUp"];
       const downKeys = ["s", "S", "ArrowDown"];
       const leftKeys = ["a", "A", "ArrowLeft"];
       const rightKeys = ["d", "D", "ArrowRight"];
 
-      const mainCharacter = Game.instance.turtle;
+      const mainCharacter = game.turtle;
 
       handleKeyGroup(upKeys, () => mainCharacter.moveUp(), event.key);
       handleKeyGroup(downKeys, () => mainCharacter.moveDown(), event.key);

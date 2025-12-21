@@ -1,4 +1,4 @@
-import Game from "../singletons/Game";
+import { game } from "../singletons/Game";
 import { updateGauge } from "../utils/ui/gameplay";
 import Character from "./abstract/Character";
 import type { IMainCharacter } from "./interfaces";
@@ -61,7 +61,7 @@ class Turtle extends Character implements IMainCharacter {
    */
   moveDown() {
     this._direction = "Down";
-    if (this._y + this._height / 2 < Game.instance.level.bgImg.height) {
+    if (this._y + this._height / 2 < game.level.bgImg.height) {
       this._y += this._speed;
     }
   }
@@ -83,7 +83,7 @@ class Turtle extends Character implements IMainCharacter {
    */
   moveRight() {
     this._direction = "Right";
-    if (this._x + this._width / 2 < Game.instance.level.bgImg.width) {
+    if (this._x + this._width / 2 < game.level.bgImg.width) {
       this._x += this._speed;
     }
   }

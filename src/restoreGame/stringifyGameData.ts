@@ -1,4 +1,4 @@
-import Game from "../singletons/Game";
+import { game } from "../singletons/Game";
 import type GameData from "./GameData";
 
 /**
@@ -9,15 +9,15 @@ import type GameData from "./GameData";
 const stringifyGameData = (): string => {
   const data: GameData = {
     turtle: {
-      x: Game.instance.turtle.x,
-      y: Game.instance.turtle.y,
-      direction: Game.instance.turtle.direction,
-      food: Game.instance.turtle.foodGauge,
-      oxygen: Game.instance.turtle.oxygenGauge,
-      health: Game.instance.turtle.lifeGauge,
-      stomachCapacity: Game.instance.turtle.apetiteGauge,
+      x: game.turtle.x,
+      y: game.turtle.y,
+      direction: game.turtle.direction,
+      food: game.turtle.foodGauge,
+      oxygen: game.turtle.oxygenGauge,
+      health: game.turtle.lifeGauge,
+      stomachCapacity: game.turtle.apetiteGauge,
     },
-    characters: [...Game.instance.currentGameCharacterList.characters].map((c) => {
+    characters: [...game.currentGameCharacterList.characters].map((c) => {
       return {
         x: c.x,
         y: c.y,
@@ -25,8 +25,8 @@ const stringifyGameData = (): string => {
         type: c.type,
       };
     }),
-    levelNo: Game.instance.currentLevelNo,
-    xp: Game.instance.xp,
+    levelNo: game.currentLevelNo,
+    xp: game.xp,
   };
   return JSON.stringify(data);
 };

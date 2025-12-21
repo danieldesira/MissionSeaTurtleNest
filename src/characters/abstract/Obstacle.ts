@@ -1,4 +1,4 @@
-import Game from "../../singletons/Game";
+import { game } from "../../singletons/Game";
 import type { Direction } from "../../types";
 import { generateRandomBit } from "../../utils/generic";
 import { paintCharacter } from "../commonCharacterBehavior";
@@ -25,8 +25,8 @@ abstract class Obstacle extends NonMain implements IObstacle {
    * @author Daniel Desira
    */
   swim() {
-    const speed = Game.instance.level.currentSpeed;
-    if (Game.instance.level.currentDirection === "Left") {
+    const speed = game.level.currentSpeed;
+    if (game.level.currentDirection === "Left") {
       this._x -= speed;
     } else {
       this._x += speed;

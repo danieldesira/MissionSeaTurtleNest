@@ -1,9 +1,9 @@
-import Game from "../../singletons/Game";
+import { game } from "../../singletons/Game";
 import Prey from "./Prey";
 
 abstract class BenthicPrey extends Prey {
   protected get initialPositionYFrom() {
-    return Game.instance.level.benthicOffsetY;
+    return game.level.benthicOffsetY;
   }
 
   /**

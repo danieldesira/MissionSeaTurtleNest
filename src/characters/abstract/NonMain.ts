@@ -1,10 +1,9 @@
-import Game from "../../singletons/Game";
+import { game } from "../../singletons/Game";
 import {
   checkBoundingBoxCollision,
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
 import { getCanvas } from "../../utils/ui/gameplay";
-import { updateXpSpan } from "../../utils/ui/xp";
 import type { INonMainCharacter } from "../interfaces";
 import type { CharacterGameClassification } from "../types";
 import Character from "./Character";
@@ -21,7 +20,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
   }
 
   protected get initialPositionXTo() {
-    return Game.instance.level.bgImg.width;
+    return game.level.bgImg.width;
   }
 
   protected get initialPositionYFrom() {
@@ -29,7 +28,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
   }
 
   protected get initialPositionYTo() {
-    return Game.instance.level.bgImg.height - this._height / 2;
+    return game.level.bgImg.height - this._height / 2;
   }
 
   get stomachImpact() {
@@ -73,17 +72,6 @@ abstract class NonMain extends Character implements INonMainCharacter {
       this.initialPositionYFrom;
   }
 
-  /**
-   * Default response to collision with turtle.
-   * i.e.: decrementing stomach capacity,
-   * applying points (+ve/-ve) and deleting character from set
-   * @author Daniel Desira
-   */
-  handleTurtleCollision() {
-    Game.instance.turtle.decrementApetite(this._stomachImpact);
-    Game.instance.currentGameCharacterList.characters.delete(this);
-  }
-
   abstract swim(): void;
 
   /**
@@ -91,7 +79,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
    * @author Daniel Desira
    */
   isCollidingWithTurtle() {
-    const turtleBox = getCharacterBoundingBox(Game.instance.turtle);
+    const turtleBox = getCharacterBoundingBox(game.turtle);
     const characterBox = getCharacterBoundingBox(this);
     return checkBoundingBoxCollision(turtleBox, characterBox);
   }
@@ -106,23 +94,23 @@ abstract class NonMain extends Character implements INonMainCharacter {
   }
 
   isOffScreenLeft() {
-    const { bgOffsetX } = Game.instance.level;
+    const { bgOffsetX } = game.level;
     return this._x + this._width / 2 < bgOffsetX;
   }
 
   isOffScreenRight() {
-    const { bgOffsetX } = Game.instance.level;
+    const { bgOffsetX } = game.level;
     const { width: canvasWidth } = getCanvas();
     return this._x - this._width / 2 > bgOffsetX + canvasWidth;
   }
 
   isOffScreenTop() {
-    const { bgOffsetY } = Game.instance.level;
+    const { bgOffsetY } = game.level;
     return this._y + this._height / 2 < bgOffsetY;
   }
 
   isOffScreenBottom() {
-    const { bgOffsetY } = Game.instance.level;
+    const { bgOffsetY } = game.level;
     const { height: canvasHeight } = getCanvas();
     return this._y - this._height / 2 > bgOffsetY + canvasHeight;
   }

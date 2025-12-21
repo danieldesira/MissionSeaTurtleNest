@@ -1,8 +1,8 @@
-import Game from "../../singletons/Game";
+import { game } from "../../singletons/Game";
 
 export const updateXpSpan = () => {
   const xpSpan = document.getElementById("xpSpan");
-  xpSpan.innerText = Game.instance.xp.toString();
+  xpSpan.innerText = game.xp.toString();
 };
 
 export const showXpUpdate = async (xp: number) => {

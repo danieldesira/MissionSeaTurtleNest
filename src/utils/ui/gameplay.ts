@@ -1,6 +1,5 @@
 import { saveGame } from "../../services/api";
-import ControlSettingsStore from "../../singletons/cacheStores/ControlSettingsStore";
-import Game from "../../singletons/Game";
+import { game } from "../../singletons/Game";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
 import GameControl from "../../webComponents/gameplay/GameControl";
@@ -21,21 +20,22 @@ import { LevelCharacter } from "../../levels/types";
 import { updateXpSpan } from "./xp";
 import type { ILevel } from "../../levels/interfaces";
 import type { CharacterGameClassification } from "../../characters/types";
+import { controlSettingsStore } from "../../singletons/cacheStores/ControlSettingsStore";
 
 export const setupGameControls = () => {
   const upControl = document.getElementById("upControl") as GameControl;
-  upControl.callback = () => Game.instance.turtle.moveUp();
+  upControl.callback = () => game.turtle.moveUp();
   const downControl = document.getElementById("downControl") as GameControl;
-  downControl.callback = () => Game.instance.turtle.moveDown();
+  downControl.callback = () => game.turtle.moveDown();
   const leftControl = document.getElementById("leftControl") as GameControl;
-  leftControl.callback = () => Game.instance.turtle.moveLeft();
+  leftControl.callback = () => game.turtle.moveLeft();
   const rightControl = document.getElementById("rightControl") as GameControl;
-  rightControl.callback = () => Game.instance.turtle.moveRight();
+  rightControl.callback = () => game.turtle.moveRight();
 };
 
 export const setupOnscreenControlsPosition = () => {
   const onscreenControls = document.getElementById("onscreenControls");
-  if (ControlSettingsStore.instance.screenControlsPosition === "Left") {
+  if (controlSettingsStore.screenControlsPosition === "Left") {
     onscreenControls.classList.add("left-1");
     onscreenControls.classList.remove("right-1");
   } else {
@@ -58,7 +58,7 @@ export const launchGameEndDialog = (title: string, text: string) => {
   messageSpan.innerText = text;
   gameEndDialogContent.appendChild(messageSpan);
 
-  if (Game.instance.isPersonalBest) {
+  if (game.isPersonalBest) {
     addPersonalBestLineToGameEndDialog(gameEndDialogContent);
   }
 };
@@ -72,7 +72,7 @@ export const setupGameShareBtn = () => {
       try {
         await navigator.share({
           title: "Mission Sea Turtle Nest",
-          text: `I just reached level ${Game.instance.currentLevelNo} with ${Game.instance.xp} points in Mission Sea Turtle Nest!`,
+          text: `I just reached level ${game.currentLevelNo} with ${game.xp} points in Mission Sea Turtle Nest!`,
           url: window.location.href,
         });
       } catch {
@@ -111,7 +111,7 @@ export const setupPauseBtn = () => {
 
 export const initialiseGame = async (isNewGame: boolean) => {
   const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
-  await Game.instance.start({
+  await game.start({
     canvas,
     isNewGame,
   });
@@ -120,7 +120,7 @@ export const initialiseGame = async (isNewGame: boolean) => {
 
 export const setupAppVisibilityHandler = () => {
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden && Game.instance.isGameScreenActive) {
+    if (document.hidden && game.isGameScreenActive) {
       showGamePausedDialog();
     }
   });
@@ -130,7 +130,7 @@ export const setupBackToMenuBtn = () => {
   const backBtn = document.getElementById("backBtn") as PrettyButton;
   backBtn.callback = async () => {
     if (isAuthenticated()) {
-      Game.instance.exit();
+      game.exit();
       toggleMode("menu");
       showWaitingNotice("Uploading game progress...");
       try {
@@ -160,8 +160,8 @@ export const setupCanvasSize = () => {
 export const setupGamePauseOnDialogOpen = () =>
   Array.from(document.querySelectorAll("pretty-dialog")).forEach(
     (dialog: PrettyDialog) => {
-      dialog.openCallback = () => Game.instance.pause();
-      dialog.closeCallback = () => Game.instance.resume();
+      dialog.openCallback = () => game.pause();
+      dialog.closeCallback = () => game.resume();
     }
   );
 
@@ -172,8 +172,8 @@ const addPersonalBestLineToGameEndDialog = (
   gameEndDialogContent.appendChild(br);
   const messageSpan = document.createElement("span");
   messageSpan.innerText = `Congratulations, this is your personal best score! ${
-    Game.instance.xp
-  } points, ${formatLevelAsText(Game.instance.currentLevelNo)}.`;
+    game.xp
+  } points, ${formatLevelAsText(game.currentLevelNo)}.`;
   gameEndDialogContent.appendChild(messageSpan);
 };
 
@@ -184,9 +184,9 @@ export const launchHeartMatingAnimation = async () => {
   const heartMatingAnimation = document.getElementById("heartMatingAnimation");
   heartMatingAnimation.classList.add("flex");
   heartMatingAnimation.classList.remove("hidden");
-  Game.instance.pause();
+  game.pause();
   await new Promise((resolve) => setTimeout(resolve, 1500));
-  Game.instance.resume();
+  game.resume();
   heartMatingAnimation.classList.add("hidden");
   heartMatingAnimation.classList.remove("flex");
 };
@@ -205,7 +205,7 @@ export const launchLevelStartDialog = ({
   const levelStartDialogTitle = document.getElementById(
     "levelStartDialogTitle"
   );
-  levelStartDialogTitle.innerText = `Level ${Game.instance.currentLevelNo} - ${title}`;
+  levelStartDialogTitle.innerText = `Level ${game.currentLevelNo} - ${title}`;
 
   const levelStartDialogMessage = document.getElementById(
     "levelStartDialogMessage"
@@ -219,25 +219,29 @@ export const launchLevelStartDialog = ({
     spawnableObstaclesPer30Second
       ? initialCharacters.concat(spawnableObstaclesPer30Second)
       : initialCharacters,
-    "Obstacle",
+    ["Obstacle"],
     levelStartDialogObstacles
   );
 
   const levelStartDialogPrey = document.getElementById("levelStartDialogPrey");
-  populateCharacterList(initialCharacters, "Prey", levelStartDialogPrey);
+  populateCharacterList(
+    initialCharacters,
+    ["Prey", "PackPrey"],
+    levelStartDialogPrey
+  );
 };
 
 const populateCharacterList = (
   levelCharacterList: LevelCharacter[],
-  characterType: CharacterGameClassification,
+  characterTypes: CharacterGameClassification[],
   container: HTMLElement
 ) => {
   deleteChildren(container);
   new Set(
     levelCharacterList
       .map(({ Constructor }) => Constructor)
-      .filter(
-        (Constructor) => new Constructor().gameClassification === characterType
+      .filter((Constructor) =>
+        characterTypes.includes(new Constructor().gameClassification)
       )
   ).forEach((Constructor) => {
     const characterContainer = document.createElement("div");

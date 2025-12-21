@@ -1,4 +1,4 @@
-import Game from "../../singletons/Game";
+import { game } from "../../singletons/Game";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
 import { toggleMode } from "./mainMenu";
@@ -24,7 +24,7 @@ export const setupLoginInvitationDialog = () => {
     "closeLoginInvitationBtn"
   ) as PrettyButton;
   closeLoginInvitationBtn.callback = () => {
-    Game.instance.exit();
+    game.exit();
     toggleMode("menu");
   };
 };

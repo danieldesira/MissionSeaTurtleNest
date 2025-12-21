@@ -31,22 +31,9 @@ type GameOptions = {
 };
 
 class Game {
-  private static _instance: Game;
-
-  private constructor() {
+  constructor() {
     this._turtle = new Turtle();
     this.reset();
-  }
-
-  /**
-   * Singleton accessor property.
-   * @author Daniel Desira
-   */
-  static get instance(): Game {
-    if (!this._instance) {
-      this._instance = new Game();
-    }
-    return this._instance;
   }
 
   private _animationTimer: number = 0;
@@ -347,4 +334,4 @@ class Game {
   }
 }
 
-export default Game;
+export const game = new Game();

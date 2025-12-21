@@ -1,6 +1,4 @@
 import { updateProfile, uploadProfilePicture } from "../../services/api";
-import ControlSettingsStore from "../../singletons/cacheStores/ControlSettingsStore";
-import ProfileStore from "../../singletons/cacheStores/ProfileStore";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import ImageUploader from "../../webComponents/form/ImageUploader";
 import PrettyButton from "../../webComponents/form/PrettyButton";
@@ -11,6 +9,8 @@ import { version } from "../../../package.json";
 import { checkNotificationPermission } from "../notifications";
 import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 import { launchCustomDialog } from "./customDialog";
+import { controlSettingsStore } from "../../singletons/cacheStores/ControlSettingsStore";
+import { profileStore } from "../../singletons/cacheStores/ProfileStore";
 
 export const setupControlSettings = () => {
   const screenControlPositionRadio = document.getElementById(
@@ -22,7 +22,7 @@ export const setupControlSettings = () => {
       { label: "Left", value: "Left" },
       { label: "Right", value: "Right" },
     ],
-    selectedValue: ControlSettingsStore.instance.screenControlsPosition,
+    selectedValue: controlSettingsStore.screenControlsPosition,
   };
 };
 
@@ -30,7 +30,7 @@ const cacheControlSettings = async () => {
   const screenControlPositionRadio = document.getElementById(
     "screenControlPositionRadio"
   ) as RadioSelection;
-  ControlSettingsStore.instance.screenControlsPosition =
+  controlSettingsStore.screenControlsPosition =
     screenControlPositionRadio.currentSelection as "Left" | "Right";
 };
 
@@ -39,8 +39,8 @@ const cacheProfileSettings = async () => {
     "playerNameInput"
   ) as TextInput;
   const playerDobInput = document.getElementById("playerDobInput") as TextInput;
-  ProfileStore.instance.name = playerNameInput.value.toString();
-  ProfileStore.instance.date_of_birth = playerDobInput.value as Date;
+  profileStore.name = playerNameInput.value.toString();
+  profileStore.date_of_birth = playerDobInput.value as Date;
 };
 
 const submitSettings = async () => {
@@ -50,12 +50,10 @@ const submitSettings = async () => {
   showWaitingNotice("Saving settings");
   try {
     await updateProfile({
-      name: ProfileStore.instance.name,
-      date_of_birth: ProfileStore.instance.date_of_birth
-        .toISOString()
-        .split("T")[0],
+      name: profileStore.name,
+      date_of_birth: profileStore.date_of_birth.toISOString().split("T")[0],
       settings: {
-        controlPosition: ControlSettingsStore.instance.screenControlsPosition,
+        controlPosition: controlSettingsStore.screenControlsPosition,
       },
     });
   } catch {
@@ -90,20 +88,20 @@ export const setupSettingsProfileTab = () => {
   const playerEmailReadonlyField = document.getElementById(
     "playerEmailReadonlyField"
   );
-  playerEmailReadonlyField.innerText = ProfileStore.instance.email;
+  playerEmailReadonlyField.innerText = profileStore.email;
 
   const playerNameInput = document.getElementById(
     "playerNameInput"
   ) as TextInput;
-  playerNameInput.value = ProfileStore.instance.name;
+  playerNameInput.value = profileStore.name;
 
   const playerDobInput = document.getElementById("playerDobInput") as TextInput;
-  playerDobInput.value = ProfileStore.instance.date_of_birth;
+  playerDobInput.value = profileStore.date_of_birth;
 
   const profilePicUploader = document.getElementById(
     "profilePicUploader"
   ) as ImageUploader;
-  profilePicUploader.currentImageUrl = ProfileStore.instance.profile_pic_url;
+  profilePicUploader.currentImageUrl = profileStore.profile_pic_url;
   profilePicUploader.changeCallback = async (event: Event) => {
     const target = event.target as HTMLInputElement;
     try {

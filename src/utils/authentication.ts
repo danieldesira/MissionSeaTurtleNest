@@ -1,8 +1,6 @@
 import { login } from "../services/api";
 import type { LoginResponse } from "../services/interfaces";
-import ControlSettingsStore from "../singletons/cacheStores/ControlSettingsStore";
-import PersonalBestStore from "../singletons/cacheStores/PersonalBestStore";
-import ProfileStore from "../singletons/cacheStores/ProfileStore";
+import { profileStore } from "../singletons/cacheStores/ProfileStore";
 import {
   deleteLastGameLocalStorage,
   deleteLastGameTimestampLocalStorage,
@@ -20,6 +18,8 @@ import {
   setupSettingsProfileTab,
 } from "./ui/settingsDialog";
 import { launchCustomDialog } from "./ui/customDialog";
+import { controlSettingsStore } from "../singletons/cacheStores/ControlSettingsStore";
+import { personalBestStore } from "../singletons/cacheStores/PersonalBestStore";
 
 export const handleGoogleAuthResponse = async ({
   credential,
@@ -69,8 +69,8 @@ const populateGameData = (accountData: LoginResponse) => {
 const populatePersonalBest = (accountData: LoginResponse) => {
   const { personalBest } = accountData;
   if (personalBest) {
-    PersonalBestStore.instance.level = personalBest.level;
-    PersonalBestStore.instance.points = personalBest.points;
+    personalBestStore.level = personalBest.level;
+    personalBestStore.points = personalBest.points;
 
     updatePersonalBestPlaceholders();
   }
@@ -84,10 +84,10 @@ const storeAccountGameDataLocally = (accountData: LoginResponse) => {
 const populatePlayerProfile = (accountData: LoginResponse) => {
   const { player } = accountData;
   if (player) {
-    ProfileStore.instance.email = player.email;
-    ProfileStore.instance.name = player.name;
-    ProfileStore.instance.profile_pic_url = player.profile_pic_url;
-    ProfileStore.instance.date_of_birth = new Date(player.date_of_birth);
+    profileStore.email = player.email;
+    profileStore.name = player.name;
+    profileStore.profile_pic_url = player.profile_pic_url;
+    profileStore.date_of_birth = new Date(player.date_of_birth);
     setupSettingsProfileTab();
   }
 };
@@ -95,16 +95,16 @@ const populatePlayerProfile = (accountData: LoginResponse) => {
 const populateControlSettings = (accountData: LoginResponse) => {
   const { player } = accountData;
   if (player.settings) {
-    ControlSettingsStore.instance.screenControlsPosition =
+    controlSettingsStore.screenControlsPosition =
       player.settings.controlPosition;
     setupControlSettings();
   }
 };
 
-export const isAuthenticated = () => !!ProfileStore.instance.email;
+export const isAuthenticated = () => !!profileStore.email;
 
 export const clearCurrentPlayerStores = () => {
-  ProfileStore.instance.reset();
-  PersonalBestStore.instance.reset();
-  ControlSettingsStore.instance.reset();
+  profileStore.reset();
+  personalBestStore.reset();
+  controlSettingsStore.reset();
 };

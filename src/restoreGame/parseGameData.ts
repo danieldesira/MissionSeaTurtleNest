@@ -1,5 +1,5 @@
 import { createCharacterInstance } from "../characters/factory";
-import Game from "../singletons/Game";
+import { game } from "../singletons/Game";
 import type GameData from "./GameData";
 
 /**
@@ -16,18 +16,18 @@ const parseGameData = (json: string) => {
 };
 
 const restoreTurtle = (data: GameData) => {
-  Game.instance.turtle.x = data.turtle.x;
-  Game.instance.turtle.y = data.turtle.y;
-  Game.instance.turtle.direction = data.turtle.direction;
-  Game.instance.turtle.foodGauge = data.turtle.food;
-  Game.instance.turtle.apetiteGauge = data.turtle.stomachCapacity;
-  Game.instance.turtle.lifeGauge = data.turtle.health;
-  Game.instance.turtle.oxygenGauge = data.turtle.oxygen;
+  game.turtle.x = data.turtle.x;
+  game.turtle.y = data.turtle.y;
+  game.turtle.direction = data.turtle.direction;
+  game.turtle.foodGauge = data.turtle.food;
+  game.turtle.apetiteGauge = data.turtle.stomachCapacity;
+  game.turtle.lifeGauge = data.turtle.health;
+  game.turtle.oxygenGauge = data.turtle.oxygen;
 };
 
 const restoreGame = (data: GameData) => {
-  Game.instance.currentLevelNo = data.levelNo;
-  Game.instance.xp = data.xp;
+  game.currentLevelNo = data.levelNo;
+  game.xp = data.xp;
 };
 
 /**
@@ -36,13 +36,13 @@ const restoreGame = (data: GameData) => {
  * @author Daniel Desira
  */
 export const restoreCharacters = (data: GameData) => {
-  Game.instance.currentGameCharacterList.characters.clear();
+  game.currentGameCharacterList.characters.clear();
 
   for (const character of data.characters) {
     const temp = createCharacterInstance(character.type);
     temp.x = character.x;
     temp.y = character.y;
-    Game.instance.currentGameCharacterList.characters.add(temp);
+    game.currentGameCharacterList.characters.add(temp);
   }
 };
 

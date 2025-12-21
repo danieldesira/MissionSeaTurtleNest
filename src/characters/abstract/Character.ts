@@ -1,5 +1,3 @@
-import { Directions } from "../../constants";
-import Game from "../../singletons/Game";
 import type { Direction } from "../../types";
 import { paintCharacter } from "../commonCharacterBehavior";
 import type { ICharacter } from "../interfaces";

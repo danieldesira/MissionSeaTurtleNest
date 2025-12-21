@@ -2,7 +2,7 @@ import type { ILevel } from "./interfaces";
 import type { LevelConstructorOptions, LevelCharacter } from "./types";
 import ProspectiveMate from "../characters/abstract/ProspectiveMate";
 import type { HorizontalDirection } from "../types";
-import Game from "../singletons/Game";
+import { game } from "../singletons/Game";
 
 class Level implements ILevel {
   private readonly _backgroundImageFilename: string;
@@ -48,11 +48,9 @@ class Level implements ILevel {
     try {
       await this.loadBgImg();
 
-      Game.instance.currentGameCharacterList.spawnCharacters(
-        this._initialCharacters
-      );
+      game.currentGameCharacterList.spawnCharacters(this._initialCharacters);
       await this.loadCharacterImages();
-      Game.instance.currentGameCharacterList.paintCharacters(context);
+      game.currentGameCharacterList.paintCharacters(context);
 
       // Hack to show characters before dialog is closed
       await new Promise<void>((resolve) => setTimeout(() => resolve(), 1));
@@ -129,9 +127,7 @@ class Level implements ILevel {
   private async loadCharacterImages() {
     try {
       await Promise.all(
-        [...Game.instance.currentGameCharacterList.characters].map((c) =>
-          c.loadImage()
-        )
+        [...game.currentGameCharacterList.characters].map((c) => c.loadImage())
       );
     } catch (error) {
       throw new Error(error);
@@ -149,7 +145,7 @@ class Level implements ILevel {
   }
 
   checkProspectiveMates() {
-    for (const character of Game.instance.currentGameCharacterList.characters) {
+    for (const character of game.currentGameCharacterList.characters) {
       if (character instanceof ProspectiveMate) {
         character.checkCurrentObstacleCollisions();
       }
@@ -169,7 +165,7 @@ class Level implements ILevel {
               : 0);
           obstacle.y = Math.random() * this._backgroundImage.height;
           obstacle.loadImage();
-          Game.instance.currentGameCharacterList.characters.add(obstacle);
+          game.currentGameCharacterList.characters.add(obstacle);
         });
       }
     );

@@ -1,14 +1,12 @@
-import Game from "../../singletons/Game";
+import { game } from "../../singletons/Game";
 import {
   checkBoundingBoxCollision,
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
 import { generateRandomBit } from "../../utils/generic";
 import { launchCustomDialog } from "../../utils/ui/customDialog";
-import { launchHeartMatingAnimation } from "../../utils/ui/gameplay";
-import { updateXpSpan } from "../../utils/ui/xp";
 import { swimHorizontally } from "../commonCharacterBehavior";
-import type { IMainCharacter, IProspectiveMate } from "../interfaces";
+import type { IProspectiveMate } from "../interfaces";
 import type { CharacterGameClassification } from "../types";
 import NonMain from "./NonMain";
 import type Obstacle from "./Obstacle";
@@ -36,25 +34,12 @@ abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
     this._direction = generateRandomBit() ? "Left" : "Right";
   }
 
-  private mateWithFemale(turtle: IMainCharacter) {
-    turtle.isMama = true;
-  }
-
-  handleTurtleCollision() {
-    if (!Game.instance.turtle.isMama) {
-      launchHeartMatingAnimation();
-      this.mateWithFemale(Game.instance.turtle);
-      Game.instance.gainPoints(this._points);
-      updateXpSpan();
-    }
-  }
-
   swim() {
     swimHorizontally(this);
   }
 
   checkCurrentObstacleCollisions() {
-    Game.instance.currentGameCharacterList.characters.forEach((c) => {
+    game.currentGameCharacterList.characters.forEach((c) => {
       if (
         c.gameClassification === "Obstacle" &&
         checkBoundingBoxCollision(
@@ -63,9 +48,9 @@ abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
         )
       ) {
         this._life -= (c as Obstacle).damage;
-        Game.instance.currentGameCharacterList.characters.delete(c);
+        game.currentGameCharacterList.characters.delete(c);
         if (this._life <= 0) {
-          Game.instance.currentGameCharacterList.characters.delete(this);
+          game.currentGameCharacterList.characters.delete(this);
           launchCustomDialog(
             "Mate died",
             "Prospective mate died. In case you didn't mate yet, game over!"

@@ -1,11 +1,11 @@
-import Game from "../../singletons/Game";
+import { game } from "../../singletons/Game";
 import { generateRandomBit } from "../../utils/generic";
 import { swimHorizontally } from "../commonCharacterBehavior";
 import Obstacle from "./Obstacle";
 
 abstract class FloatingGuidedObstacle extends Obstacle {
   protected get initialPositionXFrom() {
-    return Game.instance.level.bgImg.width / 2;
+    return game.level.bgImg.width / 2;
   }
 
   /**

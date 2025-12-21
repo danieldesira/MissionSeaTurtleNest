@@ -1,17 +1,16 @@
 import type { LevelConstructorOptions } from "./types";
+import { game } from "../singletons/Game";
 import Boat from "../characters/obstacles/Boat";
 import Crab from "../characters/prey/Crab";
 import NeptuneGrass from "../characters/prey/NeptuneGrass";
 import PlasticBag from "../characters/obstacles/PlasticBag";
 import Sardine from "../characters/prey/Sardine";
 import Shrimp from "../characters/prey/Shrimp";
-import Game from "../singletons/Game";
 import Level from "./Level";
 import Nurdle from "../characters/obstacles/Nurdle";
 import MaleTurtle from "../characters/MaleTurtle";
 import Rope from "../characters/obstacles/Rope";
 import GhostNet from "../characters/obstacles/GhostNet";
-import { ILevel } from "./interfaces";
 
 const levelsConfig: {
   [key: number]: LevelConstructorOptions;
@@ -63,7 +62,7 @@ const levelsConfig: {
     points: 50,
     levelDescription:
       "Find and mate with Maximus, the male turtle. He is recognisable through his bigger tail.",
-    objectives: [() => Game.instance.turtle.isMama],
+    objectives: [() => game.turtle.isMama],
     spawnableObstaclesPer30Second: [
       { Constructor: PlasticBag, amount: 2 },
       { Constructor: Nurdle, amount: 5 },

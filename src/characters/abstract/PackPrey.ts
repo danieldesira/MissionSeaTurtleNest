@@ -1,4 +1,4 @@
-import Game from "../../singletons/Game";
+import { game } from "../../singletons/Game";
 import { CharacterGameClassification } from "../types";
 import Prey from "./Prey";
 
@@ -16,7 +16,7 @@ abstract class PackPrey extends Prey {
   protected get initialPositionXTo() {
     return this._previousCharacterX
       ? this._previousCharacterX + PackPrey.maxDistance
-      : Game.instance.level.bgImg.width;
+      : game.level.bgImg.width;
   }
 
   protected get initialPositionYFrom() {
@@ -28,7 +28,7 @@ abstract class PackPrey extends Prey {
   protected get initialPositionYTo() {
     return this._previousCharacterY
       ? this._previousCharacterY + PackPrey.maxDistance
-      : Game.instance.level.bgImg.height;
+      : game.level.bgImg.height;
   }
 
   set previousCharacterX(x: number) {
