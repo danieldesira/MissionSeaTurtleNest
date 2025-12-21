@@ -1,4 +1,5 @@
 import Game from "../../singletons/Game";
+import { CharacterGameClassification } from "../types";
 import Prey from "./Prey";
 
 abstract class PackPrey extends Prey {
@@ -36,6 +37,10 @@ abstract class PackPrey extends Prey {
 
   set previousCharacterY(y: number) {
     this._previousCharacterY = y;
+  }
+
+  get gameClassification(): CharacterGameClassification {
+    return "PackPrey";
   }
 }
 

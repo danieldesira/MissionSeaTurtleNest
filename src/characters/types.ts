@@ -9,4 +9,8 @@ export type CharacterOptions = {
   height?: number;
 };
 
-export type CharacterGameClassification = "Prey" | "Obstacle" | "Mate";
+export type CharacterGameClassification =
+  | "Prey"
+  | "Obstacle"
+  | "Mate"
+  | "PackPrey";

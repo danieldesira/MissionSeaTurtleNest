@@ -1,6 +1,6 @@
 import Game from "../../singletons/Game";
 import type { Direction } from "../../types";
-import { generateRandomBit, vibrate } from "../../utils/generic";
+import { generateRandomBit } from "../../utils/generic";
 import { paintCharacter } from "../commonCharacterBehavior";
 import type { IObstacle } from "../interfaces";
 import type { CharacterGameClassification } from "../types";
@@ -17,18 +17,6 @@ abstract class Obstacle extends NonMain implements IObstacle {
 
   get gameClassification(): CharacterGameClassification {
     return "Obstacle";
-  }
-
-  /**
-   * Responds to collision with turtle.
-   * i.e.: decrease health and apply default behaviour
-   * @override
-   * @author Daniel Desira
-   */
-  handleTurtleCollision() {
-    Game.instance.turtle.takeDamage(this._damage);
-    super.handleTurtleCollision();
-    vibrate();
   }
 
   /**

@@ -1,9 +1,11 @@
+import { CharacterEvents } from "./types";
+
 /**
  * Custom event emitter wrapping browser's CustomEvent API.
  * Provides a type-safe way to emit and listen to events.
  * @author Daniel Desira
  */
-export class EventEmitter<T extends Record<string, any>> {
+class EventEmitter<T extends Record<string, unknown>> {
   private eventTarget = new EventTarget();
 
   /**
@@ -51,4 +53,4 @@ export class EventEmitter<T extends Record<string, any>> {
   }
 }
 
-export default EventEmitter;
+export const eventEmitter = new EventEmitter<CharacterEvents>();

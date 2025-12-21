@@ -81,9 +81,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
    */
   handleTurtleCollision() {
     Game.instance.turtle.decrementApetite(this._stomachImpact);
-    Game.instance.gainPoints(this._points);
     Game.instance.currentGameCharacterList.characters.delete(this);
-    updateXpSpan();
   }
 
   abstract swim(): void;

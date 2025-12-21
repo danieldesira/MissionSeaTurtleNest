@@ -5,9 +5,7 @@ import type { INonMainCharacter } from "../characters/interfaces";
  */
 export type CharacterEvents = {
   collision: {
-    characterType: string;
-    points: number;
-    stomachImpact: number;
+    character: INonMainCharacter;
   };
   offscreen: {
     character: INonMainCharacter;

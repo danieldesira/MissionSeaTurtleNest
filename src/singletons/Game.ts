@@ -1,5 +1,9 @@
+import type Obstacle from "../characters/abstract/Obstacle";
+import type Prey from "../characters/abstract/Prey";
 import CurrentGameCharacterList from "../characters/CurrentGameCharacterList";
+import type { INonMainCharacter } from "../characters/interfaces";
 import Turtle from "../characters/Turtle";
+import { eventEmitter } from "../events/EventEmitter";
 import { paintLevelBg } from "../levels/background";
 import type { ILevel } from "../levels/interfaces";
 import { createLevelInstance, levelExists } from "../levels/levels";
@@ -9,10 +13,14 @@ import {
   deleteLastGameAndSaveScore,
   saveGameProgress,
 } from "../utils/gameplay";
-import { resizeCanvas } from "../utils/generic";
+import { resizeCanvas, vibrate } from "../utils/generic";
 import { getLastGameLocalStorage } from "../utils/lastGameLocalStorage";
 import { launchCustomDialog } from "../utils/ui/customDialog";
-import { getCanvas, launchGameEndDialog } from "../utils/ui/gameplay";
+import {
+  getCanvas,
+  launchGameEndDialog,
+  launchHeartMatingAnimation,
+} from "../utils/ui/gameplay";
 import { toggleMode } from "../utils/ui/mainMenu";
 import { hideOverlay, showOverlay } from "../utils/ui/overlay";
 import { showXpUpdate, updateXpSpan } from "../utils/ui/xp";
@@ -149,6 +157,9 @@ class Game {
   async start({ canvas, isNewGame }: GameOptions) {
     try {
       this.reset();
+
+      this.setupEvents();
+
       await this._turtle.loadImage();
 
       if (!isNewGame) {
@@ -293,6 +304,46 @@ class Game {
 
   private incrementFrameCount() {
     this._currentFrameCount++;
+  }
+
+  private setupEvents() {
+    eventEmitter.on("collision", (detail) => {
+      switch (detail.character.gameClassification) {
+        case "Mate":
+          if (!this._turtle.isMama) {
+            launchHeartMatingAnimation();
+            this._turtle.isMama = true;
+            this.addReducePoints(detail.character.points);
+          }
+          break;
+        case "Obstacle":
+          this._turtle.takeDamage((detail.character as Obstacle).damage);
+          this.handlePreyObstacleConsumption(detail.character);
+          this.addReducePoints(detail.character.points);
+          vibrate();
+          break;
+        case "Prey":
+        case "PackPrey":
+          const canTurtleEatCharacter =
+            this._turtle.apetiteGauge - detail.character.stomachImpact > 0;
+          if (canTurtleEatCharacter) {
+            this._turtle.eat((detail.character as Prey).foodValue);
+            this.handlePreyObstacleConsumption(detail.character);
+            this.addReducePoints(detail.character.points);
+          }
+          break;
+      }
+    });
+  }
+
+  private handlePreyObstacleConsumption(character: INonMainCharacter) {
+    this._turtle.decrementApetite(character.stomachImpact);
+    this._currentGameCharacterList.characters.delete(character);
+  }
+
+  private addReducePoints(points: number) {
+    this.gainPoints(points);
+    updateXpSpan();
   }
 }
 

@@ -1,5 +1,6 @@
+import { eventEmitter } from "../events/EventEmitter";
 import type { LevelCharacter } from "../levels/types";
-import PackPrey from "./abstract/PackPrey";
+import type PackPrey from "./abstract/PackPrey";
 import type {
   ICurrentGameCharacterList,
   INonMainCharacter,
@@ -23,13 +24,13 @@ class CurrentGameCharacterList implements ICurrentGameCharacterList {
 
   spawnCharacters(spawnableCharacters: LevelCharacter[]) {
     for (const { Constructor, amount, options } of spawnableCharacters) {
-      let lastPackCharacter: PackPrey = null;
+      let lastPackCharacter: INonMainCharacter = null;
       for (const _ in Array.from({ length: amount })) {
         const character = new Constructor(options);
-        if (character instanceof PackPrey) {
+        if (character.gameClassification === "PackPrey") {
           if (lastPackCharacter) {
-            character.previousCharacterX = lastPackCharacter.x;
-            character.previousCharacterY = lastPackCharacter.y;
+            (character as PackPrey).previousCharacterX = lastPackCharacter.x;
+            (character as PackPrey).previousCharacterY = lastPackCharacter.y;
           }
           lastPackCharacter = character;
         }
@@ -48,7 +49,7 @@ class CurrentGameCharacterList implements ICurrentGameCharacterList {
   checkIfTurtleMeetsCharacters() {
     for (const character of this._characters) {
       if (character.isCollidingWithTurtle()) {
-        character.handleTurtleCollision();
+        eventEmitter.emit("collision", { character });
       }
     }
   }
