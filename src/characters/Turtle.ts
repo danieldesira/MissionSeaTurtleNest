@@ -120,7 +120,7 @@ class Turtle extends Character implements IMainCharacter {
   }
 
   set oxygenGauge(value: number) {
-    this._oxygenGauge - value;
+    this._oxygenGauge = value;
     updateGauge("oxygenGauge", this._oxygenGauge);
   }
 

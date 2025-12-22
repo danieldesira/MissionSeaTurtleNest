@@ -46,6 +46,7 @@ class Game {
   private _isPersonalBest: boolean;
   private _currentFrameCount: number;
   private _currentGameCharacterList: CurrentGameCharacterList;
+  private _cleanCollisionEventHandler: () => void;
 
   get turtle() {
     return this._turtle;
@@ -100,6 +101,7 @@ class Game {
     this._turtle.isMama = false;
     this._currentFrameCount = 0;
     this._currentGameCharacterList = new CurrentGameCharacterList();
+    this._level = null;
   }
 
   pause() {
@@ -166,6 +168,7 @@ class Game {
   exit() {
     this._isGameScreenActive = false;
     this.clearAnimationFrameTimer();
+    this.teardownEvents();
   }
 
   private clearAnimationFrameTimer() {
@@ -294,33 +297,36 @@ class Game {
   }
 
   private setupEvents() {
-    eventEmitter.on("collision", (detail) => {
-      switch (detail.character.gameClassification) {
-        case "Mate":
-          if (!this._turtle.isMama) {
-            launchHeartMatingAnimation();
-            this._turtle.isMama = true;
-            this.addReducePoints(detail.character.points);
-          }
-          break;
-        case "Obstacle":
-          this._turtle.takeDamage((detail.character as Obstacle).damage);
-          this.handlePreyObstacleConsumption(detail.character);
-          this.addReducePoints(detail.character.points);
-          vibrate();
-          break;
-        case "Prey":
-        case "PackPrey":
-          const canTurtleEatCharacter =
-            this._turtle.apetiteGauge - detail.character.stomachImpact > 0;
-          if (canTurtleEatCharacter) {
-            this._turtle.eat((detail.character as Prey).foodValue);
+    this._cleanCollisionEventHandler = eventEmitter.on(
+      "collision",
+      (detail) => {
+        switch (detail.character.gameClassification) {
+          case "Mate":
+            if (!this._turtle.isMama) {
+              launchHeartMatingAnimation();
+              this._turtle.isMama = true;
+              this.addReducePoints(detail.character.points);
+            }
+            break;
+          case "Obstacle":
+            this._turtle.takeDamage((detail.character as Obstacle).damage);
             this.handlePreyObstacleConsumption(detail.character);
             this.addReducePoints(detail.character.points);
-          }
-          break;
+            vibrate();
+            break;
+          case "Prey":
+          case "PackPrey":
+            const canTurtleEatCharacter =
+              this._turtle.apetiteGauge - detail.character.stomachImpact > 0;
+            if (canTurtleEatCharacter) {
+              this._turtle.eat((detail.character as Prey).foodValue);
+              this.handlePreyObstacleConsumption(detail.character);
+              this.addReducePoints(detail.character.points);
+            }
+            break;
+        }
       }
-    });
+    );
   }
 
   private handlePreyObstacleConsumption(character: INonMainCharacter) {
@@ -332,6 +338,26 @@ class Game {
     this.gainPoints(points);
     updateXpSpan();
   }
+
+  private teardownEvents() {
+    this._cleanCollisionEventHandler();
+  }
 }
 
-export const game = new Game();
+let gameInstance: Game | null = null;
+
+const getGame = (): Game => {
+  if (!gameInstance) {
+    gameInstance = new Game();
+  }
+  return gameInstance;
+};
+
+export const game = new Proxy({} as Game, {
+  get(target: any, prop: string | symbol) {
+    return Reflect.get(getGame(), prop);
+  },
+  set(target: any, prop: string | symbol, value: any) {
+    return Reflect.set(getGame(), prop, value);
+  },
+});

@@ -1,8 +1,8 @@
 import { saveGame } from "../../services/api";
 import { game } from "../../singletons/Game";
-import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
-import PrettyButton from "../../webComponents/form/PrettyButton";
-import GameControl from "../../webComponents/gameplay/GameControl";
+import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
+import type PrettyButton from "../../webComponents/form/PrettyButton";
+import type GameControl from "../../webComponents/gameplay/GameControl";
 import GameGauge from "../../webComponents/gameplay/GameGauge";
 import { isAuthenticated } from "../authentication";
 import { resizeCanvas } from "../generic";

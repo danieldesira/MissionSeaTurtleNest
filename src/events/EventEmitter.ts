@@ -36,21 +36,6 @@ class EventEmitter<T extends Record<string, unknown>> {
       this.eventTarget.removeEventListener(eventType, listener);
     };
   }
-
-  /**
-   * Listen to an event once
-   */
-  once<K extends keyof T>(
-    eventType: K & string,
-    handler: (detail: T[K]) => void
-  ) {
-    const unsubscribe = this.on(eventType, (detail) => {
-      handler(detail);
-      unsubscribe();
-    });
-
-    return unsubscribe;
-  }
 }
 
 export const eventEmitter = new EventEmitter<CharacterEvents>();
