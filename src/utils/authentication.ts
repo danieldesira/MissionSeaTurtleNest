@@ -1,14 +1,6 @@
 import { login } from "../services/api";
 import type { LoginResponse } from "../services/interfaces";
-import { profileStore } from "../singletons/cacheStores/ProfileStore";
-import {
-  deleteLastGameLocalStorage,
-  deleteLastGameTimestampLocalStorage,
-  getLastGameLocalStorage,
-  getLastGameTimestampLocalStorage,
-  saveLastGameLocalStorage,
-  saveLastGameTimestampLocalStorage,
-} from "./lastGameLocalStorage";
+import { profileStore } from "../inMemoryStores/ProfileStore";
 import { hideLoginDialog, updateAuthenticationUI } from "./ui/authUi";
 import { toggleContinueGameBtn } from "./ui/mainMenu";
 import { hideOverlay, showOverlay } from "./ui/overlay";
@@ -18,8 +10,9 @@ import {
   setupSettingsProfileTab,
 } from "./ui/settingsDialog";
 import { launchCustomDialog } from "./ui/customDialog";
-import { controlSettingsStore } from "../singletons/cacheStores/ControlSettingsStore";
-import { personalBestStore } from "../singletons/cacheStores/PersonalBestStore";
+import { controlSettingsStore } from "../inMemoryStores/ControlSettingsStore";
+import { personalBestStore } from "../inMemoryStores/PersonalBestStore";
+import { lastGameStore } from "../inMemoryStores/LastGameStore";
 
 export const handleGoogleAuthResponse = async ({
   credential,
@@ -50,18 +43,9 @@ export const handleGoogleAuthResponse = async ({
 
 const populateGameData = (accountData: LoginResponse) => {
   if (accountData.lastGame) {
-    const locallySavedGame = getLastGameLocalStorage();
-    const localTimestamp = getLastGameTimestampLocalStorage();
-    if (locallySavedGame && localTimestamp) {
-      if (Number(localTimestamp) <= accountData.player.last_game_saved_on) {
-        storeAccountGameDataLocally(accountData);
-      }
-    } else {
-      storeAccountGameDataLocally(accountData);
-    }
+    lastGameStore.store = accountData.lastGame;
   } else {
-    deleteLastGameLocalStorage();
-    deleteLastGameTimestampLocalStorage();
+    lastGameStore.reset();
   }
   toggleContinueGameBtn();
 };
@@ -74,11 +58,6 @@ const populatePersonalBest = (accountData: LoginResponse) => {
 
     updatePersonalBestPlaceholders();
   }
-};
-
-const storeAccountGameDataLocally = (accountData: LoginResponse) => {
-  saveLastGameLocalStorage(JSON.stringify(accountData.lastGame));
-  saveLastGameTimestampLocalStorage(accountData.player.last_game_saved_on);
 };
 
 const populatePlayerProfile = (accountData: LoginResponse) => {

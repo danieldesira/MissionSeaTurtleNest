@@ -44,11 +44,17 @@ class Level implements ILevel {
     this._currentDirection = currentDirection;
   }
 
-  async init(context: CanvasRenderingContext2D): Promise<void> {
+  async init(
+    context: CanvasRenderingContext2D,
+    isFreshLevel: boolean
+  ): Promise<void> {
     try {
       await this.loadBgImg();
 
-      game.currentGameCharacterList.spawnCharacters(this._initialCharacters);
+      if (isFreshLevel) {
+        game.currentGameCharacterList.spawnCharacters(this._initialCharacters);
+      }
+
       await this.loadCharacterImages();
       game.currentGameCharacterList.paintCharacters(context);
 

@@ -7,14 +7,13 @@ import { eventEmitter } from "../events/EventEmitter";
 import { paintLevelBg } from "../levels/background";
 import type { ILevel } from "../levels/interfaces";
 import { createLevelInstance, levelExists } from "../levels/levels";
-import parseGameData, { restoreCharacters } from "../restoreGame/parseGameData";
 import {
   checkIfBestPersonalScore,
   deleteLastGameAndSaveScore,
   saveGameProgress,
 } from "../utils/gameplay";
+import { restoreGameProgress } from "../utils/gameProgressRecovery";
 import { resizeCanvas, vibrate } from "../utils/generic";
-import { getLastGameLocalStorage } from "../utils/lastGameLocalStorage";
 import { launchCustomDialog } from "../utils/ui/customDialog";
 import {
   getCanvas,
@@ -31,11 +30,12 @@ type GameOptions = {
 };
 
 class Game {
-  constructor() {
+  private constructor() {
     this._turtle = new Turtle();
     this.reset();
   }
 
+  private static _instance: Game = null;
   private _animationTimer: number = 0;
   private _turtle: Turtle;
   private _level: ILevel;
@@ -47,6 +47,13 @@ class Game {
   private _currentFrameCount: number;
   private _currentGameCharacterList: CurrentGameCharacterList;
   private _cleanCollisionEventHandler: () => void;
+
+  static get instance() {
+    if (!this._instance) {
+      this._instance = new Game();
+    }
+    return this._instance;
+  }
 
   get turtle() {
     return this._turtle;
@@ -129,7 +136,7 @@ class Game {
     try {
       this._level = createLevelInstance(this._currentLevelNo);
       if (this._level) {
-        await this._level.init(context);
+        await this._level.init(context, isFreshLevel);
       }
       if (isFreshLevel) {
         this._turtle.resetDirection();
@@ -152,8 +159,7 @@ class Game {
       await this._turtle.loadImage();
 
       if (!isNewGame) {
-        const savedGameData = parseGameData(getLastGameLocalStorage());
-        restoreCharacters(savedGameData);
+        restoreGameProgress();
       }
 
       resizeCanvas(canvas);
@@ -344,20 +350,11 @@ class Game {
   }
 }
 
-let gameInstance: Game | null = null;
-
-const getGame = (): Game => {
-  if (!gameInstance) {
-    gameInstance = new Game();
-  }
-  return gameInstance;
-};
-
-export const game = new Proxy({} as Game, {
+export const game = new Proxy<Game>({} as Game, {
   get(target: any, prop: string | symbol) {
-    return Reflect.get(getGame(), prop);
+    return Reflect.get(Game.instance, prop);
   },
   set(target: any, prop: string | symbol, value: any) {
-    return Reflect.set(getGame(), prop, value);
+    return Reflect.set(Game.instance, prop, value);
   },
 });

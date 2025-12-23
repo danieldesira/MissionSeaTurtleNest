@@ -2,7 +2,7 @@ import type { HorizontalDirection } from "../types";
 import type { LevelCharacter } from "./types";
 
 export interface ILevel {
-  init(context: CanvasRenderingContext2D): Promise<void>;
+  init(context: CanvasRenderingContext2D, isFreshLevel: boolean): Promise<void>;
   get bgImg(): HTMLImageElement | null;
   set bgOffsetX(offsetX: number);
   set bgOffsetY(offsetY: number);

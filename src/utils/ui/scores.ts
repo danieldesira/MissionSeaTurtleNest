@@ -1,6 +1,6 @@
 import { levelExists } from "../../levels/levels";
 import { fetchHighScores } from "../../services/api";
-import { personalBestStore } from "../../singletons/cacheStores/PersonalBestStore";
+import { personalBestStore } from "../../inMemoryStores/PersonalBestStore";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
 import { launchCustomDialog } from "./customDialog";

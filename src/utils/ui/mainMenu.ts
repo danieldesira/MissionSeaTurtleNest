@@ -1,8 +1,8 @@
+import { lastGameStore } from "../../inMemoryStores/LastGameStore";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
 import MenuItem from "../../webComponents/mainMenu/MenuItem";
 import { isAuthenticated } from "../authentication";
-import { getLastGameLocalStorage } from "../lastGameLocalStorage";
 import { initialiseGame, setupOnscreenControlsPosition } from "./gameplay";
 
 export const toggleMode = (mode: "game" | "menu") => {
@@ -42,7 +42,7 @@ export const setupInstructionsDialog = () => {
 export const setupNewGameMenuBtn = () => {
   const newGameBtn = document.getElementById("newGameBtn") as MenuItem;
   newGameBtn.callback = async () => {
-    if (isAuthenticated() && getLastGameLocalStorage()) {
+    if (isAuthenticated() && lastGameStore.hasData()) {
       showGameOverwriteDialog();
     } else {
       await initGame(true);
@@ -62,7 +62,7 @@ export const toggleContinueGameBtn = () => {
   const continueGameBtn = document.getElementById(
     "continueGameBtn"
   ) as MenuItem;
-  if (isAuthenticated() && getLastGameLocalStorage()) {
+  if (isAuthenticated() && lastGameStore.hasData()) {
     continueGameBtn.show();
   } else {
     continueGameBtn.hide();

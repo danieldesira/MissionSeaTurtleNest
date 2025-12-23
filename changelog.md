@@ -11,6 +11,10 @@
 - Gameplay:
   - Level 5: Western Current [#82](https://github.com/danieldesira/MissionSeaTurtleNest/issues/82)
   - Apply possibility for right current direction in level
+- Game progress recovery:
+  - Simplification by swapping `localStorage` for in-memory store
+  - Keep track of the new `isMama` property
+  - Add new character types to `factory.ts` fixing recovery of new levels
 
 # 0.7.11 Beta - 02/12/2025 12:00 UTC+1
 

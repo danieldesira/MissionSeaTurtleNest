@@ -1,5 +1,5 @@
 import Prey from "../abstract/Prey";
-import { CharacterOptions } from "../types";
+import type { CharacterOptions } from "../types";
 
 class NewPrey extends Prey {
   protected readonly _foodValue: number;

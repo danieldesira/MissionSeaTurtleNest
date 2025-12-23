@@ -3,24 +3,21 @@ import { game } from "../../singletons/Game";
 import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type PrettyButton from "../../webComponents/form/PrettyButton";
 import type GameControl from "../../webComponents/gameplay/GameControl";
-import GameGauge from "../../webComponents/gameplay/GameGauge";
+import type GameGauge from "../../webComponents/gameplay/GameGauge";
 import { isAuthenticated } from "../authentication";
 import { resizeCanvas } from "../generic";
-import {
-  getLastGameLocalStorage,
-  getLastGameTimestampLocalStorage,
-} from "../lastGameLocalStorage";
 import { toggleMode } from "./mainMenu";
 import { launchCustomDialog } from "./customDialog";
 import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 import { showLoginInvitationDialog } from "./loginInvitationDialog";
 import { deleteChildren } from "./ui";
 import { formatLevelAsText } from "./scores";
-import { LevelCharacter } from "../../levels/types";
+import type { LevelCharacter } from "../../levels/types";
 import { updateXpSpan } from "./xp";
 import type { ILevel } from "../../levels/interfaces";
 import type { CharacterGameClassification } from "../../characters/types";
-import { controlSettingsStore } from "../../singletons/cacheStores/ControlSettingsStore";
+import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
+import { lastGameStore } from "../../inMemoryStores/LastGameStore";
 
 export const setupGameControls = () => {
   const upControl = document.getElementById("upControl") as GameControl;
@@ -135,8 +132,8 @@ export const setupBackToMenuBtn = () => {
       showWaitingNotice("Uploading game progress...");
       try {
         await saveGame({
-          lastGame: JSON.parse(getLastGameLocalStorage()),
-          timestamp: Number(getLastGameTimestampLocalStorage()),
+          lastGame: lastGameStore.store,
+          timestamp: new Date().getTime(),
         });
       } catch {
         launchCustomDialog(

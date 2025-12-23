@@ -9,8 +9,8 @@ import { version } from "../../../package.json";
 import { checkNotificationPermission } from "../notifications";
 import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 import { launchCustomDialog } from "./customDialog";
-import { controlSettingsStore } from "../../singletons/cacheStores/ControlSettingsStore";
-import { profileStore } from "../../singletons/cacheStores/ProfileStore";
+import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
+import { profileStore } from "../../inMemoryStores/ProfileStore";
 
 export const setupControlSettings = () => {
   const screenControlPositionRadio = document.getElementById(

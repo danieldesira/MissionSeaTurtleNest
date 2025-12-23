@@ -1,4 +1,6 @@
-class ControlSettingsStore {
+import type { IStore } from "./interfaces";
+
+class ControlSettingsStore implements IStore {
   private _screenControlsPosition: "Left" | "Right";
 
   constructor() {

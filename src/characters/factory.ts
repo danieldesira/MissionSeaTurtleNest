@@ -7,6 +7,8 @@ import Sardine from "./prey/Sardine";
 import Shrimp from "./prey/Shrimp";
 import Nurdle from "./obstacles/Nurdle";
 import GhostNet from "./obstacles/GhostNet";
+import MaleTurtle from "./MaleTurtle";
+import Rope from "./obstacles/Rope";
 
 const characterMap: { [key: string]: new () => INonMainCharacter } = {
   Boat,
@@ -17,6 +19,8 @@ const characterMap: { [key: string]: new () => INonMainCharacter } = {
   Shrimp,
   Nurdle,
   GhostNet,
+  MaleTurtle,
+  Rope,
 };
 
 /**

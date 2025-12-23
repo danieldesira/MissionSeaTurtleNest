@@ -17,34 +17,3 @@ export type CharacterEvents = {
     reason: string;
   };
 };
-
-/**
- * Minimal context interface passed to characters.
- * Breaks the circular dependency by not importing Game directly.
- * @author Daniel Desira
- */
-export interface IGameContext {
-  /**
-   * Canvas width and height
-   */
-  canvas: {
-    width: number;
-    height: number;
-  };
-
-  /**
-   * Level background dimensions
-   */
-  levelBg: {
-    width: number;
-    height: number;
-  };
-
-  /**
-   * Level offset for scrolling
-   */
-  levelOffset: {
-    x: number;
-    y: number;
-  };
-}

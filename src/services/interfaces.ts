@@ -1,4 +1,4 @@
-import type GameData from "../restoreGame/GameData";
+import type { GameProgressStore } from "../inMemoryStores/LastGameStore";
 
 interface Settings {
   controlPosition: "Left" | "Right";
@@ -30,7 +30,7 @@ export interface LoginResponse {
   message: string;
   player: Player;
   isNewPlayer: boolean;
-  lastGame?: GameData;
+  lastGame?: GameProgressStore;
   personalBest?: { points: number; level: number; player_won: string } | null;
 }
 
@@ -52,6 +52,6 @@ export interface UpdateProfilePictureResponse {
 }
 
 export interface SaveGamePayload {
-  lastGame: GameData;
+  lastGame: GameProgressStore;
   timestamp: number;
 }

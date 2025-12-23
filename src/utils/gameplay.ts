@@ -1,23 +1,37 @@
 import { game } from "../singletons/Game";
-import stringifyGameData from "../restoreGame/stringifyGameData";
 import { saveScore } from "../services/api";
 import { launchCustomDialog } from "./ui/customDialog";
-import {
-  deleteLastGameLocalStorage,
-  deleteLastGameTimestampLocalStorage,
-  saveLastGameLocalStorage,
-  saveLastGameTimestampLocalStorage,
-} from "./lastGameLocalStorage";
 import { isAuthenticated } from "./authentication";
 import { updatePersonalBestPlaceholders } from "./ui/scores";
 import { hideWaitingNotice, showWaitingNotice } from "./ui/waitingNotice";
 import { hideContinueGameBtn } from "./ui/mainMenu";
-import { personalBestStore } from "../singletons/cacheStores/PersonalBestStore";
+import { personalBestStore } from "../inMemoryStores/PersonalBestStore";
+import { lastGameStore } from "../inMemoryStores/LastGameStore";
 
 export const saveGameProgress = () => {
   if (isAuthenticated()) {
-    saveLastGameLocalStorage(stringifyGameData());
-    saveLastGameTimestampLocalStorage();
+    lastGameStore.store = {
+      characters: [...game.currentGameCharacterList.characters].map(
+        ({ type, x, y, direction }) => ({
+          type,
+          x,
+          y,
+          direction,
+        })
+      ),
+      levelNo: game.currentLevelNo,
+      xp: game.xp,
+      turtle: {
+        x: game.turtle.x,
+        y: game.turtle.y,
+        direction: game.turtle.direction,
+        oxygen: game.turtle.oxygenGauge,
+        food: game.turtle.foodGauge,
+        health: game.turtle.lifeGauge,
+        stomachCapacity: game.turtle.apetiteGauge,
+        isMama: game.turtle.isMama,
+      },
+    };
   }
 };
 
@@ -37,8 +51,7 @@ export const deleteLastGameAndSaveScore = async (
   } catch {
     launchCustomDialog("Error", "Failed to save game score");
   } finally {
-    deleteLastGameLocalStorage();
-    deleteLastGameTimestampLocalStorage();
+    lastGameStore.reset();
     hideWaitingNotice();
   }
 };

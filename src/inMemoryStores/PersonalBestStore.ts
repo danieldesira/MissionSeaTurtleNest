@@ -1,4 +1,6 @@
-class PersonalBestStore {
+import type { IStore } from "./interfaces";
+
+class PersonalBestStore implements IStore {
   private _points: number;
   private _level: number;
 

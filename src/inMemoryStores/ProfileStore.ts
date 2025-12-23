@@ -1,4 +1,6 @@
-class ProfileStore {
+import type { IStore } from "./interfaces";
+
+class ProfileStore implements IStore {
   private _email: string;
   private _name: string;
   private _profile_pic_url: string;
