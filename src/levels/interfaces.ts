@@ -14,7 +14,6 @@ export interface ILevel {
   get levelDescription(): string;
   get imagePath(): string;
   objectivesMet(): boolean;
-  checkProspectiveMates(): void;
   spawnPer30SecondObstacles(): void;
   get spawnableObstaclesPer30Second(): LevelCharacter[];
   get initialCharacters(): LevelCharacter[];

@@ -150,14 +150,6 @@ class Level implements ILevel {
     );
   }
 
-  checkProspectiveMates() {
-    for (const character of game.currentGameCharacterList.characters) {
-      if (character instanceof ProspectiveMate) {
-        character.checkCurrentObstacleCollisions();
-      }
-    }
-  }
-
   spawnPer30SecondObstacles() {
     const horizontalSpread = 100;
     this._spawnableObstaclesPer30Second?.forEach(

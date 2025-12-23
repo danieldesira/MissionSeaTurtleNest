@@ -1,3 +1,4 @@
+import type { LevelCharacter } from "../levels/types";
 import type { Direction } from "../types";
 import type { CharacterGameClassification } from "./types";
 
@@ -64,4 +65,12 @@ export interface IProspectiveMate extends ICharacter {
   checkCurrentObstacleCollisions(): void;
 }
 
-export interface ICurrentGameCharacterList {}
+export interface ICurrentGameCharacterList {
+  get characters(): Set<INonMainCharacter>;
+  reset(): void;
+  spawnCharacters(spawnableCharacters: LevelCharacter[]): void;
+  moveCharacters(): void;
+  checkIfTurtleMeetsCharacters(): void;
+  paintCharacters(context: CanvasRenderingContext2D): void;
+  checkProspectiveMates(): void;
+}

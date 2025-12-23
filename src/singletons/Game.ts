@@ -1,11 +1,11 @@
 import type Obstacle from "../characters/abstract/Obstacle";
 import type Prey from "../characters/abstract/Prey";
-import CurrentGameCharacterList from "../characters/CurrentGameCharacterList";
 import type { INonMainCharacter } from "../characters/interfaces";
+import type { ILevel } from "../levels/interfaces";
+import CurrentGameCharacterList from "../characters/CurrentGameCharacterList";
 import Turtle from "../characters/Turtle";
 import { eventEmitter } from "../events/EventEmitter";
 import { paintLevelBg } from "../levels/background";
-import type { ILevel } from "../levels/interfaces";
 import { createLevelInstance, levelExists } from "../levels/levels";
 import {
   checkIfBestPersonalScore,
@@ -23,6 +23,7 @@ import {
 import { toggleMode } from "../utils/ui/mainMenu";
 import { hideOverlay, showOverlay } from "../utils/ui/overlay";
 import { showXpUpdate, updateXpSpan } from "../utils/ui/xp";
+import { GameLossReason } from "../events/types";
 
 type GameOptions = {
   canvas: HTMLCanvasElement;
@@ -47,6 +48,8 @@ class Game {
   private _currentFrameCount: number;
   private _currentGameCharacterList: CurrentGameCharacterList;
   private _cleanCollisionEventHandler: () => void;
+  private _cleanMateDeathEventHandler: () => void;
+  private _cleanGameLostEventHandler: () => void;
 
   static get instance() {
     if (!this._instance) {
@@ -225,12 +228,18 @@ class Game {
     mainCharacter.useFood();
     mainCharacter.recoverApetite();
 
-    if (
-      mainCharacter.foodGauge <= 0 ||
-      mainCharacter.oxygenGauge <= 0 ||
-      mainCharacter.lifeGauge <= 0
-    ) {
-      this.handleLoss();
+    if (mainCharacter.foodGauge <= 0) {
+      this.handleLoss("out_of_food");
+      return false;
+    }
+
+    if (mainCharacter.oxygenGauge <= 0) {
+      this.handleLoss("out_of_oxygen");
+      return false;
+    }
+
+    if (mainCharacter.lifeGauge <= 0) {
+      this.handleLoss("damage");
       return false;
     }
 
@@ -241,7 +250,7 @@ class Game {
     }
 
     this._currentGameCharacterList.checkIfTurtleMeetsCharacters();
-    this._level.checkProspectiveMates();
+    this._currentGameCharacterList.checkProspectiveMates();
 
     this._currentGameCharacterList.moveCharacters();
 
@@ -280,9 +289,15 @@ class Game {
     }
   }
 
-  private handleLoss() {
+  private handleLoss(reason: GameLossReason) {
     this.handleGameEnd(false);
-    launchGameEndDialog("Game over", "You lose! Better luck next time.");
+    const titles: Record<GameLossReason, string> = {
+      out_of_food: "Out of Food",
+      out_of_oxygen: "Out of Oxygen",
+      damage: "Too much damage",
+      mate_died_before_mating: "Mate Died before mating",
+    };
+    launchGameEndDialog(titles[reason], "You lose! Better luck next time.");
   }
 
   private handleWin() {
@@ -305,33 +320,54 @@ class Game {
   private setupEvents() {
     this._cleanCollisionEventHandler = eventEmitter.on(
       "collision",
-      (detail) => {
-        switch (detail.character.gameClassification) {
+      ({ character }) => {
+        switch (character.gameClassification) {
           case "Mate":
             if (!this._turtle.isMama) {
               launchHeartMatingAnimation();
               this._turtle.isMama = true;
-              this.addReducePoints(detail.character.points);
+              this.addReducePoints(character.points);
             }
             break;
           case "Obstacle":
-            this._turtle.takeDamage((detail.character as Obstacle).damage);
-            this.handlePreyObstacleConsumption(detail.character);
-            this.addReducePoints(detail.character.points);
+            this._turtle.takeDamage((character as Obstacle).damage);
+            this.handlePreyObstacleConsumption(character);
+            this.addReducePoints(character.points);
             vibrate();
             break;
           case "Prey":
           case "PackPrey":
             const canTurtleEatCharacter =
-              this._turtle.apetiteGauge - detail.character.stomachImpact > 0;
+              this._turtle.apetiteGauge - character.stomachImpact > 0;
             if (canTurtleEatCharacter) {
-              this._turtle.eat((detail.character as Prey).foodValue);
-              this.handlePreyObstacleConsumption(detail.character);
-              this.addReducePoints(detail.character.points);
+              this._turtle.eat((character as Prey).foodValue);
+              this.handlePreyObstacleConsumption(character);
+              this.addReducePoints(character.points);
             }
             break;
         }
       }
+    );
+
+    this._cleanMateDeathEventHandler = eventEmitter.on(
+      "mateDeath",
+      ({ character }) => {
+        game.currentGameCharacterList.characters.delete(character);
+
+        if (!this._turtle.isMama) {
+          eventEmitter.emit("gameLost", { reason: "mate_died_before_mating" });
+        } else {
+          launchCustomDialog(
+            "Mate died",
+            "But at least you are a mama. Survive to preserve the species!"
+          );
+        }
+      }
+    );
+
+    this._cleanGameLostEventHandler = eventEmitter.on(
+      "gameLost",
+      ({ reason }) => this.handleLoss(reason)
     );
   }
 
@@ -347,6 +383,8 @@ class Game {
 
   private teardownEvents() {
     this._cleanCollisionEventHandler();
+    this._cleanMateDeathEventHandler();
+    this._cleanGameLostEventHandler();
   }
 }
 

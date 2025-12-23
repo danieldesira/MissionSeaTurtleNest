@@ -1,6 +1,7 @@
 import { eventEmitter } from "../events/EventEmitter";
 import type { LevelCharacter } from "../levels/types";
 import type PackPrey from "./abstract/PackPrey";
+import type ProspectiveMate from "./abstract/ProspectiveMate";
 import type {
   ICurrentGameCharacterList,
   INonMainCharacter,
@@ -60,6 +61,14 @@ class CurrentGameCharacterList implements ICurrentGameCharacterList {
         character.paint(context);
       } else {
         paintOffScreenIndicator(context, character);
+      }
+    }
+  }
+
+  checkProspectiveMates() {
+    for (const character of this._characters) {
+      if (character.gameClassification === "Mate") {
+        (character as ProspectiveMate).checkCurrentObstacleCollisions();
       }
     }
   }

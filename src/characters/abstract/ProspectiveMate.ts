@@ -1,3 +1,4 @@
+import { eventEmitter } from "../../events/EventEmitter";
 import { game } from "../../singletons/Game";
 import {
   checkBoundingBoxCollision,
@@ -38,7 +39,7 @@ abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
     swimHorizontally(this);
   }
 
-  checkCurrentObstacleCollisions() {
+  checkCurrentObstacleCollisions() {this._life-=0.00005;console.log(this._life)
     game.currentGameCharacterList.characters.forEach((c) => {
       if (
         c.gameClassification === "Obstacle" &&
@@ -50,11 +51,7 @@ abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
         this._life -= (c as Obstacle).damage;
         game.currentGameCharacterList.characters.delete(c);
         if (this._life <= 0) {
-          game.currentGameCharacterList.characters.delete(this);
-          launchCustomDialog(
-            "Mate died",
-            "Prospective mate died. In case you didn't mate yet, game over!"
-          );
+          eventEmitter.emit("mateDeath", { character: this });
         }
       }
     });

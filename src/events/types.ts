@@ -10,10 +10,16 @@ export type CharacterEvents = {
   offscreen: {
     character: INonMainCharacter;
   };
-  mateSuccess: {
-    points: number;
-  };
   mateDeath: {
-    reason: string;
+    character: INonMainCharacter;
+  };
+  gameLost: {
+    reason: GameLossReason;
   };
 };
+
+export type GameLossReason =
+  | "mate_died_before_mating"
+  | "out_of_oxygen"
+  | "damage"
+  | "out_of_food";
