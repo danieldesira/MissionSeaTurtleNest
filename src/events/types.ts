@@ -13,9 +13,6 @@ export type CharacterEvents = {
   mateDeath: {
     character: INonMainCharacter;
   };
-  gameLost: {
-    reason: GameLossReason;
-  };
 };
 
 export type GameLossReason =

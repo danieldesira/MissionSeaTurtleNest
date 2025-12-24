@@ -39,7 +39,7 @@ abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
     swimHorizontally(this);
   }
 
-  checkCurrentObstacleCollisions() {this._life-=0.00005;console.log(this._life)
+  checkCurrentObstacleCollisions() {
     game.currentGameCharacterList.characters.forEach((c) => {
       if (
         c.gameClassification === "Obstacle" &&

@@ -49,7 +49,6 @@ class Game {
   private _currentGameCharacterList: CurrentGameCharacterList;
   private _cleanCollisionEventHandler: () => void;
   private _cleanMateDeathEventHandler: () => void;
-  private _cleanGameLostEventHandler: () => void;
 
   static get instance() {
     if (!this._instance) {
@@ -291,13 +290,32 @@ class Game {
 
   private handleLoss(reason: GameLossReason) {
     this.handleGameEnd(false);
-    const titles: Record<GameLossReason, string> = {
-      out_of_food: "Out of Food",
-      out_of_oxygen: "Out of Oxygen",
-      damage: "Too much damage",
-      mate_died_before_mating: "Mate Died before mating",
+    const dialogContent: Record<
+      GameLossReason,
+      { title: string; instruction: string }
+    > = {
+      out_of_food: {
+        title: "Out of Food",
+        instruction: "eat more food.",
+      },
+      out_of_oxygen: {
+        title: "Out of Oxygen",
+        instruction: " resurface more periodically",
+      },
+      damage: {
+        title: "Too Much Damage",
+        instruction: "stay clear of obstacles",
+      },
+      mate_died_before_mating: {
+        title: "Mate died before Mating",
+        instruction: "mate earlier",
+      },
     };
-    launchGameEndDialog(titles[reason], "You lose! Better luck next time.");
+    const { title, instruction } = dialogContent[reason];
+    launchGameEndDialog(
+      title,
+      `You lose! Better luck and ${instruction} next time. `
+    );
   }
 
   private handleWin() {
@@ -355,7 +373,7 @@ class Game {
         game.currentGameCharacterList.characters.delete(character);
 
         if (!this._turtle.isMama) {
-          eventEmitter.emit("gameLost", { reason: "mate_died_before_mating" });
+          this.handleLoss("mate_died_before_mating");
         } else {
           launchCustomDialog(
             "Mate died",
@@ -363,11 +381,6 @@ class Game {
           );
         }
       }
-    );
-
-    this._cleanGameLostEventHandler = eventEmitter.on(
-      "gameLost",
-      ({ reason }) => this.handleLoss(reason)
     );
   }
 
@@ -384,7 +397,6 @@ class Game {
   private teardownEvents() {
     this._cleanCollisionEventHandler();
     this._cleanMateDeathEventHandler();
-    this._cleanGameLostEventHandler();
   }
 }
 
