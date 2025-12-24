@@ -11,6 +11,7 @@
 - Gameplay:
   - Level 5: Western Current [#82](https://github.com/danieldesira/MissionSeaTurtleNest/issues/82)
   - Apply possibility for right current direction in level
+  - Speed up keyboard controls applying a 5 time callback execution rather than 3 times
 - Game progress recovery:
   - Simplification by swapping `localStorage` for in-memory store
   - Keep track of the new `isMama` property
