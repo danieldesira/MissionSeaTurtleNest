@@ -123,26 +123,32 @@ export const setupAppVisibilityHandler = () => {
   });
 };
 
+const uploadGameProgress = async () => {
+  showWaitingNotice("Uploading game progress...");
+  try {
+    await saveGame({
+      lastGame: lastGameStore.store,
+      timestamp: new Date().getTime(),
+    });
+    lastGameStore.isUploaded = true;
+  } catch {
+    launchCustomDialog(
+      "Game progress upload",
+      "There was a problem uploading game progress!"
+    );
+    setTimeout(uploadGameProgress, 500);
+  } finally {
+    hideWaitingNotice();
+  }
+};
+
 export const setupBackToMenuBtn = () => {
   const backBtn = document.getElementById("backBtn") as PrettyButton;
   backBtn.callback = async () => {
     if (isAuthenticated()) {
       game.exit();
       toggleMode("menu");
-      showWaitingNotice("Uploading game progress...");
-      try {
-        await saveGame({
-          lastGame: lastGameStore.store,
-          timestamp: new Date().getTime(),
-        });
-      } catch {
-        launchCustomDialog(
-          "Game progress upload",
-          "There was a problem uploading game progress!"
-        );
-      } finally {
-        hideWaitingNotice();
-      }
+      await uploadGameProgress();
     } else {
       showLoginInvitationDialog();
     }

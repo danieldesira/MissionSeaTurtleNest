@@ -28,6 +28,7 @@ type CharacterData = {
 
 class LastGameStore implements IStore {
   private _store: GameProgressStore;
+  private _isUploaded: boolean;
 
   constructor() {
     this.reset();
@@ -35,6 +36,7 @@ class LastGameStore implements IStore {
 
   reset() {
     this._store = null;
+    this._isUploaded = false;
   }
 
   hasData() {
@@ -47,6 +49,14 @@ class LastGameStore implements IStore {
 
   get store() {
     return this._store;
+  }
+
+  set isUploaded(value: boolean) {
+    this._isUploaded = value;
+  }
+
+  get isUploaded() {
+    return this._isUploaded;
   }
 }
 
