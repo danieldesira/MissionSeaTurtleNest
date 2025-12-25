@@ -35,5 +35,5 @@ export const requestLogout = async () => await FetchRequest.post("api/logout");
 export const uploadProfilePicture = async (file: File) =>
   await FetchRequest.uploadFile<UpdateProfilePictureResponse>(
     "api/profile-pic",
-    file
+    file,
   );

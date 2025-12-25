@@ -17,7 +17,7 @@ export const cacheGameProgress = () => {
           x,
           y,
           direction,
-        })
+        }),
       ),
       levelNo: game.currentLevelNo,
       xp: game.xp,
@@ -36,7 +36,7 @@ export const cacheGameProgress = () => {
 };
 
 export const deleteLastGameAndSaveScore = async (
-  hasWon: boolean
+  hasWon: boolean,
 ): Promise<void> => {
   hideContinueGameBtn();
   showWaitingNotice("Saving score!");

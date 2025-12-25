@@ -26,7 +26,7 @@ class CurrentGameCharacterList implements ICurrentGameCharacterList {
   spawnCharacters(spawnableCharacters: LevelCharacter[]) {
     for (const { Constructor, amount, options } of spawnableCharacters) {
       let lastPackCharacter: INonMainCharacter = null;
-      for (const _ in Array.from({ length: amount })) {
+      for (let i = 0; i < amount; i++) {
         const character = new Constructor(options);
         if (character.gameClassification === "PackPrey") {
           if (lastPackCharacter) {

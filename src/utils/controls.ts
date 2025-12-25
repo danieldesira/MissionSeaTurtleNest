@@ -28,7 +28,7 @@ export const setupKeyboardControls = () => {
 
   const handleKey = (pressedKey: string) => {
     const control = Object.values(controls).find(({ keys }) =>
-      keys.includes(pressedKey)
+      keys.includes(pressedKey),
     );
     // Call the method 5 times to make up for slower triggering of keyboard events
     for (let i = 1; i <= 5; i++) {

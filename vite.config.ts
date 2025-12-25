@@ -11,11 +11,11 @@ export default defineConfig({
         main: path.resolve(__dirname, "index.html"),
         cacheServiceWorker: path.resolve(
           __dirname,
-          "src/serviceWorkers/cacheServiceWorker.ts"
+          "src/serviceWorkers/cacheServiceWorker.ts",
         ),
         notificationServiceWorker: path.resolve(
           __dirname,
-          "src/serviceWorkers/notificationServiceWorker.ts"
+          "src/serviceWorkers/notificationServiceWorker.ts",
         ),
       },
       output: {
@@ -32,7 +32,7 @@ export default defineConfig({
   server: {
     https: {
       key: fs.readFileSync(
-        path.resolve(__dirname, "certs/localhost+2-key.pem")
+        path.resolve(__dirname, "certs/localhost+2-key.pem"),
       ),
       cert: fs.readFileSync(path.resolve(__dirname, "certs/localhost+2.pem")),
     },

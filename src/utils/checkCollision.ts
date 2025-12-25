@@ -16,7 +16,7 @@ type BoundingBox = {
  */
 export const checkBoundingBoxCollision = (
   boxA: BoundingBox,
-  boxB: BoundingBox
+  boxB: BoundingBox,
 ): boolean => {
   // Check for non-overlapping conditions along x-axis
   if (boxA.maxX < boxB.minX || boxA.minX > boxB.maxX) {
@@ -67,7 +67,7 @@ export const getCharacterBoundingBox = (character: ICharacter): BoundingBox => {
 export const debugDrawBoundingBox = (
   context: CanvasRenderingContext2D,
   box: BoundingBox,
-  color: string = "rgba(255, 0, 0, 0.5)"
+  color: string = "rgba(255, 0, 0, 0.5)",
 ): void => {
   context.save();
   context.strokeStyle = color;
@@ -77,7 +77,7 @@ export const debugDrawBoundingBox = (
     box.minX - game.level.bgOffsetX,
     box.minY - game.level.bgOffsetY,
     box.maxX - box.minX,
-    box.maxY - box.minY
+    box.maxY - box.minY,
   );
   context.restore();
 };

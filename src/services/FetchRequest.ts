@@ -17,7 +17,7 @@ const request = async <T>(
   url: string,
   method: string,
   payload: unknown = null,
-  contentType: string = "application/json"
+  contentType: string = "application/json",
 ) => {
   const res = await fetch(`${import.meta.env.VITE_API_URL}/${url}`, {
     method,
@@ -36,8 +36,8 @@ const request = async <T>(
     }
     throw new Error(
       `Request error: ${url}: ${res.status}: ${JSON.stringify(
-        await res.text()
-      )}`
+        await res.text(),
+      )}`,
     );
   }
 };

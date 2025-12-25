@@ -24,9 +24,7 @@ export const setupScoresDialog = () => {
 
 export const updatePersonalBestPlaceholders = () => {
   const levelPlaceholder = document.getElementById("personalBestLevel");
-  levelPlaceholder.innerText = formatLevelAsText(
-    personalBestStore.level
-  );
+  levelPlaceholder.innerText = formatLevelAsText(personalBestStore.level);
 
   const pointsPlaceholder = document.getElementById("personalBestPoints");
   pointsPlaceholder.innerText = personalBestStore.points.toString();
@@ -50,7 +48,7 @@ const populateLeaderBoard = async () => {
         appendCell(row, points.toString(), "right");
         appendCell(row, outcome, "center");
         leaderboardTbody.appendChild(row);
-      }
+      },
     );
   } catch {
     launchCustomDialog("Leaderboard", "Failed to load high scores");
@@ -62,7 +60,7 @@ const populateLeaderBoard = async () => {
 const appendCell = (
   row: HTMLTableRowElement,
   value: string,
-  alignment: "left" | "right" | "center" = "left"
+  alignment: "left" | "right" | "center" = "left",
 ) => {
   const cell = document.createElement("td");
   switch (alignment) {

@@ -14,11 +14,11 @@ export const showXpUpdate = async (xp: number) => {
     "font-bold",
     "text-4xl",
     "transition-opacity",
-    "transition-500"
+    "transition-500",
   );
   xpUpdateContainer.appendChild(xpUpdateSpan);
   xpUpdateSpan.addEventListener("transitionend", () =>
-    xpUpdateContainer.removeChild(xpUpdateSpan)
+    xpUpdateContainer.removeChild(xpUpdateSpan),
   );
   await new Promise((resolve) => setTimeout(resolve, 500));
   xpUpdateSpan.classList.add("opacity-0");

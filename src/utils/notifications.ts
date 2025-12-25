@@ -5,21 +5,22 @@ export const checkNotificationPermission = async () => {
   if (!Notification) {
     launchCustomDialog(
       "Notifications",
-      "Your browser does not support desktop notifications."
+      "Your browser does not support desktop notifications.",
     );
   } else {
     switch (Notification.permission) {
       case "granted":
         showNotification(
           friendlyName,
-          "Desktop notifications are already enabled"
+          "Desktop notifications are already enabled",
         );
         break;
       case "denied":
         launchCustomDialog(
           "Notifications",
-          "Permissions have been denied. Please change through your browser settings for this page."
+          "Permissions have been denied. Please change through your browser settings for this page.",
         );
+        break;
       case "default":
         await Notification.requestPermission();
         handlePermissionJustGranted();
@@ -35,7 +36,7 @@ const handlePermissionJustGranted = () => {
   if (Notification.permission === "granted") {
     showNotification(
       friendlyName,
-      "Desktop notifications have just been enabled."
+      "Desktop notifications have just been enabled.",
     );
   }
 };

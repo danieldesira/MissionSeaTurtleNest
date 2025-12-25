@@ -29,7 +29,7 @@ abstract class Character implements ICharacter {
       };
       image.onerror = () =>
         reject(
-          new Error(`Failed to load character image: ${this._imageFilename}`)
+          new Error(`Failed to load character image: ${this._imageFilename}`),
         );
     });
   }

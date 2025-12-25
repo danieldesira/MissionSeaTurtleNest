@@ -21,7 +21,7 @@ class EventEmitter<T extends Record<string, unknown>> {
    */
   on<K extends keyof T>(
     eventType: K & string,
-    handler: (detail: T[K]) => void
+    handler: (detail: T[K]) => void,
   ): () => void {
     const listener = (event: Event) => {
       if (event instanceof CustomEvent) {

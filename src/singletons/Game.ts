@@ -132,7 +132,7 @@ class Game {
 
   async loadNewLevel(
     context: CanvasRenderingContext2D,
-    isFreshLevel: boolean = true
+    isFreshLevel: boolean = true,
   ) {
     showOverlay(`Loading level ${this.currentLevelNo}`);
     try {
@@ -190,34 +190,30 @@ class Game {
     }
 
     if (!this._isPaused) {
-      try {
-        cacheGameProgress();
+      cacheGameProgress();
 
-        if (!this._level) {
-          await this.loadNewLevel(
-            canvas.getContext("2d"),
-            this._currentGameCharacterList.characters.size === 0
-          );
-        }
+      if (!this._level) {
+        await this.loadNewLevel(
+          canvas.getContext("2d"),
+          this._currentGameCharacterList.characters.size === 0,
+        );
+      }
 
-        const gameRunning = await this.checkTurtleAndGameProgress();
-        const context = canvas.getContext("2d");
+      const gameRunning = await this.checkTurtleAndGameProgress();
+      const context = canvas.getContext("2d");
 
-        paintLevelBg({ canvas, context });
-        this._turtle.paint(context);
-        this._currentGameCharacterList.paintCharacters(context);
+      paintLevelBg({ canvas, context });
+      this._turtle.paint(context);
+      this._currentGameCharacterList.paintCharacters(context);
 
-        if (!gameRunning) {
-          this.clearAnimationFrameTimer();
-          return;
-        }
-      } catch (error) {
-        throw error;
+      if (!gameRunning) {
+        this.clearAnimationFrameTimer();
+        return;
       }
     }
 
     this._animationTimer = requestAnimationFrame(
-      async () => await this.runGameLoop(canvas)
+      async () => await this.runGameLoop(canvas),
     );
   }
 
@@ -314,7 +310,7 @@ class Game {
     const { title, instruction } = dialogContent[reason];
     launchGameEndDialog(
       title,
-      `You lose! Better luck and ${instruction} next time. `
+      `You lose! Better luck and ${instruction} next time. `,
     );
   }
 
@@ -355,16 +351,14 @@ class Game {
             break;
           case "Prey":
           case "PackPrey":
-            const canTurtleEatCharacter =
-              this._turtle.apetiteGauge - character.stomachImpact > 0;
-            if (canTurtleEatCharacter) {
+            if (this._turtle.apetiteGauge - character.stomachImpact > 0) {
               this._turtle.eat((character as Prey).foodValue);
               this.handlePreyObstacleConsumption(character);
               this.addReducePoints(character.points);
             }
             break;
         }
-      }
+      },
     );
 
     this._cleanMateDeathEventHandler = eventEmitter.on(
@@ -377,10 +371,10 @@ class Game {
         } else {
           launchCustomDialog(
             "Mate died",
-            "But at least you are a mama. Survive to preserve the species!"
+            "But at least you are a mama. Survive to preserve the species!",
           );
         }
-      }
+      },
     );
   }
 
@@ -401,10 +395,10 @@ class Game {
 }
 
 export const game = new Proxy<Game>({} as Game, {
-  get(target: any, prop: string | symbol) {
+  get(target: Game, prop: string | symbol) {
     return Reflect.get(Game.instance, prop);
   },
-  set(target: any, prop: string | symbol, value: any) {
+  set(target: Game, prop: string | symbol, value: unknown) {
     return Reflect.set(Game.instance, prop, value);
   },
 });

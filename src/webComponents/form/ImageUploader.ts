@@ -14,7 +14,7 @@ class ImageUploader extends HTMLElement {
 
   set changeCallback(value: (_: Event) => void) {
     const fileInput = this.shadowRoot.querySelector(
-      'input[type="file"]'
+      'input[type="file"]',
     ) as HTMLElement;
     fileInput.addEventListener("change", (event: Event) => {
       const target = event.target as HTMLInputElement;
@@ -33,7 +33,7 @@ class ImageUploader extends HTMLElement {
   connectedCallback() {
     this.addEventListener("click", () => {
       const fileInput = this.shadowRoot.querySelector(
-        'input[type="file"]'
+        'input[type="file"]',
       ) as HTMLElement;
       fileInput.click();
     });

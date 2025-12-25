@@ -163,7 +163,7 @@ class Turtle extends Character implements IMainCharacter {
   decrementApetite(apetiteDecrement: number) {
     this._apetiteGauge = this.decrementValue(
       this._apetiteGauge,
-      apetiteDecrement
+      apetiteDecrement,
     );
     updateGauge("apetiteGauge", this._apetiteGauge);
   }

@@ -31,7 +31,7 @@ export const paintCharacter = ({
     context.save();
     context.translate(
       character.x - game.level.bgOffsetX,
-      character.y - game.level.bgOffsetY
+      character.y - game.level.bgOffsetY,
     );
     if (rotate) {
       context.rotate(Directions[character.direction].angle);
@@ -41,7 +41,7 @@ export const paintCharacter = ({
       -character.width / 2,
       -character.height / 2,
       character.width,
-      character.height
+      character.height,
     );
     context.restore();
   }

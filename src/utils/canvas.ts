@@ -13,7 +13,7 @@ export const paintTriangle = (
     point2: { x: x2, y: y2 },
     point3: { x: x3, y: y3 },
   }: TrianglePoints,
-  colour: string
+  colour: string,
 ) => {
   context.beginPath();
   context.moveTo(x1, y1);

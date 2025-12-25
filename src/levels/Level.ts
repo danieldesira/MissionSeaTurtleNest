@@ -1,6 +1,5 @@
 import type { ILevel } from "./interfaces";
 import type { LevelConstructorOptions, LevelCharacter } from "./types";
-import ProspectiveMate from "../characters/abstract/ProspectiveMate";
 import type { HorizontalDirection } from "../types";
 import { game } from "../singletons/Game";
 
@@ -46,7 +45,7 @@ class Level implements ILevel {
 
   async init(
     context: CanvasRenderingContext2D,
-    isFreshLevel: boolean
+    isFreshLevel: boolean,
   ): Promise<void> {
     try {
       await this.loadBgImg();
@@ -133,7 +132,7 @@ class Level implements ILevel {
   private async loadCharacterImages() {
     try {
       await Promise.all(
-        [...game.currentGameCharacterList.characters].map((c) => c.loadImage())
+        [...game.currentGameCharacterList.characters].map((c) => c.loadImage()),
       );
     } catch (error) {
       throw new Error(error);
@@ -165,7 +164,7 @@ class Level implements ILevel {
           obstacle.loadImage();
           game.currentGameCharacterList.characters.add(obstacle);
         });
-      }
+      },
     );
   }
 

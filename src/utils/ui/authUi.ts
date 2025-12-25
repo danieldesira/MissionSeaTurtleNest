@@ -17,7 +17,7 @@ const initialiseGoogleSignInButton = () => {
 
   window.google?.accounts?.id?.renderButton(
     document.getElementById("googleSignInButton"),
-    { theme: "outline", size: "large" }
+    { theme: "outline", size: "large" },
   );
 };
 
@@ -50,7 +50,7 @@ export const hideLoginDialog = () => {
 export const updateAuthenticationUI = () => {
   const loginContainer = document.getElementById("loginContainer");
   const authenticatedContainer = document.getElementById(
-    "authenticatedContainer"
+    "authenticatedContainer",
   );
   if (isAuthenticated()) {
     loginContainer.classList.add("hidden");

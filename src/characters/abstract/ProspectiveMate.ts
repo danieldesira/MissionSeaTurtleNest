@@ -5,7 +5,6 @@ import {
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
 import { generateRandomBit } from "../../utils/generic";
-import { launchCustomDialog } from "../../utils/ui/customDialog";
 import { swimHorizontally } from "../commonCharacterBehavior";
 import type { IProspectiveMate } from "../interfaces";
 import type { CharacterGameClassification } from "../types";
@@ -45,7 +44,7 @@ abstract class ProspectiveMate extends NonMain implements IProspectiveMate {
         c.gameClassification === "Obstacle" &&
         checkBoundingBoxCollision(
           getCharacterBoundingBox(this),
-          getCharacterBoundingBox(c)
+          getCharacterBoundingBox(c),
         )
       ) {
         this._life -= (c as Obstacle).damage;

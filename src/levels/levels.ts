@@ -7,7 +7,7 @@ import PlasticBag from "../characters/obstacles/PlasticBag";
 import Sardine from "../characters/prey/Sardine";
 import Shrimp from "../characters/prey/Shrimp";
 import Level from "./Level";
-import Nurdle from "../characters/obstacles/Nurdle";  
+import Nurdle from "../characters/obstacles/Nurdle";
 import Rope from "../characters/obstacles/Rope";
 import GhostNet from "../characters/obstacles/GhostNet";
 import MaleTurtle from "../characters/MaleTurtle";

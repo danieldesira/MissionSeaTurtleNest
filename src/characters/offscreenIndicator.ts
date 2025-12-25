@@ -6,7 +6,7 @@ import type { INonMainCharacter } from "./interfaces";
 const triangleLength = 10;
 
 const getOffscreenIndicatorStartCoordinates = (
-  character: INonMainCharacter
+  character: INonMainCharacter,
 ) => {
   const { width: canvasWidth, height: canvasHeight } = getCanvas();
   let x1: number, y1: number;
@@ -28,7 +28,7 @@ const getOffscreenIndicatorStartCoordinates = (
 
 export const paintOffScreenIndicator = (
   context: CanvasRenderingContext2D,
-  character: INonMainCharacter
+  character: INonMainCharacter,
 ) => {
   const { x1, y1 } = getOffscreenIndicatorStartCoordinates(character);
 
@@ -58,6 +58,6 @@ export const paintOffScreenIndicator = (
   paintTriangle(
     context,
     trianglePointsDirectionMap[character.direction],
-    character.offscreenIndicatorColor
+    character.offscreenIndicatorColor,
   );
 };

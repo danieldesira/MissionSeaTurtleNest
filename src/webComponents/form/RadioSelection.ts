@@ -24,14 +24,14 @@ class RadioSelection extends HTMLElement {
         optionLabel,
         optionValue,
         value.name,
-        value.selectedValue
-      )
+        value.selectedValue,
+      ),
     );
   }
 
   get currentSelection() {
     const radioOptions = this.shadowRoot.querySelectorAll(
-      '.container > .options > input[type="radio"]'
+      '.container > .options > input[type="radio"]',
     ) as NodeListOf<HTMLInputElement>;
     let value = "";
     radioOptions.forEach((option) => {
@@ -47,7 +47,7 @@ class RadioSelection extends HTMLElement {
     optionLabel: string,
     optionValue: string,
     name: string,
-    selectedValue: string
+    selectedValue: string,
   ) {
     const radioOption = document.createElement("input");
     radioOption.type = "radio";

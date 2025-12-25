@@ -15,11 +15,11 @@ export const paintLevelBg = (options: Options) => {
   if (backgroundImage) {
     const horizontalSegments = calculateScreenCutOffPoints(
       backgroundImage.width,
-      options.canvas.width
+      options.canvas.width,
     );
     const verticalSegments = calculateScreenCutOffPoints(
       backgroundImage.height,
-      options.canvas.height
+      options.canvas.height,
     );
     const x =
       game.turtle.x < options.canvas.width
@@ -42,7 +42,7 @@ export const paintLevelBg = (options: Options) => {
       0,
       0,
       options.canvas.width,
-      options.canvas.height
+      options.canvas.height,
     );
     updateBgOffset(x, y);
   }
@@ -50,7 +50,7 @@ export const paintLevelBg = (options: Options) => {
 
 const calculateScreenCutOffPoints = (
   bgSize: number,
-  canvasSize: number
+  canvasSize: number,
 ): Array<number> => {
   const noOfFits = Math.floor(bgSize / canvasSize);
   return [

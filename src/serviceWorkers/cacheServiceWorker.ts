@@ -11,7 +11,7 @@ const cacheName = "cache-v1";
 cacheSW.addEventListener("install", (event) => {
   console.log("Service worker install event!");
   event.waitUntil(
-    caches.open(cacheName).then((cache) => cache.addAll(precacheResources))
+    caches.open(cacheName).then((cache) => cache.addAll(precacheResources)),
   );
 });
 
@@ -32,6 +32,6 @@ cacheSW.addEventListener("fetch", (event) => {
         return cachedResponse;
       }
       return fetch(event.request);
-    })
+    }),
   );
 });

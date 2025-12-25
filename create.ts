@@ -20,7 +20,7 @@ const createCharacterClass = () => {
       `${config[entityType].placeholder[0].toLowerCase()}${config[
         entityType
       ].placeholder.slice(1)}`,
-      expectedSvgFilename
+      expectedSvgFilename,
     );
   fs.writeFileSync(newFile, newContent);
 };
@@ -28,27 +28,27 @@ const createCharacterClass = () => {
 const appendSvgToPrecacheList = () => {
   const precacheResourcesPath = path.join(
     __dirname,
-    "src/serviceWorkers/precacheResources.json"
+    "src/serviceWorkers/precacheResources.json",
   );
   const precacheResourcesContent = fs.readFileSync(
     precacheResourcesPath,
-    "utf-8"
+    "utf-8",
   );
   const precacheResourcesList = JSON.parse(
-    precacheResourcesContent
+    precacheResourcesContent,
   ) as string[];
   precacheResourcesList.push(`images/characters/${expectedSvgFilename}.svg`);
   const newPrecacheResourceContent = JSON.stringify(
     precacheResourcesList,
     null,
-    "  "
+    "  ",
   );
   fs.writeFileSync(precacheResourcesPath, newPrecacheResourceContent);
 };
 
 if (!entityType || !entityName) {
   console.error(
-    "Usage: node --experimental-strip-types create.ts <entityType> <entityName>"
+    "Usage: node --experimental-strip-types create.ts <entityType> <entityName>",
   );
   process.exit(1);
 }
@@ -86,13 +86,13 @@ if (!templateFile || !fs.existsSync(templateFile)) {
 
 if (fs.existsSync(newFile)) {
   console.error(
-    `A file named "${entityName}.ts" already exists in ${config[entityType].outputDir}.`
+    `A file named "${entityName}.ts" already exists in ${config[entityType].outputDir}.`,
   );
   process.exit(1);
 }
 
 const expectedSvgFilename = `${entityName[0].toLowerCase()}${entityName.slice(
-  1
+  1,
 )}`;
 
 createCharacterClass();

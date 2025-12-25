@@ -1,8 +1,6 @@
-import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
-
 export const disableContextMenu = () =>
   document.body.addEventListener("contextmenu", (event) =>
-    event.preventDefault()
+    event.preventDefault(),
   );
 
 export const preventNavigation = () => {

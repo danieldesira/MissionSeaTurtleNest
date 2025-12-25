@@ -29,12 +29,12 @@ export const toggleMode = (mode: "game" | "menu") => {
 
 export const setupInstructionsDialog = () => {
   const instructionsDialog = document.getElementById(
-    "instructionsDialog"
+    "instructionsDialog",
   ) as PrettyDialog;
   instructionsDialog.closeButtonIds = ["closeInstructionsBtn"];
 
   const instructionsBtn = document.getElementById(
-    "instructionsBtn"
+    "instructionsBtn",
   ) as MenuItem;
   instructionsBtn.callback = () => instructionsDialog.open();
 };
@@ -52,7 +52,7 @@ export const setupNewGameMenuBtn = () => {
 
 export const setupContinueGameBtn = () => {
   const continueGameBtn = document.getElementById(
-    "continueGameBtn"
+    "continueGameBtn",
   ) as MenuItem;
   continueGameBtn.hide();
   continueGameBtn.callback = async () => await initGame(false);
@@ -60,7 +60,7 @@ export const setupContinueGameBtn = () => {
 
 export const toggleContinueGameBtn = () => {
   const continueGameBtn = document.getElementById(
-    "continueGameBtn"
+    "continueGameBtn",
   ) as MenuItem;
   if (isAuthenticated() && lastGameStore.hasData()) {
     continueGameBtn.show();
@@ -71,21 +71,21 @@ export const toggleContinueGameBtn = () => {
 
 export const hideContinueGameBtn = () => {
   const continueGameBtn = document.getElementById(
-    "continueGameBtn"
+    "continueGameBtn",
   ) as MenuItem;
   continueGameBtn.hide();
 };
 
 const showGameOverwriteDialog = () => {
   const gameOverwriteDialog = document.getElementById(
-    "gameOverwriteDialog"
+    "gameOverwriteDialog",
   ) as PrettyDialog;
   gameOverwriteDialog.open();
 };
 
 export const setupGameOverwriteDialog = () => {
   const gameOverwriteDialog = document.getElementById(
-    "gameOverwriteDialog"
+    "gameOverwriteDialog",
   ) as PrettyDialog;
   gameOverwriteDialog.closeButtonIds = [
     "cancelNewGameBtn",
@@ -93,7 +93,7 @@ export const setupGameOverwriteDialog = () => {
   ];
 
   const confirmNewGameBtn = document.getElementById(
-    "confirmNewGameBtn"
+    "confirmNewGameBtn",
   ) as PrettyButton;
   confirmNewGameBtn.callback = async () => await initGame(true);
 };
