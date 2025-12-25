@@ -10,7 +10,7 @@ import { createLevelInstance, levelExists } from "../levels/levels";
 import {
   checkIfBestPersonalScore,
   deleteLastGameAndSaveScore,
-  saveGameProgress,
+  cacheGameProgress,
 } from "../utils/gameplay";
 import { restoreGameProgress } from "../utils/gameProgressRecovery";
 import { resizeCanvas, vibrate } from "../utils/generic";
@@ -191,7 +191,7 @@ class Game {
 
     if (!this._isPaused) {
       try {
-        saveGameProgress();
+        cacheGameProgress();
 
         if (!this._level) {
           await this.loadNewLevel(

@@ -10,7 +10,7 @@ abstract class PackPrey extends Prey {
   protected get initialPositionXFrom() {
     return this._previousCharacterX
       ? this._previousCharacterX - PackPrey.maxDistance
-      : 0;
+      : 150;
   }
 
   protected get initialPositionXTo() {

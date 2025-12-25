@@ -8,7 +8,7 @@ import { hideContinueGameBtn } from "./ui/mainMenu";
 import { personalBestStore } from "../inMemoryStores/PersonalBestStore";
 import { lastGameStore } from "../inMemoryStores/LastGameStore";
 
-export const saveGameProgress = () => {
+export const cacheGameProgress = () => {
   if (isAuthenticated()) {
     lastGameStore.store = {
       characters: [...game.currentGameCharacterList.characters].map(

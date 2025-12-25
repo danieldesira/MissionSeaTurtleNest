@@ -16,7 +16,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
   protected abstract readonly _offscreenIndicatorColor: string;
 
   protected get initialPositionXFrom() {
-    return 0;
+    return 150;
   }
 
   protected get initialPositionXTo() {

@@ -12,6 +12,9 @@
   - Level 5: Western Current [#82](https://github.com/danieldesira/MissionSeaTurtleNest/issues/82)
   - Apply possibility for right current direction in level
   - Speed up keyboard controls applying a 5 time callback execution rather than 3 times
+  - Fix level start render quirks [#89](https://github.com/danieldesira/MissionSeaTurtleNest/issues/89)
+  - Set initial character spawning to happen from at the 150th horizontal pixel onwards to 
+  prevent collision with turtle [#89](https://github.com/danieldesira/MissionSeaTurtleNest/issues/89)
 - Game progress recovery:
   - Simplification by swapping `localStorage` for in-memory store
   - Keep track of the new `isMama` property
