@@ -7,6 +7,7 @@
   - Create `HorizontalDirection` type [#88](https://github.com/danieldesira/MissionSeaTurtleNest/issues/88)
   - Remove `jsdoc`
   - Setup `eslint` and `prettier`
+  - Update documentation regarding character mapping
 - UI:
   - Fix unclickable back&pause in-game buttons (due to `z-index` conflict with XP update container)
   - Show waiting notice when uploading profile picture [#81](https://github.com/danieldesira/MissionSeaTurtleNest/issues/81)

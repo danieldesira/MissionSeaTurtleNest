@@ -41,11 +41,11 @@ Please follow these steps:
 6. In `/src/levels/LevelCharacter.ts`, add a string for the given character
    in the `CharacterType` custom type.
 7. Add a key and constructor for the respective character in the
-   `characterMap` object located in `createCharacterInstance.ts` inside the
-   `characters` folder like in the following snippet:
+   `characterMap` object located in `/src/characters/factory.ts` as
+   in the following snippet:
 
-```js
-TigerShark: TigerShark, // Key to match the _type field in the character class
+```ts
+TigerShark, // Key to match the _type field in the character class
 ```
 
 8. Add the character with the desired quantity/ies in the level/s desired, by
