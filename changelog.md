@@ -5,6 +5,8 @@
   - Upgrade Tailwindcss to 4.1.x and migrate to their Vite plugin over Postcss
   - Character spawns: Apply options if available
   - Create `HorizontalDirection` type [#88](https://github.com/danieldesira/MissionSeaTurtleNest/issues/88)
+  - Remove `jsdoc`
+  - Setup `eslint` and `prettier`
 - UI:
   - Fix unclickable back&pause in-game buttons (due to `z-index` conflict with XP update container)
   - Show waiting notice when uploading profile picture [#81](https://github.com/danieldesira/MissionSeaTurtleNest/issues/81)
