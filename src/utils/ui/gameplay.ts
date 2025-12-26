@@ -8,7 +8,11 @@ import { isAuthenticated } from "../authentication";
 import { resizeCanvas } from "../generic";
 import { toggleMode } from "./mainMenu";
 import { launchCustomDialog } from "./customDialog";
-import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
+import {
+  hideWaitingNotice,
+  showErrorNotice,
+  showWaitingNotice,
+} from "./waitingNotice";
 import { showLoginInvitationDialog } from "./loginInvitationDialog";
 import { deleteChildren } from "./ui";
 import { formatLevelAsText } from "./scores";
@@ -43,7 +47,7 @@ export const setupOnscreenControlsPosition = () => {
 
 export const launchGameEndDialog = (title: string, text: string) => {
   const gameEndDialog = document.getElementById(
-    "gameEndDialog",
+    "gameEndDialog"
   ) as PrettyDialog;
   gameEndDialog.open();
   gameEndDialog.closeButtonIds = ["gameEndDialogCloseBtn"];
@@ -62,7 +66,7 @@ export const launchGameEndDialog = (title: string, text: string) => {
 
 export const setupGameShareBtn = () => {
   const shareGameBtn = document.getElementById(
-    "gameEndDialogShareBtn",
+    "gameEndDialogShareBtn"
   ) as PrettyButton;
   shareGameBtn.callback = async () => {
     if (navigator.share) {
@@ -81,7 +85,7 @@ export const setupGameShareBtn = () => {
 
 export const updateGauge = (
   id: "lifeGauge" | "foodGauge" | "apetiteGauge" | "oxygenGauge",
-  value: number,
+  value: number
 ) => {
   const gauge = document.getElementById(id) as GameGauge;
   gauge.currentValue = value;
@@ -89,14 +93,14 @@ export const updateGauge = (
 
 export const setupResumeBtn = () => {
   const gamePausedDialog = document.getElementById(
-    "gamePausedDialog",
+    "gamePausedDialog"
   ) as PrettyDialog;
   gamePausedDialog.closeButtonIds = ["resumeBtn"];
 };
 
 const showGamePausedDialog = () => {
   const gamePausedDialog = document.getElementById(
-    "gamePausedDialog",
+    "gamePausedDialog"
   ) as PrettyDialog;
   gamePausedDialog.open();
 };
@@ -132,10 +136,7 @@ const uploadGameProgress = async () => {
     });
     lastGameStore.isUploaded = true;
   } catch {
-    launchCustomDialog(
-      "Game progress upload",
-      "There was a problem uploading game progress!",
-    );
+    await showErrorNotice("There was a problem uploading game progress!", 300);
     setTimeout(uploadGameProgress, 500);
   } finally {
     hideWaitingNotice();
@@ -165,11 +166,11 @@ export const setupGamePauseOnDialogOpen = () =>
     (dialog: PrettyDialog) => {
       dialog.openCallback = () => game.pause();
       dialog.closeCallback = () => game.resume();
-    },
+    }
   );
 
 const addPersonalBestLineToGameEndDialog = (
-  gameEndDialogContent: HTMLElement,
+  gameEndDialogContent: HTMLElement
 ) => {
   const br = document.createElement("br");
   gameEndDialogContent.appendChild(br);
@@ -201,51 +202,51 @@ export const launchLevelStartDialog = ({
   spawnableObstaclesPer30Second,
 }: ILevel) => {
   const levelStartDialog = document.getElementById(
-    "levelStartDialog",
+    "levelStartDialog"
   ) as PrettyDialog;
   levelStartDialog.open();
 
   const levelStartDialogTitle = document.getElementById(
-    "levelStartDialogTitle",
+    "levelStartDialogTitle"
   );
   levelStartDialogTitle.innerText = `Level ${game.currentLevelNo} - ${title}`;
 
   const levelStartDialogMessage = document.getElementById(
-    "levelStartDialogMessage",
+    "levelStartDialogMessage"
   );
   levelStartDialogMessage.innerText = levelDescription;
 
   const levelStartDialogObstacles = document.getElementById(
-    "levelStartDialogObstacles",
+    "levelStartDialogObstacles"
   );
   populateCharacterList(
     spawnableObstaclesPer30Second
       ? initialCharacters.concat(spawnableObstaclesPer30Second)
       : initialCharacters,
     ["Obstacle"],
-    levelStartDialogObstacles,
+    levelStartDialogObstacles
   );
 
   const levelStartDialogPrey = document.getElementById("levelStartDialogPrey");
   populateCharacterList(
     initialCharacters,
     ["Prey", "PackPrey"],
-    levelStartDialogPrey,
+    levelStartDialogPrey
   );
 };
 
 const populateCharacterList = (
   levelCharacterList: LevelCharacter[],
   characterTypes: CharacterGameClassification[],
-  container: HTMLElement,
+  container: HTMLElement
 ) => {
   deleteChildren(container);
   new Set(
     levelCharacterList
       .map(({ Constructor }) => Constructor)
       .filter((Constructor) =>
-        characterTypes.includes(new Constructor().gameClassification),
-      ),
+        characterTypes.includes(new Constructor().gameClassification)
+      )
   ).forEach((Constructor) => {
     const characterContainer = document.createElement("div");
     characterContainer.classList.add(
@@ -254,7 +255,7 @@ const populateCharacterList = (
       "gap-1",
       "bg-slate-500",
       "rounded-sm",
-      "p-1",
+      "p-1"
     );
 
     const { imagePath, type } = new Constructor();
@@ -275,7 +276,7 @@ const populateCharacterList = (
 
 export const setupLevelStartDialog = () => {
   const levelStartDialog = document.getElementById(
-    "levelStartDialog",
+    "levelStartDialog"
   ) as PrettyDialog;
   levelStartDialog.closeButtonIds = ["levelStartDialogCloseBtn"];
 };

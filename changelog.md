@@ -19,7 +19,7 @@
   - Simplification by swapping `localStorage` for in-memory store
   - Keep track of the new `isMama` property
   - Add new character types to `factory.ts` fixing recovery of new levels
-  - Keep attempting to save every 500ms when request fails
+  - Keep attempting to save every 500ms when request fails and enhance failure message UI
 
 # 0.7.11 Beta - 02/12/2025 12:00 UTC+1
 
