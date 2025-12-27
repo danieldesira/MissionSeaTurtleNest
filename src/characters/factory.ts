@@ -9,6 +9,7 @@ import Nurdle from "./obstacles/Nurdle";
 import GhostNet from "./obstacles/GhostNet";
 import MaleTurtle from "./MaleTurtle";
 import Rope from "./obstacles/Rope";
+import JaggedPlastic from "./obstacles/JaggedPlastic";
 
 const characterMap: { [key: string]: new () => INonMainCharacter } = {
   Boat,
@@ -21,6 +22,7 @@ const characterMap: { [key: string]: new () => INonMainCharacter } = {
   GhostNet,
   MaleTurtle,
   Rope,
+  JaggedPlastic,
 };
 
 /**

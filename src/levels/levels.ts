@@ -11,6 +11,7 @@ import Nurdle from "../characters/obstacles/Nurdle";
 import Rope from "../characters/obstacles/Rope";
 import GhostNet from "../characters/obstacles/GhostNet";
 import MaleTurtle from "../characters/MaleTurtle";
+import JaggedPlastic from "../characters/obstacles/JaggedPlastic";
 
 const levelsConfig: {
   [key: number]: LevelConstructorOptions;
@@ -110,6 +111,26 @@ const levelsConfig: {
       { Constructor: GhostNet, amount: 1 },
     ],
     points: 100,
+  },
+  6: {
+    title: "Getting Closer",
+    levelDescription:
+      "Mama turtle is pretty close to her nesting place. Help her arrive safely.",
+    currentSpeed: 0.8,
+    points: 100,
+    backgroundImageFilename: "level6.png",
+    benthicOffsetY: 700,
+    initialCharacters: [
+      { Constructor: JaggedPlastic, amount: 10 },
+      { Constructor: Nurdle, amount: 20 },
+      { Constructor: Shrimp, amount: 100 },
+      { Constructor: Crab, amount: 1 },
+    ],
+    spawnableObstaclesPer30Second: [
+      { Constructor: GhostNet, amount: 1 },
+      { Constructor: Rope, amount: 5 },
+      { Constructor: Nurdle, amount: 15 },
+    ],
   },
 };
 

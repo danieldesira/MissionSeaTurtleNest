@@ -18,6 +18,8 @@
   - Fix level start render quirks [#89](https://github.com/danieldesira/MissionSeaTurtleNest/issues/89)
   - Set initial character spawning to happen from at the 150th horizontal pixel onwards to
     prevent collision with turtle [#89](https://github.com/danieldesira/MissionSeaTurtleNest/issues/89)
+  - New obstacle: jagged plastic
+  - Level 6: Getting Closer [#83](https://github.com/danieldesira/MissionSeaTurtleNest/issues/83)
 - Game progress recovery:
   - Simplification by swapping `localStorage` for in-memory store
   - Keep track of the new `isMama` property
