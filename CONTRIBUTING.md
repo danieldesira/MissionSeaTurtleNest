@@ -18,7 +18,11 @@ debugging the project:
 - `npm start`: Alias to the `dev` script above.
 - `npm install`: Install necessary packages. To be used when cloning the
   repository.
-- `npm run docs`: Generate documentation using Typedoc.
+
+Moreover, please run the following prior to submitting a pull request:
+- `npm run build`: Make sure that changes build successfully.
+- `npm run lint`: Make sure that changes follow the recommended coding style.
+- `npm run prettier`: Let prettier decide about code formatting so that it is more consistent.
 
 Please also consider installing the following Visual Studio Code extensions
 for a better development experience:
