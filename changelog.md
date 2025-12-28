@@ -20,6 +20,8 @@
     prevent collision with turtle [#89](https://github.com/danieldesira/MissionSeaTurtleNest/issues/89)
   - New obstacle: jagged plastic
   - Level 6: Getting Closer [#83](https://github.com/danieldesira/MissionSeaTurtleNest/issues/83)
+  - Level 7: Beaching Time [#84](https://github.com/danieldesira/MissionSeaTurtleNest/issues/84)
+  - Level 8: Second Try [#85](https://github.com/danieldesira/MissionSeaTurtleNest/issues/85)
 - Game progress recovery:
   - Simplification by swapping `localStorage` for in-memory store
   - Keep track of the new `isMama` property

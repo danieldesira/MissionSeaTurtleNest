@@ -132,6 +132,54 @@ const levelsConfig: {
       { Constructor: Nurdle, amount: 15 },
     ],
   },
+  7: {
+    title: "Beaching Time",
+    levelDescription:
+      "Mama turtle is going to attempt to nest on the beach tonight. Will she succeed?",
+    currentSpeed: 0.85,
+    points: 100,
+    initialCharacters: [
+      { Constructor: JaggedPlastic, amount: 8 },
+      { Constructor: Nurdle, amount: 25 },
+      {
+        Constructor: Boat,
+        amount: 2,
+        options: { width: 200, height: 80, speed: 1 },
+      },
+      { Constructor: Shrimp, amount: 120 },
+    ],
+    spawnableObstaclesPer30Second: [
+      { Constructor: Nurdle, amount: 15 },
+      { Constructor: PlasticBag, amount: 1 },
+      { Constructor: JaggedPlastic, amount: 1 },
+    ],
+    benthicOffsetY: 600,
+    backgroundImageFilename: "level7_8.png",
+  },
+  8: {
+    title: "Second Try",
+    levelDescription:
+      "During the last nesting attempt, mama turtle didn't feel like it and abandoned her nesting attempt. She will try again tonight.",
+    currentSpeed: 0.5,
+    points: 100,
+    initialCharacters: [
+      { Constructor: JaggedPlastic, amount: 2 },
+      { Constructor: Nurdle, amount: 20 },
+      {
+        Constructor: Boat,
+        amount: 5,
+        options: { width: 200, height: 80, speed: 1 },
+      },
+      { Constructor: Shrimp, amount: 200 },
+    ],
+    spawnableObstaclesPer30Second: [
+      { Constructor: Nurdle, amount: 15 },
+      { Constructor: PlasticBag, amount: 1 },
+      { Constructor: JaggedPlastic, amount: 1 },
+    ],
+    benthicOffsetY: 600,
+    backgroundImageFilename: "level7_8.png",
+  },
 };
 
 /**
