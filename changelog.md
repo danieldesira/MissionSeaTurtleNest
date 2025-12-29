@@ -1,4 +1,4 @@
-# 0.8.0 Beta -
+# 0.8.0 Beta (Cristmas Edition) - 29/12/2025 13:35 UTC+1
 
 - Internal:
   - Extract some logic to the new `commonCharacterBehavior.ts` file for less code repetition
@@ -27,6 +27,7 @@
   - Keep track of the new `isMama` property
   - Add new character types to `factory.ts` fixing recovery of new levels
   - Keep attempting to save every 500ms when request fails and enhance failure message UI
+- Include temporary Christmas song from freetouse.com
 
 # 0.7.11 Beta - 02/12/2025 12:00 UTC+1
 
