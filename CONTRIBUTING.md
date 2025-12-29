@@ -20,9 +20,10 @@ debugging the project:
   repository.
 
 Moreover, please run the following prior to submitting a pull request:
+
 - `npm run build`: Make sure that changes build successfully.
 - `npm run lint`: Make sure that changes follow the recommended coding style.
-- `npm run prettier`: Let prettier decide about code formatting so that it is more consistent.
+- `npm run format`: Let prettier decide about code formatting so that it is more consistent.
 
 Please also consider installing the following Visual Studio Code extensions
 for a better development experience:

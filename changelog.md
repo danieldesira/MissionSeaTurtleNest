@@ -1,4 +1,8 @@
-# 0.8.0 Beta (Cristmas Edition) - 29/12/2025 13:35 UTC+1
+# 0.8.1 Beta (Christmas Edition) -
+
+- Rename `npm run prettier` to `npm run format`
+
+# 0.8.0 Beta (Christmas Edition) - 29/12/2025 13:35 UTC+1
 
 - Internal:
   - Extract some logic to the new `commonCharacterBehavior.ts` file for less code repetition

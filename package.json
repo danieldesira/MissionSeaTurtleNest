@@ -1,7 +1,7 @@
 {
   "name": "mission-sea-turtle-nest",
   "friendlyName": "Mission Sea Turtle Nest",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "homepage": "https://turtle-quest.vercel.app/",
   "type": "module",
   "private": true,
@@ -24,7 +24,7 @@
     "create:prey": "node --experimental-strip-types create.ts prey",
     "create:obstacle": "node --experimental-strip-types create.ts obstacle",
     "lint": "eslint .",
-    "prettier": "prettier . --write"
+    "format": "prettier . --write"
   },
   "dependencies": {
     "vite": "^5.4.10"
