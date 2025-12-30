@@ -2,6 +2,7 @@
 
 - Rename `npm run prettier` to `npm run format`
 - Settings dialog: add check to reduce requests to serverless function
+- Retain SSO (Google) token in `localStorage` to preserve logins between page reloads
 
 # 0.8.0 Beta (Christmas Edition) - 29/12/2025 13:35 UTC+1
 

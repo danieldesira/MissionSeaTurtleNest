@@ -3,6 +3,7 @@ import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
 import {
   clearCurrentPlayerStores,
+  getSsoTokenFromLocalStorage,
   handleGoogleAuthResponse,
   isAuthenticated,
 } from "../authentication";
@@ -17,7 +18,7 @@ const initialiseGoogleSignInButton = () => {
 
   window.google?.accounts?.id?.renderButton(
     document.getElementById("googleSignInButton"),
-    { theme: "outline", size: "large" },
+    { theme: "outline", size: "large" }
   );
 };
 
@@ -28,8 +29,18 @@ export const setupLoginButtons = () => {
   initialiseGoogleSignInButton();
 
   loginDialog.closeButtonIds = ["closeLoginBtn"];
-  loginDialog.open();
   loginBtn.callback = () => loginDialog.open();
+
+  const ssoToken = getSsoTokenFromLocalStorage();
+  if (ssoToken) {
+    switch (ssoToken.service) {
+      case "google":
+        handleGoogleAuthResponse({ credential: ssoToken.token });
+        break;
+    }
+  } else {
+    loginDialog.open();
+  }
 
   const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
   logoutBtn.callback = async () => {
@@ -50,7 +61,7 @@ export const hideLoginDialog = () => {
 export const updateAuthenticationUI = () => {
   const loginContainer = document.getElementById("loginContainer");
   const authenticatedContainer = document.getElementById(
-    "authenticatedContainer",
+    "authenticatedContainer"
   );
   if (isAuthenticated()) {
     loginContainer.classList.add("hidden");

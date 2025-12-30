@@ -24,6 +24,8 @@ export const handleGoogleAuthResponse = async ({
 
     const loginResult = await login(credential);
 
+    saveSsoTokenToLocalStorage({ service: "google", token: credential });
+
     populatePlayerProfile(loginResult);
     populateGameData(loginResult);
     populatePersonalBest(loginResult);
@@ -34,8 +36,9 @@ export const handleGoogleAuthResponse = async ({
   } catch {
     launchCustomDialog(
       "Login failed",
-      "There was an issue logging in. Please try again.",
+      "There was an issue logging in. Please try again."
     );
+    deleteSsoTokenInLocalStorage();
   } finally {
     hideOverlay();
   }
@@ -87,3 +90,13 @@ export const clearCurrentPlayerStores = () => {
   personalBestStore.reset();
   controlSettingsStore.reset();
 };
+
+type SsoToken = { service: "google" | "microsoft" | "facebook"; token: string };
+
+const saveSsoTokenToLocalStorage = (ssoToken: SsoToken) =>
+  localStorage.setItem("ssoToken", JSON.stringify(ssoToken));
+
+const deleteSsoTokenInLocalStorage = () => localStorage.removeItem("ssoToken");
+
+export const getSsoTokenFromLocalStorage = () =>
+  JSON.parse(localStorage.getItem("ssoToken")) as SsoToken;
