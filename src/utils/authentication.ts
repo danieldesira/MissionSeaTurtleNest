@@ -1,5 +1,5 @@
 import { login } from "../services/api";
-import type { LoginResponse } from "../services/interfaces";
+import type { LoginResponse, SsoToken } from "../services/interfaces";
 import { profileStore } from "../inMemoryStores/ProfileStore";
 import { hideLoginDialog, updateAuthenticationUI } from "./ui/authUi";
 import { toggleContinueGameBtn } from "./ui/mainMenu";
@@ -22,9 +22,11 @@ export const handleGoogleAuthResponse = async ({
   try {
     showOverlay("Logging in...");
 
-    const loginResult = await login(credential);
+    const ssoToken: SsoToken = { service: "google", token: credential };
 
-    saveSsoTokenToLocalStorage({ service: "google", token: credential });
+    const loginResult = await login(ssoToken);
+
+    saveSsoTokenToLocalStorage(ssoToken);
 
     populatePlayerProfile(loginResult);
     populateGameData(loginResult);
@@ -90,8 +92,6 @@ export const clearCurrentPlayerStores = () => {
   personalBestStore.reset();
   controlSettingsStore.reset();
 };
-
-type SsoToken = { service: "google" | "microsoft" | "facebook"; token: string };
 
 const saveSsoTokenToLocalStorage = (ssoToken: SsoToken) =>
   localStorage.setItem("ssoToken", JSON.stringify(ssoToken));

@@ -55,3 +55,8 @@ export interface SaveGamePayload {
   lastGame: GameProgressStore;
   timestamp: number;
 }
+
+export interface SsoToken {
+  service: "google" | "microsoft" | "facebook";
+  token: string;
+}

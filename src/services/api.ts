@@ -5,14 +5,12 @@ import {
   type SaveScorePayload,
   type UpdatePlayerPayload,
   type UpdateProfilePictureResponse,
+  SsoToken,
 } from "./interfaces";
 import FetchRequest from "./FetchRequest";
 
-export const login = async (credential: string) =>
-  (await FetchRequest.post("api/login", {
-    token: credential,
-    service: "google",
-  })) as LoginResponse;
+export const login = async (ssoToken: SsoToken) =>
+  await FetchRequest.post<LoginResponse>("api/login", ssoToken);
 
 export const saveGame = async (data: SaveGamePayload) =>
   await FetchRequest.put("api/game", data);
@@ -35,5 +33,5 @@ export const requestLogout = async () => await FetchRequest.post("api/logout");
 export const uploadProfilePicture = async (file: File) =>
   await FetchRequest.uploadFile<UpdateProfilePictureResponse>(
     "api/profile-pic",
-    file,
+    file
   );
