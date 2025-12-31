@@ -14,7 +14,7 @@ export const showXpUpdate = async (xp: number) => {
     "font-bold",
     "text-4xl",
     "transition-opacity",
-    "transition-500",
+    "duration-500",
   );
   xpUpdateContainer.appendChild(xpUpdateSpan);
   xpUpdateSpan.addEventListener("transitionend", () =>
