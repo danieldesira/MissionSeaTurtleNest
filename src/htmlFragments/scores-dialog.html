@@ -11,7 +11,7 @@
           <span id="personalBestPoints" class="font-semibold text-xl"></span>
         </div>
       </section>
-      <section class="flex flex-col gap-1">
+      <section id="leaderboard" class="hidden flex-col gap-1">
         <h3 class="font-bold text-xl">Leaderboard</h3>
         <table class="table border-separate border-spacing-x-2">
           <thead>
@@ -26,6 +26,9 @@
           <tbody id="leaderboardTbody"></tbody>
         </table>
       </section>
+      <span id="loadingLeaderboard" class="text-sm font-bold italic"
+        >Loading leaderboard...</span
+      >
     </div>
   </div>
   <div slot="footer">

@@ -96,7 +96,8 @@ export const clearCurrentPlayerStores = () => {
 const saveSsoTokenToLocalStorage = (ssoToken: SsoToken) =>
   localStorage.setItem("ssoToken", JSON.stringify(ssoToken));
 
-const deleteSsoTokenInLocalStorage = () => localStorage.removeItem("ssoToken");
+export const deleteSsoTokenInLocalStorage = () =>
+  localStorage.removeItem("ssoToken");
 
 export const getSsoTokenFromLocalStorage = () =>
   JSON.parse(localStorage.getItem("ssoToken")) as SsoToken;

@@ -3,6 +3,7 @@ import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
 import {
   clearCurrentPlayerStores,
+  deleteSsoTokenInLocalStorage,
   getSsoTokenFromLocalStorage,
   handleGoogleAuthResponse,
   isAuthenticated,
@@ -47,6 +48,7 @@ export const setupLoginButtons = () => {
     clearCurrentPlayerStores();
     updateAuthenticationUI();
     hideContinueGameBtn();
+    deleteSsoTokenInLocalStorage();
     await requestLogout();
   };
 

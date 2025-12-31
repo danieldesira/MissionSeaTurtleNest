@@ -5,7 +5,7 @@ import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
 import { launchCustomDialog } from "./customDialog";
 import { deleteChildren } from "./ui";
-import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
+import { hideWaitingNotice } from "./waitingNotice";
 
 export const formatLevelAsText = (levelNo: number) =>
   levelExists(levelNo) ? `Level ${levelNo}` : "Game Complete";
@@ -31,10 +31,20 @@ export const updatePersonalBestPlaceholders = () => {
 };
 
 const populateLeaderBoard = async () => {
-  showWaitingNotice("Loading high scores...");
+  const leaderboardContainer = document.getElementById("leaderboard");
+  const loadingLeaderboardSpan = document.getElementById("loadingLeaderboard");
+
+  leaderboardContainer.classList.add("hidden");
+  leaderboardContainer.classList.remove("flex");
+  loadingLeaderboardSpan.classList.remove("hidden");
 
   try {
     const highScores = await fetchHighScores();
+
+    leaderboardContainer.classList.remove("hidden");
+    leaderboardContainer.classList.add("flex");
+    loadingLeaderboardSpan.classList.add("hidden");
+
     const leaderboardTbody = document.getElementById("leaderboardTbody");
     deleteChildren(leaderboardTbody);
 
@@ -48,7 +58,7 @@ const populateLeaderBoard = async () => {
         appendCell(row, points.toString(), "right");
         appendCell(row, outcome, "center");
         leaderboardTbody.appendChild(row);
-      },
+      }
     );
   } catch {
     launchCustomDialog("Leaderboard", "Failed to load high scores");
@@ -60,7 +70,7 @@ const populateLeaderBoard = async () => {
 const appendCell = (
   row: HTMLTableRowElement,
   value: string,
-  alignment: "left" | "right" | "center" = "left",
+  alignment: "left" | "right" | "center" = "left"
 ) => {
   const cell = document.createElement("td");
   switch (alignment) {
