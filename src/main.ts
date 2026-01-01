@@ -25,6 +25,7 @@ import {
 } from "./utils/ui/mainMenu";
 import { setupLoginInvitationDialog } from "./utils/ui/loginInvitationDialog";
 import { setupNewLevelEventHandler } from "./levels/customEvents";
+import { setupAboutDialog } from "./utils/ui/aboutDialog";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");
@@ -56,4 +57,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupNewLevelEventHandler();
 
   setupScoresDialog();
+  setupAboutDialog();
 });

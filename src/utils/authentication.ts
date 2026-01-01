@@ -38,7 +38,7 @@ export const handleGoogleAuthResponse = async ({
   } catch {
     launchCustomDialog(
       "Login failed",
-      "There was an issue logging in. Please try again."
+      "There was an issue logging in. Please try again.",
     );
     deleteSsoTokenInLocalStorage();
   } finally {

@@ -58,7 +58,7 @@ const populateLeaderBoard = async () => {
         appendCell(row, points.toString(), "right");
         appendCell(row, outcome, "center");
         leaderboardTbody.appendChild(row);
-      }
+      },
     );
   } catch {
     launchCustomDialog("Leaderboard", "Failed to load high scores");
@@ -70,7 +70,7 @@ const populateLeaderBoard = async () => {
 const appendCell = (
   row: HTMLTableRowElement,
   value: string,
-  alignment: "left" | "right" | "center" = "left"
+  alignment: "left" | "right" | "center" = "left",
 ) => {
   const cell = document.createElement("td");
   switch (alignment) {

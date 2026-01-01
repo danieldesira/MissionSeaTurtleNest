@@ -5,6 +5,7 @@
   --color-primary: #db2777;
   --color-danger: #b91c1c;
   --font-family-sans-pro: "Source-Sans-Pro";
+  --animate-spin-once: spin 1s 1;
 }
 
 #overlay:open {

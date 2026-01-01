@@ -1,10 +1,12 @@
-# 0.8.1 Beta (Christmas Edition) -
+# 0.8.1 Beta (Christmas Edition) - 01/01/2026 01:20 UTC+1
 
 - Rename `npm run prettier` to `npm run format`
 - Settings dialog: add check to reduce requests to serverless function
 - Retain SSO (Google) token in `localStorage` to preserve logins between page reloads
 - Scores dialog: In-dialog loading message and also visible for unauthenticated users
-- Look & feel: Lighter hover colours for buttons and fix transition for XP update effect
+- Look & feel: Lighter hover colours for buttons, fix transition for XP update effect and
+  apply a one-time rotation animation to dialogs
+- Move About back to its own dialog with a new about button
 
 # 0.8.0 Beta (Christmas Edition) - 29/12/2025 13:35 UTC+1
 
