@@ -1,7 +1,11 @@
 import "./main.css";
 import { registerComponents } from "./webComponents/components";
 import { setupSocialButtons } from "./socials";
-import { disableContextMenu, preventNavigation } from "./utils/ui/ui";
+import {
+  disableContextMenu,
+  preventNavigation,
+  setupFullscreenBtn,
+} from "./utils/ui/ui";
 import { setupKeyboardControls } from "./utils/controls";
 import { registerServiceWorker } from "./utils/serviceWorkers";
 import { setupLoginButtons } from "./utils/ui/authUi";
@@ -25,7 +29,6 @@ import {
 } from "./utils/ui/mainMenu";
 import { setupLoginInvitationDialog } from "./utils/ui/loginInvitationDialog";
 import { setupNewLevelEventHandler } from "./levels/customEvents";
-import { setupAboutDialog } from "./utils/ui/aboutDialog";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");
@@ -57,5 +60,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupNewLevelEventHandler();
 
   setupScoresDialog();
-  setupAboutDialog();
+  setupFullscreenBtn();
 });

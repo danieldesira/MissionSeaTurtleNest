@@ -9,7 +9,7 @@ import {
   isAuthenticated,
 } from "../authentication";
 import { hideContinueGameBtn } from "./mainMenu";
-import { setupSettingsDialog } from "./settingsDialog";
+import { setupSettingsDialog, showHideSettingsTabs } from "./settingsDialog";
 
 const initialiseGoogleSignInButton = () => {
   window.google?.accounts?.id?.initialize({
@@ -49,6 +49,7 @@ export const setupLoginButtons = () => {
     updateAuthenticationUI();
     hideContinueGameBtn();
     deleteSsoTokenInLocalStorage();
+    showHideSettingsTabs();
     await requestLogout();
   };
 

@@ -1,5 +1,5 @@
 import { loadTemplate } from "../components";
-import TabContainer from "./TabContainer";
+import type TabContainer from "./TabContainer";
 
 class TabPill extends HTMLElement {
   static observedAttributes = ["data-active", "data-container", "name"];
@@ -33,6 +33,17 @@ class TabPill extends HTMLElement {
     return pill.classList.contains("active");
   }
 
+  set isVisible(value: boolean) {
+    const pill = this.shadowRoot.querySelector(
+      '[role="button"]',
+    ) as HTMLElement;
+    if (value) {
+      pill.classList.remove("hidden");
+    } else {
+      pill.classList.add("hidden");
+    }
+  }
+
   private showTabContainer() {
     const container = document.getElementById(
       this.dataset.container,
@@ -45,6 +56,17 @@ class TabPill extends HTMLElement {
       this.dataset.container,
     ) as TabContainer;
     container?.hide();
+  }
+
+  connectedCallback() {
+    this.addEventListener("click", () => {
+      const groupPills = document.querySelectorAll<TabPill>(
+        `tab-pill[name="${this.getAttribute("name")}"]`,
+      );
+      groupPills.forEach((p) => {
+        p.isActive = p === this;
+      });
+    });
   }
 }
 

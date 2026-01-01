@@ -1,3 +1,5 @@
+import type PrettyButton from "../../webComponents/form/PrettyButton";
+
 export const disableContextMenu = () =>
   document.body.addEventListener("contextmenu", (event) =>
     event.preventDefault(),
@@ -13,3 +15,10 @@ export const preventNavigation = () => {
 
 export const deleteChildren = (parent: HTMLElement) =>
   Array.from(parent.children).forEach((child) => parent.removeChild(child));
+
+export const setupFullscreenBtn = () => {
+  const fullscreenBtn = document.getElementById(
+    "fullscreenBtn",
+  ) as PrettyButton;
+  fullscreenBtn.callback = async () => await document.body.requestFullscreen();
+};

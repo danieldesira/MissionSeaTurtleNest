@@ -1,15 +1,17 @@
-import { updateProfile, uploadProfilePicture } from "../../services/api";
 import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type ImageUploader from "../../webComponents/form/ImageUploader";
 import type PrettyButton from "../../webComponents/form/PrettyButton";
 import type RadioSelection from "../../webComponents/form/RadioSelection";
 import type TextInput from "../../webComponents/form/TextInput";
-import { setupTabPills } from "./tabPills";
+import type TabPill from "../../webComponents/tabs/TabPill";
+import { updateProfile, uploadProfilePicture } from "../../services/api";
 import { checkNotificationPermission } from "../notifications";
 import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 import { launchCustomDialog } from "./customDialog";
 import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
 import { profileStore } from "../../inMemoryStores/ProfileStore";
+import { version } from "../../../package.json";
+import { isAuthenticated } from "../authentication";
 
 export const setupControlSettings = () => {
   const screenControlPositionRadio = document.getElementById(
@@ -80,8 +82,9 @@ export const setupSettingsDialog = () => {
   settingsDialog.closeButtonIds = ["closeSettingsBtn"];
   settingsDialog.closeCallback = handleSettingsDialogClose;
   settingsBtn.callback = () => settingsDialog.open();
-  setupTabPills("settings");
-  setupNotificationsTab();
+  setupPermissionsTab();
+  setupAboutTab();
+  showHideSettingsTabs();
 };
 
 export const setupSettingsProfileTab = () => {
@@ -119,7 +122,7 @@ export const setupSettingsProfileTab = () => {
   };
 };
 
-const setupNotificationsTab = () => {
+const setupPermissionsTab = () => {
   const desktopNotificationsBtn = document.getElementById(
     "desktopNotificationsBtn",
   ) as PrettyButton;
@@ -137,10 +140,27 @@ const isSubmissionNeeded = () => {
   ) as RadioSelection;
 
   return (
-    profileStore.name !== playerNameInput.value ||
-    profileStore.date_of_birth.toISOString() !==
-      new Date(playerDobInput.value).toISOString() ||
-    controlSettingsStore.screenControlsPosition !==
-      screenControlPositionRadio.currentSelection
+    isAuthenticated() &&
+    (profileStore.name !== playerNameInput.value ||
+      profileStore.date_of_birth.toISOString() !==
+        new Date(playerDobInput.value).toISOString() ||
+      controlSettingsStore.screenControlsPosition !==
+        screenControlPositionRadio.currentSelection)
   );
+};
+
+const setupAboutTab = () => {
+  const versionLink = document.getElementById("version");
+  versionLink.innerText = version;
+};
+
+export const showHideSettingsTabs = () => {
+  const controlsTab = document.querySelector(
+    '[data-container="controls-tab"',
+  ) as TabPill;
+  const profileTab = document.querySelector(
+    '[data-container="profile-tab"]',
+  ) as TabPill;
+  controlsTab.isVisible = isAuthenticated();
+  profileTab.isVisible = isAuthenticated();
 };

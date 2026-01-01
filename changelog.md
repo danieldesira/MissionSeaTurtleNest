@@ -1,3 +1,13 @@
+# 0.8.2 Beta (Christmas Edition) - 01/01/2026 23:25 UTC+1
+
+- Change dialog animation to 500ms bounce
+- Internal: Refactoring in `TabPill` component
+- Settings dialog:
+  - Move about section back to settings
+  - Settings button also visible for unauthenticated users
+- New fullscreen button
+- Look and feel: Add color transition to main menu and social icons
+
 # 0.8.1 Beta (Christmas Edition) - 01/01/2026 01:20 UTC+1
 
 - Rename `npm run prettier` to `npm run format`
