@@ -1,3 +1,7 @@
+# 0.8.3 Beta -
+
+- Simplify social links to a simple HTML fragment and enhance its look&feel
+
 # 0.8.2 Beta (Christmas Edition) - 01/01/2026 23:25 UTC+1
 
 - Change dialog animation to 500ms bounce

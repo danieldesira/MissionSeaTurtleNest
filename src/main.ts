@@ -1,6 +1,5 @@
 import "./main.css";
 import { registerComponents } from "./webComponents/components";
-import { setupSocialButtons } from "./socials";
 import {
   disableContextMenu,
   preventNavigation,
@@ -36,7 +35,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   preventNavigation();
 
   registerComponents();
-  setupSocialButtons();
   window.lucide?.createIcons();
 
   setupNewGameMenuBtn();
