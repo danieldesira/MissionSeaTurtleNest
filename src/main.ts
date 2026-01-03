@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   disableContextMenu();
   preventNavigation();
 
-  registerComponents();
   window.lucide?.createIcons();
+  registerComponents();
 
   setupNewGameMenuBtn();
   setupContinueGameBtn();

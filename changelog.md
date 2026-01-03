@@ -1,6 +1,11 @@
 # 0.8.3 Beta -
 
-- Simplify social links to a simple HTML fragment and enhance its look&feel
+- Social links:
+  - Refactor into Web Component
+  - Add border on hover and opt for lighter shade of pink
+  - Move links to bottom of main menu
+  - Add personal Linkedin
+- Update title in main menu to "Mission Sea Turtle Nest" and reduce text size
 
 # 0.8.2 Beta (Christmas Edition) - 01/01/2026 23:25 UTC+1
 

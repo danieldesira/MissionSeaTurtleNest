@@ -1,0 +1,22 @@
+<template id="socialLinkTemplate">
+  <style>
+    @reference "./src/main.css";
+
+    div {
+      @apply p-1.5 rounded-full border-2 border-transparent transition-colors duration-500;
+    }
+
+    slot {
+      @apply text-primary transition-colors duration-500;
+    }
+
+    a:hover * {
+      @apply text-pink-300 border-pink-300;
+    }
+  </style>
+  <a href="#" target="_blank">
+    <div>
+      <slot></slot>
+    </div>
+  </a>
+</template>
