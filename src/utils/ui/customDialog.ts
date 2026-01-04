@@ -1,4 +1,4 @@
-import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
+import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 
 export const launchCustomDialog = (title: string, text: string) => {
   const customDialog = document.getElementById("customDialog") as PrettyDialog;

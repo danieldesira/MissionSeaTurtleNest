@@ -1,8 +1,8 @@
 import { levelExists } from "../../levels/levels";
 import { fetchHighScores } from "../../services/api";
 import { personalBestStore } from "../../inMemoryStores/PersonalBestStore";
-import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
-import PrettyButton from "../../webComponents/form/PrettyButton";
+import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
+import type PrettyButton from "../../webComponents/form/PrettyButton";
 import { launchCustomDialog } from "./customDialog";
 import { deleteChildren } from "./ui";
 import { hideWaitingNotice } from "./waitingNotice";
@@ -58,7 +58,7 @@ const populateLeaderBoard = async () => {
         appendCell(row, points.toString(), "right");
         appendCell(row, outcome, "center");
         leaderboardTbody.appendChild(row);
-      },
+      }
     );
   } catch {
     launchCustomDialog("Leaderboard", "Failed to load high scores");
@@ -70,7 +70,7 @@ const populateLeaderBoard = async () => {
 const appendCell = (
   row: HTMLTableRowElement,
   value: string,
-  alignment: "left" | "right" | "center" = "left",
+  alignment: "left" | "right" | "center" = "left"
 ) => {
   const cell = document.createElement("td");
   switch (alignment) {

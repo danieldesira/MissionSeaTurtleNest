@@ -7,6 +7,7 @@ import TextInput from "./form/TextInput";
 import GameControl from "./gameplay/GameControl";
 import GameGauge from "./gameplay/GameGauge";
 import SocialLink from "./links/SocialLink";
+import TextLink from "./links/TextLink";
 import MenuItem from "./mainMenu/MenuItem";
 import TabContainer from "./tabs/TabContainer";
 import TabPill from "./tabs/TabPill";
@@ -38,6 +39,7 @@ const components: ComponentRegistration[] = [
   { tag: "image-uploader", Constructor: ImageUploader },
   { tag: "form-field", Constructor: FormField },
   { tag: "social-link", Constructor: SocialLink },
+  { tag: "text-link", Constructor: TextLink },
 ];
 
 const registerComponentWithDependencies = ({
