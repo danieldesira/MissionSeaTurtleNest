@@ -1,6 +1,9 @@
 # 0.8.4 Beta -
 
-- Added music tracks to precache and add a brief developer documentation section about music
+- Music:
+  - Added music tracks to precache and add a brief developer documentation section about music
+  - Fix issue with music tracks failing to play without interactions
+  - Refactor to use Web Audio API
 
 # 0.8.3 Beta - 05/01/2026 15:10 UTC+1
 

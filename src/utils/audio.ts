@@ -3,21 +3,41 @@ const musicTracks = [
   "/music/the-diving-turtle-273012.mp3",
 ];
 
-const playCurrentTrack = (audio: HTMLAudioElement, index: number) => {
-  audio.src = musicTracks[index];
-  audio.play();
+const loadTrack = async (audioContext: AudioContext, url: string) => {
+  const res = await fetch(url);
+  const arrayBuffer = await res.arrayBuffer();
+  return audioContext.decodeAudioData(arrayBuffer);
 };
 
-export const setupMusic = () => {
-  const audio = new Audio();
-  let arrayIndex = 0;
-  playCurrentTrack(audio, arrayIndex);
-  audio.addEventListener("pause", () => {
-    if (arrayIndex < musicTracks.length - 1) {
-      arrayIndex++;
-    } else {
-      arrayIndex = 0;
-    }
-    playCurrentTrack(audio, arrayIndex);
+const playTrack = (
+  audioContext: AudioContext,
+  buffers: AudioBuffer[],
+  index: number
+) => {
+  const bufferSource = audioContext.createBufferSource();
+  bufferSource.buffer = buffers[index];
+  bufferSource.connect(audioContext.destination);
+
+  bufferSource.addEventListener("ended", () => {
+    playTrack(audioContext, buffers, (index + 1) % buffers.length);
   });
+
+  bufferSource.start();
+};
+
+export const setupMusic = async () => {
+  const audioContext = new AudioContext();
+
+  const buffers = await Promise.all(
+    musicTracks.map((url) => loadTrack(audioContext, url))
+  );
+
+  document.body.addEventListener(
+    "click",
+    () => {
+      const arrayIndex = 0;
+      playTrack(audioContext, buffers, arrayIndex);
+    },
+    { once: true }
+  );
 };
