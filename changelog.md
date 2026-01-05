@@ -5,6 +5,9 @@
   - Add border on hover and opt for lighter shade of pink
   - Move links to bottom of main menu
   - Add personal Linkedin
+  - Add NTM-FEE site
+  - Add links to Credits, License, Dedications and Changelog
+  - Move Beta text to footer
 - Update title in main menu to "Mission Sea Turtle Nest" and reduce text size
 
 # 0.8.2 Beta (Christmas Edition) - 01/01/2026 23:25 UTC+1
