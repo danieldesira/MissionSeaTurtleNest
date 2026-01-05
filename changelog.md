@@ -1,4 +1,4 @@
-# 0.8.3 Beta -
+# 0.8.3 Beta - 05/01/2026 15:10 UTC+1
 
 - Social links:
   - Refactor into Web Component
@@ -8,7 +8,12 @@
   - Add NTM-FEE site
   - Add links to Credits, License, Dedications and Changelog
   - Move Beta text to footer
+  - Fix dedications tooltip in about tab
 - Update title in main menu to "Mission Sea Turtle Nest" and reduce text size
+- Music:
+  - Remove Christmas song
+  - Introduce 2 alternating songs from same site
+  - Move music credits to `contributors.md`
 
 # 0.8.2 Beta (Christmas Edition) - 01/01/2026 23:25 UTC+1
 
