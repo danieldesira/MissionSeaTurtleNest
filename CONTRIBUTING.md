@@ -69,3 +69,9 @@ found in the same directory as the component classes. Moreover,
 
 Any such HTML fragments, need to be added to `src/index.base.html` through the
 `<!-- @inject path_here -->` syntax.
+
+## Music
+
+Music tracks need to be added to the `/public/music` folder and then added to the
+`musicTracks` array in `/src/utils/audio.ts`. Finally, the paths should also be added
+to `/src/serviceWorkers/precacheResources.json`.

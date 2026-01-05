@@ -5,7 +5,7 @@ import { toggleMode } from "./mainMenu";
 
 export const setupLoginInvitationDialog = () => {
   const loginInvitationDialog = document.getElementById(
-    "loginInvitationDialog"
+    "loginInvitationDialog",
   ) as PrettyDialog;
   loginInvitationDialog.closeButtonIds = [
     "loginInvitationBtn",
@@ -13,7 +13,7 @@ export const setupLoginInvitationDialog = () => {
   ];
 
   const loginInvitationBtn = document.getElementById(
-    "loginInvitationBtn"
+    "loginInvitationBtn",
   ) as PrettyButton;
   loginInvitationBtn.callback = () => {
     const loginDialog = document.getElementById("loginDialog") as PrettyDialog;
@@ -21,7 +21,7 @@ export const setupLoginInvitationDialog = () => {
   };
 
   const closeLoginInvitationBtn = document.getElementById(
-    "closeLoginInvitationBtn"
+    "closeLoginInvitationBtn",
   ) as PrettyButton;
   closeLoginInvitationBtn.callback = () => {
     game.exit();
@@ -31,7 +31,7 @@ export const setupLoginInvitationDialog = () => {
 
 export const showLoginInvitationDialog = () => {
   const loginInvitationDialog = document.getElementById(
-    "loginInvitationDialog"
+    "loginInvitationDialog",
   ) as PrettyDialog;
   loginInvitationDialog.open();
 };

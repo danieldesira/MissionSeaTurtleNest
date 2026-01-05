@@ -1,3 +1,7 @@
+# 0.8.4 Beta -
+
+- Added music tracks to precache and add a brief developer documentation section about music
+
 # 0.8.3 Beta - 05/01/2026 15:10 UTC+1
 
 - Social links:
