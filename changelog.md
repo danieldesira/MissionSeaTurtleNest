@@ -1,9 +1,11 @@
-# 0.8.4 Beta -
+# 0.8.4 Beta - 06/01/2026 17:45 UTC+1
 
 - Music:
   - Added music tracks to precache and add a brief developer documentation section about music
   - Fix issue with music tracks failing to play without interactions
   - Refactor to use Web Audio API
+  - Pause music when user switches to another window/browser tab
+- Apply new light pink on hover for buttons and main menu
 
 # 0.8.3 Beta - 05/01/2026 15:10 UTC+1
 

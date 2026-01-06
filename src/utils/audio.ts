@@ -3,41 +3,55 @@ const musicTracks = [
   "/music/the-diving-turtle-273012.mp3",
 ];
 
-const loadTrack = async (audioContext: AudioContext, url: string) => {
+let currentTrackIndex = 0;
+const audioContext = new AudioContext();
+const gainNode = audioContext.createGain();
+gainNode.connect(audioContext.destination);
+
+const loadTrack = async (url: string) => {
   const res = await fetch(url);
   const arrayBuffer = await res.arrayBuffer();
   return audioContext.decodeAudioData(arrayBuffer);
 };
 
-const playTrack = (
-  audioContext: AudioContext,
-  buffers: AudioBuffer[],
-  index: number
-) => {
-  const bufferSource = audioContext.createBufferSource();
-  bufferSource.buffer = buffers[index];
-  bufferSource.connect(audioContext.destination);
-
-  bufferSource.addEventListener("ended", () => {
-    playTrack(audioContext, buffers, (index + 1) % buffers.length);
+const playTrack = (buffers: AudioBuffer[]) => {
+  const bufferSource = new AudioBufferSourceNode(audioContext, {
+    buffer: buffers[currentTrackIndex],
   });
+  bufferSource.connect(gainNode);
+
+  bufferSource.onended = () => {
+    bufferSource.disconnect();
+
+    currentTrackIndex = (currentTrackIndex + 1) % buffers.length;
+    playTrack(buffers);
+  };
 
   bufferSource.start();
 };
 
 export const setupMusic = async () => {
-  const audioContext = new AudioContext();
-
-  const buffers = await Promise.all(
-    musicTracks.map((url) => loadTrack(audioContext, url))
-  );
+  const buffers = await Promise.all(musicTracks.map(loadTrack));
 
   document.body.addEventListener(
     "click",
-    () => {
-      const arrayIndex = 0;
-      playTrack(audioContext, buffers, arrayIndex);
+    async () => {
+      if (audioContext.state === "suspended") {
+        await audioContext.resume();
+      }
+
+      playTrack(buffers);
     },
-    { once: true }
+    {
+      once: true,
+    }
   );
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      audioContext.suspend();
+    } else if (audioContext.state === "suspended") {
+      audioContext.resume();
+    }
+  });
 };
