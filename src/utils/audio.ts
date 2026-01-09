@@ -44,7 +44,7 @@ export const setupMusic = async () => {
     },
     {
       once: true,
-    }
+    },
   );
 
   document.addEventListener("visibilitychange", () => {

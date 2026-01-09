@@ -3,6 +3,9 @@
 - Internal:
   - Upgrade to Vite 7.3.1 and change it to a developer dependency
   - Update to Typescript 5.9.3
+  - Refactor `<text-link>` Web Component to read `data-external` attribute
+- Settings dialog:
+  - Remove About tab
 
 # 0.8.4 Beta - 06/01/2026 17:45 UTC+1
 

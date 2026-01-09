@@ -26,7 +26,7 @@ notificationSW.addEventListener("activate", async () => {
   const subscription = await notificationSW.registration.pushManager.subscribe({
     userVisibleOnly: true,
     applicationServerKey:
-      "BEfuj-su_7dqT40eFWTa4wh8FZDJ5oPUiu8AqxFQ260hZotE3i0ZH5B8Esc2J126zJgxLSEKSBRsrtFbKPXRo4Y",
+      "BJIUt7Pt_XgjUCatT8Vuu7Tyj0kVaT0t4OaUuWzdLtoINF95-LiI7LR0RzpIBRhmRTp0W9g2dI_OlWWy_OyMMgo",
   });
   await savePushSubscription(subscription);
 });

@@ -39,24 +39,24 @@
             <span class="text-cyan-500">Turtle Nest</span>
           </h1>
           <div class="flex gap-1">
-            <pretty-button id="fullscreenBtn" title="Fullscreen"
-              ><i data-lucide="fullscreen"></i>
+            <pretty-button id="fullscreenBtn" title="Fullscreen">
+              <i data-lucide="fullscreen"></i>
             </pretty-button>
-            <pretty-button id="scoresBtn" title="Scores"
-              ><i data-lucide="trophy"></i
-            ></pretty-button>
-            <pretty-button id="settingsBtn" title="Settings"
-              ><i data-lucide="settings"></i
-            ></pretty-button>
+            <pretty-button id="scoresBtn" title="Scores">
+              <i data-lucide="trophy"></i>
+            </pretty-button>
+            <pretty-button id="settingsBtn" title="Settings">
+              <i data-lucide="settings"></i>
+            </pretty-button>
             <div id="loginContainer" class="flex gap-1">
-              <pretty-button id="loginBtn" title="Login"
-                ><i data-lucide="log-in"></i
-              ></pretty-button>
+              <pretty-button id="loginBtn" title="Login">
+                <i data-lucide="log-in"></i>
+              </pretty-button>
             </div>
             <div id="authenticatedContainer" class="hidden gap-1">
-              <pretty-button id="logoutBtn" variant="danger" title="Logout"
-                ><i data-lucide="log-out"></i
-              ></pretty-button>
+              <pretty-button id="logoutBtn" variant="danger" title="Logout">
+                <i data-lucide="log-out"></i>
+              </pretty-button>
             </div>
           </div>
         </div>
@@ -93,6 +93,7 @@
           <social-link
             data-url="https://naturetrustmalta.org/"
             data-tooltip="Check out Nature Trust Malta - FEE's website"
+            data-external="true"
           >
             <img
               src="/images/logo-ntm-fee-2020.jpg"
@@ -103,27 +104,30 @@
           <text-link
             data-url="https://github.com/danieldesira/TurtleQuest/blob/master/contributors.md"
             data-tooltip="Credits"
+            data-external="true"
           >
             Credits
           </text-link>
           <text-link
             data-url="https://github.com/danieldesira/TurtleQuest/blob/master/license.md"
             data-tooltip="License"
+            data-external="true"
           >
             License
           </text-link>
           <text-link
             data-url="https://github.com/danieldesira/TurtleQuest/blob/master/DEDICATIONS.md"
             data-tooltip="Dedications"
+            data-external="true"
           >
             Dedications
           </text-link>
           <text-link
+            id="version"
             data-url="https://github.com/danieldesira/TurtleQuest/blob/master/changelog.md"
             data-tooltip="Changelog"
-          >
-            Changelog
-          </text-link>
+            data-external="true"
+          ></text-link>
           <span class="text-primary text-sm font-bold">Beta</span>
         </div>
       </div>
@@ -139,49 +143,49 @@
               <i class="text-white" data-lucide="chevron-left"></i>
             </pretty-button>
             <pretty-button id="pauseBtn" title="Pause game">
-              <i role="button" class="text-white" data-lucide="pause"></i
-            ></pretty-button>
+              <i role="button" class="text-white" data-lucide="pause"></i>
+            </pretty-button>
           </div>
           <div class="text-primary text-3xl font-semibold">
             <span id="xpSpan">0</span> XP
           </div>
           <div class="flex gap-2">
-            <game-gauge id="lifeGauge"
-              ><span slot="icon"><i data-lucide="heart-pulse"></i></span
-              ><span slot="label">Life</span></game-gauge
-            >
-            <game-gauge id="foodGauge"
-              ><span slot="icon"><i data-lucide="shrimp"></i></span
-              ><span slot="label">Food</span></game-gauge
-            >
-            <game-gauge id="apetiteGauge"
-              ><span slot="label">Apetite</span></game-gauge
-            >
-            <game-gauge id="oxygenGauge"
-              ><span slot="icon"><i data-lucide="air-vent"></i></span
-              ><span slot="label">Oxygen</span></game-gauge
-            >
+            <game-gauge id="lifeGauge">
+              <span slot="icon"><i data-lucide="heart-pulse"></i></span>
+              <span slot="label">Life</span>
+            </game-gauge>
+            <game-gauge id="foodGauge">
+              <span slot="icon"><i data-lucide="shrimp"></i></span
+              ><span slot="label">Food</span>
+            </game-gauge>
+            <game-gauge id="apetiteGauge">
+              <span slot="label">Apetite</span>
+            </game-gauge>
+            <game-gauge id="oxygenGauge">
+              <span slot="icon"><i data-lucide="air-vent"></i></span>
+              <span slot="label">Oxygen</span>
+            </game-gauge>
           </div>
         </div>
         <canvas id="gameCanvas" height="400" width="700" tab-index="1"></canvas>
         <div id="onscreenControls" class="absolute bottom-1 right-1 z-10">
           <div class="mb-1 flex justify-center">
-            <game-control id="upControl"
-              ><i
+            <game-control id="upControl">
+              <i
                 data-lucide="circle-chevron-up"
                 class="text-primary w-9 h-9"
-              ></i
-            ></game-control>
+              ></i>
+            </game-control>
           </div>
           <div class="flex gap-1">
-            <game-control id="leftControl"
-              ><i
+            <game-control id="leftControl">
+              <i
                 data-lucide="circle-chevron-left"
                 class="text-primary w-9 h-9"
-              ></i
-            ></game-control>
-            <game-control id="downControl"
-              ><i
+              ></i>
+            </game-control>
+            <game-control id="downControl">
+              <i
                 data-lucide="circle-chevron-down"
                 class="text-primary w-9 h-9"
               ></i>

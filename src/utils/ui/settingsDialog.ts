@@ -10,7 +10,7 @@ import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 import { launchCustomDialog } from "./customDialog";
 import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
 import { profileStore } from "../../inMemoryStores/ProfileStore";
-import { version } from "../../../package.json";
+
 import { isAuthenticated } from "../authentication";
 
 export const setupControlSettings = () => {
@@ -83,7 +83,6 @@ export const setupSettingsDialog = () => {
   settingsDialog.closeCallback = handleSettingsDialogClose;
   settingsBtn.callback = () => settingsDialog.open();
   setupPermissionsTab();
-  setupAboutTab();
   showHideSettingsTabs();
 };
 
@@ -147,11 +146,6 @@ const isSubmissionNeeded = () => {
       controlSettingsStore.screenControlsPosition !==
         screenControlPositionRadio.currentSelection)
   );
-};
-
-const setupAboutTab = () => {
-  const versionLink = document.getElementById("version");
-  versionLink.innerText = version;
 };
 
 export const showHideSettingsTabs = () => {
