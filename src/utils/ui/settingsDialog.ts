@@ -4,18 +4,18 @@ import type PrettyButton from "../../webComponents/form/PrettyButton";
 import type RadioSelection from "../../webComponents/form/RadioSelection";
 import type TextInput from "../../webComponents/form/TextInput";
 import type TabPill from "../../webComponents/tabs/TabPill";
+import type TextLink from "../../webComponents/links/TextLink";
 import { updateProfile, uploadProfilePicture } from "../../services/api";
 import { checkNotificationPermission } from "../notifications";
 import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 import { launchCustomDialog } from "./customDialog";
 import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
 import { profileStore } from "../../inMemoryStores/ProfileStore";
-
 import { isAuthenticated } from "../authentication";
 
 export const setupControlSettings = () => {
   const screenControlPositionRadio = document.getElementById(
-    "screenControlPositionRadio",
+    "screenControlPositionRadio"
   ) as RadioSelection;
   screenControlPositionRadio.config = {
     name: "screenControlPosition",
@@ -29,7 +29,7 @@ export const setupControlSettings = () => {
 
 const cacheControlSettings = async () => {
   const screenControlPositionRadio = document.getElementById(
-    "screenControlPositionRadio",
+    "screenControlPositionRadio"
   ) as RadioSelection;
   controlSettingsStore.screenControlsPosition =
     screenControlPositionRadio.currentSelection as "Left" | "Right";
@@ -37,7 +37,7 @@ const cacheControlSettings = async () => {
 
 const cacheProfileSettings = async () => {
   const playerNameInput = document.getElementById(
-    "playerNameInput",
+    "playerNameInput"
   ) as TextInput;
   const playerDobInput = document.getElementById("playerDobInput") as TextInput;
   profileStore.name = playerNameInput.value.toString();
@@ -77,7 +77,7 @@ const handleSettingsDialogClose = () => {
 export const setupSettingsDialog = () => {
   const settingsBtn = document.getElementById("settingsBtn") as PrettyButton;
   const settingsDialog = document.getElementById(
-    "settingsDialog",
+    "settingsDialog"
   ) as PrettyDialog;
   settingsDialog.closeButtonIds = ["closeSettingsBtn"];
   settingsDialog.closeCallback = handleSettingsDialogClose;
@@ -88,12 +88,12 @@ export const setupSettingsDialog = () => {
 
 export const setupSettingsProfileTab = () => {
   const playerEmailReadonlyField = document.getElementById(
-    "playerEmailReadonlyField",
+    "playerEmailReadonlyField"
   );
   playerEmailReadonlyField.innerText = profileStore.email;
 
   const playerNameInput = document.getElementById(
-    "playerNameInput",
+    "playerNameInput"
   ) as TextInput;
   playerNameInput.value = profileStore.name;
 
@@ -101,7 +101,7 @@ export const setupSettingsProfileTab = () => {
   playerDobInput.value = profileStore.date_of_birth;
 
   const profilePicUploader = document.getElementById(
-    "profilePicUploader",
+    "profilePicUploader"
   ) as ImageUploader;
   profilePicUploader.currentImageUrl = profileStore.profile_pic_url;
   profilePicUploader.changeCallback = async (event: Event) => {
@@ -113,7 +113,7 @@ export const setupSettingsProfileTab = () => {
     } catch {
       launchCustomDialog(
         "Upload Error",
-        "Failed to upload profile picture. Please try again!",
+        "Failed to upload profile picture. Please try again!"
       );
     } finally {
       hideWaitingNotice();
@@ -123,19 +123,19 @@ export const setupSettingsProfileTab = () => {
 
 const setupPermissionsTab = () => {
   const desktopNotificationsBtn = document.getElementById(
-    "desktopNotificationsBtn",
-  ) as PrettyButton;
-  desktopNotificationsBtn.callback = async () =>
+    "desktopNotificationsBtn"
+  ) as TextLink;
+  desktopNotificationsBtn.action = async () =>
     await checkNotificationPermission();
 };
 
 const isSubmissionNeeded = () => {
   const playerNameInput = document.getElementById(
-    "playerNameInput",
+    "playerNameInput"
   ) as TextInput;
   const playerDobInput = document.getElementById("playerDobInput") as TextInput;
   const screenControlPositionRadio = document.getElementById(
-    "screenControlPositionRadio",
+    "screenControlPositionRadio"
   ) as RadioSelection;
 
   return (
@@ -150,10 +150,10 @@ const isSubmissionNeeded = () => {
 
 export const showHideSettingsTabs = () => {
   const controlsTab = document.querySelector(
-    '[data-container="controls-tab"',
+    '[data-container="controls-tab"'
   ) as TabPill;
   const profileTab = document.querySelector(
-    '[data-container="profile-tab"]',
+    '[data-container="profile-tab"]'
   ) as TabPill;
   controlsTab.isVisible = isAuthenticated();
   profileTab.isVisible = isAuthenticated();

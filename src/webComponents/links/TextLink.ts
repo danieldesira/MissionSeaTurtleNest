@@ -14,6 +14,10 @@ class TextLink extends HTMLElement {
       a.target = "__blank";
     }
   }
+
+  set action(value: () => void) {
+    this.addEventListener("click", value);
+  }
 }
 
 export default TextLink;
