@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import type { ViteDevServer } from "vite";
+import { version } from "./package.json";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -19,7 +20,7 @@ const processFile = (filePath: string) => {
     if (closingPosition !== -1) {
       const commentContent = content.substring(
         indexPosition + commentOpenBracket.length,
-        closingPosition,
+        closingPosition
       );
       const keyword = "@inject";
       if (commentContent.includes(keyword)) {
@@ -29,9 +30,11 @@ const processFile = (filePath: string) => {
         if (fs.existsSync(templatePath)) {
           content = content.replace(
             `<!--${commentContent}-->`,
-            processFile(path.resolve(__dirname, templatePath)),
+            processFile(path.resolve(__dirname, templatePath))
           );
         }
+      } else if (commentContent.includes("@version")) {
+        content = content.replace(`<!--${commentContent}-->`, version);
       }
     }
   }

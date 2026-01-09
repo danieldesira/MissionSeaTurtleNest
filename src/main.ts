@@ -29,7 +29,6 @@ import {
 import { setupLoginInvitationDialog } from "./utils/ui/loginInvitationDialog";
 import { setupNewLevelEventHandler } from "./levels/customEvents";
 import { setupMusic } from "./utils/audio";
-import { printVersion } from "./utils/ui/version";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");
@@ -62,5 +61,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupScoresDialog();
   setupFullscreenBtn();
   setupMusic();
-  printVersion();
 });

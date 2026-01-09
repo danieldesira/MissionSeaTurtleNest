@@ -4,7 +4,7 @@ const notificationSW = self as unknown as ServiceWorkerGlobalScope;
 
 const apiBaseUrl =
   location.hostname === "localhost"
-    ? "https://localhost:32769"
+    ? "https://localhost:3000"
     : "https://tochange.com";
 
 const savePushSubscription = async (subscription: PushSubscription) => {
