@@ -5,6 +5,7 @@
   - Update to Typescript 5.9.3
   - Refactor `<text-link>` Web Component to read `data-external` attribute
   - Version printing moved to build-step
+  - Remove redundant `ts-loader` package
 - Settings dialog:
   - Remove About tab
 
