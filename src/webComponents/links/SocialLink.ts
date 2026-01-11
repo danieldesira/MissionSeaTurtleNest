@@ -9,7 +9,7 @@ class SocialLink extends HTMLElement {
   connectedCallback() {
     const a = this.shadowRoot.querySelector("a");
     a.href = this.dataset.url;
-    a.title = this.dataset.tooltip;
+    a.title = this.dataset.tooltip ?? "";
   }
 }
 
