@@ -20,7 +20,7 @@ const processFile = (filePath: string) => {
     if (closingPosition !== -1) {
       const commentContent = content.substring(
         indexPosition + commentOpenBracket.length,
-        closingPosition
+        closingPosition,
       );
       const keyword = "@inject";
       if (commentContent.includes(keyword)) {
@@ -30,7 +30,7 @@ const processFile = (filePath: string) => {
         if (fs.existsSync(templatePath)) {
           content = content.replace(
             `<!--${commentContent}-->`,
-            processFile(path.resolve(__dirname, templatePath))
+            processFile(path.resolve(__dirname, templatePath)),
           );
         }
       } else if (commentContent.includes("@version")) {
