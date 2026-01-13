@@ -8,7 +8,7 @@
   - Remove redundant `ts-loader` package
 - Settings dialog:
   - Remove About tab
-  - Add Permissions tab
+  - Add Permissions tab with push nofifications
 - Mobile:
   - Screen for portrait error now occupies full screen height
 - Fullscreen:
