@@ -11,6 +11,7 @@ class TextLink extends HTMLElement {
     a.href = this.dataset.url;
     if (this.dataset.external === "true") {
       a.target = "__blank";
+      a.rel = "noopener noreferrer";
     }
   }
 

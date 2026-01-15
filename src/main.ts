@@ -4,6 +4,7 @@ import {
   disableContextMenu,
   preventNavigation,
   setupFullscreenBtn,
+  setupNotificationsIcon,
 } from "./utils/ui/ui";
 import { setupKeyboardControls } from "./utils/controls";
 import { registerServiceWorker } from "./utils/serviceWorkers";
@@ -60,5 +61,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   setupScoresDialog();
   setupFullscreenBtn();
+  setupNotificationsIcon();
   setupMusic();
 });

@@ -13,6 +13,8 @@
   - Screen for portrait error now occupies full screen height
 - Fullscreen:
   - Clicking button once already in fullscreen now exits fullscreen mode
+- Main menu:
+  - Add notifications icon
 
 # 0.8.4 Beta - 06/01/2026 17:45 UTC+1
 
