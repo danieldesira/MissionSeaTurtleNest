@@ -9,7 +9,7 @@ const apiBaseUrl =
 
 const savePushSubscription = async (subscription: PushSubscription) => {
   const res = await fetch(
-    `${apiBaseUrl}/api/subscription?appId=fe24b4fa-004b-44fb-ac30-9fdb487246c0`,
+    `${apiBaseUrl}/api/subscription?appId=986bb193-67f9-46fe-aae0-1f6edc7f8a83`,
     {
       method: "POST",
       headers: {

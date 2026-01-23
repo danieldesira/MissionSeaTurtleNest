@@ -15,6 +15,7 @@
   - Clicking button once already in fullscreen now exits fullscreen mode
 - Main menu:
   - Add notifications icon
+  - Add bounce effect to the header
 
 # 0.8.4 Beta - 06/01/2026 17:45 UTC+1
 
