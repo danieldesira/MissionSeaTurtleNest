@@ -4,7 +4,7 @@ import { checkNotificationPermission } from "../notifications";
 
 export const disableContextMenu = () =>
   document.body.addEventListener("contextmenu", (event) =>
-    event.preventDefault()
+    event.preventDefault(),
   );
 
 export const preventNavigation = () => {
@@ -20,7 +20,7 @@ export const deleteChildren = (parent: HTMLElement) =>
 
 export const setupFullscreenBtn = async () => {
   const fullscreenBtn = document.getElementById(
-    "fullscreenBtn"
+    "fullscreenBtn",
   ) as PrettyButton;
   fullscreenBtn.callback = async () => {
     if (document.fullscreenElement) {
@@ -33,7 +33,7 @@ export const setupFullscreenBtn = async () => {
 
 export const setupNotificationsIcon = () => {
   const notificationsIcon = document.getElementById(
-    "notificationsIcon"
+    "notificationsIcon",
   ) as SocialLink;
   notificationsIcon.action = async () => await checkNotificationPermission();
 };

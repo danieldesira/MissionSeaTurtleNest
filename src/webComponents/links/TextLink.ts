@@ -14,10 +14,6 @@ class TextLink extends HTMLElement {
       a.rel = "noopener noreferrer";
     }
   }
-
-  set action(value: () => void) {
-    this.addEventListener("click", value);
-  }
 }
 
 export default TextLink;

@@ -6,9 +6,10 @@
   - Refactor `<text-link>` Web Component to read `data-external` attribute and improve `data-tooltip`
   - Version printing moved to build-step
   - Remove redundant `ts-loader` package
+  - Code cleanup
 - Settings dialog:
   - Remove About tab
-  - Add Permissions tab with push nofifications
+  - Change button back to show only for authenticated users
 - Mobile:
   - Screen for portrait error now occupies full screen height
 - Fullscreen:

@@ -17,7 +17,7 @@ const savePushSubscription = async (subscription: PushSubscription) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(subscription),
-    }
+    },
   );
   return await res.json();
 };

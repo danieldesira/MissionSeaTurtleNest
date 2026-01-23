@@ -8,7 +8,6 @@ import { updatePersonalBestPlaceholders } from "./ui/scores";
 import {
   setupControlSettings,
   setupSettingsProfileTab,
-  showHideSettingsTabs,
 } from "./ui/settingsDialog";
 import { launchCustomDialog } from "./ui/customDialog";
 import { controlSettingsStore } from "../inMemoryStores/ControlSettingsStore";
@@ -36,7 +35,6 @@ export const handleGoogleAuthResponse = async ({
 
     hideLoginDialog();
     updateAuthenticationUI();
-    showHideSettingsTabs();
   } catch {
     launchCustomDialog(
       "Login failed",

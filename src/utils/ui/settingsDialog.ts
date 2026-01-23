@@ -3,10 +3,7 @@ import type ImageUploader from "../../webComponents/form/ImageUploader";
 import type PrettyButton from "../../webComponents/form/PrettyButton";
 import type RadioSelection from "../../webComponents/form/RadioSelection";
 import type TextInput from "../../webComponents/form/TextInput";
-import type TabPill from "../../webComponents/tabs/TabPill";
-import type TextLink from "../../webComponents/links/TextLink";
 import { updateProfile, uploadProfilePicture } from "../../services/api";
-import { checkNotificationPermission } from "../notifications";
 import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
 import { launchCustomDialog } from "./customDialog";
 import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
@@ -82,8 +79,6 @@ export const setupSettingsDialog = () => {
   settingsDialog.closeButtonIds = ["closeSettingsBtn"];
   settingsDialog.closeCallback = handleSettingsDialogClose;
   settingsBtn.callback = () => settingsDialog.open();
-  setupPermissionsTab();
-  showHideSettingsTabs();
 };
 
 export const setupSettingsProfileTab = () => {
@@ -121,14 +116,6 @@ export const setupSettingsProfileTab = () => {
   };
 };
 
-const setupPermissionsTab = () => {
-  const desktopNotificationsBtn = document.getElementById(
-    "desktopNotificationsBtn",
-  ) as TextLink;
-  desktopNotificationsBtn.action = async () =>
-    await checkNotificationPermission();
-};
-
 const isSubmissionNeeded = () => {
   const playerNameInput = document.getElementById(
     "playerNameInput",
@@ -146,15 +133,4 @@ const isSubmissionNeeded = () => {
       controlSettingsStore.screenControlsPosition !==
         screenControlPositionRadio.currentSelection)
   );
-};
-
-export const showHideSettingsTabs = () => {
-  const controlsTab = document.querySelector(
-    '[data-container="controls-tab"',
-  ) as TabPill;
-  const profileTab = document.querySelector(
-    '[data-container="profile-tab"]',
-  ) as TabPill;
-  controlsTab.isVisible = isAuthenticated();
-  profileTab.isVisible = isAuthenticated();
 };

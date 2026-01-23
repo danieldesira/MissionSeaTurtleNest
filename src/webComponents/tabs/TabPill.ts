@@ -33,17 +33,6 @@ class TabPill extends HTMLElement {
     return pill.classList.contains("active");
   }
 
-  set isVisible(value: boolean) {
-    const pill = this.shadowRoot.querySelector(
-      '[role="button"]',
-    ) as HTMLElement;
-    if (value) {
-      pill.classList.remove("hidden");
-    } else {
-      pill.classList.add("hidden");
-    }
-  }
-
   private showTabContainer() {
     const container = document.getElementById(
       this.dataset.container,
