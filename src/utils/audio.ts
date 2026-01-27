@@ -1,6 +1,9 @@
 const musicTracks = [
-  "/music/the-turtle-burped-209197.mp3",
   "/music/the-diving-turtle-273012.mp3",
+  "/music/sea-396080.mp3",
+  "/music/ocean-vibes-391210.mp3",
+  "/music/10-minutes-submarine-underwater-ambient-sound-155046.mp3",
+  "/music/tropical-beach-cinematic-beach-tropical-music-waves-drum-synth-nature-mastered-10079.mp3",
 ];
 
 let currentTrackIndex = 0;
