@@ -1,3 +1,6 @@
+import { hideOverlay, showOverlay } from "./ui/overlay";
+import { showErrorNotice } from "./ui/waitingNotice";
+
 const musicTracks = [
   "/music/the-diving-turtle-273012.mp3",
   "/music/sea-396080.mp3",
@@ -17,6 +20,17 @@ const loadTrack = async (url: string) => {
   return audioContext.decodeAudioData(arrayBuffer);
 };
 
+const loadAllTracks = async () => {
+  showOverlay("Loading music...");
+  try {
+    return await Promise.all(musicTracks.map(loadTrack));
+  } catch {
+    showErrorNotice("Failed to load music tracks.", 500);
+  } finally {
+    hideOverlay();
+  }
+};
+
 const playTrack = (buffers: AudioBuffer[]) => {
   const bufferSource = new AudioBufferSourceNode(audioContext, {
     buffer: buffers[currentTrackIndex],
@@ -34,7 +48,7 @@ const playTrack = (buffers: AudioBuffer[]) => {
 };
 
 export const setupMusic = async () => {
-  const buffers = await Promise.all(musicTracks.map(loadTrack));
+  const buffers = await loadAllTracks();
 
   document.body.addEventListener(
     "click",
