@@ -59,21 +59,6 @@ const calculateScreenCutOffPoints = (
   ];
 };
 
-/**
- * Adjusts canvas size according to background.
- * @param canvas The canvas element
- * @author Daniel Desira
- */
-export const readjustCanvasForBg = (canvas: HTMLCanvasElement) => {
-  const bgImg = game.level?.bgImg;
-  if (bgImg?.height < canvas.height) {
-    canvas.height = bgImg.height;
-  }
-  if (bgImg?.width < canvas.width) {
-    canvas.width = bgImg.width;
-  }
-};
-
 const updateBgOffset = (x: number, y: number) => {
   game.level.bgOffsetX = x;
   game.level.bgOffsetY = y;

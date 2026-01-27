@@ -157,8 +157,12 @@ export const setupBackToMenuBtn = () => {
 };
 
 export const setupCanvasSize = () => {
-  const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
-  window.addEventListener("resize", () => resizeCanvas(canvas));
+  window.addEventListener("resize", () => {
+    if (game.level?.bgImg) {
+      const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
+      resizeCanvas(canvas, game.level.bgImg);
+    }
+  });
 };
 
 export const setupGamePauseOnDialogOpen = () =>

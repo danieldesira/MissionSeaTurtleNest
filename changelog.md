@@ -17,6 +17,8 @@
 - Main menu:
   - Add notifications icon
   - Add bounce effect to the header
+- Update music tracks as per #94
+- Fix initial calculation of canvas dimensions as per #96
 
 # 0.8.4 Beta - 06/01/2026 17:45 UTC+1
 

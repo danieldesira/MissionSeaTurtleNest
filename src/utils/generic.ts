@@ -1,5 +1,3 @@
-import { readjustCanvasForBg } from "../levels/background";
-
 /**
  * Randomises true or false.
  * @returns Random boolean
@@ -13,11 +11,14 @@ export const generateRandomBit = (): boolean => !!Math.round(Math.random());
  * @param canvas The canvas element
  * @author Daniel Desira
  */
-export const resizeCanvas = (canvas: HTMLCanvasElement) => {
+export const resizeCanvas = (
+  canvas: HTMLCanvasElement,
+  bgImg: HTMLImageElement,
+) => {
   if (canvas) {
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-    readjustCanvasForBg(canvas);
+    const { width: bgWidth, height: bgHeight } = bgImg;
+    canvas.width = Math.min(window.innerWidth, bgWidth);
+    canvas.height = Math.min(window.innerHeight, bgHeight);
   }
 };
 

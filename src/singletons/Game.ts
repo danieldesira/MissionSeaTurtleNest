@@ -164,7 +164,6 @@ class Game {
         restoreGameProgress();
       }
 
-      resizeCanvas(canvas);
       this._isGameScreenActive = true;
 
       this.runGameLoop(canvas);
@@ -197,6 +196,7 @@ class Game {
           canvas.getContext("2d"),
           this._currentGameCharacterList.characters.size === 0,
         );
+        resizeCanvas(canvas, this._level.bgImg);
       }
 
       const gameRunning = await this.checkTurtleAndGameProgress();
