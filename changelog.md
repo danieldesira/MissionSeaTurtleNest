@@ -1,4 +1,4 @@
-# 0.8.5 Beta -
+# 0.8.5 Beta - 27/01/2026 19:00 UTC+1
 
 - Internal:
   - Upgrade to Vite 7.3.1 and change it to a developer dependency
