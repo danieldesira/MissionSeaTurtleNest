@@ -14,21 +14,17 @@
 }
 
 #assetLoadingProgressBar {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 0.25rem;
+  @apply bg-slate-800 rounded-sm;
 }
 
 #assetLoadingProgressBar::-webkit-progress-bar {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 0.25rem;
+  @apply bg-slate-800 rounded-sm;
 }
 
 #assetLoadingProgressBar::-webkit-progress-value {
-  background-color: var(--color-primary);
-  border-radius: 0.25rem;
+  @apply bg-primary rounded-sm;
 }
 
 #assetLoadingProgressBar::-moz-progress-bar {
-  background-color: var(--color-primary);
-  border-radius: 0.25rem;
+  @apply bg-primary rounded-sm;
 }

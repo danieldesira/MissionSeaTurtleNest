@@ -10,29 +10,24 @@
       @apply flex gap-2 items-center text-primary font-semibold text-lg;
     }
 
+    meter {
+      accent-color: var(--color-primary);
+    }
+
     meter::-webkit-meter-bar {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 0.25rem;
+      @apply bg-slate-800 rounded-sm;
     }
 
     meter::-webkit-meter-optimum-value {
-      background-color: var(--color-primary);
-      border-radius: 0.25rem;
+      @apply bg-primary rounded-sm;
     }
 
     meter::-webkit-meter-suboptimum-value {
-      background-color: var(--color-primary);
-      border-radius: 0.25rem;
+      @apply bg-primary rounded-sm;
     }
 
     meter::-webkit-meter-even-less-good-value {
-      background-color: var(--color-danger);
-      border-radius: 0.25rem;
-    }
-
-    meter::-moz-meter-bar {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 0.25rem;
+      @apply bg-danger rounded-sm;
     }
   </style>
   <div class="outerContainer">
