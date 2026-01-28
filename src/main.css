@@ -8,6 +8,27 @@
   --animate-bounce-once: bounce 500ms 1;
 }
 
-#overlay:open {
+#overlay:open,
+#assetLoadingOverlay:open {
   @apply flex opacity-90;
+}
+
+progress#assetLoadingProgressBar {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.25rem;
+}
+
+progress#assetLoadingProgressBar::-webkit-progress-bar {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.25rem;
+}
+
+progress#assetLoadingProgressBar::-webkit-progress-value {
+  background-color: var(--color-primary);
+  border-radius: 0.25rem;
+}
+
+progress#assetLoadingProgressBar::-moz-progress-bar {
+  background-color: var(--color-primary);
+  border-radius: 0.25rem;
 }

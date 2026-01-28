@@ -1,4 +1,9 @@
+# 0.8.6 Beta -
+
+- Asset loading progress bar for music loading progress
+
 # 0.8.5.1 Beta - 27/01/2026 19:45 UTC+1
+
 - Music: Add overlay to block UI until music download is complete
 
 # 0.8.5 Beta - 27/01/2026 19:00 UTC+1

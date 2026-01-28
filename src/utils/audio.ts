@@ -1,5 +1,11 @@
-import { hideOverlay, showOverlay } from "./ui/overlay";
+import {
+  hideAssetLoadingOverlay,
+  showAssetLoadingOverlay,
+  updateAssetLoadingProgressBar,
+} from "./ui/staticAssetsLoadingOverlay";
 import { showErrorNotice } from "./ui/waitingNotice";
+
+const totalBytes = 34_261_884;
 
 const musicTracks = [
   "/music/the-diving-turtle-273012.mp3",
@@ -17,17 +23,18 @@ gainNode.connect(audioContext.destination);
 const loadTrack = async (url: string) => {
   const res = await fetch(url);
   const arrayBuffer = await res.arrayBuffer();
+  updateAssetLoadingProgressBar((arrayBuffer.byteLength / totalBytes) * 100);
   return audioContext.decodeAudioData(arrayBuffer);
 };
 
 const loadAllTracks = async () => {
-  showOverlay("Loading music...");
+  showAssetLoadingOverlay("Loading music...");
   try {
     return await Promise.all(musicTracks.map(loadTrack));
   } catch {
     showErrorNotice("Failed to load music tracks.", 500);
   } finally {
-    hideOverlay();
+    hideAssetLoadingOverlay();
   }
 };
 
