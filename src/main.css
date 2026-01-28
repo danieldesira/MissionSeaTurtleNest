@@ -13,22 +13,22 @@
   @apply flex opacity-90;
 }
 
-progress#assetLoadingProgressBar {
+#assetLoadingProgressBar {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 0.25rem;
 }
 
-progress#assetLoadingProgressBar::-webkit-progress-bar {
+#assetLoadingProgressBar::-webkit-progress-bar {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 0.25rem;
 }
 
-progress#assetLoadingProgressBar::-webkit-progress-value {
+#assetLoadingProgressBar::-webkit-progress-value {
   background-color: var(--color-primary);
   border-radius: 0.25rem;
 }
 
-progress#assetLoadingProgressBar::-moz-progress-bar {
+#assetLoadingProgressBar::-moz-progress-bar {
   background-color: var(--color-primary);
   border-radius: 0.25rem;
 }

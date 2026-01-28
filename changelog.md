@@ -1,6 +1,8 @@
 # 0.8.6 Beta -
 
 - Asset loading progress bar for music loading progress
+- Use wallet icon for stomach capacity gauge/meter
+- Use primary colour for gauges/meters
 
 # 0.8.5.1 Beta - 27/01/2026 19:45 UTC+1
 
