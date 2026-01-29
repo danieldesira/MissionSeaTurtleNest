@@ -3,6 +3,8 @@
 - Asset loading progress bar for music loading progress
 - Use wallet icon for stomach capacity gauge/meter
 - Use primary colour for gauges/meters
+- Music converted to `.ogg` for smaller and faster transfers with `.mp3` fallback
+- Tool to update music total size for the respective format
 
 # 0.8.5.1 Beta - 27/01/2026 19:45 UTC+1
 

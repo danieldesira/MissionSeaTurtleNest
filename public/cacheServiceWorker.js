@@ -1,6 +1,4 @@
-const t = self,
-  r = "cache-v1",
-  n = [
+const r = [
     "",
     "index.html",
     "dist/bundle.js",
@@ -8,6 +6,7 @@ const t = self,
     "favicon.svg",
     "images/backgrounds/level1.png",
     "images/backgrounds/level2.png",
+    "images/backgrounds/level3.png",
     "images/characters/turtle.svg",
     "images/characters/benthicCrab.svg",
     "images/characters/boat.svg",
@@ -17,15 +16,31 @@ const t = self,
     "images/characters/shrimp.svg",
     "images/backgrounds/hatchingTurtles.svg",
     "https://unpkg.com/lucide@latest",
-  ];
-t.addEventListener("install", (e) => {
+    "images/characters/nurdle.svg",
+    "images/characters/ghostNet.svg",
+    "images/characters/rope.svg",
+    "images/characters/jaggedPlastic.svg",
+    "music/the-diving-turtle-273012.mp3",
+    "music/sea-396080.mp3",
+    "music/ocean-vibes-391210.mp3",
+    "music/10-minutes-submarine-underwater-ambient-sound-155046.mp3",
+    "music/tropical-beach-cinematic-beach-tropical-music-waves-drum-synth-nature-mastered-10079.mp3",
+    "music/the-diving-turtle-273012.ogg",
+    "music/sea-396080.ogg",
+    "music/ocean-vibes-391210.ogg",
+    "music/10-minutes-submarine-underwater-ambient-sound-155046.ogg",
+    "music/tropical-beach-cinematic-beach-tropical-music-waves-drum-synth-nature-mastered-10079.ogg",
+  ],
+  c = self,
+  i = "cache-v1";
+c.addEventListener("install", (e) => {
   (console.log("Service worker install event!"),
-    e.waitUntil(caches.open(r).then((s) => s.addAll(n))));
+    e.waitUntil(caches.open(i).then((s) => s.addAll(r))));
 });
-t.addEventListener("fetch", (e) => {
+c.addEventListener("fetch", (e) => {
   const s = ["localhost"],
-    { hostname: c } = new URL(e.request.url);
-  s.includes(c) ||
+    { hostname: t } = new URL(e.request.url);
+  s.includes(t) ||
     (console.log("Fetch intercepted for:", e.request.url),
     e.respondWith(
       caches
