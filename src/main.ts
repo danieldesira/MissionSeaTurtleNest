@@ -15,6 +15,7 @@ import {
   setupGameControls,
   setupGamePauseOnDialogOpen,
   setupGameShareBtn,
+  setupKeyboardShortcuts,
   setupLevelStartDialog,
   setupPauseBtn,
   setupResumeBtn,
@@ -24,6 +25,7 @@ import {
   setupContinueGameBtn,
   setupGameOverwriteDialog,
   setupInstructionsDialog,
+  setupMainMenuKeyboardNavigation,
   setupNewGameMenuBtn,
 } from "./utils/ui/mainMenu";
 import { setupLoginInvitationDialog } from "./utils/ui/loginInvitationDialog";
@@ -57,9 +59,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupGamePauseOnDialogOpen();
   setupLevelStartDialog();
   setupNewLevelEventHandler();
+  setupKeyboardShortcuts();
 
   setupScoresDialog();
   setupFullscreenBtn();
   //setupNotificationsIcon();
   setupMusic();
+  setupMainMenuKeyboardNavigation();
 });

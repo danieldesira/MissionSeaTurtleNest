@@ -144,15 +144,17 @@ const uploadGameProgress = async () => {
 
 export const setupBackToMenuBtn = () => {
   const backBtn = document.getElementById("backBtn") as PrettyButton;
-  backBtn.callback = async () => {
-    if (isAuthenticated()) {
-      game.exit();
-      toggleMode("menu");
-      await uploadGameProgress();
-    } else {
-      showLoginInvitationDialog();
-    }
-  };
+  backBtn.callback = async () => await handleBackToMainMenu();
+};
+
+const handleBackToMainMenu = async () => {
+  if (isAuthenticated()) {
+    game.exit();
+    toggleMode("menu");
+    await uploadGameProgress();
+  } else {
+    showLoginInvitationDialog();
+  }
 };
 
 export const setupCanvasSize = () => {
@@ -282,4 +284,20 @@ export const setupLevelStartDialog = () => {
     "levelStartDialog",
   ) as PrettyDialog;
   levelStartDialog.closeButtonIds = ["levelStartDialogCloseBtn"];
+};
+
+export const setupKeyboardShortcuts = () => {
+  document.addEventListener("keydown", async (event) => {
+    if (game.isGameScreenActive) {
+      switch (event.key.toLowerCase()) {
+        case "b":
+          await handleBackToMainMenu();
+          break;
+        case " ":
+        case "p":
+          showGamePausedDialog();
+          break;
+      }
+    }
+  });
 };

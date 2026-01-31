@@ -21,6 +21,21 @@ class MenuItem extends HTMLElement {
   set callback(value: () => void) {
     this.addEventListener("click", value);
   }
+
+  applyFocus() {
+    const button = this.shadowRoot.querySelector("[role=button]");
+    button.classList.add("active");
+  }
+
+  removeFocus() {
+    const button = this.shadowRoot.querySelector("[role=button]");
+    button.classList.remove("active");
+  }
+
+  get isVisible() {
+    const button = this.shadowRoot.querySelector("[role=button]");
+    return !button.classList.contains("hide");
+  }
 }
 
 export default MenuItem;
