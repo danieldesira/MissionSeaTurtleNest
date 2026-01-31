@@ -9,10 +9,10 @@ import {
   setupControlSettings,
   setupSettingsProfileTab,
 } from "./ui/settingsDialog";
-import { launchCustomDialog } from "./ui/customDialog";
 import { controlSettingsStore } from "../inMemoryStores/ControlSettingsStore";
 import { personalBestStore } from "../inMemoryStores/PersonalBestStore";
 import { lastGameStore } from "../inMemoryStores/LastGameStore";
+import { showErrorNotice } from "./ui/waitingNotice";
 
 export const handleGoogleAuthResponse = async ({
   credential,
@@ -36,10 +36,7 @@ export const handleGoogleAuthResponse = async ({
     hideLoginDialog();
     updateAuthenticationUI();
   } catch {
-    launchCustomDialog(
-      "Login failed",
-      "There was an issue logging in. Please try again.",
-    );
+    showErrorNotice("There was an issue logging in. Please try again.", 500);
     deleteSsoTokenInLocalStorage();
   } finally {
     hideOverlay();

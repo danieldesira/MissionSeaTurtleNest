@@ -1,9 +1,12 @@
 import { game } from "../singletons/Game";
 import { saveScore } from "../services/api";
-import { launchCustomDialog } from "./ui/customDialog";
 import { isAuthenticated } from "./authentication";
 import { updatePersonalBestPlaceholders } from "./ui/scores";
-import { hideWaitingNotice, showWaitingNotice } from "./ui/waitingNotice";
+import {
+  hideWaitingNotice,
+  showErrorNotice,
+  showWaitingNotice,
+} from "./ui/waitingNotice";
 import { hideContinueGameBtn } from "./ui/mainMenu";
 import { personalBestStore } from "../inMemoryStores/PersonalBestStore";
 import { lastGameStore } from "../inMemoryStores/LastGameStore";
@@ -49,7 +52,7 @@ export const deleteLastGameAndSaveScore = async (
       });
     }
   } catch {
-    launchCustomDialog("Error", "Failed to save game score");
+    showErrorNotice("Failed to save game score", 500);
   } finally {
     lastGameStore.reset();
     hideWaitingNotice();

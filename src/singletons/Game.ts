@@ -24,6 +24,7 @@ import { toggleMode } from "../utils/ui/mainMenu";
 import { hideOverlay, showOverlay } from "../utils/ui/overlay";
 import { showXpUpdate, updateXpSpan } from "../utils/ui/xp";
 import { GameLossReason } from "../events/types";
+import { showErrorNotice } from "../utils/ui/waitingNotice";
 
 type GameOptions = {
   canvas: HTMLCanvasElement;
@@ -146,7 +147,7 @@ class Game {
         this._turtle.y = this._level.bgImg.height / 2;
       }
     } catch (error) {
-      launchCustomDialog("Game Error", error.toString());
+      showErrorNotice(error.toString(), 500);
     } finally {
       hideOverlay();
     }

@@ -4,8 +4,11 @@ import type PrettyButton from "../../webComponents/form/PrettyButton";
 import type RadioSelection from "../../webComponents/form/RadioSelection";
 import type TextInput from "../../webComponents/form/TextInput";
 import { updateProfile, uploadProfilePicture } from "../../services/api";
-import { hideWaitingNotice, showWaitingNotice } from "./waitingNotice";
-import { launchCustomDialog } from "./customDialog";
+import {
+  hideWaitingNotice,
+  showErrorNotice,
+  showWaitingNotice,
+} from "./waitingNotice";
 import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
 import { profileStore } from "../../inMemoryStores/ProfileStore";
 import { isAuthenticated } from "../authentication";
@@ -56,7 +59,7 @@ const submitSettings = async () => {
         },
       });
     } catch {
-      launchCustomDialog("Saving failed", "Failed to save settings!");
+      showErrorNotice("Failed to save settings!", 500);
     } finally {
       hideWaitingNotice();
     }
@@ -106,9 +109,9 @@ export const setupSettingsProfileTab = () => {
       const res = await uploadProfilePicture(target.files[0]);
       profilePicUploader.currentImageUrl = res.profilePicUrl;
     } catch {
-      launchCustomDialog(
-        "Upload Error",
+      showErrorNotice(
         "Failed to upload profile picture. Please try again!",
+        500,
       );
     } finally {
       hideWaitingNotice();

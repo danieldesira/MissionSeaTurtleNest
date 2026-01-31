@@ -7,7 +7,6 @@ import type GameGauge from "../../webComponents/gameplay/GameGauge";
 import { isAuthenticated } from "../authentication";
 import { resizeCanvas } from "../generic";
 import { toggleMode } from "./mainMenu";
-import { launchCustomDialog } from "./customDialog";
 import {
   hideWaitingNotice,
   showErrorNotice,
@@ -77,7 +76,7 @@ export const setupGameShareBtn = () => {
           url: window.location.href,
         });
       } catch {
-        launchCustomDialog("Share failed", "Failed to share the game.");
+        showErrorNotice("Failed to share the game.", 500);
       }
     }
   };

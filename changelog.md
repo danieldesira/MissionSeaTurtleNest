@@ -1,3 +1,8 @@
+# 0.8.7 Beta -
+
+- UI:
+  - Update all error messages to the tiny top-right auto-close notice
+
 # 0.8.6 Beta - 19:30 UTC+1
 
 - Asset loading progress bar for music loading progress

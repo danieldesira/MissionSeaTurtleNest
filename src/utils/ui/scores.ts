@@ -3,9 +3,8 @@ import { fetchHighScores } from "../../services/api";
 import { personalBestStore } from "../../inMemoryStores/PersonalBestStore";
 import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type PrettyButton from "../../webComponents/form/PrettyButton";
-import { launchCustomDialog } from "./customDialog";
 import { deleteChildren } from "./ui";
-import { hideWaitingNotice } from "./waitingNotice";
+import { hideWaitingNotice, showErrorNotice } from "./waitingNotice";
 
 export const formatLevelAsText = (levelNo: number) =>
   levelExists(levelNo) ? `Level ${levelNo}` : "Game Complete";
@@ -61,7 +60,7 @@ const populateLeaderBoard = async () => {
       },
     );
   } catch {
-    launchCustomDialog("Leaderboard", "Failed to load high scores");
+    showErrorNotice("Failed to load high scores", 500);
   } finally {
     hideWaitingNotice();
   }
