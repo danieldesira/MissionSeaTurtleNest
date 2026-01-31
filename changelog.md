@@ -2,6 +2,8 @@
 
 - UI:
   - Update all error messages to the tiny top-right auto-close notice
+  - Add in-game keyboard shortcuts for back to menu menu (`Esc`/`b`) and pause (` `/`p`)
+  - Add keyboard navigation for main menu via up and down arrow keys
 
 # 0.8.6 Beta - 19:30 UTC+1
 

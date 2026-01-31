@@ -1,5 +1,4 @@
 import { lastGameStore } from "../../inMemoryStores/LastGameStore";
-import { game } from "../../singletons/Game";
 import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type PrettyButton from "../../webComponents/form/PrettyButton";
 import type MenuItem from "../../webComponents/mainMenu/MenuItem";
@@ -102,52 +101,4 @@ export const setupGameOverwriteDialog = () => {
 const initGame = async (newGame: boolean) => {
   toggleMode("game");
   await initialiseGame(newGame);
-};
-
-export const setupMainMenuKeyboardNavigation = () => {
-  const menuOptions: Record<number, string> = {
-    1: "continueGameBtn",
-    2: "newGameBtn",
-    3: "instructionsBtn",
-  };
-  let currentKey = 1;
-  document.addEventListener("keydown", (event) => {
-    if (!game.isGameScreenActive) {
-      switch (event.key) {
-        case "ArrowUp":
-          if (currentKey > 1) {
-            currentKey--;
-          }
-          break;
-        case "ArrowDown":
-          if (
-            currentKey <
-            Math.max(...Object.keys(menuOptions).map((k) => parseInt(k)))
-          ) {
-            currentKey++;
-          }
-          break;
-        case "Enter":
-        case " ":
-          triggerSelectedMenuItem(menuOptions[currentKey]);
-          break;
-      }
-
-      const menuItems = document.querySelectorAll("menu-item");
-      menuItems.forEach((item: MenuItem) => {
-        if (item.id === menuOptions[currentKey]) {
-          item.applyFocus();
-        } else {
-          item.removeFocus();
-        }
-      });
-    }
-  });
-};
-
-const triggerSelectedMenuItem = (id: string) => {
-  const item = document.getElementById(id) as MenuItem;
-  if (item.isVisible) {
-    item.click();
-  }
 };

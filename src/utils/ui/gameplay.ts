@@ -291,11 +291,16 @@ export const setupKeyboardShortcuts = () => {
     if (game.isGameScreenActive) {
       switch (event.key.toLowerCase()) {
         case "b":
+        case "escape":
+          event.preventDefault();
+          event.stopPropagation();
           await handleBackToMainMenu();
           break;
         case " ":
         case "p":
-          showGamePausedDialog();
+          if (!game.isPaused) {
+            showGamePausedDialog();
+          }
           break;
       }
     }

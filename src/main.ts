@@ -25,12 +25,12 @@ import {
   setupContinueGameBtn,
   setupGameOverwriteDialog,
   setupInstructionsDialog,
-  setupMainMenuKeyboardNavigation,
   setupNewGameMenuBtn,
 } from "./utils/ui/mainMenu";
 import { setupLoginInvitationDialog } from "./utils/ui/loginInvitationDialog";
 import { setupNewLevelEventHandler } from "./levels/customEvents";
 import { setupMusic } from "./utils/audio";
+import { setupMainMenuKeyboardNavigation } from "./utils/ui/mainMenuKeyboardNavigation";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");
