@@ -39,22 +39,39 @@
             <span class="text-cyan-500">Turtle Nest</span>
           </h1>
           <div class="flex gap-1">
-            <pretty-button id="fullscreenBtn" title="Fullscreen">
+            <pretty-button id="fullscreenBtn" title="Fullscreen (F11)">
               <i data-lucide="fullscreen"></i>
             </pretty-button>
-            <pretty-button id="scoresBtn" title="Scores">
+            <pretty-button
+              id="scoresBtn"
+              title="Scores (Accesskey: 2)"
+              accesskey="2"
+            >
               <i data-lucide="trophy"></i>
             </pretty-button>
             <div id="loginContainer" class="flex gap-1">
-              <pretty-button id="loginBtn" title="Login">
+              <pretty-button
+                id="loginBtn"
+                title="Login (Accesskey: 1)"
+                accesskey="1"
+              >
                 <i data-lucide="log-in"></i>
               </pretty-button>
             </div>
             <div id="authenticatedContainer" class="hidden gap-1">
-              <pretty-button id="settingsBtn" title="Settings">
+              <pretty-button
+                id="settingsBtn"
+                title="Settings (Accesskey: 3)"
+                accesskey="3"
+              >
                 <i data-lucide="settings"></i>
               </pretty-button>
-              <pretty-button id="logoutBtn" variant="danger" title="Logout">
+              <pretty-button
+                id="logoutBtn"
+                variant="danger"
+                title="Logout (Accesskey: 0)"
+                accesskey="0"
+              >
                 <i data-lucide="log-out"></i>
               </pretty-button>
             </div>
@@ -151,10 +168,10 @@
           class="absolute top-0 left-0 flex gap-2 items-center w-full justify-between px-2 z-10"
         >
           <div class="flex gap-2">
-            <pretty-button id="backBtn" title="Back to menu">
+            <pretty-button id="backBtn" title="Back to menu (Esc key)">
               <i class="text-white" data-lucide="chevron-left"></i>
             </pretty-button>
-            <pretty-button id="pauseBtn" title="Pause game">
+            <pretty-button id="pauseBtn" title="Pause game (Space key)">
               <i role="button" class="text-white" data-lucide="pause"></i>
             </pretty-button>
           </div>

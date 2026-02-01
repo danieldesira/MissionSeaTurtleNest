@@ -30,7 +30,6 @@ export const setupMainMenuKeyboardNavigation = () => {
           }
           break;
         case "Enter":
-        case " ":
           event.preventDefault();
           event.stopPropagation();
           triggerSelectedMenuItem(menuOptions[currentKey]);

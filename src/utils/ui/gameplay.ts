@@ -289,15 +289,13 @@ export const setupLevelStartDialog = () => {
 export const setupKeyboardShortcuts = () => {
   document.addEventListener("keydown", async (event) => {
     if (game.isGameScreenActive) {
-      switch (event.key.toLowerCase()) {
-        case "b":
-        case "escape":
+      switch (event.key) {
+        case "Escape":
           event.preventDefault();
           event.stopPropagation();
           await handleBackToMainMenu();
           break;
         case " ":
-        case "p":
           if (!game.isPaused) {
             showGamePausedDialog();
           }
