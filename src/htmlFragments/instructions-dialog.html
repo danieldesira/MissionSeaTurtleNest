@@ -1,6 +1,6 @@
 <pretty-dialog id="instructionsDialog">
   <span slot="title">Instructions</span>
-  <div slot="content">
+  <div slot="content" class="flex flex-col gap-2">
     <div class="flex flex-col gap-1 justify-center items-center">
       <p>
         Help Peppa the loggerhead turtle to her nesting grounds. Use the
@@ -17,14 +17,6 @@
         <br />
         Daniel - Game Developer
       </p>
-      <p>
-        <small>
-          Access key combinations for keyboard users:<br />
-          Windows: <code>Alt + key</code> (Chrome/Edge),
-          <code>Alt + Shift + key</code> (Firefox)<br />
-          macOS: <code>Ctrl + Option + key</code>
-        </small>
-      </p>
     </div>
     <figure class="flex flex-col justify-center items-center gap-1">
       <img src="/images/babyTurtle.jpg" alt="Baby turtle" class="w-full" />
@@ -32,6 +24,18 @@
         Photo by Steff Cutajar from Għadira nest excavation (2025)
       </figcaption>
     </figure>
+    <p>
+      <small>
+        Access key combinations for keyboard users:<br />
+        Windows: <code>Alt + key</code> (Chrome/Edge),
+        <code>Alt + Shift + key</code> (Firefox)<br />
+        macOS: <code>Ctrl + Option + key</code><br />
+        Accesskey 1: Login<br />
+        Accesskey 2: High Scores<br />
+        Accesskey 3: Settings<br />
+        Accesskey 0: Logout
+      </small>
+    </p>
   </div>
   <div slot="footer">
     <pretty-button id="closeInstructionsBtn">Close</pretty-button>

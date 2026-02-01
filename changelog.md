@@ -5,6 +5,9 @@
   - Add in-game keyboard shortcuts for back to menu menu (`Esc`) and pause (` `)
   - Add keyboard navigation for main menu via up and down arrow keys
   - Add accesskeys for all relevant buttons on the main menu header
+  - Instructions dialog: Introduce small gap between text and photo
+- Internal:
+  - Add `accesskey` support in `<pretty-button>`
 
 # 0.8.6 Beta - 19:30 UTC+1
 
