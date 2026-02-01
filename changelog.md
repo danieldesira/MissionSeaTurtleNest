@@ -6,10 +6,13 @@
   - Add keyboard navigation for main menu via up and down arrow keys
   - Add accesskeys for all relevant buttons on the main menu header
   - Instructions dialog: Introduce small gap between text and photo
+  - Highscores: Highlight scores for current player
 - Internal:
   - Add `accesskey` support in `<pretty-button>`
+  - Add `playerIdentifier` property to `ProfileStore`
+  - Update `HighScore` interface to include `playerIdentifier` as per API 0.2
 
-# 0.8.6 Beta - 19:30 UTC+1
+# 0.8.6 Beta - 29/01/2026 19:30 UTC+1
 
 - Asset loading progress bar for music loading progress
 - Use wallet icon for stomach capacity gauge/meter

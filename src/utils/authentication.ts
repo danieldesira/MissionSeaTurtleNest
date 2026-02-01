@@ -69,6 +69,7 @@ const populatePlayerProfile = (accountData: LoginResponse) => {
     profileStore.name = player.name;
     profileStore.profile_pic_url = player.profile_pic_url;
     profileStore.date_of_birth = new Date(player.date_of_birth);
+    profileStore.playerIdentifier = `${player.external_id}-${player.sso_platform}`;
     setupSettingsProfileTab();
   }
 };

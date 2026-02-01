@@ -5,6 +5,7 @@ import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type PrettyButton from "../../webComponents/form/PrettyButton";
 import { deleteChildren } from "./ui";
 import { hideWaitingNotice, showErrorNotice } from "./waitingNotice";
+import { profileStore } from "../../inMemoryStores/ProfileStore";
 
 export const formatLevelAsText = (levelNo: number) =>
   levelExists(levelNo) ? `Level ${levelNo}` : "Game Complete";
@@ -48,7 +49,14 @@ const populateLeaderBoard = async () => {
     deleteChildren(leaderboardTbody);
 
     highScores.forEach(
-      ({ playerProfilePicUrl, playerName, level, points, outcome }) => {
+      ({
+        playerProfilePicUrl,
+        playerName,
+        level,
+        points,
+        outcome,
+        playerIdentifier,
+      }) => {
         const row = document.createElement("tr");
         row.classList.add("font-semibold", "text-sm");
         appendImageCell(row, playerProfilePicUrl);
@@ -57,6 +65,10 @@ const populateLeaderBoard = async () => {
         appendCell(row, points.toString(), "right");
         appendCell(row, outcome, "center");
         leaderboardTbody.appendChild(row);
+
+        if (profileStore.playerIdentifier === playerIdentifier) {
+          row.classList.add("bg-green-500");
+        }
       },
     );
   } catch {

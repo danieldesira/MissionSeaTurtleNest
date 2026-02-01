@@ -10,12 +10,13 @@ export interface HighScore {
   playerName: string;
   playerProfilePicUrl: string;
   outcome: string;
+  playerIdentifier: string;
 }
 
 export interface Player {
   id?: number;
   external_id?: string;
-  platform?: string;
+  sso_platform?: string;
   name: string;
   email: string;
   created_at?: string;

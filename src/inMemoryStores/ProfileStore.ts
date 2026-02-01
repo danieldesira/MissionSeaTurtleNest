@@ -5,6 +5,7 @@ class ProfileStore implements IStore {
   private _name: string;
   private _profile_pic_url: string;
   private _date_of_birth: Date;
+  private _playerIdentifier: string;
 
   constructor() {
     this.reset();
@@ -74,6 +75,14 @@ class ProfileStore implements IStore {
     return this._date_of_birth;
   }
 
+  set playerIdentifier(value: string) {
+    this._playerIdentifier = value;
+  }
+
+  get playerIdentifier() {
+    return this._playerIdentifier;
+  }
+
   /**
    * Resets profile state.
    * @author Daniel Desira
@@ -83,6 +92,7 @@ class ProfileStore implements IStore {
     this._name = "";
     this._profile_pic_url = "";
     this._date_of_birth = new Date();
+    this._playerIdentifier = "";
   }
 }
 
