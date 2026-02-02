@@ -1,3 +1,8 @@
+# 0.8.8 Beta -
+
+- Authentication:
+  - Fix bug when date is not defined
+
 # 0.8.7 Beta - 02/02/2026 13:30 UTC+1
 
 - UI:

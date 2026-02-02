@@ -95,9 +95,13 @@ export const setupSettingsProfileTab = () => {
   ) as TextInput;
   playerNameInput.value = profileStore.name;
 
-  const playerDobInput = document.getElementById("playerDobInput") as TextInput;
-  playerDobInput.value = profileStore.dateOfBirth;
-
+  if (profileStore.dateOfBirth) {
+    const playerDobInput = document.getElementById(
+      "playerDobInput",
+    ) as TextInput;
+    playerDobInput.value = profileStore.dateOfBirth;
+  }
+  
   const profilePicUploader = document.getElementById(
     "profilePicUploader",
   ) as ImageUploader;

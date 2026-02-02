@@ -35,7 +35,8 @@ export const handleGoogleAuthResponse = async ({
 
     hideLoginDialog();
     updateAuthenticationUI();
-  } catch {
+  } catch (e) {
+    console.error(e);
     showErrorNotice("There was an issue logging in. Please try again.", 500);
     deleteSsoTokenInLocalStorage();
   } finally {
@@ -68,7 +69,9 @@ const populatePlayerProfile = (accountData: LoginResponse) => {
     profileStore.email = player.email;
     profileStore.name = player.name;
     profileStore.profilePicUrl = player.profilePicUrl;
-    profileStore.dateOfBirth = new Date(player.dateOfBirth);
+    profileStore.dateOfBirth = player.dateOfBirth
+      ? new Date(player.dateOfBirth)
+      : null;
     profileStore.playerIdentifier = `${player.externalId}-${player.ssoPlatform}`;
     setupSettingsProfileTab();
   }

@@ -2,7 +2,7 @@
   "manifest_version": 1.1,
   "name": "Mission Sea Turtle Nest",
   "short_name": "Mission Turtle",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "display": "fullscreen",
   "orientation": "landscape",
   "start_url": "./",
