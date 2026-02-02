@@ -15,11 +15,17 @@ export const login = async (ssoToken: SsoToken) =>
 export const saveGame = async (data: SaveGamePayload) =>
   await FetchRequest.put("api/game", data);
 
-export const saveScore = async ({ points, level, hasWon }: SaveScorePayload) =>
+export const saveScore = async ({
+  points,
+  level,
+  hasWon,
+  duration,
+}: SaveScorePayload) =>
   await FetchRequest.post("api/points", {
     points,
     level,
     hasWon,
+    duration,
   });
 
 export const fetchHighScores = async () =>

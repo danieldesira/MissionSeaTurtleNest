@@ -39,6 +39,7 @@ export interface SaveScorePayload {
   points: number;
   level: number;
   hasWon: boolean;
+  duration: number;
 }
 
 export interface UpdatePlayerPayload {

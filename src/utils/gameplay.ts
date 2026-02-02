@@ -49,6 +49,7 @@ export const deleteLastGameAndSaveScore = async (
         points: game.xp,
         level: game.currentLevelNo,
         hasWon,
+        duration: game.timeInSeconds,
       });
     }
   } catch {

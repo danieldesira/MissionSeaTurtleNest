@@ -102,6 +102,10 @@ class Game {
     return this._currentGameCharacterList;
   }
 
+  get timeInSeconds() {
+    return Math.floor(this._currentFrameCount / 60);
+  }
+
   reset() {
     this._currentLevelNo = 1;
     this._xp = 0;
