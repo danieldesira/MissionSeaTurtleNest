@@ -1,4 +1,4 @@
-# 0.8.7 Beta -
+# 0.8.7 Beta - 02/02/2026 13:30 UTC+1
 
 - UI:
   - Update all error messages to the tiny top-right auto-close notice
@@ -11,6 +11,7 @@
   - Add `accesskey` support in `<pretty-button>`
   - Add `playerIdentifier` property to `ProfileStore`
   - Update `HighScore` interface to include `playerIdentifier` as per API 0.2
+  - Update all API interfaces to use camelCase in line with API 0.2.x
 
 # 0.8.6 Beta - 29/01/2026 19:30 UTC+1
 

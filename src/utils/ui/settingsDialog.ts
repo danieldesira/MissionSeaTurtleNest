@@ -41,7 +41,7 @@ const cacheProfileSettings = async () => {
   ) as TextInput;
   const playerDobInput = document.getElementById("playerDobInput") as TextInput;
   profileStore.name = playerNameInput.value.toString();
-  profileStore.date_of_birth = playerDobInput.value as Date;
+  profileStore.dateOfBirth = playerDobInput.value as Date;
 };
 
 const submitSettings = async () => {
@@ -53,7 +53,7 @@ const submitSettings = async () => {
     try {
       await updateProfile({
         name: profileStore.name,
-        date_of_birth: profileStore.date_of_birth.toISOString().split("T")[0],
+        dateOfBirth: profileStore.dateOfBirth.toISOString().split("T")[0],
         settings: {
           controlPosition: controlSettingsStore.screenControlsPosition,
         },
@@ -96,12 +96,12 @@ export const setupSettingsProfileTab = () => {
   playerNameInput.value = profileStore.name;
 
   const playerDobInput = document.getElementById("playerDobInput") as TextInput;
-  playerDobInput.value = profileStore.date_of_birth;
+  playerDobInput.value = profileStore.dateOfBirth;
 
   const profilePicUploader = document.getElementById(
     "profilePicUploader",
   ) as ImageUploader;
-  profilePicUploader.currentImageUrl = profileStore.profile_pic_url;
+  profilePicUploader.currentImageUrl = profileStore.profilePicUrl;
   profilePicUploader.changeCallback = async (event: Event) => {
     const target = event.target as HTMLInputElement;
     try {
@@ -131,7 +131,7 @@ const isSubmissionNeeded = () => {
   return (
     isAuthenticated() &&
     (profileStore.name !== playerNameInput.value ||
-      profileStore.date_of_birth.toISOString() !==
+      profileStore.dateOfBirth.toISOString() !==
         new Date(playerDobInput.value).toISOString() ||
       controlSettingsStore.screenControlsPosition !==
         screenControlPositionRadio.currentSelection)

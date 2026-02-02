@@ -15,16 +15,16 @@ export interface HighScore {
 
 export interface Player {
   id?: number;
-  external_id?: string;
-  sso_platform?: string;
+  externalId?: string;
+  ssoPlatform?: string;
   name: string;
   email: string;
-  created_at?: string;
-  profile_pic_url?: string;
-  date_of_birth?: string;
-  last_login_at?: string;
+  createdAt?: string;
+  profilePicUrl?: string;
+  dateOfBirth?: string;
+  lastLoginAt?: string;
   settings?: Settings;
-  last_game_saved_on?: number;
+  lastGameSavedOn?: number;
 }
 
 export interface LoginResponse {
@@ -43,7 +43,7 @@ export interface SaveScorePayload {
 
 export interface UpdatePlayerPayload {
   name: string;
-  date_of_birth: string;
+  dateOfBirth: string;
   settings: Settings;
 }
 
