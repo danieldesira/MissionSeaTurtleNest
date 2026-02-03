@@ -11,6 +11,7 @@ export interface HighScore {
   playerProfilePicUrl: string;
   outcome: string;
   playerIdentifier: string;
+  duration: number;
 }
 
 export interface Player {
@@ -32,7 +33,12 @@ export interface LoginResponse {
   player: Player;
   isNewPlayer: boolean;
   lastGame?: GameProgressStore;
-  personalBest?: { points: number; level: number; player_won: string } | null;
+  personalBest?: {
+    points: number;
+    level: number;
+    player_won: string;
+    duration: number;
+  } | null;
 }
 
 export interface SaveScorePayload {

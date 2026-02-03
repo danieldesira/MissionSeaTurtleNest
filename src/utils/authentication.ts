@@ -58,6 +58,7 @@ const populatePersonalBest = (accountData: LoginResponse) => {
   if (personalBest) {
     personalBestStore.level = personalBest.level;
     personalBestStore.points = personalBest.points;
+    personalBestStore.duration = personalBest.duration;
 
     updatePersonalBestPlaceholders();
   }

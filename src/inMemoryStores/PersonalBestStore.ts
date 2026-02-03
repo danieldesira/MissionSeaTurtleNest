@@ -3,50 +3,40 @@ import type { IStore } from "./interfaces";
 class PersonalBestStore implements IStore {
   private _points: number;
   private _level: number;
+  private _duration: number;
 
   constructor() {
     this.reset();
   }
 
-  /**
-   * Points setter.
-   * @author Daniel Desira
-   */
   set points(value: number) {
     this._points = value;
   }
 
-  /**
-   * Level setter.
-   * @author Daniel Desira
-   */
   set level(value: number) {
     this._level = value;
   }
 
-  /**
-   * Points getter.
-   * @author Daniel Desira
-   */
+  set duration(value: number) {
+    this._duration = value;
+  }
+
   get points() {
     return this._points;
   }
 
-  /**
-   * Level getter.
-   * @author Daniel Desira
-   */
   get level() {
     return this._level;
   }
 
-  /**
-   * Resets personal best score states.
-   * @author Daniel Desira
-   */
+  get duration() {
+    return this._duration;
+  }
+
   reset() {
     this._points = 0;
     this._level = 0;
+    this._duration = 0;
   }
 }
 

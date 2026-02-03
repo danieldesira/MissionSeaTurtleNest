@@ -28,6 +28,9 @@ export const updatePersonalBestPlaceholders = () => {
 
   const pointsPlaceholder = document.getElementById("personalBestPoints");
   pointsPlaceholder.innerText = personalBestStore.points.toString();
+
+  const durationPlaceholder = document.getElementById("personalBestDuration");
+  durationPlaceholder.innerText = formatDuration(personalBestStore.duration);
 };
 
 const populateLeaderBoard = async () => {
@@ -56,6 +59,7 @@ const populateLeaderBoard = async () => {
         points,
         outcome,
         playerIdentifier,
+        duration,
       }) => {
         const row = document.createElement("tr");
         row.classList.add("font-semibold", "text-sm");
@@ -64,6 +68,7 @@ const populateLeaderBoard = async () => {
         appendCell(row, formatLevelAsText(level), "right");
         appendCell(row, points.toString(), "right");
         appendCell(row, outcome, "center");
+        appendCell(row, formatDuration(duration), "right");
         leaderboardTbody.appendChild(row);
 
         if (profileStore.playerIdentifier === playerIdentifier) {
@@ -104,3 +109,6 @@ const appendImageCell = (row: HTMLTableRowElement, url: string) => {
   cell.appendChild(img);
   row.appendChild(cell);
 };
+
+const formatDuration = (duration: number) =>
+  `${Math.floor(duration / 60)}m ${duration % 60}s`;

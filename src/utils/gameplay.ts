@@ -67,6 +67,7 @@ export const checkIfBestPersonalScore = () => {
   ) {
     personalBestStore.level = game.currentLevelNo;
     personalBestStore.points = game.xp;
+    personalBestStore.duration = game.timeInSeconds;
     game.isPersonalBest = true;
 
     updatePersonalBestPlaceholders();
