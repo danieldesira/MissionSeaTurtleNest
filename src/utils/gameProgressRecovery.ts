@@ -6,6 +6,7 @@ export const restoreGameProgress = () => {
   restoreTurtleState();
   game.currentLevelNo = lastGameStore.store.levelNo;
   game.xp = lastGameStore.store.xp;
+  game.timeInSeconds = lastGameStore.store.duration;
   restoreCharacters();
 };
 

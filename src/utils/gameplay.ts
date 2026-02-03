@@ -35,6 +35,7 @@ export const cacheGameProgress = () => {
         stomachCapacity: game.turtle.apetiteGauge,
         isMama: game.turtle.isMama,
       },
+      duration: game.timeInSeconds,
     };
   }
 };

@@ -106,6 +106,10 @@ class Game {
     return Math.floor(this._currentFrameCount / 60);
   }
 
+  set timeInSeconds(value: number) {
+    this._currentFrameCount = value * 60;
+  }
+
   reset() {
     this._currentLevelNo = 1;
     this._xp = 0;

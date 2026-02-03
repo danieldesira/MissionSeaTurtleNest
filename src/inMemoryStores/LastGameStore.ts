@@ -6,6 +6,7 @@ export type GameProgressStore = {
   characters: CharacterData[];
   levelNo: number;
   xp: number;
+  duration: number;
 };
 
 type TurtleData = {
