@@ -2,6 +2,13 @@
 
 - Authentication:
   - Fix bug when date is not defined
+- Scores:
+  - Save duration in seconds
+  - Show duration in high scores and personal best
+  - Add outcome to personal best
+  - Readjust personal best layout
+  - Internal changes regarding scores
+  - Add 300 XP increase for game times within 5 minutes
 
 # 0.8.7 Beta - 02/02/2026 13:30 UTC+1
 

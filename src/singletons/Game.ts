@@ -321,7 +321,18 @@ class Game {
 
   private handleWin() {
     this.handleGameEnd(true);
-    launchGameEndDialog("Game Complete", "You win. Congratulations!");
+
+    let completeWithin5Mins = false;
+    if (this.timeInSeconds <= 60 * 5) {
+      this._xp += 300;
+      completeWithin5Mins = true;
+    }
+
+    launchGameEndDialog(
+      "Game Complete",
+      "You win. Congratulations!",
+      completeWithin5Mins,
+    );
   }
 
   private async handleGameEnd(hasWon: boolean) {

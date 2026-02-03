@@ -44,7 +44,11 @@ export const setupOnscreenControlsPosition = () => {
   }
 };
 
-export const launchGameEndDialog = (title: string, text: string) => {
+export const launchGameEndDialog = (
+  title: string,
+  text: string,
+  completeWithin5Mins: boolean = false,
+) => {
   const gameEndDialog = document.getElementById(
     "gameEndDialog",
   ) as PrettyDialog;
@@ -57,6 +61,12 @@ export const launchGameEndDialog = (title: string, text: string) => {
   const messageSpan = document.createElement("span");
   messageSpan.innerText = text;
   gameEndDialogContent.appendChild(messageSpan);
+
+  if (completeWithin5Mins) {
+    const messageSpan = document.createElement("span");
+    messageSpan.innerText = "WOW! Done under 5 minutes! +300XP";
+    gameEndDialogContent.appendChild(messageSpan);
+  }
 
   if (game.isPersonalBest) {
     addPersonalBestLineToGameEndDialog(gameEndDialogContent);
