@@ -10,6 +10,7 @@ import {
 import { hideContinueGameBtn } from "./ui/mainMenu";
 import { personalBestStore } from "../inMemoryStores/PersonalBestStore";
 import { lastGameStore } from "../inMemoryStores/LastGameStore";
+import { levelExists } from "../levels/levels";
 
 export const cacheGameProgress = () => {
   if (isAuthenticated()) {
@@ -68,6 +69,9 @@ export const checkIfBestPersonalScore = () => {
     personalBestStore.level = game.currentLevelNo;
     personalBestStore.points = game.xp;
     personalBestStore.duration = game.timeInSeconds;
+    personalBestStore.outcome = levelExists(game.currentLevelNo)
+      ? "Loss"
+      : "Win";
     game.isPersonalBest = true;
 
     updatePersonalBestPlaceholders();

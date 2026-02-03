@@ -10,7 +10,7 @@ class PrettyButton extends HTMLElement {
     const variant = this.getAttribute("variant") ?? "default";
     const button = this.shadowRoot.querySelector("button");
     button.classList.add(variant);
-    
+
     button.accessKey = this.accessKey;
   }
 

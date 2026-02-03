@@ -36,7 +36,7 @@ export interface LoginResponse {
   personalBest?: {
     points: number;
     level: number;
-    player_won: string;
+    outcome: "Win" | "Loss" | "";
     duration: number;
   } | null;
 }

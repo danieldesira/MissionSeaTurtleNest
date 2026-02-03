@@ -101,7 +101,7 @@ export const setupSettingsProfileTab = () => {
     ) as TextInput;
     playerDobInput.value = profileStore.dateOfBirth;
   }
-  
+
   const profilePicUploader = document.getElementById(
     "profilePicUploader",
   ) as ImageUploader;

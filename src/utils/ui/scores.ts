@@ -31,6 +31,9 @@ export const updatePersonalBestPlaceholders = () => {
 
   const durationPlaceholder = document.getElementById("personalBestDuration");
   durationPlaceholder.innerText = formatDuration(personalBestStore.duration);
+
+  const outcomePlaceholder = document.getElementById("personalBestOutcome");
+  outcomePlaceholder.innerText = personalBestStore.outcome;
 };
 
 const populateLeaderBoard = async () => {

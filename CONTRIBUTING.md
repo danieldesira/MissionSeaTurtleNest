@@ -73,14 +73,14 @@ Any such HTML fragments, need to be added to `src/index.base.html` through the
 ## Music
 
 Music tracks need to be added to the `/public/music` folder and then added to the
-`musicTracks` array in `/src/utils/audio.ts` without the extension. Each track is to 
-be provided in both `.mp3` and `.ogg` formats. The frontend will serve `.ogg` where 
+`musicTracks` array in `/src/utils/audio.ts` without the extension. Each track is to
+be provided in both `.mp3` and `.ogg` formats. The frontend will serve `.ogg` where
 supported and fallback to `.mp3` otherwise.
 
-Then you will need to run `node --experimental-strip-types writeMusicSize.ts`. This 
-updates the entries in a `.json` file to allow for more accurate calculation of the 
+Then you will need to run `node --experimental-strip-types writeMusicSize.ts`. This
+updates the entries in a `.json` file to allow for more accurate calculation of the
 loading progress bar.
 
-Finally, the `.ogg` and `.mp3` paths should also be added to 
-`/src/serviceWorkers/precacheResources.json`. Then run `npm run build` and manually 
+Finally, the `.ogg` and `.mp3` paths should also be added to
+`/src/serviceWorkers/precacheResources.json`. Then run `npm run build` and manually
 copy `cacheServiceWorker.js` from `dist` to `public`. Commit all changes.
