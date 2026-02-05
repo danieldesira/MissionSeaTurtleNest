@@ -12,6 +12,8 @@
 - Gameplay:
   - Bugfix: Escape key now only closes the game if no dialogs are open
   - Bugfix: Game no longer resumes if login dialog is open
+- Settings dialog:
+  - Date of Birth updated to optional
 
 # 0.8.7 Beta - 02/02/2026 13:30 UTC+1
 

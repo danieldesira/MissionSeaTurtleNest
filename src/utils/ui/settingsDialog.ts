@@ -11,7 +11,6 @@ import {
 } from "./waitingNotice";
 import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
 import { profileStore } from "../../inMemoryStores/ProfileStore";
-import { isAuthenticated } from "../authentication";
 
 export const setupControlSettings = () => {
   const screenControlPositionRadio = document.getElementById(
@@ -53,12 +52,17 @@ const submitSettings = async () => {
     try {
       await updateProfile({
         name: profileStore.name,
-        dateOfBirth: profileStore.dateOfBirth.toISOString().split("T")[0],
+        dateOfBirth:
+          profileStore.dateOfBirth &&
+          profileStore.dateOfBirth.toString() !== "Invalid Date"
+            ? profileStore.dateOfBirth.toISOString().split("T")[0]
+            : undefined,
         settings: {
           controlPosition: controlSettingsStore.screenControlsPosition,
         },
       });
-    } catch {
+    } catch (err) {
+      console.error(err);
       showErrorNotice("Failed to save settings!", 500);
     } finally {
       hideWaitingNotice();
@@ -133,11 +137,11 @@ const isSubmissionNeeded = () => {
   ) as RadioSelection;
 
   return (
-    isAuthenticated() &&
-    (profileStore.name !== playerNameInput.value ||
-      profileStore.dateOfBirth.toISOString() !==
-        new Date(playerDobInput.value).toISOString() ||
-      controlSettingsStore.screenControlsPosition !==
-        screenControlPositionRadio.currentSelection)
+    profileStore.name !== playerNameInput.value ||
+    (playerDobInput.value.toString() !== "Invalid Date" &&
+      profileStore.dateOfBirth?.toISOString() !==
+        new Date(playerDobInput.value).toISOString()) ||
+    controlSettingsStore.screenControlsPosition !==
+      screenControlPositionRadio.currentSelection
   );
 };
