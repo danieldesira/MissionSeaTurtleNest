@@ -84,6 +84,7 @@ const populateControlSettings = (accountData: LoginResponse) => {
   if (player.settings) {
     controlSettingsStore.screenControlsPosition =
       player.settings.controlPosition;
+    controlSettingsStore.audioVolume = player.settings.audioVolume;
     setupControlSettings();
   }
 };

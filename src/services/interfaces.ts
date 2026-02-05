@@ -2,6 +2,7 @@ import type { GameProgressStore } from "../inMemoryStores/LastGameStore";
 
 interface Settings {
   controlPosition: "Left" | "Right";
+  audioVolume: number;
 }
 
 export interface HighScore {

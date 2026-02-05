@@ -35,8 +35,12 @@ const cacheControlSettings = async () => {
   const screenControlPositionRadio = document.getElementById(
     "screenControlPositionRadio",
   ) as RadioSelection;
+  const volumeRangeInput = document.getElementById(
+    "volumeRangeInput",
+  ) as HTMLInputElement;
   controlSettingsStore.screenControlsPosition =
     screenControlPositionRadio.currentSelection as "Left" | "Right";
+  controlSettingsStore.audioVolume = parseFloat(volumeRangeInput.value);
 };
 
 const cacheProfileSettings = async () => {
@@ -64,6 +68,7 @@ const submitSettings = async () => {
             : undefined,
         settings: {
           controlPosition: controlSettingsStore.screenControlsPosition,
+          audioVolume: controlSettingsStore.audioVolume,
         },
       });
     } catch (err) {
@@ -140,6 +145,9 @@ const isSubmissionNeeded = () => {
   const screenControlPositionRadio = document.getElementById(
     "screenControlPositionRadio",
   ) as RadioSelection;
+  const volumeRangeInput = document.getElementById(
+    "volumeRangeInput",
+  ) as HTMLInputElement;
 
   return (
     profileStore.name !== playerNameInput.value ||
@@ -147,6 +155,7 @@ const isSubmissionNeeded = () => {
       profileStore.dateOfBirth?.toISOString() !==
         new Date(playerDobInput.value).toISOString()) ||
     controlSettingsStore.screenControlsPosition !==
-      screenControlPositionRadio.currentSelection
+      screenControlPositionRadio.currentSelection ||
+    controlSettingsStore.audioVolume !== parseFloat(volumeRangeInput.value)
   );
 };
