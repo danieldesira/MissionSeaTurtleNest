@@ -43,6 +43,11 @@ class PrettyDialog extends HTMLElement {
   set openCallback(value: () => void) {
     this._openCallback = value;
   }
+
+  get isOpen() {
+    const dialog = this.shadowRoot.querySelector("dialog");
+    return dialog.open;
+  }
 }
 
 export default PrettyDialog;

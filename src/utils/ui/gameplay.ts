@@ -180,7 +180,14 @@ export const setupGamePauseOnDialogOpen = () =>
   Array.from(document.querySelectorAll("pretty-dialog")).forEach(
     (dialog: PrettyDialog) => {
       dialog.openCallback = () => game.pause();
-      dialog.closeCallback = () => game.resume();
+      dialog.closeCallback = () => {
+        const isAnyDialogOpen = Array.from<PrettyDialog>(
+          document.querySelectorAll("pretty-dialog"),
+        ).some(({ isOpen }) => isOpen);
+        if (!isAnyDialogOpen) {
+          game.resume();
+        }
+      };
     },
   );
 
@@ -298,7 +305,7 @@ export const setupLevelStartDialog = () => {
 
 export const setupKeyboardShortcuts = () => {
   document.addEventListener("keydown", async (event) => {
-    if (game.isGameScreenActive) {
+    if (game.isGameScreenActive && !game.isPaused) {
       switch (event.key) {
         case "Escape":
           event.preventDefault();
@@ -306,9 +313,7 @@ export const setupKeyboardShortcuts = () => {
           await handleBackToMainMenu();
           break;
         case " ":
-          if (!game.isPaused) {
-            showGamePausedDialog();
-          }
+          showGamePausedDialog();
           break;
       }
     }
