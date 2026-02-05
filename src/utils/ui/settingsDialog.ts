@@ -24,6 +24,11 @@ export const setupControlSettings = () => {
     ],
     selectedValue: controlSettingsStore.screenControlsPosition,
   };
+
+  const volumeRangeInput = document.getElementById(
+    "volumeRangeInput",
+  ) as HTMLInputElement;
+  volumeRangeInput.value = controlSettingsStore.audioVolume.toString();
 };
 
 const cacheControlSettings = async () => {

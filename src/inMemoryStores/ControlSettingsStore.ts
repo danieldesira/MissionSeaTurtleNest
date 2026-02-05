@@ -2,33 +2,31 @@ import type { IStore } from "./interfaces";
 
 class ControlSettingsStore implements IStore {
   private _screenControlsPosition: "Left" | "Right";
+  private _audioVolume: number;
 
   constructor() {
     this.reset();
   }
 
-  /**
-   * Screen controls position setter.
-   * @author Daniel Desira
-   */
   set screenControlsPosition(value: "Left" | "Right") {
     this._screenControlsPosition = value;
   }
 
-  /**
-   * Screen controls position getter.
-   * @author Daniel Desira
-   */
   get screenControlsPosition() {
     return this._screenControlsPosition;
   }
 
-  /**
-   * Resets setting states.
-   * @author Daniel Desira
-   */
+  set audioVolume(value: number) {
+    this._audioVolume = value;
+  }
+
+  get audioVolume() {
+    return this._audioVolume;
+  }
+
   reset() {
     this._screenControlsPosition = "Right";
+    this._audioVolume = 0.5;
   }
 }
 

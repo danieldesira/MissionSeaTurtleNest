@@ -1,0 +1,13 @@
+<template id="textInputTemplate">
+  <style>
+    @reference "./src/main.css";
+
+    input {
+        @apply 
+    }
+  </style>
+  <form-field>
+    <slot slot="label"></slot>
+    <input slot="field" type="range" step="0.1" min="0" max="1" />
+  </form-field>
+</template>
