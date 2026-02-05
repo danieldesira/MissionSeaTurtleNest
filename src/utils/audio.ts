@@ -23,8 +23,8 @@ const musicTracks = [
 
 let currentTrackIndex = 0;
 const audioContext = new AudioContext();
-const gainNode = audioContext.createGain();
-gainNode.connect(audioContext.destination);
+export const audioGainNode = audioContext.createGain();
+audioGainNode.connect(audioContext.destination);
 
 const pickMusicUrl = (base: string) =>
   isOggSupported ? `${base}.ogg` : `${base}.mp3`;
@@ -51,7 +51,7 @@ const playTrack = (buffers: AudioBuffer[]) => {
   const bufferSource = new AudioBufferSourceNode(audioContext, {
     buffer: buffers[currentTrackIndex],
   });
-  bufferSource.connect(gainNode);
+  bufferSource.connect(audioGainNode);
 
   bufferSource.onended = () => {
     bufferSource.disconnect();

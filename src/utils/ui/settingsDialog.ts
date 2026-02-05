@@ -11,6 +11,7 @@ import {
 } from "./waitingNotice";
 import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
 import { profileStore } from "../../inMemoryStores/ProfileStore";
+import { audioGainNode } from "../audio";
 
 export const setupControlSettings = () => {
   const screenControlPositionRadio = document.getElementById(
@@ -29,6 +30,11 @@ export const setupControlSettings = () => {
     "volumeRangeInput",
   ) as HTMLInputElement;
   volumeRangeInput.value = controlSettingsStore.audioVolume.toString();
+  volumeRangeInput.addEventListener("change", () =>
+    applyAudioVolume(volumeRangeInput.value),
+  );
+
+  applyAudioVolume(volumeRangeInput.value);
 };
 
 const cacheControlSettings = async () => {
@@ -158,4 +164,8 @@ const isSubmissionNeeded = () => {
       screenControlPositionRadio.currentSelection ||
     controlSettingsStore.audioVolume !== parseFloat(volumeRangeInput.value)
   );
+};
+
+const applyAudioVolume = (volume: string) => {
+  audioGainNode.gain.value = parseFloat(volume);
 };
