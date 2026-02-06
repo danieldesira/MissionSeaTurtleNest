@@ -1,4 +1,4 @@
-# 0.8.8 Beta -
+# 0.8.8 Beta Valentine's Edition -
 
 - Authentication:
   - Fix bug when date is not defined
@@ -16,6 +16,9 @@
   - Date of Birth updated to optional
   - Introduce audio volume slider
   - Label for "Screen Controls Position" now consistent with the styles of the rest
+- Internal:
+  - Remove `radio-selection` component
+- Add Valentine's animation
 
 # 0.8.7 Beta - 02/02/2026 13:30 UTC+1
 
