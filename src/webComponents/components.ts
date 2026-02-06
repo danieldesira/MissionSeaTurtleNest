@@ -2,7 +2,6 @@ import PrettyDialog from "./dialog/PrettyDialog";
 import FormField from "./form/FormField";
 import ImageUploader from "./form/ImageUploader";
 import PrettyButton from "./form/PrettyButton";
-import RadioSelection from "./form/RadioSelection";
 import RangeInput from "./form/RangeInput";
 import TextInput from "./form/TextInput";
 import GameControl from "./gameplay/GameControl";
@@ -35,7 +34,6 @@ const components: ComponentRegistration[] = [
       },
     ],
   },
-  { tag: "radio-selection", Constructor: RadioSelection },
   { tag: "text-input", Constructor: TextInput },
   { tag: "image-uploader", Constructor: ImageUploader },
   { tag: "form-field", Constructor: FormField },

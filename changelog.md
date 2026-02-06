@@ -15,6 +15,7 @@
 - Settings dialog:
   - Date of Birth updated to optional
   - Introduce audio volume slider
+  - Label for "Screen Controls Position" now consistent with the styles of the rest
 
 # 0.8.7 Beta - 02/02/2026 13:30 UTC+1
 

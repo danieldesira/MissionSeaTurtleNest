@@ -1,7 +1,6 @@
 import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type ImageUploader from "../../webComponents/form/ImageUploader";
 import type PrettyButton from "../../webComponents/form/PrettyButton";
-import type RadioSelection from "../../webComponents/form/RadioSelection";
 import type TextInput from "../../webComponents/form/TextInput";
 import { updateProfile, uploadProfilePicture } from "../../services/api";
 import {
@@ -14,17 +13,14 @@ import { profileStore } from "../../inMemoryStores/ProfileStore";
 import { audioGainNode } from "../audio";
 
 export const setupControlSettings = () => {
-  const screenControlPositionRadio = document.getElementById(
+  const screenControlPositionRadios = document.getElementsByName(
     "screenControlPositionRadio",
-  ) as RadioSelection;
-  screenControlPositionRadio.config = {
-    name: "screenControlPosition",
-    options: [
-      { label: "Left", value: "Left" },
-      { label: "Right", value: "Right" },
-    ],
-    selectedValue: controlSettingsStore.screenControlsPosition,
-  };
+  ) as NodeListOf<HTMLInputElement>;
+  Array.from(screenControlPositionRadios).forEach((radioInput) => {
+    if (radioInput.value === controlSettingsStore.screenControlsPosition) {
+      radioInput.checked = true;
+    }
+  });
 
   const volumeRangeInput = document.getElementById(
     "volumeRangeInput",
@@ -38,14 +34,11 @@ export const setupControlSettings = () => {
 };
 
 const cacheControlSettings = async () => {
-  const screenControlPositionRadio = document.getElementById(
-    "screenControlPositionRadio",
-  ) as RadioSelection;
   const volumeRangeInput = document.getElementById(
     "volumeRangeInput",
   ) as HTMLInputElement;
   controlSettingsStore.screenControlsPosition =
-    screenControlPositionRadio.currentSelection as "Left" | "Right";
+    getScreenControlPositionRadioValue();
   controlSettingsStore.audioVolume = parseFloat(volumeRangeInput.value);
 };
 
@@ -143,14 +136,20 @@ export const setupSettingsProfileTab = () => {
   };
 };
 
+const getScreenControlPositionRadioValue = () => {
+  const screenControlPositionRadios = document.getElementsByName(
+    "screenControlPositionRadio",
+  ) as NodeListOf<HTMLInputElement>;
+  return Array.from(screenControlPositionRadios).find(
+    (radioInput) => radioInput.checked,
+  ).value as "Left" | "Right";
+};
+
 const isSubmissionNeeded = () => {
   const playerNameInput = document.getElementById(
     "playerNameInput",
   ) as TextInput;
   const playerDobInput = document.getElementById("playerDobInput") as TextInput;
-  const screenControlPositionRadio = document.getElementById(
-    "screenControlPositionRadio",
-  ) as RadioSelection;
   const volumeRangeInput = document.getElementById(
     "volumeRangeInput",
   ) as HTMLInputElement;
@@ -161,7 +160,7 @@ const isSubmissionNeeded = () => {
       profileStore.dateOfBirth?.toISOString() !==
         new Date(playerDobInput.value).toISOString()) ||
     controlSettingsStore.screenControlsPosition !==
-      screenControlPositionRadio.currentSelection ||
+      getScreenControlPositionRadioValue() ||
     controlSettingsStore.audioVolume !== parseFloat(volumeRangeInput.value)
   );
 };

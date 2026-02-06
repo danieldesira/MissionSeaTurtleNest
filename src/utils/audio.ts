@@ -24,6 +24,7 @@ const musicTracks = [
 let currentTrackIndex = 0;
 const audioContext = new AudioContext();
 export const audioGainNode = audioContext.createGain();
+audioGainNode.gain.value = 0.5;
 audioGainNode.connect(audioContext.destination);
 
 const pickMusicUrl = (base: string) =>
