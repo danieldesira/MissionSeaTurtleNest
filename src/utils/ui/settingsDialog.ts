@@ -10,7 +10,7 @@ import {
 } from "./waitingNotice";
 import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
 import { profileStore } from "../../inMemoryStores/ProfileStore";
-import { audioGainNode } from "../audio";
+import { applyAudioVolume } from "../audio";
 
 export const setupControlSettings = () => {
   const screenControlPositionRadios = document.getElementsByName(
@@ -163,8 +163,4 @@ const isSubmissionNeeded = () => {
       getScreenControlPositionRadioValue() ||
     controlSettingsStore.audioVolume !== parseFloat(volumeRangeInput.value)
   );
-};
-
-const applyAudioVolume = (volume: string) => {
-  audioGainNode.gain.value = parseFloat(volume);
 };

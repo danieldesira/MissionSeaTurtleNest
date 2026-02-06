@@ -2,7 +2,6 @@ import PrettyDialog from "./dialog/PrettyDialog";
 import FormField from "./form/FormField";
 import ImageUploader from "./form/ImageUploader";
 import PrettyButton from "./form/PrettyButton";
-import RangeInput from "./form/RangeInput";
 import TextInput from "./form/TextInput";
 import GameControl from "./gameplay/GameControl";
 import GameGauge from "./gameplay/GameGauge";
@@ -39,7 +38,6 @@ const components: ComponentRegistration[] = [
   { tag: "form-field", Constructor: FormField },
   { tag: "social-link", Constructor: SocialLink },
   { tag: "text-link", Constructor: TextLink },
-  { tag: "range-input", Constructor: RangeInput },
 ];
 
 const registerComponentWithDependencies = ({

@@ -9,6 +9,8 @@ import {
   mp3 as mp3TotalSize,
 } from "./musicTotalSizeByFormat.json";
 
+export const defaultAudioVolume = 0.5;
+
 const isOggSupported = new Audio().canPlayType('audio/ogg; codecs="opus"');
 
 const totalBytes = isOggSupported ? oggTotalSize : mp3TotalSize;
@@ -23,8 +25,8 @@ const musicTracks = [
 
 let currentTrackIndex = 0;
 const audioContext = new AudioContext();
-export const audioGainNode = audioContext.createGain();
-audioGainNode.gain.value = 0.5;
+const audioGainNode = audioContext.createGain();
+audioGainNode.gain.value = defaultAudioVolume;
 audioGainNode.connect(audioContext.destination);
 
 const pickMusicUrl = (base: string) =>
@@ -88,4 +90,8 @@ export const setupMusic = async () => {
       audioContext.resume();
     }
   });
+};
+
+export const applyAudioVolume = (volume: string) => {
+  audioGainNode.gain.value = parseFloat(volume);
 };

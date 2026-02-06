@@ -1,5 +1,5 @@
 import type PrettyButton from "../../webComponents/form/PrettyButton";
-import SocialLink from "../../webComponents/links/SocialLink";
+import type SocialLink from "../../webComponents/links/SocialLink";
 import { checkNotificationPermission } from "../notifications";
 
 export const disableContextMenu = () =>

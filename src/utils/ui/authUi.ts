@@ -1,6 +1,7 @@
 import { requestLogout } from "../../services/api";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
+import { applyAudioVolume, defaultAudioVolume } from "../audio";
 import {
   clearCurrentPlayerStores,
   deleteSsoTokenInLocalStorage,
@@ -49,6 +50,7 @@ export const setupLoginButtons = () => {
     updateAuthenticationUI();
     hideContinueGameBtn();
     deleteSsoTokenInLocalStorage();
+    applyAudioVolume(defaultAudioVolume.toString());
     await requestLogout();
   };
 
