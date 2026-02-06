@@ -42,5 +42,5 @@
 }
 
 .move-turtle {
-  animation: moveTurtle 3s infinite;
+  animation: moveTurtle 1500ms infinite;
 }
