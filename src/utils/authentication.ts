@@ -45,8 +45,8 @@ export const handleGoogleAuthResponse = async ({
 };
 
 const populateGameData = (accountData: LoginResponse) => {
-  if (accountData.lastGame) {
-    lastGameStore.store = accountData.lastGame;
+  if (accountData.player.lastGame) {
+    lastGameStore.store = accountData.player.lastGame;
   } else {
     lastGameStore.reset();
   }

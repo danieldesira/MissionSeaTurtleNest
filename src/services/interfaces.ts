@@ -26,6 +26,7 @@ export interface Player {
   dateOfBirth?: string;
   lastLoginAt?: string;
   settings?: Settings;
+  lastGame?: GameProgressStore;
   lastGameSavedOn?: number;
 }
 
@@ -33,7 +34,6 @@ export interface LoginResponse {
   message: string;
   player: Player;
   isNewPlayer: boolean;
-  lastGame?: GameProgressStore;
   personalBest?: {
     points: number;
     level: number;
