@@ -1,8 +1,8 @@
-import { login } from "../services/api";
+import { login, requestLogout } from "../services/api";
 import type { LoginResponse, SsoToken } from "../services/interfaces";
 import { profileStore } from "../inMemoryStores/ProfileStore";
 import { hideLoginDialog, updateAuthenticationUI } from "./ui/authUi";
-import { toggleContinueGameBtn } from "./ui/mainMenu";
+import { hideContinueGameBtn, toggleContinueGameBtn } from "./ui/mainMenu";
 import { hideOverlay, showOverlay } from "./ui/overlay";
 import { updatePersonalBestPlaceholders } from "./ui/scores";
 import {
@@ -13,6 +13,7 @@ import { controlSettingsStore } from "../inMemoryStores/ControlSettingsStore";
 import { personalBestStore } from "../inMemoryStores/PersonalBestStore";
 import { lastGameStore } from "../inMemoryStores/LastGameStore";
 import { showErrorNotice } from "./ui/waitingNotice";
+import { applyAudioVolume, defaultAudioVolume } from "./audio";
 
 export const handleGoogleAuthResponse = async ({
   credential,
@@ -105,3 +106,12 @@ export const deleteSsoTokenInLocalStorage = () =>
 
 export const getSsoTokenFromLocalStorage = () =>
   JSON.parse(localStorage.getItem("ssoToken")) as SsoToken;
+
+export const logout = async () => {
+  clearCurrentPlayerStores();
+  updateAuthenticationUI();
+  hideContinueGameBtn();
+  deleteSsoTokenInLocalStorage();
+  applyAudioVolume(defaultAudioVolume.toString());
+  await requestLogout();
+};

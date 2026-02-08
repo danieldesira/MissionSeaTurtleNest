@@ -1,5 +1,7 @@
-import { clearCurrentPlayerStores } from "../utils/authentication";
-import { updateAuthenticationUI } from "../utils/ui/authUi";
+import { logout } from "../utils/authentication";
+
+const abortController = new AbortController();
+const { signal } = abortController;
 
 const processPayload = (payload: unknown) => {
   if (!payload) {
@@ -26,13 +28,13 @@ const request = async <T>(
     },
     body: processPayload(payload),
     credentials: "include",
+    signal,
   });
   if (res.ok) {
     return res.status === 204 ? null : ((await res.json()) as T);
   } else {
     if (res.status === 401) {
-      clearCurrentPlayerStores();
-      updateAuthenticationUI();
+      await logout();
     }
     throw new Error(
       `Request error: ${url}: ${res.status}: ${JSON.stringify(
@@ -57,6 +59,9 @@ const FetchRequest = {
   },
   async uploadFile<T>(url: string, file: File) {
     return await request<T>(url, "put", file, file.type);
+  },
+  abort() {
+    abortController.abort();
   },
 };
 

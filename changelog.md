@@ -19,6 +19,7 @@
 - Internal:
   - Remove `radio-selection` component and general cleanup
   - Update authentication to read `lastGame` from `player` property (API 0.3.2 change)
+  - Refactor `FetchRequest`: decouple more from logout logic and add `abort()` method (not used)
 - Add Valentine's animation
 
 # 0.8.7 Beta - 02/02/2026 13:30 UTC+1

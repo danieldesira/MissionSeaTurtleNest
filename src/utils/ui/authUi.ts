@@ -1,15 +1,11 @@
-import { requestLogout } from "../../services/api";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
-import { applyAudioVolume, defaultAudioVolume } from "../audio";
 import {
-  clearCurrentPlayerStores,
-  deleteSsoTokenInLocalStorage,
   getSsoTokenFromLocalStorage,
   handleGoogleAuthResponse,
   isAuthenticated,
+  logout,
 } from "../authentication";
-import { hideContinueGameBtn } from "./mainMenu";
 import { setupSettingsDialog } from "./settingsDialog";
 
 const initialiseGoogleSignInButton = () => {
@@ -45,14 +41,7 @@ export const setupLoginButtons = () => {
   }
 
   const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
-  logoutBtn.callback = async () => {
-    clearCurrentPlayerStores();
-    updateAuthenticationUI();
-    hideContinueGameBtn();
-    deleteSsoTokenInLocalStorage();
-    applyAudioVolume(defaultAudioVolume.toString());
-    await requestLogout();
-  };
+  logoutBtn.callback = async () => await logout();
 
   setupSettingsDialog();
 };
