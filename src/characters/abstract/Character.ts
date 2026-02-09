@@ -5,7 +5,7 @@ import type { ICharacter } from "../interfaces";
 abstract class Character implements ICharacter {
   protected _x: number;
   protected _y: number;
-  protected _image: HTMLImageElement | null;
+  protected static _imageCache: Record<string, HTMLImageElement | null> = {};
   protected abstract readonly _imageFilename: string;
   protected abstract readonly _width: number;
   protected abstract readonly _height: number;
@@ -24,7 +24,9 @@ abstract class Character implements ICharacter {
       image.height = this._height;
       image.src = this.imagePath;
       image.onload = () => {
-        this._image = image;
+        if (!Character._imageCache[this._imageFilename]) {
+          Character._imageCache[this._imageFilename] = image;
+        }
         resolve();
       };
       image.onerror = () =>
@@ -60,7 +62,7 @@ abstract class Character implements ICharacter {
   }
 
   get image() {
-    return this._image;
+    return Character._imageCache[this._imageFilename];
   }
 
   get height() {
