@@ -45,7 +45,6 @@ export interface LoginResponse {
 export interface SaveScorePayload {
   points: number;
   level: number;
-  hasWon: boolean;
   duration: number;
 }
 

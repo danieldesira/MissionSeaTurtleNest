@@ -40,9 +40,7 @@ export const cacheGameProgress = () => {
   }
 };
 
-export const deleteLastGameAndSaveScore = async (
-  hasWon: boolean,
-): Promise<void> => {
+export const deleteLastGameAndSaveScore = async () => {
   hideContinueGameBtn();
   showWaitingNotice("Saving score!");
   try {
@@ -50,7 +48,6 @@ export const deleteLastGameAndSaveScore = async (
       await saveScore({
         points: game.xp,
         level: game.currentLevelNo,
-        hasWon,
         duration: game.timeInSeconds,
       });
     }

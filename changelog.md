@@ -1,3 +1,8 @@
+# 0.8.9 Beta -
+
+- Internal:
+  - Remove `hasWon` payload property from `POST /points` (API 0.3.3)
+
 # 0.8.8 Beta Valentine's Edition - 09/02/2026 13:00 UTC+1
 
 - Authentication:

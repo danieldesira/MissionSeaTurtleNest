@@ -18,13 +18,11 @@ export const saveGame = async (data: SaveGamePayload) =>
 export const saveScore = async ({
   points,
   level,
-  hasWon,
   duration,
 }: SaveScorePayload) =>
   await FetchRequest.post("api/points", {
     points,
     level,
-    hasWon,
     duration,
   });
 

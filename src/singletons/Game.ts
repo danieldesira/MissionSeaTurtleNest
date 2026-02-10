@@ -294,7 +294,7 @@ class Game {
   }
 
   private handleLoss(reason: GameLossReason) {
-    this.handleGameEnd(false);
+    this.handleGameEnd();
     const dialogContent: Record<
       GameLossReason,
       { title: string; instruction: string }
@@ -324,7 +324,7 @@ class Game {
   }
 
   private handleWin() {
-    this.handleGameEnd(true);
+    this.handleGameEnd();
 
     let completeWithin5Mins = false;
     if (this.timeInSeconds <= 60 * 5) {
@@ -339,12 +339,12 @@ class Game {
     );
   }
 
-  private async handleGameEnd(hasWon: boolean) {
+  private async handleGameEnd() {
     checkIfBestPersonalScore();
     this.exit();
     toggleMode("menu");
 
-    await deleteLastGameAndSaveScore(hasWon);
+    await deleteLastGameAndSaveScore();
   }
 
   private incrementFrameCount() {
