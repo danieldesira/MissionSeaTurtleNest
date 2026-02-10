@@ -48,6 +48,12 @@ class PrettyDialog extends HTMLElement {
     const dialog = this.shadowRoot.querySelector("dialog");
     return dialog.open;
   }
+
+  static isAnyDialogOpen() {
+    return Array.from<PrettyDialog>(
+      document.querySelectorAll("pretty-dialog"),
+    ).some(({ isOpen }) => isOpen);
+  }
 }
 
 export default PrettyDialog;

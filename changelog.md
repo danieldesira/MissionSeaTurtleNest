@@ -1,3 +1,10 @@
+# 0.8.8.2 Beta Valentine's Edition - 10/02/2026 20:10 UTC+1
+
+- Fix: Game progress overwrite dialog no longer shows after a game is complete
+  (before completing score save)
+- Fix: Main menu keyboard navigation not effective when a dialog is open
+- Internal: Add static utility method in `PrettyDialog`: `isAnyDialogOpen()`
+
 # 0.8.8.1 Beta Valentine's Edition - 10/02/2026 19:00 UTC+1
 
 - Internal: Remove `hasWon` payload property from `POST /points` (API 0.3.3)

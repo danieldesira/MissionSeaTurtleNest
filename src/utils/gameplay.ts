@@ -42,6 +42,7 @@ export const cacheGameProgress = () => {
 
 export const deleteLastGameAndSaveScore = async () => {
   hideContinueGameBtn();
+  lastGameStore.reset();
   showWaitingNotice("Saving score!");
   try {
     if (isAuthenticated()) {
@@ -54,7 +55,6 @@ export const deleteLastGameAndSaveScore = async () => {
   } catch {
     showErrorNotice("Failed to save game score", 500);
   } finally {
-    lastGameStore.reset();
     hideWaitingNotice();
   }
 };

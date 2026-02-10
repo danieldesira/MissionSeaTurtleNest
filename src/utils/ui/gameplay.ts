@@ -1,6 +1,6 @@
 import { saveGame } from "../../services/api";
 import { game } from "../../singletons/Game";
-import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
+import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type PrettyButton from "../../webComponents/form/PrettyButton";
 import type GameControl from "../../webComponents/gameplay/GameControl";
 import type GameGauge from "../../webComponents/gameplay/GameGauge";
@@ -181,10 +181,7 @@ export const setupGamePauseOnDialogOpen = () =>
     (dialog: PrettyDialog) => {
       dialog.openCallback = () => game.pause();
       dialog.closeCallback = () => {
-        const isAnyDialogOpen = Array.from<PrettyDialog>(
-          document.querySelectorAll("pretty-dialog"),
-        ).some(({ isOpen }) => isOpen);
-        if (!isAnyDialogOpen) {
+        if (!PrettyDialog.isAnyDialogOpen()) {
           game.resume();
         }
       };

@@ -1,4 +1,5 @@
 import { game } from "../../singletons/Game";
+import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type MenuItem from "../../webComponents/mainMenu/MenuItem";
 
 const menuOptions: Record<number, string> = {
@@ -17,7 +18,7 @@ export const setupMainMenuKeyboardNavigation = () => {
     const maxItemKey = Math.max(
       ...Object.keys(menuOptions).map((k) => parseInt(k)),
     );
-    if (!game.isGameScreenActive) {
+    if (!game.isGameScreenActive && !PrettyDialog.isAnyDialogOpen()) {
       switch (event.key) {
         case "ArrowUp":
           if (currentKey > minItemKey) {
