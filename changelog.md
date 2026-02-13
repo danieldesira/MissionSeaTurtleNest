@@ -1,3 +1,9 @@
+# 0.8.9 Beta -
+
+- Internal:
+  - Update some dev dependencies: Tailwindcss, GH Pages, TS ESLint
+  -
+
 # 0.8.8.2 Beta Valentine's Edition - 10/02/2026 20:10 UTC+1
 
 - Fix: Game progress overwrite dialog no longer shows after a game is complete
