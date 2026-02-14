@@ -32,6 +32,7 @@ import { setupLoginInvitationDialog } from "./utils/ui/loginInvitationDialog";
 import { setupNewLevelEventHandler } from "./levels/customEvents";
 import { setupMusic } from "./utils/audio";
 import { setupMainMenuKeyboardNavigation } from "./utils/ui/mainMenuKeyboardNavigation";
+import { showRandomHint } from "./utils/ui/hints";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");
@@ -67,4 +68,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupNotifications();
   setupMusic();
   setupMainMenuKeyboardNavigation();
+  showRandomHint();
 });

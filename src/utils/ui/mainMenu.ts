@@ -4,6 +4,7 @@ import type PrettyButton from "../../webComponents/form/PrettyButton";
 import type MenuItem from "../../webComponents/mainMenu/MenuItem";
 import { isAuthenticated } from "../authentication";
 import { initialiseGame, setupOnscreenControlsPosition } from "./gameplay";
+import { showRandomHint } from "./hints";
 
 export const toggleMode = (mode: "game" | "menu") => {
   const menuContainer = document.getElementById("menuContainer");
@@ -23,6 +24,7 @@ export const toggleMode = (mode: "game" | "menu") => {
       gameContainer.classList.add("hidden");
       gameContainer.classList.remove("flex");
       toggleContinueGameBtn();
+      showRandomHint();
       break;
   }
 };

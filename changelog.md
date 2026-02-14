@@ -4,6 +4,9 @@
   - Update some dev dependencies: Tailwindcss, GH Pages, TS ESLint
   - Update `FetchRequest.delete` to accept more parameters
   - Request sent to `DPNS` when/if push subscription revoked by end-user
+- UI:
+  - Enable notification icon
+  - Add random hint in main menu
 
 # 0.8.8.2 Beta Valentine's Edition - 10/02/2026 20:10 UTC+1
 
