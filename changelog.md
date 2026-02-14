@@ -7,6 +7,7 @@
 - UI:
   - Enable notification icon
   - Add random hint in main menu
+  - Remove Valentine's animation :'(
 
 # 0.8.8.2 Beta Valentine's Edition - 10/02/2026 20:10 UTC+1
 

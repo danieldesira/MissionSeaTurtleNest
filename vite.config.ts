@@ -5,10 +5,11 @@ import mergeHtmlPlugin from "./mergeHtmlPlugin";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
+  base: "/",
   build: {
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, "index.html"),
+        index: path.resolve(__dirname, "index.html"),
         cacheServiceWorker: path.resolve(
           __dirname,
           "src/serviceWorkers/cacheServiceWorker.ts",
@@ -19,13 +20,7 @@ export default defineConfig({
         ),
       },
       output: {
-        entryFileNames: (assetInfo) => {
-          if (assetInfo.name.includes("Worker")) {
-            return `${assetInfo.name}.js`;
-          } else {
-            return "[name].js";
-          }
-        },
+        entryFileNames: () => "[name].js",
       },
     },
   },
