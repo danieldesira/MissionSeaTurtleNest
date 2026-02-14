@@ -9,7 +9,7 @@ const apiBaseUrl =
 
 const savePushSubscription = async (subscription: PushSubscription) => {
   const res = await fetch(
-    `${apiBaseUrl}/api/subscription?appId=986bb193-67f9-46fe-aae0-1f6edc7f8a83`,
+    `${apiBaseUrl}/api/subscription?appId=e2123b9c-cd5f-41ee-9884-c3ef121c3c3e`,
     {
       method: "POST",
       headers: {
@@ -29,6 +29,13 @@ notificationSW.addEventListener("activate", async () => {
       "BEfuj-su_7dqT40eFWTa4wh8FZDJ5oPUiu8AqxFQ260hZotE3i0ZH5B8Esc2J126zJgxLSEKSBRsrtFbKPXRo4Y",
   });
   await savePushSubscription(subscription);
+  notificationSW.clients
+    .matchAll()
+    .then((clients) =>
+      clients.forEach((client) =>
+        client.postMessage({ pushSubscriptionEndpoint: subscription.endpoint }),
+      ),
+    );
 });
 
 notificationSW.addEventListener("push", async (event) => {

@@ -1,6 +1,7 @@
 import { launchCustomDialog } from "./ui/customDialog";
 import { friendlyName } from "../../package.json";
 import { registerServiceWorker } from "./serviceWorkers";
+import FetchRequest from "../services/FetchRequest";
 
 export const checkNotificationPermission = async () => {
   if (!Notification) {
@@ -24,7 +25,6 @@ export const checkNotificationPermission = async () => {
         break;
       case "default":
         await Notification.requestPermission();
-        handlePermissionJustGranted();
         break;
     }
   }
@@ -33,12 +33,39 @@ export const checkNotificationPermission = async () => {
 const showNotification = (title: string, content: string) =>
   new Notification(title, { body: content, icon: "/favicon.svg" });
 
-const handlePermissionJustGranted = () => {
-  if (Notification.permission === "granted") {
-    registerServiceWorker("notification");
-    showNotification(
-      friendlyName,
-      "Desktop notifications have just been enabled.",
-    );
-  }
+export const setupNotificationPermissionListener = async () => {
+  const permission = await navigator.permissions.query({
+    name: "notifications",
+  });
+  permission.onchange = async () => {
+    if (permission.state === "granted") {
+      await registerServiceWorker("notification");
+      navigator.serviceWorker.addEventListener(
+        "message",
+        (event: MessageEvent) => {
+          if (event.data?.pushSubscriptionEndpoint) {
+            localStorage.setItem(
+              "pushSubscriptionEndpoint",
+              event.data.pushSubscriptionEndpoint,
+            );
+          }
+        },
+      );
+      showNotification(
+        friendlyName,
+        "Desktop notifications have just been enabled.",
+      );
+    } else {
+      const subscriptionEndpoint = localStorage.getItem(
+        "pushSubscriptionEndpoint",
+      );
+      if (subscriptionEndpoint) {
+        await FetchRequest.delete(
+          `https://subnodulous-kaelyn-matrimonially.ngrok-free.dev/api/subscription`,
+          { endpoint: subscriptionEndpoint },
+          false,
+        );
+      }
+    }
+  };
 };

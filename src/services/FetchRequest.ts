@@ -20,16 +20,20 @@ const request = async <T>(
   method: string,
   payload: unknown = null,
   contentType: string = "application/json",
+  includeCredentials: boolean = true,
 ) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/${url}`, {
-    method,
-    headers: {
-      "Content-Type": contentType,
+  const res = await fetch(
+    url.startsWith("https://") ? url : `${import.meta.env.VITE_API_URL}/${url}`,
+    {
+      method,
+      headers: {
+        "Content-Type": contentType,
+      },
+      body: processPayload(payload),
+      credentials: includeCredentials ? "include" : "omit",
+      signal,
     },
-    body: processPayload(payload),
-    credentials: "include",
-    signal,
-  });
+  );
   if (res.ok) {
     return res.status === 204 ? null : ((await res.json()) as T);
   } else {
@@ -54,8 +58,18 @@ const FetchRequest = {
   async put<T>(url: string, body: unknown) {
     return await request<T>(url, "put", body);
   },
-  async delete<T>(url: string) {
-    return await request<T>(url, "delete");
+  async delete<T>(
+    url: string,
+    body: unknown = null,
+    includeCredentials: boolean = true,
+  ) {
+    return await request<T>(
+      url,
+      "delete",
+      body,
+      "application/json",
+      includeCredentials,
+    );
   },
   async uploadFile<T>(url: string, file: File) {
     return await request<T>(url, "put", file, file.type);

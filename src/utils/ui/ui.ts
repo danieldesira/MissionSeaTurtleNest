@@ -1,6 +1,9 @@
 import type PrettyButton from "../../webComponents/form/PrettyButton";
 import type SocialLink from "../../webComponents/links/SocialLink";
-import { checkNotificationPermission } from "../notifications";
+import {
+  checkNotificationPermission,
+  setupNotificationPermissionListener,
+} from "../notifications";
 
 export const disableContextMenu = () =>
   document.body.addEventListener("contextmenu", (event) =>
@@ -31,9 +34,11 @@ export const setupFullscreenBtn = async () => {
   };
 };
 
-export const setupNotificationsIcon = () => {
+export const setupNotifications = async () => {
   const notificationsIcon = document.getElementById(
     "notificationsIcon",
   ) as SocialLink;
   notificationsIcon.action = async () => await checkNotificationPermission();
+
+  await setupNotificationPermissionListener();
 };
