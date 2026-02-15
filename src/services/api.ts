@@ -10,32 +10,31 @@ import {
 import FetchRequest from "./FetchRequest";
 
 export const login = async (ssoToken: SsoToken) =>
-  await FetchRequest.post<LoginResponse>("api/login", ssoToken);
+  await FetchRequest.post<LoginResponse>({
+    url: "api/login",
+    payload: ssoToken,
+  });
 
-export const saveGame = async (data: SaveGamePayload) =>
-  await FetchRequest.put("api/game", data);
+export const saveGame = async (payload: SaveGamePayload) =>
+  await FetchRequest.put({ url: "api/game", payload });
 
-export const saveScore = async ({
-  points,
-  level,
-  duration,
-}: SaveScorePayload) =>
-  await FetchRequest.post("api/points", {
-    points,
-    level,
-    duration,
+export const saveScore = async (payload: SaveScorePayload) =>
+  await FetchRequest.post({
+    url: "api/points",
+    payload,
   });
 
 export const fetchHighScores = async () =>
-  await FetchRequest.get<HighScore[]>("api/high-scores");
+  await FetchRequest.get<HighScore[]>({ url: "api/high-scores" });
 
-export const updateProfile = async (profile: UpdatePlayerPayload) =>
-  await FetchRequest.put("api/player", profile);
+export const updateProfile = async (payload: UpdatePlayerPayload) =>
+  await FetchRequest.put({ url: "api/player", payload });
 
-export const requestLogout = async () => await FetchRequest.post("api/logout");
+export const requestLogout = async () =>
+  await FetchRequest.post({ url: "api/logout" });
 
 export const uploadProfilePicture = async (file: File) =>
-  await FetchRequest.uploadFile<UpdateProfilePictureResponse>(
-    "api/profile-pic",
-    file,
-  );
+  await FetchRequest.uploadFile<UpdateProfilePictureResponse>({
+    url: "api/profile-pic",
+    payload: file,
+  });

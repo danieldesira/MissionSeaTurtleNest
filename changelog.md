@@ -2,7 +2,7 @@
 
 - Internal:
   - Update some dev dependencies: Tailwindcss, GH Pages, TS ESLint
-  - Update `FetchRequest.delete` to accept more parameters
+  - Refactor `FetchRequest` method parameters to options-based
   - Request sent to `DPNS` when/if push subscription revoked by end-user
 - UI:
   - Enable notification icon

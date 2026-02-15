@@ -15,13 +15,21 @@ const processPayload = (payload: unknown) => {
   return JSON.stringify(payload);
 };
 
-const request = async <T>(
-  url: string,
-  method: string,
-  payload: unknown = null,
-  contentType: string = "application/json",
-  includeCredentials: boolean = true,
-) => {
+type RequestOptions = {
+  url: string;
+  method?: "get" | "post" | "put" | "delete" | "patch";
+  payload?: unknown;
+  contentType?: string;
+  includeCredentials?: boolean;
+};
+
+const request = async <T>({
+  url,
+  method = "get",
+  payload = null,
+  contentType = "application/json",
+  includeCredentials = true,
+}: RequestOptions) => {
   const res = await fetch(
     url.startsWith("https://") ? url : `${import.meta.env.VITE_API_URL}/${url}`,
     {
@@ -49,30 +57,41 @@ const request = async <T>(
 };
 
 const FetchRequest = {
-  async get<T>(url: string) {
-    return await request<T>(url, "get");
+  async get<T>({ url, includeCredentials }: RequestOptions) {
+    return await request<T>({ url, includeCredentials });
   },
-  async post<T>(url: string, body: unknown = null) {
-    return await request<T>(url, "post", body);
-  },
-  async put<T>(url: string, body: unknown) {
-    return await request<T>(url, "put", body);
-  },
-  async delete<T>(
-    url: string,
-    body: unknown = null,
-    includeCredentials: boolean = true,
-  ) {
-    return await request<T>(
+  async post<T>({ url, payload, includeCredentials }: RequestOptions) {
+    return await request<T>({
       url,
-      "delete",
-      body,
-      "application/json",
+      method: "post",
+      payload,
       includeCredentials,
-    );
+    });
   },
-  async uploadFile<T>(url: string, file: File) {
-    return await request<T>(url, "put", file, file.type);
+  async put<T>({ url, payload, includeCredentials }: RequestOptions) {
+    return await request<T>({
+      url,
+      method: "put",
+      payload,
+      includeCredentials,
+    });
+  },
+  async delete<T>({ url, payload, includeCredentials }: RequestOptions) {
+    return await request<T>({
+      url,
+      method: "delete",
+      payload,
+      includeCredentials,
+    });
+  },
+  async uploadFile<T>({ url, payload, includeCredentials }: RequestOptions) {
+    return await request<T>({
+      url,
+      method: "put",
+      payload,
+      contentType: (payload as File).type,
+      includeCredentials,
+    });
   },
   abort() {
     abortController.abort();

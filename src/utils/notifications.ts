@@ -60,11 +60,10 @@ export const setupNotificationPermissionListener = async () => {
         "pushSubscriptionEndpoint",
       );
       if (subscriptionEndpoint) {
-        await FetchRequest.delete(
-          `https://subnodulous-kaelyn-matrimonially.ngrok-free.dev/api/subscription`,
-          { endpoint: subscriptionEndpoint },
-          false,
-        );
+        await FetchRequest.delete({
+          url: `https://subnodulous-kaelyn-matrimonially.ngrok-free.dev/api/subscription?endpoint=${encodeURIComponent(subscriptionEndpoint)}`,
+          includeCredentials: false,
+        });
       }
     }
   };
