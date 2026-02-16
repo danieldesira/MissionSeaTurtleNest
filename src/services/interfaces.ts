@@ -66,5 +66,5 @@ export interface SaveGamePayload {
 
 export interface SsoToken {
   service: "google" | "microsoft" | "facebook";
-  token: string;
+  credential: string;
 }

@@ -15,15 +15,9 @@ import { lastGameStore } from "../inMemoryStores/LastGameStore";
 import { showErrorNotice } from "./ui/waitingNotice";
 import { applyAudioVolume, defaultAudioVolume } from "./audio";
 
-export const handleGoogleAuthResponse = async ({
-  credential,
-}: {
-  credential: string;
-}) => {
+export const handleSsoAuthResponse = async (ssoToken: SsoToken) => {
   try {
     showOverlay("Logging in...");
-
-    const ssoToken: SsoToken = { service: "google", token: credential };
 
     const loginResult = await login(ssoToken);
 

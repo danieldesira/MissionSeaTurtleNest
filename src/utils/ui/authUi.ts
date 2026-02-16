@@ -2,16 +2,23 @@ import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../../webComponents/form/PrettyButton";
 import {
   getSsoTokenFromLocalStorage,
-  handleGoogleAuthResponse,
+  handleSsoAuthResponse,
   isAuthenticated,
   logout,
 } from "../authentication";
+import {
+  initializeMsalBrowser,
+  handleMicrosoftSignIn,
+  handleMicrosoftLogout,
+} from "../microsoftAuth";
 import { setupSettingsDialog } from "./settingsDialog";
+import { showErrorNotice } from "./waitingNotice";
 
 const initialiseGoogleSignInButton = () => {
   window.google?.accounts?.id?.initialize({
     client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-    callback: handleGoogleAuthResponse,
+    callback: ({ credential }) =>
+      handleSsoAuthResponse({ service: "google", credential }),
   });
 
   window.google?.accounts?.id?.renderButton(
@@ -20,28 +27,51 @@ const initialiseGoogleSignInButton = () => {
   );
 };
 
+const initialiseMicrosoftSignInButton = async () => {
+  try {
+    await initializeMsalBrowser();
+
+    const microsoftSignInButton = document.getElementById(
+      "microsoftSignInButton",
+    );
+    if (microsoftSignInButton) {
+      microsoftSignInButton.addEventListener("click", async (e) => {
+        e.preventDefault();
+        try {
+          await handleMicrosoftSignIn();
+        } catch (error) {
+          console.error("Microsoft sign-in failed:", error);
+          showErrorNotice("Microsoft sign-in failed. Please try again.", 500);
+        }
+      });
+    }
+  } catch (error) {
+    console.error("Failed to initialize Microsoft Sign-in:", error);
+  }
+};
+
 export const setupLoginButtons = () => {
   const loginBtn = document.getElementById("loginBtn") as PrettyButton;
   const loginDialog = document.getElementById("loginDialog") as PrettyDialog;
 
   initialiseGoogleSignInButton();
+  initialiseMicrosoftSignInButton();
 
   loginDialog.closeButtonIds = ["closeLoginBtn"];
   loginBtn.callback = () => loginDialog.open();
 
   const ssoToken = getSsoTokenFromLocalStorage();
   if (ssoToken) {
-    switch (ssoToken.service) {
-      case "google":
-        handleGoogleAuthResponse({ credential: ssoToken.token });
-        break;
-    }
+    handleSsoAuthResponse(ssoToken);
   } else {
     loginDialog.open();
   }
 
   const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
-  logoutBtn.callback = async () => await logout();
+  logoutBtn.callback = async () => {
+    await handleMicrosoftLogout();
+    await logout();
+  };
 
   setupSettingsDialog();
 };

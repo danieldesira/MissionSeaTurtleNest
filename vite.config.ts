@@ -5,7 +5,6 @@ import mergeHtmlPlugin from "./mergeHtmlPlugin";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  base: "/",
   build: {
     rollupOptions: {
       input: {

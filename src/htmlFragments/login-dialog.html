@@ -1,17 +1,25 @@
 <pretty-dialog id="loginDialog">
   <span slot="title">Login</span>
-  <div slot="content" class="flex flex-col items-center justify-center gap-2">
+  <div slot="content" class="flex flex-col items-center justify-center gap-4">
     <p>
-      Login with your Google account to save your game progress to the cloud and
-      access it from any device and customise.
+      Save your game progress to the cloud and access it from any device.
     </p>
     <div id="googleSignInButton"></div>
+    <button id="microsoftSignInButton" class="px-4 py-2 border border-slate-300 rounded-lg bg-white text-slate-700 font-medium flex items-center gap-2 hover:bg-slate-50 transition-all">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" class="w-5 h-5">
+        <rect width="10" height="10" fill="#F25022"/>
+        <rect x="12" width="10" height="10" fill="#7FBA00"/>
+        <rect y="12" width="10" height="10" fill="#00A4EF"/>
+        <rect x="12" y="12" width="10" height="10" fill="#FFB900"/>
+      </svg>
+      Sign in with Microsoft
+    </button>
     <p>Or continue as guest.</p>
   </div>
   <div slot="footer" class="flex flex-col items-center justify-center gap-2">
     <p class="italic text-center">
       Please note that the accounts feature makes use of cookies for secure
-      authenitication. By logging in, you are agreeing to the use of cookies.
+      authentication. By logging in, you are agreeing to the use of cookies.
     </p>
     <pretty-button id="closeLoginBtn">Continue as guest</pretty-button>
   </div>
