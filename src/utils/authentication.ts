@@ -102,10 +102,12 @@ export const getSsoTokenFromLocalStorage = () =>
   JSON.parse(localStorage.getItem("ssoToken")) as SsoToken;
 
 export const logout = async () => {
-  clearCurrentPlayerStores();
-  updateAuthenticationUI();
-  hideContinueGameBtn();
-  deleteSsoTokenInLocalStorage();
-  applyAudioVolume(defaultAudioVolume.toString());
-  await requestLogout();
+  if (isAuthenticated()) {
+    clearCurrentPlayerStores();
+    updateAuthenticationUI();
+    hideContinueGameBtn();
+    deleteSsoTokenInLocalStorage();
+    applyAudioVolume(defaultAudioVolume.toString());
+    await requestLogout();
+  }
 };

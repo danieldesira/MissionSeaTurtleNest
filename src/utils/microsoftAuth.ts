@@ -50,14 +50,14 @@ export const handleMicrosoftSignIn = async () => {
   }
 
   try {
-    const response = (await instance.loginPopup({
+    const response = await instance.loginPopup({
       scopes: ["openid", "profile", "email"],
-    })) as { accessToken: string };
+    }) as { idToken: string };
 
-    if (response.accessToken) {
+    if (response.idToken) {
       await handleSsoAuthResponse({
         service: "microsoft",
-        credential: response.accessToken,
+        credential: response.idToken,
       });
     }
   } catch (error) {
