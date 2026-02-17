@@ -56,7 +56,7 @@ export const handleMicrosoftSignIn = async () => {
 
     if (response.idToken) {
       await handleSsoAuthResponse({
-        service: "microsoft",
+        provider: "microsoft",
         credential: response.idToken,
       });
     }

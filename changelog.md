@@ -3,8 +3,9 @@
 - Internal:
   - Update some dev dependencies: Tailwindcss, GH Pages, TS ESLint
   - Refactor `FetchRequest` method parameters to options-based
-  - Request sent to `DPNS` when/if push subscription revoked by end-user
   - Fix endless logout loop if 401 is returned
+  - Introduction of a notification permission change handler
+  - Align `POST /login` payload with API 0.4.1
 - UI:
   - Enable notification icon
   - Add random hint in main menu

@@ -9,7 +9,6 @@ import {
 import {
   initializeMsalBrowser,
   handleMicrosoftSignIn,
-  handleMicrosoftLogout,
 } from "../microsoftAuth";
 import { setupSettingsDialog } from "./settingsDialog";
 import { showErrorNotice } from "./waitingNotice";
@@ -18,7 +17,7 @@ const initialiseGoogleSignInButton = () => {
   window.google?.accounts?.id?.initialize({
     client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
     callback: ({ credential }) =>
-      handleSsoAuthResponse({ service: "google", credential }),
+      handleSsoAuthResponse({ provider: "google", credential }),
   });
 
   window.google?.accounts?.id?.renderButton(
@@ -68,10 +67,7 @@ export const setupLoginButtons = () => {
   }
 
   const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
-  logoutBtn.callback = async () => {
-    await handleMicrosoftLogout();
-    await logout();
-  };
+  logoutBtn.callback = async () => await logout();
 
   setupSettingsDialog();
 };
