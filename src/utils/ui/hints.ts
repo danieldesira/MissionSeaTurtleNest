@@ -3,9 +3,11 @@ const hints = [
   "Plastic fills and kills the turtle faster.",
   "Eat fish, crabs and shrimp to earn points!",
   "Sign up with Google to compete with your friends!",
-  "Loggerhead turtles can lay up to 5 nests in one season!",
+  "Loggerhead turtles may lay up to 5-6 nests in one season!",
   "Read the level description before starting a level.",
   "Logged-in players, can return to a game they exited any time.",
+  "A typical nest may contain between 80 and 120 eggs.",
+  "You may volunteer to help our turtles by contacting turtle.naturetrust@gmail.com",
 ];
 
 export const showRandomHint = () => {

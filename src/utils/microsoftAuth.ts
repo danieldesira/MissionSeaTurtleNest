@@ -9,6 +9,7 @@ interface MsalInstance {
   loginPopup: (options: unknown) => Promise<unknown>;
   loginRedirect: (options: unknown) => Promise<unknown>;
   logout: () => Promise<void>;
+  logoutPopup: () => Promise<void>;
   getAllAccounts: () => unknown[];
   acquireTokenSilent: (options: unknown) => Promise<unknown>;
 }
@@ -117,7 +118,7 @@ export const handleMicrosoftLogout = async () => {
   }
 
   try {
-    await instance.logout();
+    await instance.logoutPopup();
   } catch (error) {
     console.error("Microsoft logout error:", error);
   }

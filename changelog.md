@@ -1,4 +1,4 @@
-# 0.8.9 Beta -
+# 0.8.9 Beta - 18/02/2026 10:30 UTC+1
 
 - Internal:
   - Update some dev dependencies: Tailwindcss, GH Pages, TS ESLint
@@ -12,6 +12,7 @@
   - Remove Valentine's animation
 - Authentication:
   - Add Microsoft Entra ID option
+  - Signout of Google and Microsoft accounts
 
 # 0.8.8.2 Beta Valentine's Edition - 10/02/2026 20:10 UTC+1
 

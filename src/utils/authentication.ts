@@ -14,6 +14,7 @@ import { personalBestStore } from "../inMemoryStores/PersonalBestStore";
 import { lastGameStore } from "../inMemoryStores/LastGameStore";
 import { showErrorNotice } from "./ui/waitingNotice";
 import { applyAudioVolume, defaultAudioVolume } from "./audio";
+import { handleMicrosoftLogout } from "./microsoftAuth";
 
 export const handleSsoAuthResponse = async (ssoToken: SsoToken) => {
   try {
@@ -69,7 +70,7 @@ const populatePlayerProfile = (accountData: LoginResponse) => {
     profileStore.dateOfBirth = player.dateOfBirth
       ? new Date(player.dateOfBirth)
       : null;
-    profileStore.playerIdentifier = `${player.externalId}-${player.ssoPlatform}`;
+    profileStore.playerIdentifier = `${player.externalId}-${player.ssoProvider}`;
     setupSettingsProfileTab();
   }
 };
@@ -103,6 +104,12 @@ export const getSsoTokenFromLocalStorage = () =>
 
 export const logout = async () => {
   if (isAuthenticated()) {
+    if (profileStore.playerIdentifier.includes("microsoft")) {
+      await handleMicrosoftLogout();
+    } else if (profileStore.playerIdentifier.includes("google")) {
+      const googleLogoutUrl = "https://accounts.google.com/Logout";
+      window.open(googleLogoutUrl, "_blank", "width=500,height=600");
+    }
     clearCurrentPlayerStores();
     updateAuthenticationUI();
     hideContinueGameBtn();
