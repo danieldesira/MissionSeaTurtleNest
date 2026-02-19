@@ -1,3 +1,8 @@
+# 0.8.10 Beta -
+
+- Interal:
+  - Construct interactions object and string to pass to `POST /points` (API 0.4.2)
+
 # 0.8.9 Beta - 18/02/2026 10:30 UTC+1
 
 - Internal:

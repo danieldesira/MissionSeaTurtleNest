@@ -43,7 +43,7 @@ export interface LoginResponse {
 }
 
 export interface SaveScorePayload {
-  points: number;
+  interactions: string;
   level: number;
   duration: number;
 }

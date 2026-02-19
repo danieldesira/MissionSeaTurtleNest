@@ -36,9 +36,15 @@ export const cacheGameProgress = () => {
         isMama: game.turtle.isMama,
       },
       duration: game.timeInSeconds,
+      interactions: stringifyInteractions(),
     };
   }
 };
+
+const stringifyInteractions = () =>
+  Object.entries(game.interactions)
+    .map(([type, count]) => `${type},${count}`)
+    .join("|");
 
 export const deleteLastGameAndSaveScore = async () => {
   hideContinueGameBtn();
@@ -47,7 +53,7 @@ export const deleteLastGameAndSaveScore = async () => {
   try {
     if (isAuthenticated()) {
       await saveScore({
-        points: game.xp,
+        interactions: stringifyInteractions(),
         level: game.currentLevelNo,
         duration: game.timeInSeconds,
       });

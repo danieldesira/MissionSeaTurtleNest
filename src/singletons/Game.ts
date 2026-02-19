@@ -50,6 +50,7 @@ class Game {
   private _currentGameCharacterList: CurrentGameCharacterList;
   private _cleanCollisionEventHandler: () => void;
   private _cleanMateDeathEventHandler: () => void;
+  private _interactions: Record<string, number>;
 
   static get instance() {
     if (!this._instance) {
@@ -70,7 +71,7 @@ class Game {
     return this._xp;
   }
 
-  set xp(value: number) {
+  set xp(value) {
     this._xp = value;
   }
 
@@ -78,7 +79,7 @@ class Game {
     return this._currentLevelNo;
   }
 
-  set currentLevelNo(value: number) {
+  set currentLevelNo(value) {
     this._currentLevelNo = value;
   }
 
@@ -90,7 +91,7 @@ class Game {
     return this._isGameScreenActive;
   }
 
-  set isPersonalBest(value: boolean) {
+  set isPersonalBest(value) {
     this._isPersonalBest = value;
   }
 
@@ -106,8 +107,16 @@ class Game {
     return Math.floor(this._currentFrameCount / 60);
   }
 
-  set timeInSeconds(value: number) {
+  set timeInSeconds(value) {
     this._currentFrameCount = value * 60;
+  }
+
+  get interactions() {
+    return this._interactions;
+  }
+
+  set interactions(value) {
+    this._interactions = value;
   }
 
   reset() {
@@ -120,6 +129,7 @@ class Game {
     this._currentFrameCount = 0;
     this._currentGameCharacterList = new CurrentGameCharacterList();
     this._level = null;
+    this._interactions = {};
   }
 
   pause() {
@@ -361,6 +371,7 @@ class Game {
               launchHeartMatingAnimation();
               this._turtle.isMama = true;
               this.addReducePoints(character.points);
+              this.addInteraction(character);
             }
             break;
           case "Obstacle":
@@ -368,6 +379,7 @@ class Game {
             this.handlePreyObstacleConsumption(character);
             this.addReducePoints(character.points);
             vibrate();
+            this.addInteraction(character);
             break;
           case "Prey":
           case "PackPrey":
@@ -375,6 +387,7 @@ class Game {
               this._turtle.eat((character as Prey).foodValue);
               this.handlePreyObstacleConsumption(character);
               this.addReducePoints(character.points);
+              this.addInteraction(character);
             }
             break;
         }
@@ -411,6 +424,12 @@ class Game {
   private teardownEvents() {
     this._cleanCollisionEventHandler();
     this._cleanMateDeathEventHandler();
+  }
+
+  private addInteraction(character: INonMainCharacter) {
+    this._interactions[character.type] = !this._interactions[character.type]
+      ? 1
+      : this._interactions[character.type] + 1;
   }
 }
 

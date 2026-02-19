@@ -7,7 +7,17 @@ export const restoreGameProgress = () => {
   game.currentLevelNo = lastGameStore.store.levelNo;
   game.xp = lastGameStore.store.xp;
   game.timeInSeconds = lastGameStore.store.duration;
+  game.interactions = parseInteractions();
   restoreCharacters();
+};
+
+const parseInteractions = () => {
+  const interactions: Record<string, number> = {};
+  for (const item of lastGameStore.store.interactions.split("|")) {
+    const [type, count] = item.split(",");
+    interactions[type] = parseInt(count);
+  }
+  return interactions;
 };
 
 const restoreTurtleState = () => {

@@ -7,6 +7,7 @@ export type GameProgressStore = {
   levelNo: number;
   xp: number;
   duration: number;
+  interactions: string;
 };
 
 type TurtleData = {
