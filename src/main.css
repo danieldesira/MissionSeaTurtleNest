@@ -28,19 +28,3 @@
 #assetLoadingProgressBar::-moz-progress-bar {
   @apply bg-primary rounded-sm;
 }
-
-@keyframes moveTurtle {
-  0% {
-    transform: translateX(-3em);
-  }
-  50% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(3em);
-  }
-}
-
-.move-turtle {
-  animation: moveTurtle 1500ms infinite;
-}
