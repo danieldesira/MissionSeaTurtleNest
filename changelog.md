@@ -1,7 +1,10 @@
-# 0.8.10 Beta -
+# 0.8.10 Beta - 26/02/2026 21:30 UTC+1
 
-- Interal:
+- Internal:
   - Construct interactions object and string to pass to `POST /points` (API 0.4.2)
+- Social icons:
+  - Correct Github URL to the new repository name
+  - Add link to our new homepage
 
 # 0.8.9 Beta - 18/02/2026 10:30 UTC+1
 
