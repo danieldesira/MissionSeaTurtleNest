@@ -25,6 +25,7 @@ import { hideOverlay, showOverlay } from "../utils/ui/overlay";
 import { showXpUpdate, updateXpSpan } from "../utils/ui/xp";
 import { GameLossReason } from "../events/types";
 import { showErrorNotice } from "../utils/ui/waitingNotice";
+import { levelStartSnapshot } from "../inMemoryStores/LevelStartSnapshot";
 
 type GameOptions = {
   canvas: HTMLCanvasElement;
@@ -51,6 +52,7 @@ class Game {
   private _cleanCollisionEventHandler: () => void;
   private _cleanMateDeathEventHandler: () => void;
   private _interactions: Record<string, number>;
+  private _remainingLevelResets: number;
 
   static get instance() {
     if (!this._instance) {
@@ -119,6 +121,14 @@ class Game {
     this._interactions = value;
   }
 
+  get remainingLevelResets() {
+    return this._remainingLevelResets;
+  }
+
+  set remainingLevelResets(value) {
+    this._remainingLevelResets = value;
+  }
+
   reset() {
     this._currentLevelNo = 1;
     this._xp = 0;
@@ -130,6 +140,7 @@ class Game {
     this._currentGameCharacterList = new CurrentGameCharacterList();
     this._level = null;
     this._interactions = {};
+    this._remainingLevelResets = 3;
   }
 
   pause() {
@@ -164,6 +175,7 @@ class Game {
         this._turtle.x = 50;
         this._turtle.y = this._level.bgImg.height / 2;
       }
+      this.saveLevelStartSnapshot();
     } catch (error) {
       showErrorNotice(error.toString(), 500);
     } finally {
@@ -430,6 +442,15 @@ class Game {
     this._interactions[character.type] = !this._interactions[character.type]
       ? 1
       : this._interactions[character.type] + 1;
+  }
+
+  private saveLevelStartSnapshot() {
+    levelStartSnapshot.interactions = this._interactions;
+    levelStartSnapshot.turtleApetite = this._turtle.apetiteGauge;
+    levelStartSnapshot.turtleFood = this._turtle.foodGauge;
+    levelStartSnapshot.turtleHealth = this._turtle.lifeGauge;
+    levelStartSnapshot.turtleOxygen = this._turtle.oxygenGauge;
+    levelStartSnapshot.xp = this._xp;
   }
 }
 
