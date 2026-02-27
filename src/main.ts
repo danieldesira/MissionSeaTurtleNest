@@ -29,10 +29,10 @@ import {
   setupNewGameMenuBtn,
 } from "./utils/ui/mainMenu";
 import { setupLoginInvitationDialog } from "./utils/ui/loginInvitationDialog";
-import { setupNewLevelEventHandler } from "./levels/customEvents";
 import { setupMusic } from "./utils/audio";
 import { setupMainMenuKeyboardNavigation } from "./utils/ui/mainMenuKeyboardNavigation";
 import { showRandomHint } from "./utils/ui/hints";
+import { setupResetCurrentGameDialog } from "./utils/ui/resetCurrentGameDialog";
 
 document.addEventListener("DOMContentLoaded", async () => {
   registerServiceWorker("cache");
@@ -60,8 +60,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupLoginInvitationDialog();
   setupGamePauseOnDialogOpen();
   setupLevelStartDialog();
-  setupNewLevelEventHandler();
   setupKeyboardShortcuts();
+  setupResetCurrentGameDialog();
 
   setupScoresDialog();
   setupFullscreenBtn();

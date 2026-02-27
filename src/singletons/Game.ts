@@ -26,6 +26,7 @@ import { showXpUpdate, updateXpSpan } from "../utils/ui/xp";
 import { GameLossReason } from "../events/types";
 import { showErrorNotice } from "../utils/ui/waitingNotice";
 import { levelStartSnapshot } from "../inMemoryStores/LevelStartSnapshot";
+import { showResetCurrentGameDialog } from "../utils/ui/resetCurrentGameDialog";
 
 type GameOptions = {
   canvas: HTMLCanvasElement;
@@ -255,18 +256,15 @@ class Game {
     mainCharacter.recoverApetite();
 
     if (mainCharacter.foodGauge <= 0) {
-      this.handleLoss("out_of_food");
-      return false;
+      return this.handleTurtleDeath("out_of_food");
     }
 
     if (mainCharacter.oxygenGauge <= 0) {
-      this.handleLoss("out_of_oxygen");
-      return false;
+      return this.handleTurtleDeath("out_of_oxygen");
     }
 
     if (mainCharacter.lifeGauge <= 0) {
-      this.handleLoss("damage");
-      return false;
+      return this.handleTurtleDeath("damage");
     }
 
     if (mainCharacter.y - mainCharacter.image.height <= 0) {
@@ -312,6 +310,17 @@ class Game {
       }
     } else {
       return true;
+    }
+  }
+
+  private handleTurtleDeath(reason: GameLossReason) {
+    if (this._remainingLevelResets > 0) {
+      this.resetCurrentLevelFromSnapshot();
+      showResetCurrentGameDialog(this._remainingLevelResets);
+      return true;
+    } else {
+      this.handleLoss(reason);
+      return false;
     }
   }
 
@@ -412,7 +421,7 @@ class Game {
         game.currentGameCharacterList.characters.delete(character);
 
         if (!this._turtle.isMama) {
-          this.handleLoss("mate_died_before_mating");
+          this.handleTurtleDeath("mate_died_before_mating");
         } else {
           launchCustomDialog(
             "Mate died",
@@ -451,6 +460,24 @@ class Game {
     levelStartSnapshot.turtleHealth = this._turtle.lifeGauge;
     levelStartSnapshot.turtleOxygen = this._turtle.oxygenGauge;
     levelStartSnapshot.xp = this._xp;
+  }
+
+  private resetCurrentLevelFromSnapshot() {
+    this._remainingLevelResets--;
+    this._interactions = levelStartSnapshot.interactions;
+    this._turtle.apetiteGauge = levelStartSnapshot.turtleApetite;
+    this._turtle.foodGauge = levelStartSnapshot.turtleFood;
+    this._turtle.oxygenGauge = levelStartSnapshot.turtleOxygen;
+    this._turtle.lifeGauge = levelStartSnapshot.turtleHealth;
+    this._xp = levelStartSnapshot.xp;
+    updateXpSpan();
+    this._turtle.resetDirection();
+    this._turtle.x = 50;
+    this._turtle.y = this._level.bgImg.height / 2;
+    this._currentGameCharacterList = new CurrentGameCharacterList();
+    this._currentGameCharacterList.spawnCharacters(
+      this._level.initialCharacters,
+    );
   }
 }
 

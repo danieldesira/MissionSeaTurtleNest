@@ -1,3 +1,8 @@
+# 0.8.11 Beta -
+
+- Internal:
+  - Remove the level start custom event
+
 # 0.8.10 Beta - 26/02/2026 21:30 UTC+1
 
 - Internal:
