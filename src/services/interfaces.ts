@@ -46,6 +46,7 @@ export interface SaveScorePayload {
   interactions: string;
   level: number;
   duration: number;
+  remainingResets: number;
 }
 
 export interface UpdatePlayerPayload {

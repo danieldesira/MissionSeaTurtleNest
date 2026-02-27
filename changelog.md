@@ -2,8 +2,9 @@
 
 - Internal:
   - Remove the level start custom event
-  - Send `remainingResets` to `PUT /game` (API 0.4.6)
+  - Send `remainingResets` to `PUT /game` and `POST /points` (API 0.4.6)
 - 3 global game resets:
+  - Comes with UI and internal changes
 
 # 0.8.10 Beta - 26/02/2026 21:30 UTC+1
 

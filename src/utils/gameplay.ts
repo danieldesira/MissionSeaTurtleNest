@@ -57,6 +57,7 @@ export const deleteLastGameAndSaveScore = async () => {
         interactions: stringifyInteractions(),
         level: game.currentLevelNo,
         duration: game.timeInSeconds,
+        remainingResets: game.remainingLevelResets,
       });
     }
   } catch {
