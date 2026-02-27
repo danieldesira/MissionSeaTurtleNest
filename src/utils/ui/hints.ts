@@ -8,6 +8,7 @@ const hints = [
   "Logged-in players, can return to a game they exited any time.",
   "A typical nest may contain between 80 and 120 eggs.",
   "You may volunteer to help our turtles by contacting turtle.naturetrust@gmail.com",
+  "You have up to 3 resets in the game.",
 ];
 
 export const showRandomHint = () => {

@@ -37,6 +37,7 @@ export const cacheGameProgress = () => {
       },
       duration: game.timeInSeconds,
       interactions: stringifyInteractions(),
+      remainingResets: game.remainingLevelResets,
     };
   }
 };

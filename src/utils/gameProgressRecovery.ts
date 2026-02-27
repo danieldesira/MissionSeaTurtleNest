@@ -8,6 +8,7 @@ export const restoreGameProgress = () => {
   game.xp = lastGameStore.store.xp;
   game.timeInSeconds = lastGameStore.store.duration;
   game.interactions = parseInteractions();
+  game.remainingLevelResets = lastGameStore.store.remainingResets;
   restoreCharacters();
 };
 
