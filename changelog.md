@@ -3,8 +3,10 @@
 - Internal:
   - Remove the level start custom event
   - Send `remainingResets` to `PUT /game` and `POST /points` (API 0.4.6)
+  - Refactor `launchGameEndDialog` to accept parameters as an options object
 - 3 global game resets:
   - Comes with UI and internal changes
+  - Improve personal best computation in frontend by taking into account rewards
 
 # 0.8.10 Beta - 26/02/2026 21:30 UTC+1
 

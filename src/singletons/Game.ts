@@ -348,26 +348,29 @@ class Game {
       },
     };
     const { title, instruction } = dialogContent[reason];
-    launchGameEndDialog(
+    launchGameEndDialog({
       title,
-      `You lose! Better luck and ${instruction} next time. `,
-    );
+      text: `You lose! Better luck and ${instruction} next time. `,
+    });
   }
 
   private handleWin() {
+    const completeWithin5Mins = this.timeInSeconds <= 60 * 5;
+    this._xp += completeWithin5Mins ? 300 : 0;
+    const remainingResetsRewards = this._remainingLevelResets * 50;
+    this._xp += remainingResetsRewards;
+    const perfectGame = this._remainingLevelResets === 3;
+    this._xp += perfectGame ? 200 : 0;
+
     this.handleGameEnd();
 
-    let completeWithin5Mins = false;
-    if (this.timeInSeconds <= 60 * 5) {
-      this._xp += 300;
-      completeWithin5Mins = true;
-    }
-
-    launchGameEndDialog(
-      "Game Complete",
-      "You win. Congratulations!",
+    launchGameEndDialog({
+      title: "Game Complete",
+      text: "You win. Congratulations!",
       completeWithin5Mins,
-    );
+      remainingResetsRewards,
+      perfectGame,
+    });
   }
 
   private async handleGameEnd() {
