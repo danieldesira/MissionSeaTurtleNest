@@ -457,7 +457,7 @@ class Game {
   }
 
   private saveLevelStartSnapshot() {
-    levelStartSnapshot.interactions = this._interactions;
+    levelStartSnapshot.interactions = { ...this._interactions };
     levelStartSnapshot.turtleApetite = this._turtle.apetiteGauge;
     levelStartSnapshot.turtleFood = this._turtle.foodGauge;
     levelStartSnapshot.turtleHealth = this._turtle.lifeGauge;
@@ -467,7 +467,7 @@ class Game {
 
   private resetCurrentLevelFromSnapshot() {
     this._remainingLevelResets--;
-    this._interactions = levelStartSnapshot.interactions;
+    this._interactions = { ...levelStartSnapshot.interactions };
     this._turtle.apetiteGauge = levelStartSnapshot.turtleApetite;
     this._turtle.foodGauge = levelStartSnapshot.turtleFood;
     this._turtle.oxygenGauge = levelStartSnapshot.turtleOxygen;
