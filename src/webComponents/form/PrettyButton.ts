@@ -14,8 +14,8 @@ class PrettyButton extends HTMLElement {
     button.accessKey = this.accessKey;
   }
 
-  set callback(value: () => void) {
-    this.addEventListener("click", value);
+  on(eventType: "click", callback: () => void) {
+    this.addEventListener(eventType, callback);
   }
 }
 

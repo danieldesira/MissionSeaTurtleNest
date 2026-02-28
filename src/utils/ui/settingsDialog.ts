@@ -94,7 +94,7 @@ export const setupSettingsDialog = () => {
   ) as PrettyDialog;
   settingsDialog.closeButtonIds = ["closeSettingsBtn"];
   settingsDialog.closeCallback = handleSettingsDialogClose;
-  settingsBtn.callback = () => settingsDialog.open();
+  settingsBtn.on("click", () => settingsDialog.open());
 };
 
 export const setupSettingsProfileTab = () => {
@@ -119,7 +119,7 @@ export const setupSettingsProfileTab = () => {
     "profilePicUploader",
   ) as ImageUploader;
   profilePicUploader.currentImageUrl = profileStore.profilePicUrl;
-  profilePicUploader.changeCallback = async (event: Event) => {
+  profilePicUploader.onChange(async (event: Event) => {
     const target = event.target as HTMLInputElement;
     try {
       showWaitingNotice("Uploading a new profile picture");
@@ -133,7 +133,7 @@ export const setupSettingsProfileTab = () => {
     } finally {
       hideWaitingNotice();
     }
-  };
+  });
 };
 
 const getScreenControlPositionRadioValue = () => {

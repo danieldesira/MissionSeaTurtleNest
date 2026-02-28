@@ -4,6 +4,9 @@
   - Remove the level start custom event
   - Send `remainingResets` to `PUT /game` and `POST /points` (API 0.4.6)
   - Refactor `launchGameEndDialog` to accept parameters as an options object
+  - Add `connectedCallback` handler to `PrettyDialog`
+  - `PrettyButton`: callback setter changed to `on` method
+  - `ImageUploader`: change callback setter changed to `onChange` method
 - 3 global game resets:
   - Comes with UI and internal changes
   - Improve personal best computation in frontend by taking into account rewards

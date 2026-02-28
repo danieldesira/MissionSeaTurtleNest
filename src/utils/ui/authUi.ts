@@ -6,10 +6,7 @@ import {
   isAuthenticated,
   logout,
 } from "../authentication";
-import {
-  initializeMsalBrowser,
-  handleMicrosoftSignIn,
-} from "../microsoftAuth";
+import { initializeMsalBrowser, handleMicrosoftSignIn } from "../microsoftAuth";
 import { setupSettingsDialog } from "./settingsDialog";
 import { showErrorNotice } from "./waitingNotice";
 
@@ -57,7 +54,7 @@ export const setupLoginButtons = () => {
   initialiseMicrosoftSignInButton();
 
   loginDialog.closeButtonIds = ["closeLoginBtn"];
-  loginBtn.callback = () => loginDialog.open();
+  loginBtn.on("click", () => loginDialog.open());
 
   const ssoToken = getSsoTokenFromLocalStorage();
   if (ssoToken) {
@@ -67,7 +64,7 @@ export const setupLoginButtons = () => {
   }
 
   const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
-  logoutBtn.callback = async () => await logout();
+  logoutBtn.on("click", async () => await logout());
 
   setupSettingsDialog();
 };

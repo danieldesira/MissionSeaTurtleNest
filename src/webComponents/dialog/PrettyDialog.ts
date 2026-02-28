@@ -6,6 +6,11 @@ class PrettyDialog extends HTMLElement {
     loadTemplate("prettyDialogTemplate", this);
   }
 
+  connectedCallback() {
+    const dialog = this.shadowRoot.querySelector("dialog");
+    dialog.id = this.id;
+  }
+
   private _openCallback: () => void = null;
 
   open() {

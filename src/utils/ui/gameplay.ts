@@ -102,7 +102,7 @@ export const setupGameShareBtn = () => {
   const shareGameBtn = document.getElementById(
     "gameEndDialogShareBtn",
   ) as PrettyButton;
-  shareGameBtn.callback = async () => {
+  shareGameBtn.on("click", async () => {
     if (navigator.share) {
       try {
         await navigator.share({
@@ -114,7 +114,7 @@ export const setupGameShareBtn = () => {
         showErrorNotice("Failed to share the game.", 500);
       }
     }
-  };
+  });
 };
 
 export const updateGauge = (
@@ -140,8 +140,8 @@ const showGamePausedDialog = () => {
 };
 
 export const setupPauseBtn = () => {
-  const pauseBtn = document.getElementById("pauseBtn");
-  pauseBtn.addEventListener("click", () => showGamePausedDialog());
+  const pauseBtn = document.getElementById("pauseBtn") as PrettyButton;
+  pauseBtn.on("click", () => showGamePausedDialog());
 };
 
 export const initialiseGame = async (isNewGame: boolean) => {
@@ -179,7 +179,7 @@ const uploadGameProgress = async () => {
 
 export const setupBackToMenuBtn = () => {
   const backBtn = document.getElementById("backBtn") as PrettyButton;
-  backBtn.callback = async () => await handleBackToMainMenu();
+  backBtn.on("click", async () => await handleBackToMainMenu());
 };
 
 const handleBackToMainMenu = async () => {

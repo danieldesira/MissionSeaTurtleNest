@@ -15,18 +15,18 @@ export const setupLoginInvitationDialog = () => {
   const loginInvitationBtn = document.getElementById(
     "loginInvitationBtn",
   ) as PrettyButton;
-  loginInvitationBtn.callback = () => {
+  loginInvitationBtn.on("click", () => {
     const loginDialog = document.getElementById("loginDialog") as PrettyDialog;
     loginDialog.open();
-  };
+  });
 
   const closeLoginInvitationBtn = document.getElementById(
     "closeLoginInvitationBtn",
   ) as PrettyButton;
-  closeLoginInvitationBtn.callback = () => {
+  closeLoginInvitationBtn.on("click", () => {
     game.exit();
     toggleMode("menu");
-  };
+  });
 };
 
 export const showLoginInvitationDialog = () => {

@@ -7,29 +7,6 @@ class ImageUploader extends HTMLElement {
     loadTemplate("imageUploaderTemplate", this);
   }
 
-  set currentImageUrl(value: string) {
-    const image = this.shadowRoot.querySelector("img") as HTMLImageElement;
-    image.src = value;
-  }
-
-  set changeCallback(value: (_: Event) => void) {
-    const fileInput = this.shadowRoot.querySelector(
-      'input[type="file"]',
-    ) as HTMLElement;
-    fileInput.addEventListener("change", (event: Event) => {
-      const target = event.target as HTMLInputElement;
-      const selectedFile = target.files[0];
-      if (selectedFile?.size > 10 * 1_024 * 1_024) {
-        this.indicateError();
-      } else {
-        this.removeError();
-        if (value) {
-          value(event);
-        }
-      }
-    });
-  }
-
   connectedCallback() {
     this.addEventListener("click", () => {
       const fileInput = this.shadowRoot.querySelector(
@@ -40,6 +17,29 @@ class ImageUploader extends HTMLElement {
 
     const formField = this.shadowRoot.querySelector("form-field") as FormField;
     formField.id = this.id;
+  }
+
+  set currentImageUrl(value: string) {
+    const image = this.shadowRoot.querySelector("img") as HTMLImageElement;
+    image.src = value;
+  }
+
+  onChange(callback: (_: Event) => void) {
+    const fileInput = this.shadowRoot.querySelector(
+      'input[type="file"]',
+    ) as HTMLElement;
+    fileInput.addEventListener("change", (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      const selectedFile = target.files[0];
+      if (selectedFile?.size > 10 * 1_024 * 1_024) {
+        this.indicateError();
+      } else {
+        this.removeError();
+        if (callback) {
+          callback(event);
+        }
+      }
+    });
   }
 
   private indicateError() {

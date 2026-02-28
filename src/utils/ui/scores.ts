@@ -14,10 +14,10 @@ export const setupScoresDialog = () => {
   const scoresDialog = document.getElementById("scoresDialog") as PrettyDialog;
   const scoresBtn = document.getElementById("scoresBtn") as PrettyButton;
 
-  scoresBtn.callback = async () => {
+  scoresBtn.on("click", async () => {
     scoresDialog.open();
     await populateLeaderBoard();
-  };
+  });
 
   scoresDialog.closeButtonIds = ["closeScoresBtn"];
 };

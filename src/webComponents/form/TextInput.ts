@@ -7,17 +7,6 @@ class TextInput extends HTMLElement {
     loadTemplate("textInputTemplate", this);
   }
 
-  set value(value: string | Date) {
-    const input = this.shadowRoot.querySelector("input");
-    const isDateValue = value instanceof Date;
-    input.value = isDateValue ? value.toISOString().split("T")[0] : value;
-  }
-
-  get value() {
-    const input = this.shadowRoot.querySelector("input");
-    return input.type === "date" ? new Date(input.value) : input.value;
-  }
-
   connectedCallback() {
     const input = this.shadowRoot.querySelector("input");
 
@@ -31,6 +20,17 @@ class TextInput extends HTMLElement {
 
     const formField = this.shadowRoot.querySelector("form-field") as FormField;
     formField.id = this.id;
+  }
+
+  set value(value: string | Date) {
+    const input = this.shadowRoot.querySelector("input");
+    const isDateValue = value instanceof Date;
+    input.value = isDateValue ? value.toISOString().split("T")[0] : value;
+  }
+
+  get value() {
+    const input = this.shadowRoot.querySelector("input");
+    return input.type === "date" ? new Date(input.value) : input.value;
   }
 }
 

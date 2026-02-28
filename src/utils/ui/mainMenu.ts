@@ -97,7 +97,7 @@ export const setupGameOverwriteDialog = () => {
   const confirmNewGameBtn = document.getElementById(
     "confirmNewGameBtn",
   ) as PrettyButton;
-  confirmNewGameBtn.callback = async () => await initGame(true);
+  confirmNewGameBtn.on("click", async () => await initGame(true));
 };
 
 const initGame = async (newGame: boolean) => {

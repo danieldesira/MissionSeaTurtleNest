@@ -25,13 +25,13 @@ export const setupFullscreenBtn = async () => {
   const fullscreenBtn = document.getElementById(
     "fullscreenBtn",
   ) as PrettyButton;
-  fullscreenBtn.callback = async () => {
+  fullscreenBtn.on("click", async () => {
     if (document.fullscreenElement) {
       await document.exitFullscreen();
     } else {
       await document.body.requestFullscreen();
     }
-  };
+  });
 };
 
 export const setupNotifications = async () => {
