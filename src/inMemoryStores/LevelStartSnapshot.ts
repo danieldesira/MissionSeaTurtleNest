@@ -1,3 +1,5 @@
+import { game } from "../singletons/Game";
+import { updateXpSpan } from "../utils/ui/xp";
 import type { IStore } from "./interfaces";
 
 class LevelStartSnapshot implements IStore {
@@ -67,6 +69,31 @@ class LevelStartSnapshot implements IStore {
 
   set interactions(value) {
     this._interactions = value;
+  }
+
+  save() {
+    this._interactions = { ...game.interactions };
+    this._turtleApetite = game.turtle.apetiteGauge;
+    this._turtleFood = game.turtle.foodGauge;
+    this._turtleHealth = game.turtle.lifeGauge;
+    this._turtleOxygen = game.turtle.oxygenGauge;
+    this._xp = game.xp;
+  }
+
+  resetCurrentLevel() {
+    game.remainingLevelResets--;
+    game.interactions = { ...this._interactions };
+    game.turtle.apetiteGauge = this._turtleApetite;
+    game.turtle.foodGauge = this._turtleFood;
+    game.turtle.oxygenGauge = this._turtleOxygen;
+    game.turtle.lifeGauge = this._turtleHealth;
+    game.xp = this._xp;
+    updateXpSpan();
+    game.turtle.resetDirection();
+    game.turtle.x = 50;
+    game.turtle.y = game.level.bgImg.height / 2;
+    game.currentGameCharacterList.reset();
+    game.currentGameCharacterList.spawnCharacters(game.level.initialCharacters);
   }
 }
 

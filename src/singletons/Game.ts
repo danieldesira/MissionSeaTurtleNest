@@ -176,7 +176,7 @@ class Game {
         this._turtle.x = 50;
         this._turtle.y = this._level.bgImg.height / 2;
       }
-      this.saveLevelStartSnapshot();
+      levelStartSnapshot.save();
     } catch (error) {
       showErrorNotice(error.toString(), 500);
     } finally {
@@ -315,7 +315,7 @@ class Game {
 
   private handleTurtleDeath(reason: GameLossReason) {
     if (this._remainingLevelResets > 0) {
-      this.resetCurrentLevelFromSnapshot();
+      levelStartSnapshot.resetCurrentLevel();
       showResetCurrentGameDialog(this._remainingLevelResets);
       return true;
     } else {
@@ -454,33 +454,6 @@ class Game {
     this._interactions[character.type] = !this._interactions[character.type]
       ? 1
       : this._interactions[character.type] + 1;
-  }
-
-  private saveLevelStartSnapshot() {
-    levelStartSnapshot.interactions = { ...this._interactions };
-    levelStartSnapshot.turtleApetite = this._turtle.apetiteGauge;
-    levelStartSnapshot.turtleFood = this._turtle.foodGauge;
-    levelStartSnapshot.turtleHealth = this._turtle.lifeGauge;
-    levelStartSnapshot.turtleOxygen = this._turtle.oxygenGauge;
-    levelStartSnapshot.xp = this._xp;
-  }
-
-  private resetCurrentLevelFromSnapshot() {
-    this._remainingLevelResets--;
-    this._interactions = { ...levelStartSnapshot.interactions };
-    this._turtle.apetiteGauge = levelStartSnapshot.turtleApetite;
-    this._turtle.foodGauge = levelStartSnapshot.turtleFood;
-    this._turtle.oxygenGauge = levelStartSnapshot.turtleOxygen;
-    this._turtle.lifeGauge = levelStartSnapshot.turtleHealth;
-    this._xp = levelStartSnapshot.xp;
-    updateXpSpan();
-    this._turtle.resetDirection();
-    this._turtle.x = 50;
-    this._turtle.y = this._level.bgImg.height / 2;
-    this._currentGameCharacterList = new CurrentGameCharacterList();
-    this._currentGameCharacterList.spawnCharacters(
-      this._level.initialCharacters,
-    );
   }
 }
 
