@@ -7,6 +7,7 @@
   - Add `connectedCallback` handler to `PrettyDialog`
   - `PrettyButton`: callback setter changed to `on` method
   - `ImageUploader`: change callback setter changed to `onChange` method
+  - Introduce DOM query shortcut methods defined in `domQuery.ts`
 - 3 global game resets:
   - Comes with UI and internal changes
   - Improve personal best computation in frontend by taking into account rewards

@@ -62,13 +62,33 @@ It is also possible to add characters using `npm run create:prey -- <NewPrey>` o
 
 ## UI
 
+### Web Components
+
 Commonly occurring elements are defined through Web Components placed under
 `/src/webComponents`. HTML `<template>`s for these web components are to be
-found in the same directory as the component classes. Moreover,
-`/src/htmlFragments` contains HTML fragments pertaining to UI elements.
+found in the same directory as the component classes.
 
+### HTML Fragments
+
+Moreover, `/src/htmlFragments` contains HTML fragments pertaining to UI elements.
 Any such HTML fragments, need to be added to `src/index.base.html` through the
 `<!-- @inject path_here -->` syntax.
+
+Note: The mechanism is supported through a custom internal Vite plugin implemented in
+`mergeHtmlPlugin.ts`.
+
+### DOM Access
+
+DOM access is facilitated through a series of alias methods, defined in `domQuery.ts` and
+listed briefly below:
+
+- `$` -> `document.querySelectorAll`
+- `$id` -> `document.getElementById`
+- `$class` -> `document.getElementsByClassName`
+- `$tag` -> `document.getElementsByTagName`
+- `$name` -> `document.getElementsByName`
+
+`$id` is by far the most commonly used throughout the UI layer.
 
 ## Music
 
