@@ -10,6 +10,7 @@
 - 3 global game resets:
   - Comes with UI and internal changes
   - Improve personal best computation in frontend by taking into account rewards
+- Scores dialog: Hide broken images
 
 # 0.8.10 Beta - 26/02/2026 21:30 UTC+1
 

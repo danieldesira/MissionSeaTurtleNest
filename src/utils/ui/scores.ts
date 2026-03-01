@@ -92,6 +92,7 @@ const appendCell = (
   alignment: "left" | "right" | "center" = "left",
 ) => {
   const cell = document.createElement("td");
+  cell.classList.add("py-4");
   switch (alignment) {
     case "center":
       cell.classList.add("text-center");
@@ -106,10 +107,13 @@ const appendCell = (
 
 const appendImageCell = (row: HTMLTableRowElement, url: string) => {
   const cell = document.createElement("td");
-  const img = document.createElement("img");
-  img.classList.add("w-10", "h-10", "rounded-sm");
-  img.src = url;
-  cell.appendChild(img);
+  if (url) {
+    const img = document.createElement("img");
+    img.classList.add("w-10", "h-10", "rounded-sm");
+    img.src = url;
+    img.addEventListener("error", () => img.classList.add("hidden"));
+    cell.appendChild(img);
+  }
   row.appendChild(cell);
 };
 
