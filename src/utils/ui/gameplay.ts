@@ -14,7 +14,7 @@ import {
 } from "./waitingNotice";
 import { showLoginInvitationDialog } from "./loginInvitationDialog";
 import { deleteChildren } from "./ui";
-import { formatLevelAsText } from "./scores";
+import { formatLevel } from "./scores";
 import type { LevelCharacter } from "../../levels/types";
 import { updateXpSpan } from "./xp";
 import type { ILevel } from "../../levels/interfaces";
@@ -107,7 +107,7 @@ export const setupGameShareBtn = () => {
       try {
         await navigator.share({
           title: "Mission Sea Turtle Nest",
-          text: `I just reached level ${game.currentLevelNo} with ${game.xp} points in Mission Sea Turtle Nest!`,
+          text: `I just ${game.currentLevelNo === 9 ? "won" : `reached level ${game.currentLevelNo}`} with ${game.xp} points in Mission Sea Turtle Nest!`,
           url: window.location.href,
         });
       } catch {
@@ -221,7 +221,7 @@ const addPersonalBestLineToGameEndDialog = (
   const messageSpan = document.createElement("span");
   messageSpan.innerText = `Congratulations, this is your personal best score! ${
     game.xp
-  } points, ${formatLevelAsText(game.currentLevelNo)}.`;
+  } points, ${formatLevel(game.currentLevelNo)}.`;
   gameEndDialogContent.appendChild(messageSpan);
 };
 

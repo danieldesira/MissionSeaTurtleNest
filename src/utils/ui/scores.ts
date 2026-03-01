@@ -7,8 +7,8 @@ import { deleteChildren } from "./ui";
 import { hideWaitingNotice, showErrorNotice } from "./waitingNotice";
 import { profileStore } from "../../inMemoryStores/ProfileStore";
 
-export const formatLevelAsText = (levelNo: number) =>
-  levelExists(levelNo) ? `Level ${levelNo}` : "Game Complete";
+export const formatLevel = (levelNo: number) =>
+  levelExists(levelNo) ? levelNo.toString() : "";
 
 export const setupScoresDialog = () => {
   const scoresDialog = document.getElementById("scoresDialog") as PrettyDialog;
@@ -24,7 +24,7 @@ export const setupScoresDialog = () => {
 
 export const updatePersonalBestPlaceholders = () => {
   const levelPlaceholder = document.getElementById("personalBestLevel");
-  levelPlaceholder.innerText = formatLevelAsText(personalBestStore.level);
+  levelPlaceholder.innerText = formatLevel(personalBestStore.level);
 
   const pointsPlaceholder = document.getElementById("personalBestPoints");
   pointsPlaceholder.innerText = personalBestStore.points.toString();
@@ -68,7 +68,7 @@ const populateLeaderBoard = async () => {
         row.classList.add("font-semibold", "text-sm");
         appendImageCell(row, playerProfilePicUrl);
         appendCell(row, playerName);
-        appendCell(row, formatLevelAsText(level), "right");
+        appendCell(row, formatLevel(level), "right");
         appendCell(row, points.toString(), "right");
         appendCell(row, outcome, "center");
         appendCell(row, formatDuration(duration), "right");
@@ -92,7 +92,7 @@ const appendCell = (
   alignment: "left" | "right" | "center" = "left",
 ) => {
   const cell = document.createElement("td");
-  cell.classList.add("py-4");
+  cell.classList.add("py-4", "px-1");
   switch (alignment) {
     case "center":
       cell.classList.add("text-center");
