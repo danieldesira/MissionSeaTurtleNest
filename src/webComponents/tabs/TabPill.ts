@@ -1,3 +1,4 @@
+import { $, $id } from "../../utils/ui/domQuery";
 import { loadTemplate } from "../components";
 import type TabContainer from "./TabContainer";
 
@@ -34,22 +35,18 @@ class TabPill extends HTMLElement {
   }
 
   private showTabContainer() {
-    const container = document.getElementById(
-      this.dataset.container,
-    ) as TabContainer;
+    const container = $id(this.dataset.container) as TabContainer;
     container?.show();
   }
 
   private hideTabContainer() {
-    const container = document.getElementById(
-      this.dataset.container,
-    ) as TabContainer;
+    const container = $id(this.dataset.container) as TabContainer;
     container?.hide();
   }
 
   connectedCallback() {
     this.addEventListener("click", () => {
-      const groupPills = document.querySelectorAll<TabPill>(
+      const groupPills = $<TabPill>(
         `tab-pill[name="${this.getAttribute("name")}"]`,
       );
       groupPills.forEach((p) => {

@@ -4,6 +4,7 @@ import {
   checkNotificationPermission,
   setupNotificationPermissionListener,
 } from "../notifications";
+import { $id } from "./domQuery";
 
 export const disableContextMenu = () =>
   document.body.addEventListener("contextmenu", (event) =>
@@ -22,9 +23,7 @@ export const deleteChildren = (parent: HTMLElement) =>
   Array.from(parent.children).forEach((child) => parent.removeChild(child));
 
 export const setupFullscreenBtn = async () => {
-  const fullscreenBtn = document.getElementById(
-    "fullscreenBtn",
-  ) as PrettyButton;
+  const fullscreenBtn = $id("fullscreenBtn") as PrettyButton;
   fullscreenBtn.on("click", async () => {
     if (document.fullscreenElement) {
       await document.exitFullscreen();
@@ -35,9 +34,7 @@ export const setupFullscreenBtn = async () => {
 };
 
 export const setupNotifications = async () => {
-  const notificationsIcon = document.getElementById(
-    "notificationsIcon",
-  ) as SocialLink;
+  const notificationsIcon = $id("notificationsIcon") as SocialLink;
   notificationsIcon.action = async () => await checkNotificationPermission();
 
   await setupNotificationPermissionListener();

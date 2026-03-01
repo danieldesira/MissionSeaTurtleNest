@@ -1,3 +1,4 @@
+import { $, $id } from "../../utils/ui/domQuery";
 import { loadTemplate } from "../components";
 
 class PrettyDialog extends HTMLElement {
@@ -29,7 +30,7 @@ class PrettyDialog extends HTMLElement {
 
   set closeButtonIds(value: string[]) {
     value.forEach((id) => {
-      const element = document.getElementById(id);
+      const element = $id(id);
       if (element) {
         element.addEventListener("click", () => {
           this.close();
@@ -55,9 +56,9 @@ class PrettyDialog extends HTMLElement {
   }
 
   static isAnyDialogOpen() {
-    return Array.from<PrettyDialog>(
-      document.querySelectorAll("pretty-dialog"),
-    ).some(({ isOpen }) => isOpen);
+    return Array.from<PrettyDialog>($("pretty-dialog")).some(
+      ({ isOpen }) => isOpen,
+    );
   }
 }
 

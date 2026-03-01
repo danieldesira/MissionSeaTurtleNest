@@ -1,6 +1,7 @@
 import { game } from "../../singletons/Game";
 import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type MenuItem from "../../webComponents/mainMenu/MenuItem";
+import { $, $id } from "./domQuery";
 
 const menuOptions: Record<number, string> = {
   1: "continueGameBtn",
@@ -43,14 +44,14 @@ export const setupMainMenuKeyboardNavigation = () => {
 };
 
 const triggerSelectedMenuItem = (id: string) => {
-  const item = document.getElementById(id) as MenuItem;
+  const item = $id(id) as MenuItem;
   if (item.isVisible) {
     item.click();
   }
 };
 
 const setFocusedMenuItem = (selectedKey: number) => {
-  const menuItems = document.querySelectorAll("menu-item");
+  const menuItems = $("menu-item");
   menuItems.forEach((item: MenuItem) => {
     if (item.id === menuOptions[selectedKey]) {
       item.applyFocus();
@@ -61,6 +62,6 @@ const setFocusedMenuItem = (selectedKey: number) => {
 };
 
 const isContinueGameVisible = () => {
-  const item = document.getElementById(menuOptions[1]) as MenuItem;
+  const item = $id(menuOptions[1]) as MenuItem;
   return item.isVisible;
 };

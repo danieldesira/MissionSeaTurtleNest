@@ -3,12 +3,13 @@ import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type PrettyButton from "../../webComponents/form/PrettyButton";
 import type MenuItem from "../../webComponents/mainMenu/MenuItem";
 import { isAuthenticated } from "../authentication";
+import { $id } from "./domQuery";
 import { initialiseGame, setupOnscreenControlsPosition } from "./gameplay";
 import { showRandomHint } from "./hints";
 
 export const toggleMode = (mode: "game" | "menu") => {
-  const menuContainer = document.getElementById("menuContainer");
-  const gameContainer = document.getElementById("gameContainer");
+  const menuContainer = $id("menuContainer");
+  const gameContainer = $id("gameContainer");
 
   switch (mode) {
     case "game":
@@ -30,19 +31,15 @@ export const toggleMode = (mode: "game" | "menu") => {
 };
 
 export const setupInstructionsDialog = () => {
-  const instructionsDialog = document.getElementById(
-    "instructionsDialog",
-  ) as PrettyDialog;
+  const instructionsDialog = $id("instructionsDialog") as PrettyDialog;
   instructionsDialog.closeButtonIds = ["closeInstructionsBtn"];
 
-  const instructionsBtn = document.getElementById(
-    "instructionsBtn",
-  ) as MenuItem;
+  const instructionsBtn = $id("instructionsBtn") as MenuItem;
   instructionsBtn.callback = () => instructionsDialog.open();
 };
 
 export const setupNewGameMenuBtn = () => {
-  const newGameBtn = document.getElementById("newGameBtn") as MenuItem;
+  const newGameBtn = $id("newGameBtn") as MenuItem;
   newGameBtn.callback = async () => {
     if (isAuthenticated() && lastGameStore.hasData()) {
       showGameOverwriteDialog();
@@ -53,17 +50,13 @@ export const setupNewGameMenuBtn = () => {
 };
 
 export const setupContinueGameBtn = () => {
-  const continueGameBtn = document.getElementById(
-    "continueGameBtn",
-  ) as MenuItem;
+  const continueGameBtn = $id("continueGameBtn") as MenuItem;
   continueGameBtn.hide();
   continueGameBtn.callback = async () => await initGame(false);
 };
 
 export const toggleContinueGameBtn = () => {
-  const continueGameBtn = document.getElementById(
-    "continueGameBtn",
-  ) as MenuItem;
+  const continueGameBtn = $id("continueGameBtn") as MenuItem;
   if (isAuthenticated() && lastGameStore.hasData()) {
     continueGameBtn.show();
   } else {
@@ -72,31 +65,23 @@ export const toggleContinueGameBtn = () => {
 };
 
 export const hideContinueGameBtn = () => {
-  const continueGameBtn = document.getElementById(
-    "continueGameBtn",
-  ) as MenuItem;
+  const continueGameBtn = $id("continueGameBtn") as MenuItem;
   continueGameBtn.hide();
 };
 
 const showGameOverwriteDialog = () => {
-  const gameOverwriteDialog = document.getElementById(
-    "gameOverwriteDialog",
-  ) as PrettyDialog;
+  const gameOverwriteDialog = $id("gameOverwriteDialog") as PrettyDialog;
   gameOverwriteDialog.open();
 };
 
 export const setupGameOverwriteDialog = () => {
-  const gameOverwriteDialog = document.getElementById(
-    "gameOverwriteDialog",
-  ) as PrettyDialog;
+  const gameOverwriteDialog = $id("gameOverwriteDialog") as PrettyDialog;
   gameOverwriteDialog.closeButtonIds = [
     "cancelNewGameBtn",
     "confirmNewGameBtn",
   ];
 
-  const confirmNewGameBtn = document.getElementById(
-    "confirmNewGameBtn",
-  ) as PrettyButton;
+  const confirmNewGameBtn = $id("confirmNewGameBtn") as PrettyButton;
   confirmNewGameBtn.on("click", async () => await initGame(true));
 };
 

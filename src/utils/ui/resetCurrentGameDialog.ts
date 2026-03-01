@@ -1,18 +1,15 @@
 import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
+import { $id } from "./domQuery";
 
 export const showResetCurrentGameDialog = (resetsRemaining: number) => {
-  const resetCurrentGameDialog = document.getElementById(
-    "resetCurrentGameDialog",
-  ) as PrettyDialog;
+  const resetCurrentGameDialog = $id("resetCurrentGameDialog") as PrettyDialog;
   resetCurrentGameDialog.open();
 
-  const remainingGameResets = document.getElementById("remainingGameResets");
+  const remainingGameResets = $id("remainingGameResets");
   remainingGameResets.innerText = resetsRemaining.toString();
 };
 
 export const setupResetCurrentGameDialog = () => {
-  const resetCurrentGameDialog = document.getElementById(
-    "resetCurrentGameDialog",
-  ) as PrettyDialog;
+  const resetCurrentGameDialog = $id("resetCurrentGameDialog") as PrettyDialog;
   resetCurrentGameDialog.closeButtonIds = ["closeResetCurrentGameDialog"];
 };

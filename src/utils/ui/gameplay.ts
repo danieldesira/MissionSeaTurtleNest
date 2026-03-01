@@ -21,20 +21,21 @@ import type { ILevel } from "../../levels/interfaces";
 import type { CharacterGameClassification } from "../../characters/types";
 import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
 import { lastGameStore } from "../../inMemoryStores/LastGameStore";
+import { $, $id } from "./domQuery";
 
 export const setupGameControls = () => {
-  const upControl = document.getElementById("upControl") as GameControl;
+  const upControl = $id("upControl") as GameControl;
   upControl.callback = () => game.turtle.moveUp();
-  const downControl = document.getElementById("downControl") as GameControl;
+  const downControl = $id("downControl") as GameControl;
   downControl.callback = () => game.turtle.moveDown();
-  const leftControl = document.getElementById("leftControl") as GameControl;
+  const leftControl = $id("leftControl") as GameControl;
   leftControl.callback = () => game.turtle.moveLeft();
-  const rightControl = document.getElementById("rightControl") as GameControl;
+  const rightControl = $id("rightControl") as GameControl;
   rightControl.callback = () => game.turtle.moveRight();
 };
 
 export const setupOnscreenControlsPosition = () => {
-  const onscreenControls = document.getElementById("onscreenControls");
+  const onscreenControls = $id("onscreenControls");
   if (controlSettingsStore.screenControlsPosition === "Left") {
     onscreenControls.classList.add("left-1");
     onscreenControls.classList.remove("right-1");
@@ -59,14 +60,12 @@ export const launchGameEndDialog = ({
   remainingResetsRewards = 0,
   perfectGame = false,
 }: GameEndDialogOptions) => {
-  const gameEndDialog = document.getElementById(
-    "gameEndDialog",
-  ) as PrettyDialog;
+  const gameEndDialog = $id("gameEndDialog") as PrettyDialog;
   gameEndDialog.open();
   gameEndDialog.closeButtonIds = ["gameEndDialogCloseBtn"];
-  const gameEndDialogTitle = document.getElementById("gameEndDialogTitle");
+  const gameEndDialogTitle = $id("gameEndDialogTitle");
   gameEndDialogTitle.innerText = title;
-  const gameEndDialogContent = document.getElementById("gameEndDialogContent");
+  const gameEndDialogContent = $id("gameEndDialogContent");
   deleteChildren(gameEndDialogContent);
   const messageSpan = document.createElement("span");
   messageSpan.innerText = text;
@@ -99,9 +98,7 @@ export const launchGameEndDialog = ({
 };
 
 export const setupGameShareBtn = () => {
-  const shareGameBtn = document.getElementById(
-    "gameEndDialogShareBtn",
-  ) as PrettyButton;
+  const shareGameBtn = $id("gameEndDialogShareBtn") as PrettyButton;
   shareGameBtn.on("click", async () => {
     if (navigator.share) {
       try {
@@ -121,31 +118,27 @@ export const updateGauge = (
   id: "lifeGauge" | "foodGauge" | "apetiteGauge" | "oxygenGauge",
   value: number,
 ) => {
-  const gauge = document.getElementById(id) as GameGauge;
+  const gauge = $id(id) as GameGauge;
   gauge.currentValue = value;
 };
 
 export const setupResumeBtn = () => {
-  const gamePausedDialog = document.getElementById(
-    "gamePausedDialog",
-  ) as PrettyDialog;
+  const gamePausedDialog = $id("gamePausedDialog") as PrettyDialog;
   gamePausedDialog.closeButtonIds = ["resumeBtn"];
 };
 
 const showGamePausedDialog = () => {
-  const gamePausedDialog = document.getElementById(
-    "gamePausedDialog",
-  ) as PrettyDialog;
+  const gamePausedDialog = $id("gamePausedDialog") as PrettyDialog;
   gamePausedDialog.open();
 };
 
 export const setupPauseBtn = () => {
-  const pauseBtn = document.getElementById("pauseBtn") as PrettyButton;
+  const pauseBtn = $id("pauseBtn") as PrettyButton;
   pauseBtn.on("click", () => showGamePausedDialog());
 };
 
 export const initialiseGame = async (isNewGame: boolean) => {
-  const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
+  const canvas = $id("gameCanvas") as HTMLCanvasElement;
   await game.start({
     canvas,
     isNewGame,
@@ -178,7 +171,7 @@ const uploadGameProgress = async () => {
 };
 
 export const setupBackToMenuBtn = () => {
-  const backBtn = document.getElementById("backBtn") as PrettyButton;
+  const backBtn = $id("backBtn") as PrettyButton;
   backBtn.on("click", async () => await handleBackToMainMenu());
 };
 
@@ -195,23 +188,21 @@ const handleBackToMainMenu = async () => {
 export const setupCanvasSize = () => {
   window.addEventListener("resize", () => {
     if (game.level?.bgImg) {
-      const canvas = document.getElementById("gameCanvas") as HTMLCanvasElement;
+      const canvas = $id("gameCanvas") as HTMLCanvasElement;
       resizeCanvas(canvas, game.level.bgImg);
     }
   });
 };
 
 export const setupGamePauseOnDialogOpen = () =>
-  Array.from(document.querySelectorAll("pretty-dialog")).forEach(
-    (dialog: PrettyDialog) => {
-      dialog.openCallback = () => game.pause();
-      dialog.closeCallback = () => {
-        if (!PrettyDialog.isAnyDialogOpen()) {
-          game.resume();
-        }
-      };
-    },
-  );
+  Array.from($("pretty-dialog")).forEach((dialog: PrettyDialog) => {
+    dialog.openCallback = () => game.pause();
+    dialog.closeCallback = () => {
+      if (!PrettyDialog.isAnyDialogOpen()) {
+        game.resume();
+      }
+    };
+  });
 
 const addPersonalBestLineToGameEndDialog = (
   gameEndDialogContent: HTMLElement,
@@ -225,11 +216,10 @@ const addPersonalBestLineToGameEndDialog = (
   gameEndDialogContent.appendChild(messageSpan);
 };
 
-export const getCanvas = () =>
-  document.getElementById("gameCanvas") as HTMLCanvasElement;
+export const getCanvas = () => $id("gameCanvas") as HTMLCanvasElement;
 
 export const launchHeartMatingAnimation = async () => {
-  const heartMatingAnimation = document.getElementById("heartMatingAnimation");
+  const heartMatingAnimation = $id("heartMatingAnimation");
   heartMatingAnimation.classList.add("flex");
   heartMatingAnimation.classList.remove("hidden");
   game.pause();
@@ -245,24 +235,16 @@ export const launchLevelStartDialog = ({
   initialCharacters,
   spawnableObstaclesPer30Second,
 }: ILevel) => {
-  const levelStartDialog = document.getElementById(
-    "levelStartDialog",
-  ) as PrettyDialog;
+  const levelStartDialog = $id("levelStartDialog") as PrettyDialog;
   levelStartDialog.open();
 
-  const levelStartDialogTitle = document.getElementById(
-    "levelStartDialogTitle",
-  );
+  const levelStartDialogTitle = $id("levelStartDialogTitle");
   levelStartDialogTitle.innerText = `Level ${game.currentLevelNo} - ${title}`;
 
-  const levelStartDialogMessage = document.getElementById(
-    "levelStartDialogMessage",
-  );
+  const levelStartDialogMessage = $id("levelStartDialogMessage");
   levelStartDialogMessage.innerText = levelDescription;
 
-  const levelStartDialogObstacles = document.getElementById(
-    "levelStartDialogObstacles",
-  );
+  const levelStartDialogObstacles = $id("levelStartDialogObstacles");
   populateCharacterList(
     spawnableObstaclesPer30Second
       ? initialCharacters.concat(spawnableObstaclesPer30Second)
@@ -271,7 +253,7 @@ export const launchLevelStartDialog = ({
     levelStartDialogObstacles,
   );
 
-  const levelStartDialogPrey = document.getElementById("levelStartDialogPrey");
+  const levelStartDialogPrey = $id("levelStartDialogPrey");
   populateCharacterList(
     initialCharacters,
     ["Prey", "PackPrey"],
@@ -319,9 +301,7 @@ const populateCharacterList = (
 };
 
 export const setupLevelStartDialog = () => {
-  const levelStartDialog = document.getElementById(
-    "levelStartDialog",
-  ) as PrettyDialog;
+  const levelStartDialog = $id("levelStartDialog") as PrettyDialog;
   levelStartDialog.closeButtonIds = ["levelStartDialogCloseBtn"];
 };
 

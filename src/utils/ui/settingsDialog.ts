@@ -11,6 +11,7 @@ import {
 import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
 import { profileStore } from "../../inMemoryStores/ProfileStore";
 import { applyAudioVolume } from "../audio";
+import { $id } from "./domQuery";
 
 export const setupControlSettings = () => {
   const screenControlPositionRadios = document.getElementsByName(
@@ -22,7 +23,7 @@ export const setupControlSettings = () => {
     }
   });
 
-  const volumeRangeInput = document.getElementById(
+  const volumeRangeInput = $id(
     "volumeRangeInput",
   ) as HTMLInputElement;
   volumeRangeInput.value = controlSettingsStore.audioVolume.toString();
@@ -34,7 +35,7 @@ export const setupControlSettings = () => {
 };
 
 const cacheControlSettings = async () => {
-  const volumeRangeInput = document.getElementById(
+  const volumeRangeInput = $id(
     "volumeRangeInput",
   ) as HTMLInputElement;
   controlSettingsStore.screenControlsPosition =
@@ -43,10 +44,10 @@ const cacheControlSettings = async () => {
 };
 
 const cacheProfileSettings = async () => {
-  const playerNameInput = document.getElementById(
+  const playerNameInput = $id(
     "playerNameInput",
   ) as TextInput;
-  const playerDobInput = document.getElementById("playerDobInput") as TextInput;
+  const playerDobInput = $id("playerDobInput") as TextInput;
   profileStore.name = playerNameInput.value.toString();
   profileStore.dateOfBirth = playerDobInput.value as Date;
 };
@@ -80,7 +81,7 @@ const submitSettings = async () => {
 };
 
 const handleSettingsDialogClose = () => {
-  const form = document.getElementById("settingsForm") as HTMLFormElement;
+  const form = $id("settingsForm") as HTMLFormElement;
   form.addEventListener("submit", async () => await submitSettings());
   if (form?.checkValidity()) {
     form?.requestSubmit();
@@ -88,36 +89,26 @@ const handleSettingsDialogClose = () => {
 };
 
 export const setupSettingsDialog = () => {
-  const settingsBtn = document.getElementById("settingsBtn") as PrettyButton;
-  const settingsDialog = document.getElementById(
-    "settingsDialog",
-  ) as PrettyDialog;
+  const settingsBtn = $id("settingsBtn") as PrettyButton;
+  const settingsDialog = $id("settingsDialog") as PrettyDialog;
   settingsDialog.closeButtonIds = ["closeSettingsBtn"];
   settingsDialog.closeCallback = handleSettingsDialogClose;
   settingsBtn.on("click", () => settingsDialog.open());
 };
 
 export const setupSettingsProfileTab = () => {
-  const playerEmailReadonlyField = document.getElementById(
-    "playerEmailReadonlyField",
-  );
+  const playerEmailReadonlyField = $id("playerEmailReadonlyField");
   playerEmailReadonlyField.innerText = profileStore.email;
 
-  const playerNameInput = document.getElementById(
-    "playerNameInput",
-  ) as TextInput;
+  const playerNameInput = $id("playerNameInput") as TextInput;
   playerNameInput.value = profileStore.name;
 
   if (profileStore.dateOfBirth) {
-    const playerDobInput = document.getElementById(
-      "playerDobInput",
-    ) as TextInput;
+    const playerDobInput = $id("playerDobInput") as TextInput;
     playerDobInput.value = profileStore.dateOfBirth;
   }
 
-  const profilePicUploader = document.getElementById(
-    "profilePicUploader",
-  ) as ImageUploader;
+  const profilePicUploader = $id("profilePicUploader") as ImageUploader;
   profilePicUploader.currentImageUrl = profileStore.profilePicUrl;
   profilePicUploader.onChange(async (event: Event) => {
     const target = event.target as HTMLInputElement;
@@ -146,13 +137,9 @@ const getScreenControlPositionRadioValue = () => {
 };
 
 const isSubmissionNeeded = () => {
-  const playerNameInput = document.getElementById(
-    "playerNameInput",
-  ) as TextInput;
-  const playerDobInput = document.getElementById("playerDobInput") as TextInput;
-  const volumeRangeInput = document.getElementById(
-    "volumeRangeInput",
-  ) as HTMLInputElement;
+  const playerNameInput = $id("playerNameInput") as TextInput;
+  const playerDobInput = $id("playerDobInput") as TextInput;
+  const volumeRangeInput = $id("volumeRangeInput") as HTMLInputElement;
 
   return (
     profileStore.name !== playerNameInput.value ||

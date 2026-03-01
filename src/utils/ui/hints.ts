@@ -1,3 +1,5 @@
+import { $id } from "./domQuery";
+
 const hints = [
   "Keyboard arrow keys get you done faster.",
   "Plastic fills and kills the turtle faster.",
@@ -13,6 +15,6 @@ const hints = [
 
 export const showRandomHint = () => {
   const index = Math.floor(Math.random() * hints.length);
-  const span = document.getElementById("hint");
+  const span = $id("hint");
   span.innerText = hints[index];
 };

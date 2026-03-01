@@ -1,12 +1,13 @@
 import { game } from "../../singletons/Game";
+import { $id } from "./domQuery";
 
 export const updateXpSpan = () => {
-  const xpSpan = document.getElementById("xpSpan");
+  const xpSpan = $id("xpSpan");
   xpSpan.innerText = game.xp.toString();
 };
 
 export const showXpUpdate = async (xp: number) => {
-  const xpUpdateContainer = document.getElementById("xpUpdateContainer");
+  const xpUpdateContainer = $id("xpUpdateContainer");
   const xpUpdateSpan = document.createElement("span");
   xpUpdateSpan.innerText = `${xp > 0 ? "+" : "-"}${Math.abs(xp).toString()}`;
   xpUpdateSpan.classList.add(

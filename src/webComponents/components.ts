@@ -1,3 +1,4 @@
+import { $id } from "../utils/ui/domQuery";
 import PrettyDialog from "./dialog/PrettyDialog";
 import FormField from "./form/FormField";
 import ImageUploader from "./form/ImageUploader";
@@ -55,7 +56,7 @@ export const registerComponents = () =>
   components.forEach(registerComponentWithDependencies);
 
 export const loadTemplate = (templateId: string, host: HTMLElement) => {
-  const template = document.getElementById(templateId) as HTMLTemplateElement;
+  const template = $id(templateId) as HTMLTemplateElement;
   const templateContent = template.content.cloneNode(true);
   const shadowRoot = host.attachShadow({ mode: "open" });
   shadowRoot.appendChild(templateContent);

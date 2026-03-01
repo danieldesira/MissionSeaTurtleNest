@@ -7,6 +7,7 @@ import {
   logout,
 } from "../authentication";
 import { initializeMsalBrowser, handleMicrosoftSignIn } from "../microsoftAuth";
+import { $id } from "./domQuery";
 import { setupSettingsDialog } from "./settingsDialog";
 import { showErrorNotice } from "./waitingNotice";
 
@@ -17,19 +18,17 @@ const initialiseGoogleSignInButton = () => {
       handleSsoAuthResponse({ provider: "google", credential }),
   });
 
-  window.google?.accounts?.id?.renderButton(
-    document.getElementById("googleSignInButton"),
-    { theme: "outline", size: "large" },
-  );
+  window.google?.accounts?.id?.renderButton($id("googleSignInButton"), {
+    theme: "outline",
+    size: "large",
+  });
 };
 
 const initialiseMicrosoftSignInButton = async () => {
   try {
     await initializeMsalBrowser();
 
-    const microsoftSignInButton = document.getElementById(
-      "microsoftSignInButton",
-    );
+    const microsoftSignInButton = $id("microsoftSignInButton");
     if (microsoftSignInButton) {
       microsoftSignInButton.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -47,8 +46,8 @@ const initialiseMicrosoftSignInButton = async () => {
 };
 
 export const setupLoginButtons = () => {
-  const loginBtn = document.getElementById("loginBtn") as PrettyButton;
-  const loginDialog = document.getElementById("loginDialog") as PrettyDialog;
+  const loginBtn = $id("loginBtn") as PrettyButton;
+  const loginDialog = $id("loginDialog") as PrettyDialog;
 
   initialiseGoogleSignInButton();
   initialiseMicrosoftSignInButton();
@@ -63,22 +62,20 @@ export const setupLoginButtons = () => {
     loginDialog.open();
   }
 
-  const logoutBtn = document.getElementById("logoutBtn") as PrettyButton;
+  const logoutBtn = $id("logoutBtn") as PrettyButton;
   logoutBtn.on("click", async () => await logout());
 
   setupSettingsDialog();
 };
 
 export const hideLoginDialog = () => {
-  const loginDialog = document.getElementById("loginDialog") as PrettyDialog;
+  const loginDialog = $id("loginDialog") as PrettyDialog;
   loginDialog.close();
 };
 
 export const updateAuthenticationUI = () => {
-  const loginContainer = document.getElementById("loginContainer");
-  const authenticatedContainer = document.getElementById(
-    "authenticatedContainer",
-  );
+  const loginContainer = $id("loginContainer");
+  const authenticatedContainer = $id("authenticatedContainer");
   if (isAuthenticated()) {
     loginContainer.classList.add("hidden");
     loginContainer.classList.remove("flex");

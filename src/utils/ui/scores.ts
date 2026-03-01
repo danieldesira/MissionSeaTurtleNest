@@ -6,13 +6,14 @@ import type PrettyButton from "../../webComponents/form/PrettyButton";
 import { deleteChildren } from "./ui";
 import { hideWaitingNotice, showErrorNotice } from "./waitingNotice";
 import { profileStore } from "../../inMemoryStores/ProfileStore";
+import { $id } from "./domQuery";
 
 export const formatLevel = (levelNo: number) =>
   levelExists(levelNo) ? levelNo.toString() : "";
 
 export const setupScoresDialog = () => {
-  const scoresDialog = document.getElementById("scoresDialog") as PrettyDialog;
-  const scoresBtn = document.getElementById("scoresBtn") as PrettyButton;
+  const scoresDialog = $id("scoresDialog") as PrettyDialog;
+  const scoresBtn = $id("scoresBtn") as PrettyButton;
 
   scoresBtn.on("click", async () => {
     scoresDialog.open();
@@ -23,25 +24,25 @@ export const setupScoresDialog = () => {
 };
 
 export const updatePersonalBestPlaceholders = () => {
-  const levelPlaceholder = document.getElementById("personalBestLevel");
+  const levelPlaceholder = $id("personalBestLevel");
   levelPlaceholder.innerText = formatLevel(personalBestStore.level);
 
-  const pointsPlaceholder = document.getElementById("personalBestPoints");
+  const pointsPlaceholder = $id("personalBestPoints");
   pointsPlaceholder.innerText = personalBestStore.points.toString();
 
-  const durationPlaceholder = document.getElementById("personalBestDuration");
+  const durationPlaceholder = $id("personalBestDuration");
   durationPlaceholder.innerText = formatDuration(personalBestStore.duration);
 
-  const resetsPlaceholder = document.getElementById("personalBestResets");
+  const resetsPlaceholder = $id("personalBestResets");
   resetsPlaceholder.innerText = personalBestStore.resetsUsed.toString();
 
-  const outcomePlaceholder = document.getElementById("personalBestOutcome");
+  const outcomePlaceholder = $id("personalBestOutcome");
   outcomePlaceholder.innerText = personalBestStore.outcome;
 };
 
 const populateLeaderBoard = async () => {
-  const leaderboardContainer = document.getElementById("leaderboard");
-  const loadingLeaderboardSpan = document.getElementById("loadingLeaderboard");
+  const leaderboardContainer = $id("leaderboard");
+  const loadingLeaderboardSpan = $id("loadingLeaderboard");
 
   leaderboardContainer.classList.add("hidden");
   leaderboardContainer.classList.remove("flex");
@@ -54,7 +55,7 @@ const populateLeaderBoard = async () => {
     leaderboardContainer.classList.add("flex");
     loadingLeaderboardSpan.classList.add("hidden");
 
-    const leaderboardTbody = document.getElementById("leaderboardTbody");
+    const leaderboardTbody = $id("leaderboardTbody");
     deleteChildren(leaderboardTbody);
 
     highScores.forEach(
