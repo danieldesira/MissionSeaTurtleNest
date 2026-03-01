@@ -13,6 +13,7 @@ export interface HighScore {
   outcome: string;
   playerIdentifier: string;
   duration: number;
+  resetsUsed: number;
 }
 
 export interface Player {

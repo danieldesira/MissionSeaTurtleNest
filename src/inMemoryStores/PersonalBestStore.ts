@@ -5,6 +5,7 @@ class PersonalBestStore implements IStore {
   private _level: number;
   private _duration: number;
   private _outcome: "Win" | "Loss" | "";
+  private _resetsUsed: number;
 
   constructor() {
     this.reset();
@@ -26,6 +27,10 @@ class PersonalBestStore implements IStore {
     this._outcome = value;
   }
 
+  set resetsUsed(value) {
+    this._resetsUsed = value;
+  }
+
   get points() {
     return this._points;
   }
@@ -42,11 +47,16 @@ class PersonalBestStore implements IStore {
     return this._outcome;
   }
 
+  get resetsUsed() {
+    return this._resetsUsed;
+  }
+
   reset() {
     this._points = 0;
     this._level = 0;
     this._duration = 0;
     this._outcome = "";
+    this._resetsUsed = 0;
   }
 }
 

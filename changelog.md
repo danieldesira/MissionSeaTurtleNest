@@ -14,6 +14,9 @@
   - Hide broken images
   - Fix visual border spacing
   - If game was won, no text will be shown for Level
+  - Show `resetsUsed` field (API 0.4.6)
+  - Change player marker in high scores to brand pink
+  - Improve alignment of personal best values
 
 # 0.8.10 Beta - 26/02/2026 21:30 UTC+1
 

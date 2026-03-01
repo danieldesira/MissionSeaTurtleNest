@@ -32,6 +32,9 @@ export const updatePersonalBestPlaceholders = () => {
   const durationPlaceholder = document.getElementById("personalBestDuration");
   durationPlaceholder.innerText = formatDuration(personalBestStore.duration);
 
+  const resetsPlaceholder = document.getElementById("personalBestResets");
+  resetsPlaceholder.innerText = personalBestStore.resetsUsed.toString();
+
   const outcomePlaceholder = document.getElementById("personalBestOutcome");
   outcomePlaceholder.innerText = personalBestStore.outcome;
 };
@@ -63,6 +66,7 @@ const populateLeaderBoard = async () => {
         outcome,
         playerIdentifier,
         duration,
+        resetsUsed,
       }) => {
         const row = document.createElement("tr");
         row.classList.add("font-semibold", "text-sm");
@@ -72,10 +76,11 @@ const populateLeaderBoard = async () => {
         appendCell(row, points.toString(), "right");
         appendCell(row, outcome, "center");
         appendCell(row, formatDuration(duration), "right");
+        appendCell(row, resetsUsed.toString(), "right");
         leaderboardTbody.appendChild(row);
 
         if (profileStore.playerIdentifier === playerIdentifier) {
-          row.classList.add("bg-green-500");
+          row.classList.add("bg-primary", "text-white");
         }
       },
     );
