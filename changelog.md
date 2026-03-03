@@ -1,4 +1,4 @@
-# 0.8.11 Beta -
+# 0.8.11 Beta - 03/03/2026 10:35 UTC+1
 
 - Internal:
   - Remove the level start custom event
@@ -8,6 +8,7 @@
   - `PrettyButton`: callback setter changed to `on` method
   - `ImageUploader`: change callback setter changed to `onChange` method
   - Introduce DOM query shortcut methods defined in `domQuery.ts`
+  - Encode public key for web notifications
 - 3 global game resets:
   - Comes with UI and internal changes
   - Improve personal best computation in frontend by taking into account rewards
