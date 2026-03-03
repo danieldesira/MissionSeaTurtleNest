@@ -61,7 +61,7 @@ export const setupNotificationPermissionListener = async () => {
       );
       if (subscriptionEndpoint) {
         await FetchRequest.delete({
-          url: `https://subnodulous-kaelyn-matrimonially.ngrok-free.dev/api/subscription?endpoint=${encodeURIComponent(subscriptionEndpoint)}`,
+          url: `https://dpns.onrender.com/api/subscription?endpoint=${encodeURIComponent(subscriptionEndpoint)}`,
           includeCredentials: false,
         });
       }

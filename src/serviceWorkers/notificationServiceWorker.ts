@@ -2,10 +2,7 @@
 
 const notificationSW = self as unknown as ServiceWorkerGlobalScope;
 
-const apiBaseUrl =
-  location.hostname === "localhost"
-    ? "https://subnodulous-kaelyn-matrimonially.ngrok-free.dev"
-    : "https://tochange.com";
+const apiBaseUrl = "https://dpns.onrender.com";
 
 const savePushSubscription = async (subscription: PushSubscription) => {
   const res = await fetch(
@@ -22,11 +19,25 @@ const savePushSubscription = async (subscription: PushSubscription) => {
   return await res.json();
 };
 
+const convertBase64ToUint8Array = (base64: string) => {
+  const padding = "=".repeat((4 - (base64.length % 4)) % 4);
+  const rawData = atob(
+    (base64 + padding).replace(/-/g, "+").replace(/_/g, "/"),
+  );
+  
+  const result = new Uint8Array(rawData.length);
+  for (let i = 0; i < result.length; i++) {
+    result[i] = rawData.charCodeAt(i);
+  }
+  return result;
+};
+
 notificationSW.addEventListener("activate", async () => {
   const subscription = await notificationSW.registration.pushManager.subscribe({
     userVisibleOnly: true,
-    applicationServerKey:
-      "BEfuj-su_7dqT40eFWTa4wh8FZDJ5oPUiu8AqxFQ260hZotE3i0ZH5B8Esc2J126zJgxLSEKSBRsrtFbKPXRo4Y",
+    applicationServerKey: convertBase64ToUint8Array(
+      "BLrELejSr9QQyKkwD7F843xuxa6mcJvBjEDHi6aijE3ceiunzgomR-adZlwANAiD0dIs6jfuWUPaOwwWQ8vGg90",
+    ),
   });
   await savePushSubscription(subscription);
   notificationSW.clients
