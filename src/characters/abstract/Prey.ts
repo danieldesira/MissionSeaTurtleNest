@@ -1,4 +1,5 @@
 import { game } from "../../singletons/Game";
+import { generateRandomBit } from "../../utils/generic";
 import type { IPrey } from "../interfaces";
 import type { CharacterGameClassification } from "../types";
 import NonMain from "./NonMain";
@@ -6,6 +7,7 @@ import NonMain from "./NonMain";
 abstract class Prey extends NonMain implements IPrey {
   protected abstract readonly _foodValue: number;
   protected readonly _offscreenIndicatorColor: string = "rgba(0, 255, 0, 0.5)";
+  private _hasRandomisedLeftRight: boolean = false;
 
   get foodValue() {
     return this._foodValue;
@@ -16,7 +18,12 @@ abstract class Prey extends NonMain implements IPrey {
   }
 
   /**
-   * Swim and respond to turtle approaching. Keeps to the same direction of the turtle.
+   * Swim and respond to turtle approaching. Applies the following principles:
+   * <ul>
+   *  <li>Prey to respond if turtle is following it closely</li>
+   *  <li>Prey to change direction to turtle's direction</li>
+   *  <li>If prey can no longer go up or down, it randomises direction to left or right</li>
+   * </ul>
    * @override
    * @author Daniel Desira
    */
@@ -29,28 +36,60 @@ abstract class Prey extends NonMain implements IPrey {
       horizontalDistance < maxPreyDistance &&
       verticalDistance < maxPreyDistance
     ) {
-      this._direction = turtle.direction;
       switch (turtle.direction) {
         case "Left":
-          this._x -= this._speed;
+          this._hasRandomisedLeftRight = false;
+          if (turtle.x >= this._x) {
+            this._direction = "Left";
+            this._x -= this._speed;
+          }
           break;
         case "Right":
-          this._x += this._speed;
+          this._hasRandomisedLeftRight = false;
+          if (turtle.x <= this._x) {
+            this._direction = "Right";
+            this._x += this._speed;
+          }
           break;
         case "Down":
           if (
             !game.level.benthicOffsetY ||
             this._y <= game.level.benthicOffsetY
           ) {
-            this._y += this._speed;
+            this._direction = "Down";
+            if (turtle.y <= this._y) {
+              this._y += this._speed;
+            }
+          } else {
+            this.randomiseLeftRightSwimming();
           }
           break;
         case "Up":
           if (this._y > 0) {
-            this._y -= this._speed;
+            this._direction = "Up";
+            if (turtle.y >= this._y) {
+              this._y -= this._speed;
+            }
+          } else {
+            this.randomiseLeftRightSwimming();
           }
           break;
       }
+    }
+  }
+
+  private randomiseLeftRightSwimming() {
+    if (!this._hasRandomisedLeftRight) {
+      this._hasRandomisedLeftRight = true;
+      this._direction = generateRandomBit() ? "Right" : "Left";
+    }
+    switch (this._direction) {
+      case "Left":
+        this._x -= this._speed;
+        break;
+      case "Right":
+        this._x += this._speed;
+        break;
     }
   }
 }

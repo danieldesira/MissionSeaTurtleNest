@@ -3,7 +3,7 @@
  * @returns Random boolean
  * @author Daniel Desira
  */
-export const generateRandomBit = (): boolean => !!Math.round(Math.random());
+export const generateRandomBit = () => !!Math.round(Math.random());
 
 /**
  * Resizes canvas while taking the background size in
