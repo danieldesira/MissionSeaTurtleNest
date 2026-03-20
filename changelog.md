@@ -1,6 +1,10 @@
-# 0.8.12 Beta -
+# 0.8.12 Beta - 20/03/2026 23:30 UTC+1
 
-- Internal: Update Vite to 8.0.1
+- Internal:
+  - Update Vite to 8.0.1
+  - Update Tailwindcss to 4.2.2 (resolves conflict with Vite 8)
+  - Update @types/node to 25.5.0
+  - Uninstall gh-pages
 - Gameplay: Improve prey escape "AI"
 
 # 0.8.11 Beta - 03/03/2026 10:35 UTC+1
