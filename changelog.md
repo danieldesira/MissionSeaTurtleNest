@@ -1,3 +1,7 @@
+# 0.8.12 Beta -
+
+- Internal: Update Vite to 8.0.1
+
 # 0.8.11 Beta - 03/03/2026 10:35 UTC+1
 
 - Internal:
