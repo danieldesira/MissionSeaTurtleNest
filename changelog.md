@@ -1,3 +1,8 @@
+# 0.9.0 RC -
+
+- Internal:
+  - Adjust logic for Prey Escape AI
+
 # 0.8.12 Beta - 20/03/2026 23:30 UTC+1
 
 - Internal:

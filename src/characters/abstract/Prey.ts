@@ -56,8 +56,8 @@ abstract class Prey extends NonMain implements IPrey {
             !game.level.benthicOffsetY ||
             this._y <= game.level.benthicOffsetY
           ) {
-            this._direction = "Down";
             if (turtle.y <= this._y) {
+              this._direction = "Down";
               this._y += this._speed;
             }
           } else {
@@ -66,8 +66,8 @@ abstract class Prey extends NonMain implements IPrey {
           break;
         case "Up":
           if (this._y > 0) {
-            this._direction = "Up";
             if (turtle.y >= this._y) {
+              this._direction = "Up";
               this._y -= this._speed;
             }
           } else {
