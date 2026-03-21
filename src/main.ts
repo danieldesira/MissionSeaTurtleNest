@@ -69,4 +69,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupMusic();
   setupMainMenuKeyboardNavigation();
   showRandomHint();
+
+  window.FB.getLoginStatus((response) => console.log({ response }));
 });
