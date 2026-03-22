@@ -48,5 +48,5 @@ type FBInitOptions = {
   appId: string;
   cookie: boolean;
   xfbml: boolean;
-  version: string;
+  version: "v25.0";
 };

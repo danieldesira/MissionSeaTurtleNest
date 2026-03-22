@@ -26,19 +26,10 @@
       id="load-msal"
       src="https://alcdn.msauth.net/browser/2.31.0/js/msal-browser.min.js"
     ></script>
-    <script>
-      (function (d, s, id) {
-        var js,
-          fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-          return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-      })(document, "script", "facebook-jssdk");
-    </script>
+    <script
+      id="facebook-jssdk"
+      src="https://connect.facebook.net/en_US/sdk.js#version=v25.0"
+    ></script>
     <script type="module" src="src/main.ts" blocking="render"></script>
   </head>
   <body class="select-none touch-none">

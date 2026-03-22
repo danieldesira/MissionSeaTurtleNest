@@ -46,7 +46,7 @@ const initialiseMicrosoftSignInButton = async () => {
 };
 
 const initialiseFacebookSignInButton = () => {
-  window.fbAsyncInit = function () {
+  window.fbAsyncInit = () => {
     window.FB.init({
       appId: import.meta.env.VITE_FB_APP_ID,
       cookie: true,
@@ -56,10 +56,17 @@ const initialiseFacebookSignInButton = () => {
 
     window.FB.AppEvents.logPageView();
   };
-
+  window.fbAsyncInit();
   const facebookSignInButton = $id("facebookSignInButton");
   facebookSignInButton.addEventListener("click", () =>
-    window.FB.login((response) => console.log({ response })),
+    window.FB.login((response) => {
+      if (response.authResponse) {
+        handleSsoAuthResponse({
+          provider: "facebook",
+          credential: response.authResponse.accessToken,
+        });
+      }
+    }),
   );
 };
 
