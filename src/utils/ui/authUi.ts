@@ -45,12 +45,31 @@ const initialiseMicrosoftSignInButton = async () => {
   }
 };
 
+const initialiseFacebookSignInButton = () => {
+  window.fbAsyncInit = function () {
+    window.FB.init({
+      appId: import.meta.env.VITE_FB_APP_ID,
+      cookie: true,
+      xfbml: true,
+      version: "v25.0",
+    });
+
+    window.FB.AppEvents.logPageView();
+  };
+
+  const facebookSignInButton = $id("facebookSignInButton");
+  facebookSignInButton.addEventListener("click", () =>
+    window.FB.login((response) => console.log({ response })),
+  );
+};
+
 export const setupLoginButtons = () => {
   const loginBtn = $id("loginBtn") as PrettyButton;
   const loginDialog = $id("loginDialog") as PrettyDialog;
 
   initialiseGoogleSignInButton();
   initialiseMicrosoftSignInButton();
+  initialiseFacebookSignInButton();
 
   loginDialog.closeButtonIds = ["closeLoginBtn"];
   loginBtn.on("click", () => loginDialog.open());

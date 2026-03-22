@@ -20,7 +20,13 @@ declare global {
     };
     FB?: {
       getLoginStatus: (callback: (response: FBLoginResponse) => void) => void;
+      login: (callback: (response: FBLoginResponse) => void) => void;
+      AppEvents: {
+        logPageView: () => void;
+      };
+      init: (options: FBInitOptions) => void;
     };
+    fbAsyncInit?: () => void;
   }
 }
 
@@ -28,7 +34,7 @@ export type Direction = keyof typeof Directions;
 
 export type HorizontalDirection = "Left" | "Right";
 
-interface FBLoginResponse {
+export interface FBLoginResponse {
   status: "connected" | "not_authorized" | "unknown";
   authResponse: {
     accessToken: string;
@@ -37,3 +43,10 @@ interface FBLoginResponse {
     userID: string;
   } | null;
 }
+
+type FBInitOptions = {
+  appId: string;
+  cookie: boolean;
+  xfbml: boolean;
+  version: string;
+};
