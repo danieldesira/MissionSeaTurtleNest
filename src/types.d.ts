@@ -21,6 +21,7 @@ declare global {
     FB?: {
       getLoginStatus: (callback: (response: FBLoginResponse) => void) => void;
       login: (callback: (response: FBLoginResponse) => void) => void;
+      logout: () => void;
       AppEvents: {
         logPageView: () => void;
       };

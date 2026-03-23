@@ -109,6 +109,8 @@ export const logout = async () => {
     } else if (profileStore.playerIdentifier.includes("google")) {
       const googleLogoutUrl = "https://accounts.google.com/Logout";
       window.open(googleLogoutUrl, "_blank", "width=500,height=600");
+    } else if (profileStore.playerIdentifier.includes("facebook")) {
+      window.FB.logout();
     }
     clearCurrentPlayerStores();
     updateAuthenticationUI();
