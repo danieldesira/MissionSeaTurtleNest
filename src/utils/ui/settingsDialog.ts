@@ -23,9 +23,7 @@ export const setupControlSettings = () => {
     }
   });
 
-  const volumeRangeInput = $id(
-    "volumeRangeInput",
-  ) as HTMLInputElement;
+  const volumeRangeInput = $id("volumeRangeInput") as HTMLInputElement;
   volumeRangeInput.value = controlSettingsStore.audioVolume.toString();
   volumeRangeInput.addEventListener("change", () =>
     applyAudioVolume(volumeRangeInput.value),
@@ -35,18 +33,14 @@ export const setupControlSettings = () => {
 };
 
 const cacheControlSettings = async () => {
-  const volumeRangeInput = $id(
-    "volumeRangeInput",
-  ) as HTMLInputElement;
+  const volumeRangeInput = $id("volumeRangeInput") as HTMLInputElement;
   controlSettingsStore.screenControlsPosition =
     getScreenControlPositionRadioValue();
   controlSettingsStore.audioVolume = parseFloat(volumeRangeInput.value);
 };
 
 const cacheProfileSettings = async () => {
-  const playerNameInput = $id(
-    "playerNameInput",
-  ) as TextInput;
+  const playerNameInput = $id("playerNameInput") as TextInput;
   const playerDobInput = $id("playerDobInput") as TextInput;
   profileStore.name = playerNameInput.value.toString();
   profileStore.dateOfBirth = playerDobInput.value as Date;
@@ -103,9 +97,11 @@ export const setupSettingsProfileTab = () => {
   const playerNameInput = $id("playerNameInput") as TextInput;
   playerNameInput.value = profileStore.name;
 
+  const playerDobInput = $id("playerDobInput") as TextInput;
   if (profileStore.dateOfBirth) {
-    const playerDobInput = $id("playerDobInput") as TextInput;
     playerDobInput.value = profileStore.dateOfBirth;
+  } else {
+    playerDobInput.value = null;
   }
 
   const profilePicUploader = $id("profilePicUploader") as ImageUploader;

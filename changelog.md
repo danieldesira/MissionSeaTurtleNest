@@ -2,6 +2,10 @@
 
 - Internal:
   - Adjust logic for Prey Escape AI
+- Authentication:
+  - Implement Facebook SSO
+- Settings:
+  - Fix: Date of Birth cleared when switching to an account without a set DOB
 
 # 0.8.12 Beta - 20/03/2026 23:30 UTC+1
 
