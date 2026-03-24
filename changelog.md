@@ -6,6 +6,9 @@
   - Implement Facebook SSO
 - Settings:
   - Fix: Date of Birth cleared when switching to an account without a set DOB
+- Icons:
+  - Brand icons migrated to Simple Icons (No longer the same style either)
+  - Remove Linkedin link
 
 # 0.8.12 Beta - 20/03/2026 23:30 UTC+1
 
