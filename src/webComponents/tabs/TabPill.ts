@@ -15,7 +15,7 @@ class TabPill extends HTMLElement {
   }
 
   set isActive(value: boolean) {
-    const pill = this.shadowRoot.querySelector(
+    const pill = this.shadowRoot?.querySelector(
       '[role="button"]',
     ) as HTMLElement;
     if (value) {
@@ -28,19 +28,19 @@ class TabPill extends HTMLElement {
   }
 
   get isActive() {
-    const pill = this.shadowRoot.querySelector(
+    const pill = this.shadowRoot?.querySelector(
       '[role="button"]',
     ) as HTMLElement;
     return pill.classList.contains("active");
   }
 
   private showTabContainer() {
-    const container = $id(this.dataset.container) as TabContainer;
+    const container = $id(this.dataset.container ?? "") as TabContainer;
     container?.show();
   }
 
   private hideTabContainer() {
-    const container = $id(this.dataset.container) as TabContainer;
+    const container = $id(this.dataset.container ?? "") as TabContainer;
     container?.hide();
   }
 

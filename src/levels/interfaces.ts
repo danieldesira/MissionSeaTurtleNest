@@ -8,14 +8,14 @@ export interface ILevel {
   set bgOffsetY(offsetY: number);
   get bgOffsetX(): number;
   get bgOffsetY(): number;
-  get benthicOffsetY(): number;
+  get benthicOffsetY(): number | undefined;
   get currentSpeed(): number;
   get points(): number;
   get levelDescription(): string;
   get imagePath(): string;
   objectivesMet(): boolean;
   spawnPer30SecondObstacles(): void;
-  get spawnableObstaclesPer30Second(): LevelCharacter[];
+  get spawnableObstaclesPer30Second(): LevelCharacter[] | undefined;
   get initialCharacters(): LevelCharacter[];
   get title(): string;
   get currentDirection(): HorizontalDirection;

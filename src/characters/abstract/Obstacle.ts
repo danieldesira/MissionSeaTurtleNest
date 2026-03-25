@@ -25,8 +25,8 @@ abstract class Obstacle extends NonMain implements IObstacle {
    * @author Daniel Desira
    */
   swim() {
-    const speed = game.level.currentSpeed;
-    if (game.level.currentDirection === "Left") {
+    const speed = game.level?.currentSpeed ?? 0;
+    if (game.level?.currentDirection === "Left") {
       this._x -= speed;
     } else {
       this._x += speed;

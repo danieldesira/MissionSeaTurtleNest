@@ -52,11 +52,11 @@ const triggerSelectedMenuItem = (id: string) => {
 
 const setFocusedMenuItem = (selectedKey: number) => {
   const menuItems = $("menu-item");
-  menuItems.forEach((item: MenuItem) => {
+  menuItems.forEach((item) => {
     if (item.id === menuOptions[selectedKey]) {
-      item.applyFocus();
+      (item as MenuItem).applyFocus();
     } else {
-      item.removeFocus();
+      (item as MenuItem).removeFocus();
     }
   });
 };

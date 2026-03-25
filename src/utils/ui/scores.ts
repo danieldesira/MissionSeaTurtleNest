@@ -15,50 +15,64 @@ export const setupScoresDialog = () => {
   const scoresDialog = $id("scoresDialog") as PrettyDialog;
   const scoresBtn = $id("scoresBtn") as PrettyButton;
 
-  scoresBtn.on("click", async () => {
+  scoresBtn?.on("click", async () => {
     scoresDialog.open();
     await populateLeaderBoard();
   });
 
-  scoresDialog.closeButtonIds = ["closeScoresBtn"];
+  if (scoresDialog) {
+    scoresDialog.closeButtonIds = ["closeScoresBtn"];
+  }
 };
 
 export const updatePersonalBestPlaceholders = () => {
   const levelPlaceholder = $id("personalBestLevel");
-  levelPlaceholder.innerText = formatLevel(personalBestStore.level);
+  if (levelPlaceholder) {
+    levelPlaceholder.innerText = formatLevel(personalBestStore.level);
+  }
 
   const pointsPlaceholder = $id("personalBestPoints");
-  pointsPlaceholder.innerText = personalBestStore.points.toString();
+  if (pointsPlaceholder) {
+    pointsPlaceholder.innerText = personalBestStore.points.toString();
+  }
 
   const durationPlaceholder = $id("personalBestDuration");
-  durationPlaceholder.innerText = formatDuration(personalBestStore.duration);
+  if (durationPlaceholder) {
+    durationPlaceholder.innerText = formatDuration(personalBestStore.duration);
+  }
 
   const resetsPlaceholder = $id("personalBestResets");
-  resetsPlaceholder.innerText = personalBestStore.resetsUsed.toString();
+  if (resetsPlaceholder) {
+    resetsPlaceholder.innerText = personalBestStore.resetsUsed.toString();
+  }
 
   const outcomePlaceholder = $id("personalBestOutcome");
-  outcomePlaceholder.innerText = personalBestStore.outcome;
+  if (outcomePlaceholder) {
+    outcomePlaceholder.innerText = personalBestStore.outcome;
+  }
 };
 
 const populateLeaderBoard = async () => {
   const leaderboardContainer = $id("leaderboard");
   const loadingLeaderboardSpan = $id("loadingLeaderboard");
 
-  leaderboardContainer.classList.add("hidden");
-  leaderboardContainer.classList.remove("flex");
-  loadingLeaderboardSpan.classList.remove("hidden");
+  leaderboardContainer?.classList.add("hidden");
+  leaderboardContainer?.classList.remove("flex");
+  loadingLeaderboardSpan?.classList.remove("hidden");
 
   try {
     const highScores = await fetchHighScores();
 
-    leaderboardContainer.classList.remove("hidden");
-    leaderboardContainer.classList.add("flex");
-    loadingLeaderboardSpan.classList.add("hidden");
+    leaderboardContainer?.classList.remove("hidden");
+    leaderboardContainer?.classList.add("flex");
+    loadingLeaderboardSpan?.classList.add("hidden");
 
     const leaderboardTbody = $id("leaderboardTbody");
-    deleteChildren(leaderboardTbody);
+    if (leaderboardTbody) {
+      deleteChildren(leaderboardTbody);
+    }
 
-    highScores.forEach(
+    highScores?.forEach(
       ({
         playerProfilePicUrl,
         playerName,
@@ -78,7 +92,7 @@ const populateLeaderBoard = async () => {
         appendCell(row, outcome, "center");
         appendCell(row, formatDuration(duration), "right");
         appendCell(row, resetsUsed.toString(), "right");
-        leaderboardTbody.appendChild(row);
+        leaderboardTbody?.appendChild(row);
 
         if (profileStore.playerIdentifier === playerIdentifier) {
           row.classList.add("bg-primary", "text-white");

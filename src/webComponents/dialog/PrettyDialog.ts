@@ -8,15 +8,17 @@ class PrettyDialog extends HTMLElement {
   }
 
   connectedCallback() {
-    const dialog = this.shadowRoot.querySelector("dialog");
-    dialog.id = this.id;
+    const dialog = this.shadowRoot?.querySelector("dialog");
+    if (dialog) {
+      dialog.id = this.id;
+    }
   }
 
-  private _openCallback: () => void = null;
+  private _openCallback: () => void = () => {};
 
   open() {
-    const dialog = this.shadowRoot.querySelector("dialog");
-    dialog.showModal();
+    const dialog = this.shadowRoot?.querySelector("dialog");
+    dialog?.showModal();
 
     if (this._openCallback) {
       this._openCallback();
@@ -24,8 +26,8 @@ class PrettyDialog extends HTMLElement {
   }
 
   close() {
-    const dialog = this.shadowRoot.querySelector("dialog");
-    dialog.close();
+    const dialog = this.shadowRoot?.querySelector("dialog");
+    dialog?.close();
   }
 
   set closeButtonIds(value: string[]) {
@@ -42,8 +44,8 @@ class PrettyDialog extends HTMLElement {
   }
 
   set closeCallback(value: () => void) {
-    const dialog = this.shadowRoot.querySelector("dialog");
-    dialog.addEventListener("close", value);
+    const dialog = this.shadowRoot?.querySelector("dialog");
+    dialog?.addEventListener("close", value);
   }
 
   set openCallback(value: () => void) {
@@ -51,8 +53,8 @@ class PrettyDialog extends HTMLElement {
   }
 
   get isOpen() {
-    const dialog = this.shadowRoot.querySelector("dialog");
-    return dialog.open;
+    const dialog = this.shadowRoot?.querySelector("dialog");
+    return dialog?.open;
   }
 
   static isAnyDialogOpen() {

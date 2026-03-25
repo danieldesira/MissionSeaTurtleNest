@@ -40,7 +40,7 @@ export const checkBoundingBoxCollision = (
  * @author Daniel Desira
  */
 export const getCharacterBoundingBox = (character: ICharacter): BoundingBox => {
-  let box: BoundingBox = null;
+  let box: BoundingBox | null = null;
   switch (character.direction) {
     case "Up":
     case "Down":
@@ -74,8 +74,8 @@ export const debugDrawBoundingBox = (
   context.fillStyle = color;
   context.globalAlpha = 0.3;
   context.fillRect(
-    box.minX - game.level.bgOffsetX,
-    box.minY - game.level.bgOffsetY,
+    box.minX - (game.level?.bgOffsetX ?? 0),
+    box.minY - (game.level?.bgOffsetY ?? 0),
     box.maxX - box.minX,
     box.maxY - box.minY,
   );

@@ -1,11 +1,11 @@
 import type { IStore } from "./interfaces";
 
 class PersonalBestStore implements IStore {
-  private _points: number;
-  private _level: number;
-  private _duration: number;
-  private _outcome: "Win" | "Loss" | "";
-  private _resetsUsed: number;
+  private _points: number = 0;
+  private _level: number = 1;
+  private _duration: number = 0;
+  private _outcome: "Win" | "Loss" | "" = "";
+  private _resetsUsed: number = 0;
 
   constructor() {
     this.reset();

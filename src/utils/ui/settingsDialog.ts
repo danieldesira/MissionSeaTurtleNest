@@ -76,7 +76,7 @@ const submitSettings = async () => {
 
 const handleSettingsDialogClose = () => {
   const form = $id("settingsForm") as HTMLFormElement;
-  form.addEventListener("submit", async () => await submitSettings());
+  form?.addEventListener("submit", async () => await submitSettings());
   if (form?.checkValidity()) {
     form?.requestSubmit();
   }
@@ -85,13 +85,15 @@ const handleSettingsDialogClose = () => {
 export const setupSettingsDialog = () => {
   const settingsBtn = $id("settingsBtn") as PrettyButton;
   const settingsDialog = $id("settingsDialog") as PrettyDialog;
-  settingsDialog.closeButtonIds = ["closeSettingsBtn"];
-  settingsDialog.closeCallback = handleSettingsDialogClose;
-  settingsBtn.on("click", () => settingsDialog.open());
+  if (settingsDialog) {
+    settingsDialog.closeButtonIds = ["closeSettingsBtn"];
+    settingsDialog.closeCallback = handleSettingsDialogClose;
+  }
+  settingsBtn?.on("click", () => settingsDialog.open());
 };
 
 export const setupSettingsProfileTab = () => {
-  const playerEmailReadonlyField = $id("playerEmailReadonlyField");
+  const playerEmailReadonlyField = $id("playerEmailReadonlyField") as HTMLSpanElement;
   playerEmailReadonlyField.innerText = profileStore.email;
 
   const playerNameInput = $id("playerNameInput") as TextInput;
@@ -101,7 +103,7 @@ export const setupSettingsProfileTab = () => {
   if (profileStore.dateOfBirth) {
     playerDobInput.value = profileStore.dateOfBirth;
   } else {
-    playerDobInput.value = null;
+    playerDobInput.value = "";
   }
 
   const profilePicUploader = $id("profilePicUploader") as ImageUploader;
@@ -110,8 +112,10 @@ export const setupSettingsProfileTab = () => {
     const target = event.target as HTMLInputElement;
     try {
       showWaitingNotice("Uploading a new profile picture");
-      const res = await uploadProfilePicture(target.files[0]);
-      profilePicUploader.currentImageUrl = res.profilePicUrl;
+      if (target.files?.length) {
+        const res = await uploadProfilePicture(target.files[0]);
+        profilePicUploader.currentImageUrl = res?.profilePicUrl ?? "";
+      }
     } catch {
       showErrorNotice(
         "Failed to upload profile picture. Please try again!",
@@ -129,7 +133,7 @@ const getScreenControlPositionRadioValue = () => {
   ) as NodeListOf<HTMLInputElement>;
   return Array.from(screenControlPositionRadios).find(
     (radioInput) => radioInput.checked,
-  ).value as "Left" | "Right";
+  )?.value as "Left" | "Right";
 };
 
 const isSubmissionNeeded = () => {

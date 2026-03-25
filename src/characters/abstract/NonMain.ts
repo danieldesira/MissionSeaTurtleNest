@@ -20,7 +20,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
   }
 
   protected get initialPositionXTo() {
-    return game.level.bgImg.width;
+    return game.level?.bgImg?.width ?? 0;
   }
 
   protected get initialPositionYFrom() {
@@ -28,7 +28,7 @@ abstract class NonMain extends Character implements INonMainCharacter {
   }
 
   protected get initialPositionYTo() {
-    return game.level.bgImg.height - this._height / 2;
+    return (game.level?.bgImg?.height ?? 0) - this._height / 2;
   }
 
   get stomachImpact() {
@@ -94,23 +94,23 @@ abstract class NonMain extends Character implements INonMainCharacter {
   }
 
   isOffScreenLeft() {
-    const { bgOffsetX } = game.level;
+    const bgOffsetX = game.level?.bgOffsetX ?? 0;
     return this._x + this._width / 2 < bgOffsetX;
   }
 
   isOffScreenRight() {
-    const { bgOffsetX } = game.level;
+    const bgOffsetX = game.level?.bgOffsetX ?? 0;
     const { width: canvasWidth } = getCanvas();
     return this._x - this._width / 2 > bgOffsetX + canvasWidth;
   }
 
   isOffScreenTop() {
-    const { bgOffsetY } = game.level;
+    const bgOffsetY = game.level?.bgOffsetY ?? 0;
     return this._y + this._height / 2 < bgOffsetY;
   }
 
   isOffScreenBottom() {
-    const { bgOffsetY } = game.level;
+    const bgOffsetY = game.level?.bgOffsetY ?? 0;
     const { height: canvasHeight } = getCanvas();
     return this._y - this._height / 2 > bgOffsetY + canvasHeight;
   }

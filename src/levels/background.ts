@@ -60,6 +60,8 @@ const calculateScreenCutOffPoints = (
 };
 
 const updateBgOffset = (x: number, y: number) => {
-  game.level.bgOffsetX = x;
-  game.level.bgOffsetY = y;
+  if (game.level) {
+    game.level.bgOffsetX = x;
+    game.level.bgOffsetY = y;
+  }
 };

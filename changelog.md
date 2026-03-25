@@ -2,6 +2,8 @@
 
 - Internal:
   - Adjust logic for Prey Escape AI
+  - Upgrade to Typescript 6.0.2 (and fix broken build)
+  - `MenuItem`: Drop `callback` setter in favour of `on("click", callback)` method pattern
 - Authentication:
   - Implement Facebook SSO
 - Settings:

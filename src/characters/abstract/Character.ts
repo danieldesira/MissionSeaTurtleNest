@@ -3,8 +3,8 @@ import { paintCharacter } from "../commonCharacterBehavior";
 import type { ICharacter } from "../interfaces";
 
 abstract class Character implements ICharacter {
-  protected _x: number;
-  protected _y: number;
+  protected _x: number = 0;
+  protected _y: number = 0;
   protected static _imageCache: Record<string, HTMLImageElement | null> = {};
   protected abstract readonly _imageFilename: string;
   protected abstract readonly _width: number;

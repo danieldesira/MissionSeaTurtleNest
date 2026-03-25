@@ -10,7 +10,7 @@ export const swimHorizontally = (character: INonMainCharacter) => {
     }
   } else {
     character.x += character.speed;
-    if (character.x >= game.level.bgImg.width) {
+    if (character.x >= (game.level?.bgImg?.width ?? 0)) {
       character.direction = "Left";
     }
   }
@@ -30,8 +30,8 @@ export const paintCharacter = ({
   if (character.image) {
     context.save();
     context.translate(
-      character.x - game.level.bgOffsetX,
-      character.y - game.level.bgOffsetY,
+      character.x - (game.level?.bgOffsetX ?? 0),
+      character.y - (game.level?.bgOffsetY ?? 0),
     );
     if (rotate) {
       context.rotate(Directions[character.direction].angle);

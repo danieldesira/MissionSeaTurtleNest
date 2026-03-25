@@ -3,7 +3,7 @@ import Prey from "./Prey";
 
 abstract class BenthicPrey extends Prey {
   protected get initialPositionYFrom() {
-    return game.level.benthicOffsetY;
+    return game.level?.benthicOffsetY ?? 0;
   }
 
   /**

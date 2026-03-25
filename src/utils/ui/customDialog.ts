@@ -6,7 +6,11 @@ export const launchCustomDialog = (title: string, text: string) => {
   customDialog.open();
   customDialog.closeButtonIds = ["closeCustomDialogBtn"];
   const customDialogTitle = $id("customDialogTitle");
-  customDialogTitle.innerText = title;
+  if (customDialogTitle) {
+    customDialogTitle.innerText = title;
+  }
   const customDialogContent = $id("customDialogContent");
-  customDialogContent.innerText = text;
+  if (customDialogContent) {
+    customDialogContent.innerText = text;
+  }
 };

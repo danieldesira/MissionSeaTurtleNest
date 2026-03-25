@@ -52,7 +52,7 @@ export interface SaveScorePayload {
 
 export interface UpdatePlayerPayload {
   name: string;
-  dateOfBirth: string;
+  dateOfBirth?: string;
   settings: Settings;
 }
 

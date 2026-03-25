@@ -8,10 +8,12 @@ class PrettyButton extends HTMLElement {
 
   connectedCallback() {
     const variant = this.getAttribute("variant") ?? "default";
-    const button = this.shadowRoot.querySelector("button");
-    button.classList.add(variant);
+    const button = this.shadowRoot?.querySelector("button");
 
-    button.accessKey = this.accessKey;
+    if (button) {
+      button.classList.add(variant);
+      button.accessKey = this.accessKey;
+    }
   }
 
   on(eventType: "click", callback: () => void) {

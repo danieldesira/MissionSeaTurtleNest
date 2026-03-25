@@ -14,14 +14,17 @@ import { showErrorNotice } from "./waitingNotice";
 const initialiseGoogleSignInButton = () => {
   window.google?.accounts?.id?.initialize({
     client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-    callback: ({ credential }) =>
+    callback: ({ credential }: { credential: string }) =>
       handleSsoAuthResponse({ provider: "google", credential }),
   });
 
-  window.google?.accounts?.id?.renderButton($id("googleSignInButton"), {
-    theme: "outline",
-    size: "large",
-  });
+  window.google?.accounts?.id?.renderButton(
+    $id("googleSignInButton") as HTMLElement,
+    {
+      theme: "outline",
+      size: "large",
+    },
+  );
 };
 
 const initialiseMicrosoftSignInButton = async () => {
@@ -30,7 +33,7 @@ const initialiseMicrosoftSignInButton = async () => {
 
     const microsoftSignInButton = $id("microsoftSignInButton");
     if (microsoftSignInButton) {
-      microsoftSignInButton.addEventListener("click", async (e) => {
+      microsoftSignInButton?.addEventListener("click", async (e) => {
         e.preventDefault();
         try {
           await handleMicrosoftSignIn();
@@ -47,19 +50,19 @@ const initialiseMicrosoftSignInButton = async () => {
 
 const initialiseFacebookSignInButton = () => {
   window.fbAsyncInit = () => {
-    window.FB.init({
+    window.FB?.init({
       appId: import.meta.env.VITE_FB_APP_ID,
       cookie: true,
       xfbml: true,
       version: "v25.0",
     });
 
-    window.FB.AppEvents.logPageView();
+    window.FB?.AppEvents.logPageView();
   };
   window.fbAsyncInit();
   const facebookSignInButton = $id("facebookSignInButton");
-  facebookSignInButton.addEventListener("click", () =>
-    window.FB.login((response) => {
+  facebookSignInButton?.addEventListener("click", () =>
+    window.FB?.login((response) => {
       if (response.authResponse) {
         handleSsoAuthResponse({
           provider: "facebook",
@@ -78,39 +81,41 @@ export const setupLoginButtons = () => {
   initialiseMicrosoftSignInButton();
   initialiseFacebookSignInButton();
 
-  loginDialog.closeButtonIds = ["closeLoginBtn"];
-  loginBtn.on("click", () => loginDialog.open());
+  if (loginDialog) {
+    loginDialog.closeButtonIds = ["closeLoginBtn"];
+  }
+  loginBtn?.on("click", () => loginDialog.open());
 
   const ssoToken = getSsoTokenFromLocalStorage();
   if (ssoToken) {
     handleSsoAuthResponse(ssoToken);
   } else {
-    loginDialog.open();
+    loginDialog?.open();
   }
 
   const logoutBtn = $id("logoutBtn") as PrettyButton;
-  logoutBtn.on("click", async () => await logout());
+  logoutBtn?.on("click", async () => await logout());
 
   setupSettingsDialog();
 };
 
 export const hideLoginDialog = () => {
   const loginDialog = $id("loginDialog") as PrettyDialog;
-  loginDialog.close();
+  loginDialog?.close();
 };
 
 export const updateAuthenticationUI = () => {
   const loginContainer = $id("loginContainer");
   const authenticatedContainer = $id("authenticatedContainer");
   if (isAuthenticated()) {
-    loginContainer.classList.add("hidden");
-    loginContainer.classList.remove("flex");
-    authenticatedContainer.classList.add("flex");
-    authenticatedContainer.classList.remove("hidden");
+    loginContainer?.classList.add("hidden");
+    loginContainer?.classList.remove("flex");
+    authenticatedContainer?.classList.add("flex");
+    authenticatedContainer?.classList.remove("hidden");
   } else {
-    loginContainer.classList.add("flex");
-    loginContainer.classList.remove("hidden");
-    authenticatedContainer.classList.add("hidden");
-    authenticatedContainer.classList.remove("flex");
+    loginContainer?.classList.add("flex");
+    loginContainer?.classList.remove("hidden");
+    authenticatedContainer?.classList.add("hidden");
+    authenticatedContainer?.classList.remove("flex");
   }
 };

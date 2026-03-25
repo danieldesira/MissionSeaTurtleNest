@@ -30,8 +30,8 @@ type CharacterData = {
 };
 
 class LastGameStore implements IStore {
-  private _store: GameProgressStore;
-  private _isUploaded: boolean;
+  private _store: GameProgressStore | null = null;
+  private _isUploaded: boolean = false;
 
   constructor() {
     this.reset();
@@ -46,7 +46,7 @@ class LastGameStore implements IStore {
     return !!this._store;
   }
 
-  set store(value: GameProgressStore) {
+  set store(value: GameProgressStore | null) {
     this._store = value;
   }
 

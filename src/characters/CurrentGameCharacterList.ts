@@ -9,7 +9,7 @@ import type {
 import { paintOffScreenIndicator } from "./offscreenIndicator";
 
 class CurrentGameCharacterList implements ICurrentGameCharacterList {
-  private _characters: Set<INonMainCharacter>;
+  private _characters: Set<INonMainCharacter> = new Set();
 
   constructor() {
     this.reset();
@@ -25,7 +25,7 @@ class CurrentGameCharacterList implements ICurrentGameCharacterList {
 
   spawnCharacters(spawnableCharacters: LevelCharacter[]) {
     for (const { Constructor, amount, options } of spawnableCharacters) {
-      let lastPackCharacter: INonMainCharacter = null;
+      let lastPackCharacter: INonMainCharacter | null = null;
       for (let i = 0; i < amount; i++) {
         const character = new Constructor(options);
         if (character.gameClassification === "PackPrey") {

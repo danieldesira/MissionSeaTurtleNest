@@ -37,11 +37,11 @@ export const setupGameControls = () => {
 export const setupOnscreenControlsPosition = () => {
   const onscreenControls = $id("onscreenControls");
   if (controlSettingsStore.screenControlsPosition === "Left") {
-    onscreenControls.classList.add("left-1");
-    onscreenControls.classList.remove("right-1");
+    onscreenControls?.classList.add("left-1");
+    onscreenControls?.classList.remove("right-1");
   } else {
-    onscreenControls.classList.add("right-1");
-    onscreenControls.classList.remove("left-1");
+    onscreenControls?.classList.add("right-1");
+    onscreenControls?.classList.remove("left-1");
   }
 };
 
@@ -64,35 +64,39 @@ export const launchGameEndDialog = ({
   gameEndDialog.open();
   gameEndDialog.closeButtonIds = ["gameEndDialogCloseBtn"];
   const gameEndDialogTitle = $id("gameEndDialogTitle");
-  gameEndDialogTitle.innerText = title;
+  if (gameEndDialogTitle) {
+    gameEndDialogTitle.innerText = title;
+  }
   const gameEndDialogContent = $id("gameEndDialogContent");
-  deleteChildren(gameEndDialogContent);
+  if (gameEndDialogContent) {
+    deleteChildren(gameEndDialogContent);
+  }
   const messageSpan = document.createElement("span");
   messageSpan.innerText = text;
-  gameEndDialogContent.appendChild(messageSpan);
+  gameEndDialogContent?.appendChild(messageSpan);
 
   if (completeWithin5Mins) {
-    gameEndDialogContent.appendChild(document.createElement("br"));
+    gameEndDialogContent?.appendChild(document.createElement("br"));
     const messageSpan = document.createElement("span");
     messageSpan.innerText = "Under 5 minutes: +300XP";
-    gameEndDialogContent.appendChild(messageSpan);
+    gameEndDialogContent?.appendChild(messageSpan);
   }
 
   if (remainingResetsRewards) {
-    gameEndDialogContent.appendChild(document.createElement("br"));
+    gameEndDialogContent?.appendChild(document.createElement("br"));
     const messageSpan = document.createElement("span");
     messageSpan.innerText = `Remaining resets rewards: +${remainingResetsRewards}`;
-    gameEndDialogContent.appendChild(messageSpan);
+    gameEndDialogContent?.appendChild(messageSpan);
   }
 
   if (perfectGame) {
-    gameEndDialogContent.appendChild(document.createElement("br"));
+    gameEndDialogContent?.appendChild(document.createElement("br"));
     const messageSpan = document.createElement("span");
     messageSpan.innerText = "Perfect game: +200XP";
-    gameEndDialogContent.appendChild(messageSpan);
+    gameEndDialogContent?.appendChild(messageSpan);
   }
 
-  if (game.isPersonalBest) {
+  if (game.isPersonalBest && gameEndDialogContent) {
     addPersonalBestLineToGameEndDialog(gameEndDialogContent);
   }
 };
@@ -158,7 +162,7 @@ const uploadGameProgress = async () => {
   showWaitingNotice("Uploading game progress...");
   try {
     await saveGame({
-      lastGame: lastGameStore.store,
+      lastGame: lastGameStore.store!,
       timestamp: new Date().getTime(),
     });
     lastGameStore.isUploaded = true;
@@ -195,9 +199,9 @@ export const setupCanvasSize = () => {
 };
 
 export const setupGamePauseOnDialogOpen = () =>
-  Array.from($("pretty-dialog")).forEach((dialog: PrettyDialog) => {
-    dialog.openCallback = () => game.pause();
-    dialog.closeCallback = () => {
+  Array.from($("pretty-dialog")).forEach((dialog) => {
+    (dialog as PrettyDialog).openCallback = () => game.pause();
+    (dialog as PrettyDialog).closeCallback = () => {
       if (!PrettyDialog.isAnyDialogOpen()) {
         game.resume();
       }
@@ -220,13 +224,13 @@ export const getCanvas = () => $id("gameCanvas") as HTMLCanvasElement;
 
 export const launchHeartMatingAnimation = async () => {
   const heartMatingAnimation = $id("heartMatingAnimation");
-  heartMatingAnimation.classList.add("flex");
-  heartMatingAnimation.classList.remove("hidden");
+  heartMatingAnimation?.classList.add("flex");
+  heartMatingAnimation?.classList.remove("hidden");
   game.pause();
   await new Promise((resolve) => setTimeout(resolve, 1500));
   game.resume();
-  heartMatingAnimation.classList.add("hidden");
-  heartMatingAnimation.classList.remove("flex");
+  heartMatingAnimation?.classList.add("hidden");
+  heartMatingAnimation?.classList.remove("flex");
 };
 
 export const launchLevelStartDialog = ({
@@ -239,26 +243,34 @@ export const launchLevelStartDialog = ({
   levelStartDialog.open();
 
   const levelStartDialogTitle = $id("levelStartDialogTitle");
-  levelStartDialogTitle.innerText = `Level ${game.currentLevelNo} - ${title}`;
+  if (levelStartDialogTitle) {
+    levelStartDialogTitle.innerText = `Level ${game.currentLevelNo} - ${title}`;
+  }
 
   const levelStartDialogMessage = $id("levelStartDialogMessage");
-  levelStartDialogMessage.innerText = levelDescription;
+  if (levelStartDialogMessage) {
+    levelStartDialogMessage.innerText = levelDescription;
+  }
 
   const levelStartDialogObstacles = $id("levelStartDialogObstacles");
-  populateCharacterList(
-    spawnableObstaclesPer30Second
-      ? initialCharacters.concat(spawnableObstaclesPer30Second)
-      : initialCharacters,
-    ["Obstacle"],
-    levelStartDialogObstacles,
-  );
+  if (levelStartDialogObstacles) {
+    populateCharacterList(
+      spawnableObstaclesPer30Second
+        ? initialCharacters.concat(spawnableObstaclesPer30Second)
+        : initialCharacters,
+      ["Obstacle"],
+      levelStartDialogObstacles,
+    );
+  }
 
   const levelStartDialogPrey = $id("levelStartDialogPrey");
-  populateCharacterList(
-    initialCharacters,
-    ["Prey", "PackPrey"],
-    levelStartDialogPrey,
-  );
+  if (levelStartDialogPrey) {
+    populateCharacterList(
+      initialCharacters,
+      ["Prey", "PackPrey"],
+      levelStartDialogPrey,
+    );
+  }
 };
 
 const populateCharacterList = (

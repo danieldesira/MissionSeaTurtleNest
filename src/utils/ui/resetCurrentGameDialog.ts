@@ -6,7 +6,9 @@ export const showResetCurrentGameDialog = (resetsRemaining: number) => {
   resetCurrentGameDialog.open();
 
   const remainingGameResets = $id("remainingGameResets");
-  remainingGameResets.innerText = resetsRemaining.toString();
+  if (remainingGameResets) {
+    remainingGameResets.innerText = resetsRemaining.toString();
+  }
 };
 
 export const setupResetCurrentGameDialog = () => {

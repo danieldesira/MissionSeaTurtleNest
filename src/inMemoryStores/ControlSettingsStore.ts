@@ -2,8 +2,8 @@ import { defaultAudioVolume } from "../utils/audio";
 import type { IStore } from "./interfaces";
 
 class ControlSettingsStore implements IStore {
-  private _screenControlsPosition: "Left" | "Right";
-  private _audioVolume: number;
+  private _screenControlsPosition: "Left" | "Right" = "Right";
+  private _audioVolume: number = 0.5;
 
   constructor() {
     this.reset();

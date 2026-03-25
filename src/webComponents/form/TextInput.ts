@@ -8,29 +8,39 @@ class TextInput extends HTMLElement {
   }
 
   connectedCallback() {
-    const input = this.shadowRoot.querySelector("input");
+    const input = this.shadowRoot?.querySelector("input");
 
-    if (this.id) {
-      input.id = this.id;
-      input.name = this.id;
+    if (input) {
+      if (this.id) {
+        input.id = this.id;
+        input.name = this.id;
+      }
+
+      const inputType = this.getAttribute("type") ?? "text";
+      input.type = inputType;
     }
 
-    const inputType = this.getAttribute("type") ?? "text";
-    input.type = inputType;
-
-    const formField = this.shadowRoot.querySelector("form-field") as FormField;
-    formField.id = this.id;
+    const formField = this.shadowRoot?.querySelector("form-field") as FormField;
+    if (formField) {
+      formField.id = this.id;
+    }
   }
 
   set value(value: string | Date) {
-    const input = this.shadowRoot.querySelector("input");
-    const isDateValue = value instanceof Date;
-    input.value = isDateValue ? value.toISOString().split("T")[0] : value;
+    const input = this.shadowRoot?.querySelector("input");
+    if (input) {
+      const isDateValue = value instanceof Date;
+      input.value = isDateValue ? value.toISOString().split("T")[0] : value;
+    }
   }
 
   get value() {
-    const input = this.shadowRoot.querySelector("input");
-    return input.type === "date" ? new Date(input.value) : input.value;
+    const input = this.shadowRoot?.querySelector("input");
+    return input
+      ? input.type === "date"
+        ? new Date(input.value)
+        : input.value
+      : "";
   }
 }
 

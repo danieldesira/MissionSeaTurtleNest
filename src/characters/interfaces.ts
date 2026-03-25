@@ -9,7 +9,7 @@ export interface ICharacter {
   get y(): number;
   set x(x: number);
   set y(y: number);
-  get image(): HTMLImageElement;
+  get image(): HTMLImageElement | null;
   get height(): number;
   get width(): number;
   get direction(): Direction;

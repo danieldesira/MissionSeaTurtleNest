@@ -10,11 +10,11 @@ class Turtle extends Character implements IMainCharacter {
   protected readonly _speed: number = 1;
   protected readonly _width: number;
   protected readonly _height: number;
-  protected _foodGauge: number;
-  protected _lifeGauge: number;
-  protected _apetiteGauge: number;
-  protected _oxygenGauge: number;
-  protected _isMama: boolean;
+  protected _foodGauge: number = 100;
+  protected _lifeGauge: number = 100;
+  protected _apetiteGauge: number = 100;
+  protected _oxygenGauge: number = 100;
+  protected _isMama: boolean = false;
 
   constructor({ speed, width, height }: CharacterOptions = {}) {
     super();
@@ -61,7 +61,7 @@ class Turtle extends Character implements IMainCharacter {
    */
   moveDown() {
     this._direction = "Down";
-    if (this._y + this._height / 2 < game.level.bgImg.height) {
+    if (this._y + this._height / 2 < (game.level?.bgImg?.height ?? 0)) {
       this._y += this._speed;
     }
   }
@@ -83,7 +83,7 @@ class Turtle extends Character implements IMainCharacter {
    */
   moveRight() {
     this._direction = "Right";
-    if (this._x + this._width / 2 < game.level.bgImg.width) {
+    if (this._x + this._width / 2 < (game.level?.bgImg?.width ?? 0)) {
       this._x += this._speed;
     }
   }

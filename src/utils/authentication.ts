@@ -24,10 +24,12 @@ export const handleSsoAuthResponse = async (ssoToken: SsoToken) => {
 
     saveSsoTokenToLocalStorage(ssoToken);
 
-    populatePlayerProfile(loginResult);
-    populateGameData(loginResult);
-    populatePersonalBest(loginResult);
-    populateControlSettings(loginResult);
+    if (loginResult) {
+      populatePlayerProfile(loginResult);
+      populateGameData(loginResult);
+      populatePersonalBest(loginResult);
+      populateControlSettings(loginResult);
+    }
 
     hideLoginDialog();
     updateAuthenticationUI();
@@ -66,7 +68,7 @@ const populatePlayerProfile = (accountData: LoginResponse) => {
   if (player) {
     profileStore.email = player.email;
     profileStore.name = player.name;
-    profileStore.profilePicUrl = player.profilePicUrl;
+    profileStore.profilePicUrl = player.profilePicUrl!;
     profileStore.dateOfBirth = player.dateOfBirth
       ? new Date(player.dateOfBirth)
       : null;
@@ -100,7 +102,7 @@ export const deleteSsoTokenInLocalStorage = () =>
   localStorage.removeItem("ssoToken");
 
 export const getSsoTokenFromLocalStorage = () =>
-  JSON.parse(localStorage.getItem("ssoToken")) as SsoToken;
+  JSON.parse(localStorage.getItem("ssoToken") ?? "{}") as SsoToken;
 
 export const logout = async () => {
   if (isAuthenticated()) {
@@ -110,7 +112,7 @@ export const logout = async () => {
       const googleLogoutUrl = "https://accounts.google.com/Logout";
       window.open(googleLogoutUrl, "_blank", "width=500,height=600");
     } else if (profileStore.playerIdentifier.includes("facebook")) {
-      window.FB.logout();
+      window.FB?.logout();
     }
     clearCurrentPlayerStores();
     updateAuthenticationUI();

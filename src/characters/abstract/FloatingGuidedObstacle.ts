@@ -5,7 +5,7 @@ import Obstacle from "./Obstacle";
 
 abstract class FloatingGuidedObstacle extends Obstacle {
   protected get initialPositionXFrom() {
-    return game.level.bgImg.width / 2;
+    return (game.level?.bgImg?.width ?? 0) / 2;
   }
 
   /**

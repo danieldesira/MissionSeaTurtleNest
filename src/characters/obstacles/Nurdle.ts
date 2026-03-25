@@ -4,7 +4,7 @@ import type { CharacterOptions } from "../types";
 class Nurdle extends Obstacle {
   protected readonly _imageFilename: string;
   protected readonly _damage: number;
-  protected readonly _speed: number;
+  protected readonly _speed: number = 0;
   protected readonly _stomachImpact: number;
   protected readonly _points: number;
   protected readonly _width: number;

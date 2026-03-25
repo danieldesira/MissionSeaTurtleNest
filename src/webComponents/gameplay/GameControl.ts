@@ -16,17 +16,17 @@ class GameControl extends HTMLElement {
 
     const handleMouseup = () => cancelAnimationFrame(timer);
 
-    const button = this.shadowRoot.querySelector("button");
-    button.addEventListener("mousedown", (event) => {
+    const button = this.shadowRoot?.querySelector("button");
+    button?.addEventListener("mousedown", (event) => {
       const leftMouseButton = 0;
       if (event.button === leftMouseButton) {
         handleMousedown();
       }
     });
-    button.addEventListener("mouseup", handleMouseup);
-    button.addEventListener("mouseleave", handleMouseup);
-    button.addEventListener("touchstart", handleMousedown);
-    button.addEventListener("touchend", handleMouseup);
+    button?.addEventListener("mouseup", handleMouseup);
+    button?.addEventListener("mouseleave", handleMouseup);
+    button?.addEventListener("touchstart", handleMousedown);
+    button?.addEventListener("touchend", handleMouseup);
   }
 }
 

@@ -9,29 +9,33 @@ class ImageUploader extends HTMLElement {
 
   connectedCallback() {
     this.addEventListener("click", () => {
-      const fileInput = this.shadowRoot.querySelector(
+      const fileInput = this.shadowRoot?.querySelector(
         'input[type="file"]',
       ) as HTMLElement;
-      fileInput.click();
+      fileInput?.click();
     });
 
-    const formField = this.shadowRoot.querySelector("form-field") as FormField;
-    formField.id = this.id;
+    const formField = this.shadowRoot?.querySelector("form-field") as FormField;
+    if (formField) {
+      formField.id = this.id;
+    }
   }
 
   set currentImageUrl(value: string) {
-    const image = this.shadowRoot.querySelector("img") as HTMLImageElement;
-    image.src = value;
+    const image = this.shadowRoot?.querySelector("img") as HTMLImageElement;
+    if (image) {
+      image.src = value;
+    }
   }
 
   onChange(callback: (_: Event) => void) {
-    const fileInput = this.shadowRoot.querySelector(
+    const fileInput = this.shadowRoot?.querySelector(
       'input[type="file"]',
     ) as HTMLElement;
-    fileInput.addEventListener("change", (event: Event) => {
+    fileInput?.addEventListener("change", (event: Event) => {
       const target = event.target as HTMLInputElement;
-      const selectedFile = target.files[0];
-      if (selectedFile?.size > 10 * 1_024 * 1_024) {
+      const selectedFile = target.files?.[0];
+      if (selectedFile?.size ?? 0 > 10 * 1_024 * 1_024) {
         this.indicateError();
       } else {
         this.removeError();
@@ -43,13 +47,13 @@ class ImageUploader extends HTMLElement {
   }
 
   private indicateError() {
-    const button = this.shadowRoot.querySelector(".btn");
-    button.classList.add("error");
+    const button = this.shadowRoot?.querySelector(".btn");
+    button?.classList.add("error");
   }
 
   private removeError() {
-    const button = this.shadowRoot.querySelector(".btn");
-    button.classList.remove("error");
+    const button = this.shadowRoot?.querySelector(".btn");
+    button?.classList.remove("error");
   }
 }
 

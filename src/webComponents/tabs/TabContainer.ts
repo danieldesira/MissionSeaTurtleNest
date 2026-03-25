@@ -7,13 +7,13 @@ class TabContainer extends HTMLElement {
   }
 
   show() {
-    const container = this.shadowRoot.querySelector("div");
-    container.classList.add("active");
+    const container = this.shadowRoot?.querySelector("div");
+    container?.classList.add("active");
   }
 
   hide() {
-    const container = this.shadowRoot.querySelector("div");
-    container.classList.remove("active");
+    const container = this.shadowRoot?.querySelector("div");
+    container?.classList.remove("active");
   }
 }
 

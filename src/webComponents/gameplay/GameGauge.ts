@@ -7,9 +7,11 @@ class GameGauge extends HTMLElement {
   }
 
   set currentValue(value: number) {
-    const meter = this.shadowRoot.querySelector("meter");
-    meter.value = value;
-    meter.title = `${value.toString()}%`;
+    const meter = this.shadowRoot?.querySelector("meter");
+    if (meter) {
+      meter.value = value;
+      meter.title = `${value.toString()}%`;
+    }
   }
 }
 

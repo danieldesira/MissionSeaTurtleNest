@@ -1,11 +1,11 @@
 import type { IStore } from "./interfaces";
 
 class ProfileStore implements IStore {
-  private _email: string;
-  private _name: string;
-  private _profilePicUrl: string;
-  private _dateOfBirth: Date;
-  private _playerIdentifier: string;
+  private _email: string = "";
+  private _name: string = "";
+  private _profilePicUrl: string = "";
+  private _dateOfBirth: Date | null = null;
+  private _playerIdentifier: string = "";
 
   constructor() {
     this.reset();
@@ -35,7 +35,7 @@ class ProfileStore implements IStore {
     return this._profilePicUrl;
   }
 
-  set dateOfBirth(value: Date) {
+  set dateOfBirth(value: Date | null) {
     this._dateOfBirth = value;
   }
 

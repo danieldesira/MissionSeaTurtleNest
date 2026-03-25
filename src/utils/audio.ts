@@ -76,7 +76,9 @@ export const setupMusic = async () => {
         await audioContext.resume();
       }
 
-      playTrack(buffers);
+      if (buffers) {
+        playTrack(buffers);
+      }
     },
     {
       once: true,

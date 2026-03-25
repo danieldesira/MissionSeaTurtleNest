@@ -7,17 +7,17 @@ import { launchLevelStartDialog } from "../utils/ui/gameplay";
 class Level implements ILevel {
   private readonly _backgroundImageFilename: string;
   private readonly _initialCharacters: LevelCharacter[];
-  private _backgroundImage: HTMLImageElement | null;
-  private _bgOffsetX: number;
-  private _bgOffsetY: number;
+  private _backgroundImage: HTMLImageElement | null = null;
+  private _bgOffsetX: number = 0;
+  private _bgOffsetY: number = 0;
   private readonly _benthicOffsetY?: number;
   private readonly _currentSpeed: number;
   private readonly _points: number;
   private readonly _levelDescription: string;
   private readonly _imageBasePath: string = "/images/backgrounds/";
   private readonly _title: string;
-  private readonly _objectives: Array<() => boolean>;
-  private readonly _spawnableObstaclesPer30Second: LevelCharacter[];
+  private readonly _objectives?: Array<() => boolean>;
+  private readonly _spawnableObstaclesPer30Second?: LevelCharacter[];
   private readonly _currentDirection: HorizontalDirection;
 
   constructor({
@@ -133,7 +133,7 @@ class Level implements ILevel {
         [...game.currentGameCharacterList.characters].map((c) => c.loadImage()),
       );
     } catch (error) {
-      throw new Error(error);
+      console.error(error);
     }
   }
 
@@ -156,9 +156,9 @@ class Level implements ILevel {
           obstacle.x =
             Math.random() * horizontalSpread +
             (this._currentDirection === "Left"
-              ? this._backgroundImage.width
+              ? (this._backgroundImage?.width ?? 0)
               : 0);
-          obstacle.y = Math.random() * this._backgroundImage.height;
+          obstacle.y = Math.random() * (this._backgroundImage?.height ?? 0);
           obstacle.loadImage();
           game.currentGameCharacterList.characters.add(obstacle);
         });

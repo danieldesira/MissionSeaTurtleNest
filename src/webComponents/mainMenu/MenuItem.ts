@@ -7,34 +7,34 @@ class MenuItem extends HTMLElement {
   }
 
   show() {
-    const button = this.shadowRoot.querySelector("[role=button]");
+    const button = this.shadowRoot?.querySelector("[role=button]");
     button?.classList.remove("hide");
   }
 
   hide() {
-    const button = this.shadowRoot.querySelector("[role=button]");
+    const button = this.shadowRoot?.querySelector("[role=button]");
     if (!button?.classList.contains("hide")) {
       button?.classList.add("hide");
     }
   }
 
-  set callback(value: () => void) {
-    this.addEventListener("click", value);
+  on(eventType: "click", callback: () => void) {
+    this.addEventListener(eventType, callback);
   }
 
   applyFocus() {
-    const button = this.shadowRoot.querySelector("[role=button]");
-    button.classList.add("active");
+    const button = this.shadowRoot?.querySelector("[role=button]");
+    button?.classList.add("active");
   }
 
   removeFocus() {
-    const button = this.shadowRoot.querySelector("[role=button]");
-    button.classList.remove("active");
+    const button = this.shadowRoot?.querySelector("[role=button]");
+    button?.classList.remove("active");
   }
 
   get isVisible() {
-    const button = this.shadowRoot.querySelector("[role=button]");
-    return !button.classList.contains("hide");
+    const button = this.shadowRoot?.querySelector("[role=button]");
+    return !button?.classList.contains("hide");
   }
 }
 

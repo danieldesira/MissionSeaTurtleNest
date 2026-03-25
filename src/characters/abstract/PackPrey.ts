@@ -16,7 +16,7 @@ abstract class PackPrey extends Prey {
   protected get initialPositionXTo() {
     return this._previousCharacterX
       ? this._previousCharacterX + PackPrey.maxDistance
-      : game.level.bgImg.width;
+      : (game.level?.bgImg?.width ?? 0);
   }
 
   protected get initialPositionYFrom() {
@@ -28,7 +28,7 @@ abstract class PackPrey extends Prey {
   protected get initialPositionYTo() {
     return this._previousCharacterY
       ? this._previousCharacterY + PackPrey.maxDistance
-      : game.level.bgImg.height;
+      : (game.level?.bgImg?.height ?? 0);
   }
 
   set previousCharacterX(x: number) {

@@ -39,21 +39,22 @@ class Game {
     this.reset();
   }
 
-  private static _instance: Game = null;
+  private static _instance: Game | null = null;
   private _animationTimer: number = 0;
   private _turtle: Turtle;
-  private _level: ILevel;
-  private _xp: number;
-  private _currentLevelNo: number;
-  private _isPaused: boolean;
-  private _isGameScreenActive: boolean;
-  private _isPersonalBest: boolean;
-  private _currentFrameCount: number;
-  private _currentGameCharacterList: CurrentGameCharacterList;
-  private _cleanCollisionEventHandler: () => void;
-  private _cleanMateDeathEventHandler: () => void;
-  private _interactions: Record<string, number>;
-  private _remainingLevelResets: number;
+  private _level: ILevel | null = null;
+  private _xp: number = 0;
+  private _currentLevelNo: number = 1;
+  private _isPaused: boolean = false;
+  private _isGameScreenActive: boolean = false;
+  private _isPersonalBest: boolean = false;
+  private _currentFrameCount: number = 0;
+  private _currentGameCharacterList: CurrentGameCharacterList =
+    new CurrentGameCharacterList();
+  private _cleanCollisionEventHandler: () => void = () => {};
+  private _cleanMateDeathEventHandler: () => void = () => {};
+  private _interactions: Record<string, number> = {};
+  private _remainingLevelResets: number = 3;
 
   static get instance() {
     if (!this._instance) {
@@ -174,11 +175,11 @@ class Game {
       if (isFreshLevel) {
         this._turtle.resetDirection();
         this._turtle.x = 50;
-        this._turtle.y = this._level.bgImg.height / 2;
+        this._turtle.y = (this._level?.bgImg?.height ?? 0) / 2;
       }
       levelStartSnapshot.save();
     } catch (error) {
-      showErrorNotice(error.toString(), 500);
+      showErrorNotice(error as string, 500);
     } finally {
       hideOverlay();
     }
@@ -200,7 +201,7 @@ class Game {
 
       this.runGameLoop(canvas);
     } catch (error) {
-      throw new Error(error);
+      console.error(error);
     }
   }
 
@@ -225,14 +226,14 @@ class Game {
 
       if (!this._level) {
         await this.loadNewLevel(
-          canvas.getContext("2d"),
+          canvas.getContext("2d") as CanvasRenderingContext2D,
           this._currentGameCharacterList.characters.size === 0,
         );
-        resizeCanvas(canvas, this._level.bgImg);
+        resizeCanvas(canvas, this._level!.bgImg ?? new Image());
       }
 
       const gameRunning = await this.checkTurtleAndGameProgress();
-      const context = canvas.getContext("2d");
+      const context = canvas.getContext("2d") as CanvasRenderingContext2D;
 
       paintLevelBg({ canvas, context });
       this._turtle.paint(context);
@@ -267,7 +268,7 @@ class Game {
       return this.handleTurtleDeath("damage");
     }
 
-    if (mainCharacter.y - mainCharacter.image.height <= 0) {
+    if (mainCharacter.y - (mainCharacter.image?.height ?? 0) <= 0) {
       mainCharacter.breath();
     } else {
       mainCharacter.useOxygen();
@@ -279,12 +280,12 @@ class Game {
     this._currentGameCharacterList.moveCharacters();
 
     if (this._currentFrameCount % (60 * 30) === 0) {
-      this._level.spawnPer30SecondObstacles();
+      this._level?.spawnPer30SecondObstacles();
     }
 
     this.incrementFrameCount();
 
-    const backgroundImage = this._level.bgImg;
+    const backgroundImage = this._level?.bgImg;
     if (
       backgroundImage &&
       mainCharacter.x + mainCharacter.width / 2 >= backgroundImage.width
@@ -296,13 +297,16 @@ class Game {
   }
 
   private async handleOffBgWidth() {
-    if (this._level.objectivesMet()) {
+    if (this._level?.objectivesMet()) {
       this.gainPoints(this._level.points);
       updateXpSpan();
       this.incrementCurrentLevelNo();
       this._currentGameCharacterList.reset();
       if (levelExists(this._currentLevelNo)) {
-        await this.loadNewLevel(getCanvas().getContext("2d"));
+        const context = getCanvas()?.getContext(
+          "2d",
+        ) as CanvasRenderingContext2D;
+        await this.loadNewLevel(context);
         return true;
       } else {
         this.handleWin();

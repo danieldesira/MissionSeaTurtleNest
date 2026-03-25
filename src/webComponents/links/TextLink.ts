@@ -7,11 +7,13 @@ class TextLink extends HTMLElement {
   }
 
   connectedCallback() {
-    const a = this.shadowRoot.querySelector("a");
-    a.href = this.dataset.url;
-    if (this.dataset.external === "true") {
-      a.target = "__blank";
-      a.rel = "noopener noreferrer";
+    const a = this.shadowRoot?.querySelector("a");
+    if (a) {
+      a.href = this.dataset.url ?? "";
+      if (this.dataset.external === "true") {
+        a.target = "__blank";
+        a.rel = "noopener noreferrer";
+      }
     }
   }
 }

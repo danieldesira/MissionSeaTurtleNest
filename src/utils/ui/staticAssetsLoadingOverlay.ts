@@ -2,22 +2,26 @@ import { $id } from "./domQuery";
 
 export const showAssetLoadingOverlay = (message: string) => {
   const overlay = $id("assetLoadingOverlay") as HTMLDialogElement;
-  overlay.showModal();
+  overlay?.showModal();
 
   updateAssetLoadingOverlayText(message);
 };
 
 const updateAssetLoadingOverlayText = (message: string) => {
   const overlayText = $id("assetLoadingOverlayText");
-  overlayText.innerText = message;
+  if (overlayText) {
+    overlayText.innerText = message;
+  }
 };
 
 export const hideAssetLoadingOverlay = () => {
   const overlay = $id("assetLoadingOverlay") as HTMLDialogElement;
-  overlay.close();
+  overlay?.close();
 };
 
 export const updateAssetLoadingProgressBar = (increment: number) => {
   const progressBar = $id("assetLoadingProgressBar") as HTMLProgressElement;
-  progressBar.value += increment;
+  if (progressBar) {
+    progressBar.value += increment;
+  }
 };

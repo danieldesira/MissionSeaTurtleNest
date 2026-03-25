@@ -3,12 +3,12 @@ import { updateXpSpan } from "../utils/ui/xp";
 import type { IStore } from "./interfaces";
 
 class LevelStartSnapshot implements IStore {
-  private _turtleHealth: number;
-  private _turtleOxygen: number;
-  private _turtleFood: number;
-  private _turtleApetite: number;
-  private _xp: number;
-  private _interactions: Record<string, number>;
+  private _turtleHealth: number = 100;
+  private _turtleOxygen: number = 100;
+  private _turtleFood: number = 100;
+  private _turtleApetite: number = 100;
+  private _xp: number = 0;
+  private _interactions: Record<string, number> = {};
 
   constructor() {
     this.reset();
@@ -91,9 +91,11 @@ class LevelStartSnapshot implements IStore {
     updateXpSpan();
     game.turtle.resetDirection();
     game.turtle.x = 50;
-    game.turtle.y = game.level.bgImg.height / 2;
+    game.turtle.y = (game.level?.bgImg?.height ?? 0) / 2;
     game.currentGameCharacterList.reset();
-    game.currentGameCharacterList.spawnCharacters(game.level.initialCharacters);
+    game.currentGameCharacterList.spawnCharacters(
+      game.level?.initialCharacters ?? [],
+    );
   }
 }
 

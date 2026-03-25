@@ -3,7 +3,9 @@ import { $id } from "./domQuery";
 
 export const updateXpSpan = () => {
   const xpSpan = $id("xpSpan");
-  xpSpan.innerText = game.xp.toString();
+  if (xpSpan) {
+    xpSpan.innerText = game.xp.toString();
+  }
 };
 
 export const showXpUpdate = async (xp: number) => {
@@ -17,9 +19,9 @@ export const showXpUpdate = async (xp: number) => {
     "transition-opacity",
     "duration-500",
   );
-  xpUpdateContainer.appendChild(xpUpdateSpan);
+  xpUpdateContainer?.appendChild(xpUpdateSpan);
   xpUpdateSpan.addEventListener("transitionend", () =>
-    xpUpdateContainer.removeChild(xpUpdateSpan),
+    xpUpdateContainer?.removeChild(xpUpdateSpan),
   );
   await new Promise((resolve) => setTimeout(resolve, 500));
   xpUpdateSpan.classList.add("opacity-0");
