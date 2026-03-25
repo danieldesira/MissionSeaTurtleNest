@@ -35,7 +35,10 @@ export const setupFullscreenBtn = async () => {
 
 export const setupNotifications = async () => {
   const notificationsIcon = $id("notificationsIcon") as SocialLink;
-  notificationsIcon.action = async () => await checkNotificationPermission();
+  notificationsIcon.on(
+    "click",
+    async () => await checkNotificationPermission(),
+  );
 
   await setupNotificationPermissionListener();
 };

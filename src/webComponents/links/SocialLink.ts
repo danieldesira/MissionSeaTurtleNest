@@ -18,8 +18,8 @@ class SocialLink extends HTMLElement {
     }
   }
 
-  set action(value: () => void) {
-    this.addEventListener("click", value);
+  on(eventType: "click", callback: () => void) {
+    this.addEventListener(eventType, callback);
   }
 }
 

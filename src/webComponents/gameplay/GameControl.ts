@@ -6,27 +6,26 @@ class GameControl extends HTMLElement {
     loadTemplate("gameControlTemplate", this);
   }
 
-  set callback(value: () => void) {
+  onAction(callback: () => void) {
     let timer = 0;
 
     const handleMousedown = () => {
-      value();
+      callback();
       timer = requestAnimationFrame(handleMousedown);
     };
 
     const handleMouseup = () => cancelAnimationFrame(timer);
 
-    const button = this.shadowRoot?.querySelector("button");
-    button?.addEventListener("mousedown", (event) => {
+    this.addEventListener("mousedown", (event) => {
       const leftMouseButton = 0;
       if (event.button === leftMouseButton) {
         handleMousedown();
       }
     });
-    button?.addEventListener("mouseup", handleMouseup);
-    button?.addEventListener("mouseleave", handleMouseup);
-    button?.addEventListener("touchstart", handleMousedown);
-    button?.addEventListener("touchend", handleMouseup);
+    this.addEventListener("mouseup", handleMouseup);
+    this.addEventListener("mouseleave", handleMouseup);
+    this.addEventListener("touchstart", handleMousedown);
+    this.addEventListener("touchend", handleMouseup);
   }
 }
 

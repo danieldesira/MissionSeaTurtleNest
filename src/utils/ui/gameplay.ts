@@ -25,13 +25,13 @@ import { $, $id } from "./domQuery";
 
 export const setupGameControls = () => {
   const upControl = $id("upControl") as GameControl;
-  upControl.callback = () => game.turtle.moveUp();
+  upControl.onAction(() => game.turtle.moveUp());
   const downControl = $id("downControl") as GameControl;
-  downControl.callback = () => game.turtle.moveDown();
+  downControl.onAction(() => game.turtle.moveDown());
   const leftControl = $id("leftControl") as GameControl;
-  leftControl.callback = () => game.turtle.moveLeft();
+  leftControl.onAction(() => game.turtle.moveLeft());
   const rightControl = $id("rightControl") as GameControl;
-  rightControl.callback = () => game.turtle.moveRight();
+  rightControl.onAction(() => game.turtle.moveRight());
 };
 
 export const setupOnscreenControlsPosition = () => {
