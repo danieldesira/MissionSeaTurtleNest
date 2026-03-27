@@ -73,6 +73,7 @@ const populatePlayerProfile = (accountData: LoginResponse) => {
       ? new Date(player.dateOfBirth)
       : null;
     profileStore.playerIdentifier = `${player.externalId}-${player.ssoProvider}`;
+    profileStore.guid = player.guid;
     setupSettingsProfileTab();
   }
 };

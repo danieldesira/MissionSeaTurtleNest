@@ -6,6 +6,7 @@ class ProfileStore implements IStore {
   private _profilePicUrl: string = "";
   private _dateOfBirth: Date | null = null;
   private _playerIdentifier: string = "";
+  private _guid: string = "";
 
   constructor() {
     this.reset();
@@ -51,12 +52,21 @@ class ProfileStore implements IStore {
     return this._playerIdentifier;
   }
 
+  set guid(value: string) {
+    this._guid = value;
+  }
+
+  get guid() {
+    return this._guid;
+  }
+
   reset() {
     this._email = "";
     this._name = "";
     this._profilePicUrl = "";
     this._dateOfBirth = new Date();
     this._playerIdentifier = "";
+    this._guid = "";
   }
 }
 

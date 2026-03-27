@@ -6,6 +6,7 @@
   - `MenuItem`: Drop `callback` setter in favour of `on("click", callback)` method pattern
   - `GameControl`: Drop `callback` setter in favour of `onAction(callback)` method pattern
   - `SocialLink`: Drop `action` setter in favour of `on("click", callback)` method pattern
+  - Adapt high scores player check to use the new `guid` field from API 0.5.0
 - Authentication:
   - Implement Facebook SSO
 - Settings:

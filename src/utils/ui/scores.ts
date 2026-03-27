@@ -79,7 +79,7 @@ const populateLeaderBoard = async () => {
         level,
         points,
         outcome,
-        playerIdentifier,
+        playerGuid,
         duration,
         resetsUsed,
       }) => {
@@ -94,7 +94,7 @@ const populateLeaderBoard = async () => {
         appendCell(row, resetsUsed.toString(), "right");
         leaderboardTbody?.appendChild(row);
 
-        if (profileStore.playerIdentifier === playerIdentifier) {
+        if (profileStore.guid === playerGuid) {
           row.classList.add("bg-primary", "text-white");
         }
       },
