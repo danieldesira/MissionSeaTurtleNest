@@ -18,7 +18,7 @@ export interface HighScore {
 
 export interface Player {
   id?: number;
-  guid?: string;
+  guid: string;
   externalId?: string;
   ssoProvider?: string;
   name: string;
