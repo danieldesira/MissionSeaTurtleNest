@@ -102,8 +102,10 @@ const saveSsoTokenToLocalStorage = (ssoToken: SsoToken) =>
 export const deleteSsoTokenInLocalStorage = () =>
   localStorage.removeItem("ssoToken");
 
-export const getSsoTokenFromLocalStorage = () =>
-  JSON.parse(localStorage.getItem("ssoToken") ?? "{}") as SsoToken;
+export const getSsoTokenFromLocalStorage = () => {
+  const token = localStorage.getItem("ssoToken");
+  return token ? (JSON.parse(token) as SsoToken) : null;
+};
 
 export const logout = async () => {
   if (isAuthenticated()) {
