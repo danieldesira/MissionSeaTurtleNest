@@ -24,7 +24,7 @@ const convertBase64ToUint8Array = (base64: string) => {
   const rawData = atob(
     (base64 + padding).replace(/-/g, "+").replace(/_/g, "/"),
   );
-  
+
   const result = new Uint8Array(rawData.length);
   for (let i = 0; i < result.length; i++) {
     result[i] = rawData.charCodeAt(i);

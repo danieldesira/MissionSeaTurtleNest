@@ -5,12 +5,6 @@ import { $id } from "./domQuery";
 import { toggleMode } from "./mainMenu";
 
 export const setupLoginInvitationDialog = () => {
-  const loginInvitationDialog = $id("loginInvitationDialog") as PrettyDialog;
-  loginInvitationDialog.closeButtonIds = [
-    "loginInvitationBtn",
-    "closeLoginInvitationBtn",
-  ];
-
   const loginInvitationBtn = $id("loginInvitationBtn") as PrettyButton;
   loginInvitationBtn.on("click", () => {
     const loginDialog = $id("loginDialog") as PrettyDialog;

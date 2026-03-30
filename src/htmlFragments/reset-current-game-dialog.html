@@ -6,6 +6,12 @@
     <span id="remainingGameResets"></span> resets remaining!
   </div>
   <div slot="footer" class="flex items-center justify-center gap-2">
-    <pretty-button id="closeResetCurrentGameDialog">Close</pretty-button>
+    <pretty-button
+      id="closeResetCurrentGameDialog"
+      dialog-target="resetCurrentGameDialog"
+      dialog-action="close"
+    >
+      Close
+    </pretty-button>
   </div>
 </pretty-dialog>

@@ -62,7 +62,6 @@ export const launchGameEndDialog = ({
 }: GameEndDialogOptions) => {
   const gameEndDialog = $id("gameEndDialog") as PrettyDialog;
   gameEndDialog.open();
-  gameEndDialog.closeButtonIds = ["gameEndDialogCloseBtn"];
   const gameEndDialogTitle = $id("gameEndDialogTitle");
   if (gameEndDialogTitle) {
     gameEndDialogTitle.innerText = title;
@@ -124,11 +123,6 @@ export const updateGauge = (
 ) => {
   const gauge = $id(id) as GameGauge;
   gauge.currentValue = value;
-};
-
-export const setupResumeBtn = () => {
-  const gamePausedDialog = $id("gamePausedDialog") as PrettyDialog;
-  gamePausedDialog.closeButtonIds = ["resumeBtn"];
 };
 
 const showGamePausedDialog = () => {
@@ -310,11 +304,6 @@ const populateCharacterList = (
 
     container.appendChild(characterContainer);
   });
-};
-
-export const setupLevelStartDialog = () => {
-  const levelStartDialog = $id("levelStartDialog") as PrettyDialog;
-  levelStartDialog.closeButtonIds = ["levelStartDialogCloseBtn"];
 };
 
 export const setupKeyboardShortcuts = () => {

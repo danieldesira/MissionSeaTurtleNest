@@ -4,6 +4,12 @@
     Game paused. Click the <strong>Resume</strong> button to continue.
   </div>
   <div slot="footer">
-    <pretty-button id="resumeBtn">Resume</pretty-button>
+    <pretty-button
+      id="resumeBtn"
+      dialog-target="gamePausedDialog"
+      dialog-action="close"
+    >
+      Resume
+    </pretty-button>
   </div>
 </pretty-dialog>

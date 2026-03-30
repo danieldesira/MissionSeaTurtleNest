@@ -1,9 +1,21 @@
+import { $id } from "../../utils/ui/domQuery";
 import { loadTemplate } from "../components";
+import type PrettyDialog from "../dialog/PrettyDialog";
 
 class MenuItem extends HTMLElement {
   constructor() {
     super();
     loadTemplate("menuItemTemplate", this);
+  }
+
+  connectedCallback() {
+    const dialogTarget = this.getAttribute("dialog-target");
+    if (dialogTarget) {
+      this.on("click", () => {
+        const dialog = $id(dialogTarget) as PrettyDialog;
+        dialog?.open();
+      });
+    }
   }
 
   show() {

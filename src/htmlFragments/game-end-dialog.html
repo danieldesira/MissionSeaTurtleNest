@@ -3,6 +3,12 @@
   <div slot="content" id="gameEndDialogContent"></div>
   <div slot="footer">
     <pretty-button id="gameEndDialogShareBtn">Share</pretty-button>
-    <pretty-button id="gameEndDialogCloseBtn">Close</pretty-button>
+    <pretty-button
+      id="gameEndDialogCloseBtn"
+      dialog-target="gameEndDialog"
+      dialog-action="close"
+    >
+      Close
+    </pretty-button>
   </div>
 </pretty-dialog>

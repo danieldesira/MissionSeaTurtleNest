@@ -1,4 +1,4 @@
-import { $, $id } from "../../utils/ui/domQuery";
+import { $ } from "../../utils/ui/domQuery";
 import { loadTemplate } from "../components";
 
 class PrettyDialog extends HTMLElement {
@@ -28,19 +28,6 @@ class PrettyDialog extends HTMLElement {
   close() {
     const dialog = this.shadowRoot?.querySelector("dialog");
     dialog?.close();
-  }
-
-  set closeButtonIds(value: string[]) {
-    value.forEach((id) => {
-      const element = $id(id);
-      if (element) {
-        element.addEventListener("click", () => {
-          this.close();
-        });
-      } else {
-        console.warn(`PrettyDialog: closeButtonIds: ${id} not found in DOM`);
-      }
-    });
   }
 
   set closeCallback(value: () => void) {

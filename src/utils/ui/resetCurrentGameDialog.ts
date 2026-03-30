@@ -10,8 +10,3 @@ export const showResetCurrentGameDialog = (resetsRemaining: number) => {
     remainingGameResets.innerText = resetsRemaining.toString();
   }
 };
-
-export const setupResetCurrentGameDialog = () => {
-  const resetCurrentGameDialog = $id("resetCurrentGameDialog") as PrettyDialog;
-  resetCurrentGameDialog.closeButtonIds = ["closeResetCurrentGameDialog"];
-};

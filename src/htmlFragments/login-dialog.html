@@ -25,7 +25,12 @@
       class="px-4 py-2 border border-slate-300 rounded-lg bg-white text-slate-700 font-medium flex items-center gap-2 hover:bg-slate-50 transition-all cursor-pointer"
       role="button"
     >
-      <img height="24" width="24" src="https://unpkg.com/simple-icons@v16/icons/facebook.svg" /> Sign in with Facebook
+      <img
+        height="24"
+        width="24"
+        src="https://unpkg.com/simple-icons@v16/icons/facebook.svg"
+      />
+      Sign in with Facebook
     </button>
     <p>Or continue as guest.</p>
   </div>
@@ -34,6 +39,12 @@
       Please note that the accounts feature makes use of cookies for secure
       authentication. By logging in, you are agreeing to the use of cookies.
     </p>
-    <pretty-button id="closeLoginBtn">Continue as guest</pretty-button>
+    <pretty-button
+      id="closeLoginBtn"
+      dialog-target="loginDialog"
+      dialog-action="close"
+    >
+      Continue as guest
+    </pretty-button>
   </div>
 </pretty-dialog>

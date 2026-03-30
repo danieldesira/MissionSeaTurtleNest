@@ -54,6 +54,7 @@
               id="scoresBtn"
               title="Scores (Accesskey: 2)"
               accesskey="2"
+              dialog-target="scoresDialog"
             >
               <i data-lucide="trophy"></i>
             </pretty-button>
@@ -62,6 +63,7 @@
                 id="loginBtn"
                 title="Login (Accesskey: 1)"
                 accesskey="1"
+                dialog-target="loginDialog"
               >
                 <i data-lucide="log-in"></i>
               </pretty-button>
@@ -71,6 +73,7 @@
                 id="settingsBtn"
                 title="Settings (Accesskey: 3)"
                 accesskey="3"
+                dialog-target="settingsDialog"
               >
                 <i data-lucide="settings"></i>
               </pretty-button>
@@ -88,7 +91,9 @@
         <div class="flex flex-col items-center gap-5">
           <menu-item id="continueGameBtn">Continue Game</menu-item>
           <menu-item id="newGameBtn">New Game</menu-item>
-          <menu-item id="instructionsBtn">Instructions</menu-item>
+          <menu-item id="instructionsBtn" dialog-target="instructionsDialog"
+            >Instructions</menu-item
+          >
           <span id="hint" class="text-primary text-sm font-bold"></span>
         </div>
         <div class="flex gap-5 items-center justify-center">
@@ -268,7 +273,13 @@
       <span slot="title" id="customDialogTitle"></span>
       <div slot="content" id="customDialogContent"></div>
       <div slot="footer" id="customDialogFooter">
-        <pretty-button id="closeCustomDialogBtn">OK</pretty-button>
+        <pretty-button
+          id="closeCustomDialogBtn"
+          dialog-target="customDialog"
+          dialog-action="close"
+        >
+          OK
+        </pretty-button>
       </div>
     </pretty-dialog>
     <!-- @inject src/htmlFragments/instructions-dialog.html -->

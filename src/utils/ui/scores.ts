@@ -1,7 +1,6 @@
 import { levelExists } from "../../levels/levels";
 import { fetchHighScores } from "../../services/api";
 import { personalBestStore } from "../../inMemoryStores/PersonalBestStore";
-import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type PrettyButton from "../../webComponents/form/PrettyButton";
 import { deleteChildren } from "./ui";
 import { hideWaitingNotice, showErrorNotice } from "./waitingNotice";
@@ -12,17 +11,8 @@ export const formatLevel = (levelNo: number) =>
   levelExists(levelNo) ? levelNo.toString() : "";
 
 export const setupScoresDialog = () => {
-  const scoresDialog = $id("scoresDialog") as PrettyDialog;
   const scoresBtn = $id("scoresBtn") as PrettyButton;
-
-  scoresBtn?.on("click", async () => {
-    scoresDialog.open();
-    await populateLeaderBoard();
-  });
-
-  if (scoresDialog) {
-    scoresDialog.closeButtonIds = ["closeScoresBtn"];
-  }
+  scoresBtn?.on("click", async () => await populateLeaderBoard());
 };
 
 export const updatePersonalBestPlaceholders = () => {

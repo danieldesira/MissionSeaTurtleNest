@@ -74,22 +74,15 @@ const initialiseFacebookSignInButton = () => {
 };
 
 export const setupLoginButtons = () => {
-  const loginBtn = $id("loginBtn") as PrettyButton;
-  const loginDialog = $id("loginDialog") as PrettyDialog;
-
   initialiseGoogleSignInButton();
   initialiseMicrosoftSignInButton();
   initialiseFacebookSignInButton();
-
-  if (loginDialog) {
-    loginDialog.closeButtonIds = ["closeLoginBtn"];
-  }
-  loginBtn?.on("click", () => loginDialog.open());
 
   const ssoToken = getSsoTokenFromLocalStorage();
   if (ssoToken) {
     handleSsoAuthResponse(ssoToken);
   } else {
+    const loginDialog = $id("loginDialog") as PrettyDialog;
     loginDialog?.open();
   }
 

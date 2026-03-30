@@ -83,17 +83,16 @@ const handleSettingsDialogClose = () => {
 };
 
 export const setupSettingsDialog = () => {
-  const settingsBtn = $id("settingsBtn") as PrettyButton;
   const settingsDialog = $id("settingsDialog") as PrettyDialog;
   if (settingsDialog) {
-    settingsDialog.closeButtonIds = ["closeSettingsBtn"];
     settingsDialog.closeCallback = handleSettingsDialogClose;
   }
-  settingsBtn?.on("click", () => settingsDialog.open());
 };
 
 export const setupSettingsProfileTab = () => {
-  const playerEmailReadonlyField = $id("playerEmailReadonlyField") as HTMLSpanElement;
+  const playerEmailReadonlyField = $id(
+    "playerEmailReadonlyField",
+  ) as HTMLSpanElement;
   playerEmailReadonlyField.innerText = profileStore.email;
 
   const playerNameInput = $id("playerNameInput") as TextInput;

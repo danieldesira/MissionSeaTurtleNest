@@ -30,16 +30,6 @@ export const toggleMode = (mode: "game" | "menu") => {
   }
 };
 
-export const setupInstructionsDialog = () => {
-  const instructionsDialog = $id("instructionsDialog") as PrettyDialog;
-  if (instructionsDialog) {
-    instructionsDialog.closeButtonIds = ["closeInstructionsBtn"];
-  }
-
-  const instructionsBtn = $id("instructionsBtn") as MenuItem;
-  instructionsBtn?.on("click", () => instructionsDialog.open());
-};
-
 export const setupNewGameMenuBtn = () => {
   const newGameBtn = $id("newGameBtn") as MenuItem;
   newGameBtn?.on("click", async () => {
@@ -77,12 +67,6 @@ const showGameOverwriteDialog = () => {
 };
 
 export const setupGameOverwriteDialog = () => {
-  const gameOverwriteDialog = $id("gameOverwriteDialog") as PrettyDialog;
-  gameOverwriteDialog.closeButtonIds = [
-    "cancelNewGameBtn",
-    "confirmNewGameBtn",
-  ];
-
   const confirmNewGameBtn = $id("confirmNewGameBtn") as PrettyButton;
   confirmNewGameBtn?.on("click", async () => await initGame(true));
 };
