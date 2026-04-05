@@ -33,7 +33,7 @@ export const toggleMode = (mode: "game" | "menu") => {
 export const setupNewGameMenuBtn = () => {
   const newGameBtn = $id("newGameBtn") as MenuItem;
   newGameBtn?.on("click", async () => {
-    if (isAuthenticated() && lastGameStore.hasData()) {
+    if (isAuthenticated() && lastGameStore.store) {
       showGameOverwriteDialog();
     } else {
       await initGame(true);
@@ -49,7 +49,7 @@ export const setupContinueGameBtn = () => {
 
 export const toggleContinueGameBtn = () => {
   const continueGameBtn = $id("continueGameBtn") as MenuItem;
-  if (isAuthenticated() && lastGameStore.hasData() && continueGameBtn) {
+  if (isAuthenticated() && lastGameStore.store && continueGameBtn) {
     continueGameBtn.innerText = `Continue Level ${lastGameStore.store.levelNo}`;
     continueGameBtn.show();
   } else {

@@ -9,6 +9,7 @@
   - Adapt high scores player check to use the new `guid` field from API 0.5.0
   - `MenuItem`, `PrettyButton`:
     `dialog-target` and `dialog-action` attributes replacing `closeButtonIds` array and custom logic
+  - `LastGameStore`: Remove `hasData()` so checks now rely directly on the `store` property
 - Authentication:
   - Implement Facebook SSO
 - Settings:

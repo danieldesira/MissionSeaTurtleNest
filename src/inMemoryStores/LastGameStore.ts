@@ -42,10 +42,6 @@ class LastGameStore implements IStore {
     this._isUploaded = false;
   }
 
-  hasData() {
-    return !!this._store;
-  }
-
   set store(value: GameProgressStore | null) {
     this._store = value;
   }
