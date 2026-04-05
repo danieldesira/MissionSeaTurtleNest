@@ -49,8 +49,9 @@ export const setupContinueGameBtn = () => {
 
 export const toggleContinueGameBtn = () => {
   const continueGameBtn = $id("continueGameBtn") as MenuItem;
-  if (isAuthenticated() && lastGameStore.hasData()) {
-    continueGameBtn?.show();
+  if (isAuthenticated() && lastGameStore.hasData() && continueGameBtn) {
+    continueGameBtn.innerText = `Continue Level ${lastGameStore.store.levelNo}`;
+    continueGameBtn.show();
   } else {
     continueGameBtn?.hide();
   }
