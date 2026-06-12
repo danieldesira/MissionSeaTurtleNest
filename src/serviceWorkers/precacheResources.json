@@ -1,8 +1,8 @@
 [
   "",
   "index.html",
-  "dist/bundle.js",
-  "dist/bundle.css",
+  "dist/index.js",
+  "dist/index.css",
   "favicon.svg",
   "images/backgrounds/level1.png",
   "images/backgrounds/level2.png",

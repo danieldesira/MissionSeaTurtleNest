@@ -10,6 +10,7 @@
   - `MenuItem`, `PrettyButton`:
     `dialog-target` and `dialog-action` attributes replacing `closeButtonIds` array and custom logic
   - `LastGameStore`: Remove `hasData()` so checks now rely directly on the `store` property
+  - Simplify filenames for all bundles and update `precacheResources.json`
 - Authentication:
   - Implement Facebook SSO
 - Settings:
