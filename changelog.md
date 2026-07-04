@@ -22,6 +22,8 @@
     `Continue Level ${lastLevel}`
 - Gameplay UI:
   - Vertically center game canvas
+- Offline PWA:
+  - Fix bug preventing loading game from cache when offline
 
 # 0.8.12 Beta - 20/03/2026 23:30 UTC+1
 
