@@ -33,7 +33,7 @@
     <script type="module" src="src/main.ts" blocking="render"></script>
   </head>
   <body class="select-none touch-none">
-    <!-- @inject src/htmlFragments/templates.html -->
+    @import(src/htmlFragments/templates.html)
     <div
       class="w-screen h-screen portrait:hidden bg-cute bg-no-repeat bg-center bg-cover flex items-center justify-center"
     >
@@ -174,7 +174,7 @@
             data-tooltip="Changelog"
             data-external="true"
           >
-            <!-- @version -->
+            @version
           </text-link>
           <social-link
             id="notificationsIcon"
@@ -183,7 +183,7 @@
           >
             <i data-lucide="bell-ring"></i>
           </social-link>
-          <span class="text-primary text-sm font-bold">RC</span>
+          <span class="text-primary text-sm font-bold">RC @build</span>
         </div>
       </div>
       <div id="gameContainer" class="hidden relative">
@@ -279,19 +279,19 @@
         </pretty-button>
       </div>
     </pretty-dialog>
-    <!-- @inject src/htmlFragments/instructions-dialog.html -->
-    <!-- @inject src/htmlFragments/game-end-dialog.html -->
-    <!-- @inject src/htmlFragments/game-paused-dialog.html -->
-    <!-- @inject src/htmlFragments/game-overwrite-dialog.html -->
-    <!-- @inject src/htmlFragments/overlay.html -->
-    <!-- @inject src/htmlFragments/login-dialog.html -->
-    <!-- @inject src/htmlFragments/settings-dialog.html -->
-    <!-- @inject src/htmlFragments/scores-dialog.html -->
-    <!-- @inject src/htmlFragments/login-invitation-dialog.html -->
-    <!-- @inject src/htmlFragments/heart-mating-animation.html -->
-    <!-- @inject src/htmlFragments/level-start-dialog.html -->
-    <!-- @inject src/htmlFragments/static-assets-loading-overlay.html -->
-    <!-- @inject src/htmlFragments/reset-current-game-dialog.html -->
+    @import(src/htmlFragments/instructions-dialog.html)
+    @import(src/htmlFragments/game-end-dialog.html)
+    @import(src/htmlFragments/game-paused-dialog.html)
+    @import(src/htmlFragments/game-overwrite-dialog.html)
+    @import(src/htmlFragments/overlay.html)
+    @import(src/htmlFragments/login-dialog.html)
+    @import(src/htmlFragments/settings-dialog.html)
+    @import(src/htmlFragments/scores-dialog.html)
+    @import(src/htmlFragments/login-invitation-dialog.html)
+    @import(src/htmlFragments/heart-mating-animation.html)
+    @import(src/htmlFragments/level-start-dialog.html)
+    @import(src/htmlFragments/static-assets-loading-overlay.html)
+    @import(src/htmlFragments/reset-current-game-dialog.html)
     <div
       id="waitingNotice"
       class="fixed top-1 right-1 p-2 font-semibold text-sm rounded-sm hidden opacity-90"

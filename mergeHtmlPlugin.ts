@@ -10,32 +10,25 @@ const processFile = (filePath: string) => {
   console.log(`Processing file: ${filePath}`);
 
   let content = fs.readFileSync(filePath, "utf-8");
-  let indexPosition = 0;
-  let closingPosition = 0;
-  while (indexPosition < content.length && indexPosition !== -1) {
-    const commentOpenBracket = "<!--";
-    const commentCloseBracket = "-->";
-    indexPosition = content.indexOf(commentOpenBracket, closingPosition);
-    closingPosition = content.indexOf(commentCloseBracket, indexPosition);
-    if (closingPosition !== -1) {
-      const commentContent = content.substring(
-        indexPosition + commentOpenBracket.length,
-        closingPosition,
-      );
-      const keyword = "@inject";
-      if (commentContent.includes(keyword)) {
-        const templatePath = commentContent
-          .substring(commentContent.indexOf(keyword) + keyword.length)
-          .trim();
-        if (fs.existsSync(templatePath)) {
-          content = content.replace(
-            `<!--${commentContent}-->`,
-            processFile(path.resolve(__dirname, templatePath)),
-          );
-        }
-      } else if (commentContent.includes("@version")) {
-        content = content.replace(`<!--${commentContent}-->`, version);
+  for (const match of content.matchAll(/@[a-z]+(\(([a-z]|.)+\))?/g)) {
+    const directive = match[0];
+    if (directive.startsWith("@import")) {
+      const templatePath = directive
+        .substring(directive.indexOf("(") + 1, directive.indexOf(")"))
+        .trim();
+      if (fs.existsSync(templatePath)) {
+        content = content.replace(
+          directive,
+          processFile(path.resolve(__dirname, templatePath)),
+        );
       }
+    } else if (directive.startsWith("@version")) {
+      console.log("Insert Version");
+      content = content.replace(directive, version);
+    } else if (directive.startsWith("@build")) {
+      console.log("Insert Build date");
+      const buildDate = new Date();
+      content = content.replace(directive, buildDate.toDateString());
     }
   }
   return content;
