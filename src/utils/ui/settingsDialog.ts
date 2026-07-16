@@ -1,6 +1,5 @@
 import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type ImageUploader from "../../webComponents/form/ImageUploader";
-import type PrettyButton from "../../webComponents/form/PrettyButton";
 import type TextInput from "../../webComponents/form/TextInput";
 import { updateProfile, uploadProfilePicture } from "../../services/api";
 import {

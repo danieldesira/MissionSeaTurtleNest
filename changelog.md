@@ -2,7 +2,7 @@
 
 - Internal:
   - Adjust logic for Prey Escape AI
-  - Upgrade to Typescript 6.0.2 (and fix broken build)
+  - Upgrade to Typescript 6.0.3 (and fix broken build)
   - `MenuItem`: Drop `callback` setter in favour of `on("click", callback)` method pattern
   - `GameControl`: Drop `callback` setter in favour of `onAction(callback)` method pattern
   - `SocialLink`: Drop `action` setter in favour of `on("click", callback)` method pattern
