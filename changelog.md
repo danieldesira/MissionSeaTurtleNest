@@ -12,6 +12,7 @@
   - `LastGameStore`: Remove `hasData()` so checks now rely directly on the `store` property
   - Simplify filenames for all bundles and update `precacheResources.json`
   - Simplify `mergeHtml` Vite plugin and add build date to generated HTML
+  - Uninstall `prettier`
 - Authentication:
   - Implement Facebook SSO
 - Settings:
