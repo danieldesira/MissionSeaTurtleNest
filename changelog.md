@@ -13,6 +13,7 @@
   - Simplify filenames for all bundles and update `precacheResources.json`
   - Simplify `mergeHtml` Vite plugin and add build date to generated HTML
   - Uninstall `prettier`
+  - Add `npm run preview` to preview production env in development
 - Authentication:
   - Implement Facebook SSO
 - Settings:

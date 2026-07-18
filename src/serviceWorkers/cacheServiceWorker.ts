@@ -1,17 +1,35 @@
 /// <reference lib="webworker" />
 
+//import { version } from "../../package.json";
 import precacheResources from "./precacheResources.json";
+
+const version = "0.9.0build1";
 
 const cacheSW = self as unknown as ServiceWorkerGlobalScope;
 
-// Choose a cache name
-const cacheName = "cache-v1";
+const cacheName = `cache-v${version}`;
 
-// When the service worker is installing, open the cache and add the precache resources to it
 cacheSW.addEventListener("install", (event) => {
   console.info("Service worker install event!");
   event.waitUntil(
     caches.open(cacheName).then((cache) => cache.addAll(precacheResources)),
+  );
+});
+
+cacheSW.addEventListener("activate", (event) => {
+  console.info("Service worker activate event!");
+  event.waitUntil(
+    caches.keys().then((cacheNames) =>
+      Promise.all(
+        cacheNames.map((name) => {
+          if (name !== cacheName) {
+            console.info("Deleting old cache:", name);
+            return caches.delete(name);
+          }
+          return Promise.resolve();
+        }),
+      ),
+    ),
   );
 });
 
