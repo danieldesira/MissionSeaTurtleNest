@@ -1,22 +1,21 @@
 /// <reference lib="webworker" />
 
-//import { version } from "../../package.json";
 import precacheResources from "./precacheResources.json";
 
 const version = "0.9.0build1";
 
-const cacheSW = self as unknown as ServiceWorkerGlobalScope;
+declare const self: ServiceWorkerGlobalScope;
 
 const cacheName = `cache-v${version}`;
 
-cacheSW.addEventListener("install", (event) => {
+self.addEventListener("install", (event) => {
   console.info("Service worker install event!");
   event.waitUntil(
     caches.open(cacheName).then((cache) => cache.addAll(precacheResources)),
   );
 });
 
-cacheSW.addEventListener("activate", (event) => {
+self.addEventListener("activate", (event) => {
   console.info("Service worker activate event!");
   event.waitUntil(
     caches.keys().then((cacheNames) =>
@@ -34,7 +33,7 @@ cacheSW.addEventListener("activate", (event) => {
 });
 
 // When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network
-cacheSW.addEventListener("fetch", (event) => {
+self.addEventListener("fetch", (event) => {
   console.info("Fetch intercepted for:", event.request.url);
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
