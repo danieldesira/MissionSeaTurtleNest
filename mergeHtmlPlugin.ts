@@ -12,7 +12,7 @@ const processFile = (filePath: string) => {
   let content = fs.readFileSync(filePath, "utf-8");
   for (const match of content.matchAll(/@[a-z]+(\(([a-z]|.)+\))?/g)) {
     const directive = match[0];
-    if (directive.startsWith("@import")) {
+    if (directive.startsWith("@include")) {
       const templatePath = directive
         .substring(directive.indexOf("(") + 1, directive.indexOf(")"))
         .trim();

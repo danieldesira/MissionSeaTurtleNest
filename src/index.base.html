@@ -33,7 +33,7 @@
     <script type="module" src="src/main.ts" blocking="render"></script>
   </head>
   <body class="select-none touch-none">
-    @import(src/htmlFragments/templates.html)
+    @include(src/htmlFragments/templates.html)
     <div
       class="w-screen h-screen portrait:hidden bg-cute bg-no-repeat bg-center bg-cover flex items-center justify-center"
     >
@@ -279,19 +279,19 @@
         </pretty-button>
       </div>
     </pretty-dialog>
-    @import(src/htmlFragments/instructions-dialog.html)
-    @import(src/htmlFragments/game-end-dialog.html)
-    @import(src/htmlFragments/game-paused-dialog.html)
-    @import(src/htmlFragments/game-overwrite-dialog.html)
-    @import(src/htmlFragments/overlay.html)
-    @import(src/htmlFragments/login-dialog.html)
-    @import(src/htmlFragments/settings-dialog.html)
-    @import(src/htmlFragments/scores-dialog.html)
-    @import(src/htmlFragments/login-invitation-dialog.html)
-    @import(src/htmlFragments/heart-mating-animation.html)
-    @import(src/htmlFragments/level-start-dialog.html)
-    @import(src/htmlFragments/static-assets-loading-overlay.html)
-    @import(src/htmlFragments/reset-current-game-dialog.html)
+    @include(src/htmlFragments/instructions-dialog.html)
+    @include(src/htmlFragments/game-end-dialog.html)
+    @include(src/htmlFragments/game-paused-dialog.html)
+    @include(src/htmlFragments/game-overwrite-dialog.html)
+    @include(src/htmlFragments/overlay.html)
+    @include(src/htmlFragments/login-dialog.html)
+    @include(src/htmlFragments/settings-dialog.html)
+    @include(src/htmlFragments/scores-dialog.html)
+    @include(src/htmlFragments/login-invitation-dialog.html)
+    @include(src/htmlFragments/heart-mating-animation.html)
+    @include(src/htmlFragments/level-start-dialog.html)
+    @include(src/htmlFragments/static-assets-loading-overlay.html)
+    @include(src/htmlFragments/reset-current-game-dialog.html)
     <div
       id="waitingNotice"
       class="fixed top-1 right-1 p-2 font-semibold text-sm rounded-sm hidden opacity-90"
