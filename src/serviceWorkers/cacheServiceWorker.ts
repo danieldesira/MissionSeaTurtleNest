@@ -1,12 +1,9 @@
-/// <reference lib="webworker" />
-
+import cacheVersion from "./cacheVersion.json";
 import precacheResources from "./precacheResources.json";
-
-const version = "0.9.0build1";
 
 declare const self: ServiceWorkerGlobalScope;
 
-const cacheName = `cache-v${version}`;
+const cacheName = `cache-v${cacheVersion.version}-c${cacheVersion.timestamp}`;
 
 self.addEventListener("install", (event) => {
   console.info("Service worker install event!");

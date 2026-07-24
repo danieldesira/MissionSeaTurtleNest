@@ -1,6 +1,8 @@
 /// <reference lib="webworker" />
 
-const notificationSW = self as unknown as ServiceWorkerGlobalScope;
+export type {};
+
+declare const self: ServiceWorkerGlobalScope;
 
 const apiBaseUrl = "https://dpns.onrender.com";
 
@@ -32,15 +34,15 @@ const convertBase64ToUint8Array = (base64: string) => {
   return result;
 };
 
-notificationSW.addEventListener("activate", async () => {
-  const subscription = await notificationSW.registration.pushManager.subscribe({
+self.addEventListener("activate", async () => {
+  const subscription = await self.registration.pushManager.subscribe({
     userVisibleOnly: true,
     applicationServerKey: convertBase64ToUint8Array(
       "BLrELejSr9QQyKkwD7F843xuxa6mcJvBjEDHi6aijE3ceiunzgomR-adZlwANAiD0dIs6jfuWUPaOwwWQ8vGg90",
     ),
   });
   await savePushSubscription(subscription);
-  notificationSW.clients
+  self.clients
     .matchAll()
     .then((clients) =>
       clients.forEach((client) =>
@@ -49,10 +51,10 @@ notificationSW.addEventListener("activate", async () => {
     );
 });
 
-notificationSW.addEventListener("push", async (event) => {
+self.addEventListener("push", async (event) => {
   const data = event.data?.json();
 
-  await notificationSW.registration.showNotification(data.title, {
+  await self.registration.showNotification(data.title, {
     body: data.body,
     icon: "/favicon.svg",
   });
