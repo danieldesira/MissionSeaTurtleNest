@@ -14,6 +14,7 @@
   - Simplify `mergeHtml` Vite plugin and add build date to generated HTML
   - Uninstall `prettier`
   - Add `npm run preview` to preview production env in development
+  - Update Tailwind CSS to 4.3.3 and Vite to 8.1.5
 - Authentication:
   - Implement Facebook SSO
 - Settings:
