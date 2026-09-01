@@ -2,5 +2,5 @@
 /dev
 /dist
 .env
-index.html\
+index.html
 /src/serviceWorkers/cacheVersion.json
