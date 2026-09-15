@@ -1,3 +1,5 @@
+// <reference lib="webworker" />
+
 import cacheVersion from "./cacheVersion.json";
 import precacheResources from "./precacheResources.json";
 
@@ -8,7 +10,18 @@ const cacheName = `cache-v${cacheVersion.version}-c${cacheVersion.timestamp}`;
 self.addEventListener("install", (event) => {
   console.info("Service worker install event!");
   event.waitUntil(
-    caches.open(cacheName).then((cache) => cache.addAll(precacheResources)),
+    caches.open(cacheName).then(async (cache) => {
+      await Promise.all(
+        precacheResources.map(async (resource) => {
+          try {
+            await cache.add(resource);
+          } catch (error) {
+            console.error(`Unable to precache ${resource}`, error);
+          }
+        }),
+      );
+      await self.skipWaiting();
+    }),
   );
 });
 
@@ -27,6 +40,7 @@ self.addEventListener("activate", (event) => {
       ),
     ),
   );
+  event.waitUntil(self.clients.claim());
 });
 
 // When there's an incoming fetch request, try and respond with a precached resource, otherwise fall back to the network

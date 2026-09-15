@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx",
     "sourceMap": true,
     "module": "ESNext",
     "target": "ES2022",

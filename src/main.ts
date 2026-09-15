@@ -7,7 +7,10 @@ import {
   setupNotifications,
 } from "./utils/ui/ui";
 import { setupKeyboardControls } from "./utils/controls";
-import { registerServiceWorker } from "./utils/serviceWorkers";
+import {
+  clearServiceWorkers,
+  registerServiceWorker,
+} from "./utils/serviceWorkers";
 import { setupLoginButtons } from "./utils/ui/authUi";
 import {
   setupAppVisibilityHandler,
@@ -31,7 +34,11 @@ import { setupMainMenuKeyboardNavigation } from "./utils/ui/mainMenuKeyboardNavi
 import { showRandomHint } from "./utils/ui/hints";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  registerServiceWorker("cache");
+  if (!import.meta.env.DEV) {
+    registerServiceWorker("cache");
+  } else {
+    clearServiceWorkers();
+  }
   disableContextMenu();
   preventNavigation();
 
