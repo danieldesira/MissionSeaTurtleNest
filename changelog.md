@@ -17,6 +17,7 @@
   - Update Tailwind CSS to 4.3.3 and Vite to 8.1.5
   - Delete notifications service worker
   - Use `friendlyName` from `package.json` in codebase
+  - Resize images and use AVIF format for much smaller footprint
 - Authentication:
   - Implement Facebook SSO
 - Settings:
@@ -29,8 +30,8 @@
 - Gameplay:
   - Vertically center game canvas
   - Desktop notification when user switches tab, closes or minimises
-- Offline PWA:
-  - Fix bug preventing loading game from cache when offline
+- PWA:
+  - Fix offline resource caching
 
 # 0.8.12 Beta - 20/03/2026 23:30 UTC+1
 

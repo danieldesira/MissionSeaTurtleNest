@@ -1,5 +1,3 @@
-// <reference lib="webworker" />
-
 import cacheVersion from "./cacheVersion.json";
 import precacheResources from "./precacheResources.json";
 
