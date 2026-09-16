@@ -3,6 +3,7 @@
   "/index.html",
   "/index.js",
   "/index.css",
+  "/manifest.json",
   "/favicon.svg",
   "/images/backgrounds/level1.png",
   "/images/backgrounds/level2.png",
@@ -31,5 +32,9 @@
   "/music/tropical-beach-cinematic-beach-tropical-music-waves-drum-synth-nature-mastered-10079.ogg",
   "/images/logo-ntm-fee-2020.jpg",
   "/images/babyTurtle.avif",
-  "/images/babyTurtle.jpg"
+  "/images/babyTurtle.jpg",
+  "/simple-icons/github.svg",
+  "/simple-icons/youtube.svg",
+  "/simple-icons/instagram.svg",
+  "/simple-icons/facebook.svg"
 ]

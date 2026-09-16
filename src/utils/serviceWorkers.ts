@@ -1,10 +1,15 @@
 export const registerServiceWorker = async (workerType: "cache") => {
   if (navigator.serviceWorker) {
-    const worker = await navigator.serviceWorker.register(
-      `${workerType}ServiceWorker.js`,
-      { type: "module" },
-    );
-    console.log(`Registered service worker ${worker}`);
+    try {
+      const registration = await navigator.serviceWorker.register(
+        `/${workerType}ServiceWorker.js`,
+        { type: "module" },
+      );
+      await registration.update();
+      console.log(`Registered service worker ${registration.scope}`);
+    } catch (error) {
+      console.error("Unable to register service worker", error);
+    }
   }
 };
 

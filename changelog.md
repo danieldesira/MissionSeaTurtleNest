@@ -19,6 +19,7 @@
   - Use `friendlyName` from `package.json` in codebase
   - Resize images and use AVIF format for much smaller footprint
   - Use lazy loading for image in instructions dialog
+  - Added Lucide icons to JS bundle and Simple Icons to public assets
 - Authentication:
   - Implement Facebook SSO
 - Settings:

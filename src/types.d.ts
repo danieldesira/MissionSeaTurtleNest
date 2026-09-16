@@ -12,9 +12,6 @@ declare global {
         };
       };
     };
-    lucide?: {
-      createIcons: () => void;
-    };
     msal?: {
       PublicClientApplication: new (config: unknown) => unknown;
     };
