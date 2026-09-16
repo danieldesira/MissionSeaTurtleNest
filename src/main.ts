@@ -3,6 +3,7 @@ import { registerComponents } from "./webComponents/components";
 import {
   disableContextMenu,
   preventNavigation,
+  removeNoJsClass,
   setupFullscreenBtn,
   setupNotifications,
 } from "./utils/ui/ui";
@@ -68,4 +69,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupMusic();
   setupMainMenuKeyboardNavigation();
   showRandomHint();
+
+  removeNoJsClass();
 });

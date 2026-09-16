@@ -42,3 +42,5 @@ export const setupNotifications = async () => {
 
   await setupNotificationPermissionListener();
 };
+
+export const removeNoJsClass = () => document.body.classList.remove("no-js");

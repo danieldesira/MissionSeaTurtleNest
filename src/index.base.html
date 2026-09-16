@@ -20,6 +20,15 @@
       name="twitter:image"
       content="https://turtle-quest.vercel.app/images/screenshot.png"
     />
+    <style>
+      .no-js {
+        background-color: #db2777;
+      }
+
+      .no-js > * {
+        display: none;
+      }
+    </style>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://accounts.google.com/gsi/client"></script>
     <script
@@ -32,7 +41,7 @@
     ></script>
     <script type="module" src="src/main.ts" blocking="render"></script>
   </head>
-  <body class="select-none touch-none">
+  <body class="select-none touch-none no-js">
     @include(src/htmlFragments/templates.html)
     <div
       class="w-screen h-screen portrait:hidden bg-cute bg-no-repeat bg-center bg-cover flex items-center justify-center"

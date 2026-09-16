@@ -18,6 +18,7 @@
   - Delete notifications service worker
   - Use `friendlyName` from `package.json` in codebase
   - Resize images and use AVIF format for much smaller footprint
+  - Use lazy loading for image in instructions dialog
 - Authentication:
   - Implement Facebook SSO
 - Settings:
@@ -27,6 +28,7 @@
   - Remove Linkedin link
   - `Continue Game` menu item text changed to include level number:
     `Continue Level ${lastLevel}`
+  - Remove the weird text display when the page is still being loaded
 - Gameplay:
   - Vertically center game canvas
   - Desktop notification when user switches tab, closes or minimises
