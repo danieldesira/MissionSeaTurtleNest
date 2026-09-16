@@ -1,3 +1,23 @@
+import {
+  AirVent,
+  BellRing,
+  ChevronLeft,
+  CircleChevronDown,
+  CircleChevronLeft,
+  CircleChevronRight,
+  CircleChevronUp,
+  Fullscreen,
+  Heart,
+  HeartPulse,
+  Link,
+  LogIn,
+  LogOut,
+  Pause,
+  Settings,
+  Shrimp,
+  Trophy,
+  Wallet,
+} from "lucide";
 import type PrettyButton from "../../webComponents/form/PrettyButton";
 import type SocialLink from "../../webComponents/links/SocialLink";
 import {
@@ -44,3 +64,24 @@ export const setupNotifications = async () => {
 };
 
 export const removeNoJsClass = () => document.body.classList.remove("no-js");
+
+export const lucideIcons = {
+  CircleChevronLeft,
+  CircleChevronRight,
+  CircleChevronUp,
+  CircleChevronDown,
+  Pause,
+  ChevronLeft,
+  Shrimp,
+  Heart,
+  Fullscreen,
+  Trophy,
+  LogIn,
+  Settings,
+  LogOut,
+  Link,
+  BellRing,
+  HeartPulse,
+  Wallet,
+  AirVent,
+};

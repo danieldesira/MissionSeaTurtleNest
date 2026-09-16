@@ -2,6 +2,7 @@ import "./main.css";
 import { registerComponents } from "./webComponents/components";
 import {
   disableContextMenu,
+  lucideIcons,
   preventNavigation,
   removeNoJsClass,
   setupFullscreenBtn,
@@ -33,27 +34,7 @@ import { setupLoginInvitationDialog } from "./utils/ui/loginInvitationDialog";
 import { setupMusic } from "./utils/audio";
 import { setupMainMenuKeyboardNavigation } from "./utils/ui/mainMenuKeyboardNavigation";
 import { showRandomHint } from "./utils/ui/hints";
-import {
-  AirVent,
-  BellRing,
-  ChevronLeft,
-  CircleChevronDown,
-  CircleChevronLeft,
-  CircleChevronRight,
-  CircleChevronUp,
-  createIcons,
-  Fullscreen,
-  Heart,
-  HeartPulse,
-  Link,
-  LogIn,
-  LogOut,
-  Pause,
-  Settings,
-  Shrimp,
-  Trophy,
-  Wallet,
-} from "lucide";
+import { createIcons } from "lucide";
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (!import.meta.env.DEV) {
@@ -65,26 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   preventNavigation();
 
   createIcons({
-    icons: {
-      CircleChevronLeft,
-      CircleChevronRight,
-      CircleChevronUp,
-      CircleChevronDown,
-      Pause,
-      ChevronLeft,
-      Shrimp,
-      Heart,
-      Fullscreen,
-      Trophy,
-      LogIn,
-      Settings,
-      LogOut,
-      Link,
-      BellRing,
-      HeartPulse,
-      Wallet,
-      AirVent,
-    },
+    icons: lucideIcons,
   });
   registerComponents();
 
