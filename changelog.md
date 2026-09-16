@@ -25,7 +25,7 @@
 - Settings:
   - Fix: Date of Birth cleared when switching to an account without a set DOB
 - Main menu:
-  - Brand icons migrated to Simple Icons (No longer the same style either)
+  - Brand icons migrated to Simple Icons (with fill modification)
   - Remove Linkedin link
   - `Continue Game` menu item text changed to include level number:
     `Continue Level ${lastLevel}`

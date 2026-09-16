@@ -21,12 +21,14 @@
       content="https://turtle-quest.vercel.app/images/screenshot.png"
     />
     <style>
+      @reference "./src/main.css";
+
       .no-js {
-        background-color: #db2777;
+        @apply bg-primary;
       }
 
       .no-js > * {
-        display: none;
+        @apply hidden;
       }
     </style>
     <script src="https://accounts.google.com/gsi/client"></script>
@@ -150,7 +152,7 @@
             />
           </social-link>
           <social-link
-            data-url="https://turtle-site-five.vercel.app/"
+            data-url="https://mission-sea-turtle-nest-website.vercel.app/"
             data-tooltip="Check out the game website"
             data-external="true"
           >
