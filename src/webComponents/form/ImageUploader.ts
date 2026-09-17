@@ -41,7 +41,6 @@ class ImageUploader extends HTMLElement {
             ctx?.drawImage(img, 0, 0);
           };
           img.src = e.target?.result as string;
-          console.log(img.src);
         };
         reader.readAsDataURL(selectedFile);
       }
