@@ -1,7 +1,7 @@
 import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
 import type ImageUploader from "../../webComponents/form/ImageUploader";
 import type TextInput from "../../webComponents/form/TextInput";
-import { updateProfile, uploadProfilePicture } from "../../services/api";
+import { updateProfile } from "../../services/api";
 import {
   hideWaitingNotice,
   showErrorNotice,
@@ -104,25 +104,8 @@ export const setupSettingsProfileTab = () => {
     playerDobInput.value = "";
   }
 
-  const profilePicUploader = $id("profilePicUploader") as ImageUploader;
-  profilePicUploader.currentImageUrl = profileStore.profilePicUrl;
-  profilePicUploader.onChange(async (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    try {
-      showWaitingNotice("Uploading a new profile picture");
-      if (target.files?.length) {
-        const res = await uploadProfilePicture(target.files[0]);
-        profilePicUploader.currentImageUrl = res?.profilePicUrl ?? "";
-      }
-    } catch {
-      showErrorNotice(
-        "Failed to upload profile picture. Please try again!",
-        500,
-      );
-    } finally {
-      hideWaitingNotice();
-    }
-  });
+  const avatarUploader = $id("avatarUploader") as ImageUploader;
+  avatarUploader.currentImageUrl = profileStore.profilePicUrl;
 };
 
 const getScreenControlPositionRadioValue = () => {

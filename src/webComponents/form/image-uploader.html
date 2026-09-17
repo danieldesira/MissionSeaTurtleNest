@@ -3,7 +3,11 @@
     @reference "./src/main.css";
 
     .btn {
-      @apply flex justify-start p-2 rounded-sm border-solid border-2 border-primary cursor-pointer;
+      @apply flex justify-start p-2 rounded-sm border-solid border-2 border-primary cursor-pointer transition-colors duration-500;
+    }
+
+    .btn:hover {
+      @apply bg-primary;
     }
 
     .btn.error {
@@ -11,7 +15,15 @@
     }
 
     .btnText {
-      @apply flex justify-center items-center w-full text-sm font-semibold text-primary;
+      @apply flex justify-center items-center w-full text-sm font-semibold text-primary transition-colors duration-500;
+    }
+
+    :hover .btnText {
+      @apply text-white;
+    }
+
+    canvas {
+      @apply w-fit;
     }
 
     input[type="file"] {
@@ -25,9 +37,9 @@
   <form-field>
     <slot slot="label"></slot>
     <div class="btn" role="button" slot="field">
-      <img alt="" />
       <div class="btnText">Upload... (10MB max)</div>
       <input type="file" accept=".jpg,.png,.webp,.gif" />
     </div>
+    <canvas height="500"></canvas>
   </form-field>
 </template>

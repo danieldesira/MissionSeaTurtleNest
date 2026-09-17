@@ -19,6 +19,33 @@ class ImageUploader extends HTMLElement {
     if (formField) {
       formField.id = this.id;
     }
+
+    const fileInput = this.shadowRoot?.querySelector(
+      'input[type="file"]',
+    ) as HTMLElement;
+    fileInput?.addEventListener("change", (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      const selectedFile = target.files?.[0];
+
+      const canvas = this.shadowRoot?.querySelector(
+        "canvas",
+      ) as HTMLCanvasElement;
+      if (canvas && selectedFile) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d");
+            ctx?.drawImage(img, 0, 0);
+          };
+          img.src = e.target?.result as string;
+          console.log(img.src);
+        };
+        reader.readAsDataURL(selectedFile);
+      }
+    });
   }
 
   set currentImageUrl(value: string) {
@@ -26,34 +53,6 @@ class ImageUploader extends HTMLElement {
     if (image) {
       image.src = value;
     }
-  }
-
-  onChange(callback: (_: Event) => void) {
-    const fileInput = this.shadowRoot?.querySelector(
-      'input[type="file"]',
-    ) as HTMLElement;
-    fileInput?.addEventListener("change", (event: Event) => {
-      const target = event.target as HTMLInputElement;
-      const selectedFile = target.files?.[0];
-      if (selectedFile?.size ?? 0 > 10 * 1_024 * 1_024) {
-        this.indicateError();
-      } else {
-        this.removeError();
-        if (callback) {
-          callback(event);
-        }
-      }
-    });
-  }
-
-  private indicateError() {
-    const button = this.shadowRoot?.querySelector(".btn");
-    button?.classList.add("error");
-  }
-
-  private removeError() {
-    const button = this.shadowRoot?.querySelector(".btn");
-    button?.classList.remove("error");
   }
 }
 
