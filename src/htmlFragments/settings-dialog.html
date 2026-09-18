@@ -28,11 +28,8 @@
             </div>
           </tab-container>
           <tab-container id="avatar-tab">
-            <div class="flex flex-col gap-1">
-              <image-uploader id="avatarUploader">
-                Avatar
-              </image-uploader>
-            </div>
+            @include(./src/htmlFragments/avatar-field.html)
+          </tab-container>
           <tab-container id="controls-tab">
             <form-field id="screenControlPositionRadio">
               <span slot="label">Screen Controls Position</span>

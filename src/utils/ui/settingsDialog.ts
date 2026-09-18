@@ -1,5 +1,4 @@
 import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
-import type ImageUploader from "../../webComponents/form/ImageUploader";
 import type TextInput from "../../webComponents/form/TextInput";
 import { updateProfile } from "../../services/api";
 import {
@@ -11,6 +10,7 @@ import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore"
 import { profileStore } from "../../inMemoryStores/ProfileStore";
 import { applyAudioVolume } from "../audio";
 import { $id } from "./domQuery";
+import { setupAvatarField } from "./avatarField";
 
 export const setupControlSettings = () => {
   const screenControlPositionRadios = document.getElementsByName(
@@ -104,8 +104,7 @@ export const setupSettingsProfileTab = () => {
     playerDobInput.value = "";
   }
 
-  const avatarUploader = $id("avatarUploader") as ImageUploader;
-  avatarUploader.currentImageUrl = profileStore.profilePicUrl;
+  setupAvatarField();
 };
 
 const getScreenControlPositionRadioValue = () => {

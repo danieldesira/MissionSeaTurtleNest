@@ -1,0 +1,20 @@
+<div class="flex flex-col gap-1">
+  <pretty-button id="avatarBtn">Upoad... (1MB max)</pretty-button>
+  <input
+    type="file"
+    accept=".jpg,.png,.webp,.gif,.avif"
+    id="avatarInput"
+    class="hidden"
+  />
+  <pretty-dialog id="avatarPreviewDialog">
+    <span slot="title">Image Preview</span>
+    <div slot="content">
+      <canvas id="avatarPreviewCanvas"></canvas>
+    </div>
+    <div slot="footer">
+      <pretty-button dialog-target="avatarPreviewDialog" dialog-action="close">
+        OK
+      </pretty-button>
+    </div>
+  </pretty-dialog>
+</div>

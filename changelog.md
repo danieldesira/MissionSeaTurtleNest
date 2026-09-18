@@ -20,10 +20,13 @@
   - Resize images and use AVIF format for much smaller footprint
   - Use lazy loading for image in instructions dialog
   - Added Lucide icons to JS bundle and Simple Icons to public assets
+  - Removed `<image-uploader>` web component
+  - `<pretty-dialog>` content got a horizontal auto overflow
 - Authentication:
   - Implement Facebook SSO
 - Settings:
   - Fix: Date of Birth cleared when switching to an account without a set DOB
+  - Revamped the avatar upload field
 - Main menu:
   - Brand icons migrated to Simple Icons (with fill modification)
   - Remove Linkedin link
