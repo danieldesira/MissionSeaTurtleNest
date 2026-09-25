@@ -1,13 +1,13 @@
 import { game } from "../singletons/Game";
 import { saveScore } from "../services/api";
 import { isAuthenticated } from "./authentication";
-import { updatePersonalBestPlaceholders } from "./ui/scores";
+import { updatePersonalBestPlaceholders } from "../ui/scores";
 import {
   hideWaitingNotice,
   showErrorNotice,
   showWaitingNotice,
-} from "./ui/waitingNotice";
-import { hideContinueGameBtn } from "./ui/mainMenu";
+} from "../ui/waitingNotice";
+import { hideContinueGameBtn } from "../ui/mainMenu";
 import { personalBestStore } from "../inMemoryStores/PersonalBestStore";
 import { lastGameStore } from "../inMemoryStores/LastGameStore";
 import { levelExists } from "../levels/levels";

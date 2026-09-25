@@ -1,4 +1,4 @@
-import { game } from "../../singletons/Game";
+import { game } from "../singletons/Game";
 import { $id } from "./domQuery";
 
 export const updateXpSpan = () => {

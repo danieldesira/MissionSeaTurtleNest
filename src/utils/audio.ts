@@ -2,8 +2,8 @@ import {
   hideAssetLoadingOverlay,
   showAssetLoadingOverlay,
   updateAssetLoadingProgressBar,
-} from "./ui/staticAssetsLoadingOverlay";
-import { showErrorNotice } from "./ui/waitingNotice";
+} from "../ui/staticAssetsLoadingOverlay";
+import { showErrorNotice } from "../ui/waitingNotice";
 import {
   ogg as oggTotalSize,
   mp3 as mp3TotalSize,

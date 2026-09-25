@@ -7,13 +7,13 @@ import {
   removeNoJsClass,
   setupFullscreenBtn,
   setupNotifications,
-} from "./utils/ui/ui";
+} from "./ui/ui";
 import { setupKeyboardControls } from "./utils/controls";
 import {
   clearServiceWorkers,
   registerServiceWorker,
 } from "./utils/serviceWorkers";
-import { setupLoginButtons } from "./utils/ui/authUi";
+import { setupLoginButtons } from "./ui/authUi";
 import {
   setupAppVisibilityHandler,
   setupBackToMenuBtn,
@@ -23,17 +23,17 @@ import {
   setupGameShareBtn,
   setupKeyboardShortcuts,
   setupPauseBtn,
-} from "./utils/ui/gameplay";
-import { setupScoresDialog } from "./utils/ui/scores";
+} from "./ui/gameplay";
+import { setupScoresDialog } from "./ui/scores";
 import {
   setupContinueGameBtn,
   setupGameOverwriteDialog,
   setupNewGameMenuBtn,
-} from "./utils/ui/mainMenu";
-import { setupLoginInvitationDialog } from "./utils/ui/loginInvitationDialog";
+} from "./ui/mainMenu";
+import { setupLoginInvitationDialog } from "./ui/loginInvitationDialog";
 import { setupMusic } from "./utils/audio";
-import { setupMainMenuKeyboardNavigation } from "./utils/ui/mainMenuKeyboardNavigation";
-import { showRandomHint } from "./utils/ui/hints";
+import { setupMainMenuKeyboardNavigation } from "./ui/mainMenuKeyboardNavigation";
+import { showRandomHint } from "./ui/hints";
 import { createIcons } from "lucide";
 
 document.addEventListener("DOMContentLoaded", async () => {

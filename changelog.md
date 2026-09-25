@@ -22,6 +22,7 @@
   - Added Lucide icons to JS bundle and Simple Icons to public assets
   - Removed `<image-uploader>` web component
   - `<pretty-dialog>` content got a horizontal auto overflow
+  - Moved `ui` folder outside of `utils`
 - Authentication:
   - Implement Facebook SSO
 - Settings:

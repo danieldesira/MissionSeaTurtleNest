@@ -1,8 +1,8 @@
-import { lastGameStore } from "../../inMemoryStores/LastGameStore";
-import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
-import type PrettyButton from "../../webComponents/form/PrettyButton";
-import type MenuItem from "../../webComponents/mainMenu/MenuItem";
-import { isAuthenticated } from "../authentication";
+import { lastGameStore } from "../inMemoryStores/LastGameStore";
+import type PrettyDialog from "../webComponents/dialog/PrettyDialog";
+import type PrettyButton from "../webComponents/form/PrettyButton";
+import type MenuItem from "../webComponents/mainMenu/MenuItem";
+import { isAuthenticated } from "../utils/authentication";
 import { $id } from "./domQuery";
 import { initialiseGame, setupOnscreenControlsPosition } from "./gameplay";
 import { showRandomHint } from "./hints";

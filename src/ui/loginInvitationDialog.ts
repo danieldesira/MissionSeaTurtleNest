@@ -1,6 +1,6 @@
-import { game } from "../../singletons/Game";
-import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
-import type PrettyButton from "../../webComponents/form/PrettyButton";
+import { game } from "../singletons/Game";
+import type PrettyDialog from "../webComponents/dialog/PrettyDialog";
+import type PrettyButton from "../webComponents/form/PrettyButton";
 import { $id } from "./domQuery";
 import { toggleMode } from "./mainMenu";
 

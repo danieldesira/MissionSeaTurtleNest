@@ -1,4 +1,4 @@
-import { $id } from "../utils/ui/domQuery";
+import { $id } from "../ui/domQuery";
 import PrettyDialog from "./dialog/PrettyDialog";
 import FormField from "./form/FormField";
 import PrettyButton from "./form/PrettyButton";

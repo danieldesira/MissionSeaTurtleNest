@@ -1,6 +1,6 @@
-import { game } from "../../singletons/Game";
-import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
-import type MenuItem from "../../webComponents/mainMenu/MenuItem";
+import { game } from "../singletons/Game";
+import PrettyDialog from "../webComponents/dialog/PrettyDialog";
+import type MenuItem from "../webComponents/mainMenu/MenuItem";
 import { $, $id } from "./domQuery";
 
 const menuOptions: Record<number, string> = {

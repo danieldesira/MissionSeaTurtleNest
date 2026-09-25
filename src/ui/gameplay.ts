@@ -1,11 +1,11 @@
-import { saveGame } from "../../services/api";
-import { game } from "../../singletons/Game";
-import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
-import type PrettyButton from "../../webComponents/form/PrettyButton";
-import type GameControl from "../../webComponents/gameplay/GameControl";
-import type GameGauge from "../../webComponents/gameplay/GameGauge";
-import { isAuthenticated } from "../authentication";
-import { resizeCanvas } from "../generic";
+import { saveGame } from "../services/api";
+import { game } from "../singletons/Game";
+import PrettyDialog from "../webComponents/dialog/PrettyDialog";
+import type PrettyButton from "../webComponents/form/PrettyButton";
+import type GameControl from "../webComponents/gameplay/GameControl";
+import type GameGauge from "../webComponents/gameplay/GameGauge";
+import { isAuthenticated } from "../utils/authentication";
+import { resizeCanvas } from "../utils/generic";
 import { toggleMode } from "./mainMenu";
 import {
   hideWaitingNotice,
@@ -15,15 +15,15 @@ import {
 import { showLoginInvitationDialog } from "./loginInvitationDialog";
 import { deleteChildren } from "./ui";
 import { formatLevel } from "./scores";
-import type { LevelCharacter } from "../../levels/types";
+import type { LevelCharacter } from "../levels/types";
 import { updateXpSpan } from "./xp";
-import type { ILevel } from "../../levels/interfaces";
-import type { CharacterGameClassification } from "../../characters/types";
-import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
-import { lastGameStore } from "../../inMemoryStores/LastGameStore";
+import type { ILevel } from "../levels/interfaces";
+import type { CharacterGameClassification } from "../characters/types";
+import { controlSettingsStore } from "../inMemoryStores/ControlSettingsStore";
+import { lastGameStore } from "../inMemoryStores/LastGameStore";
 import { $, $id } from "./domQuery";
-import { showNotification } from "../notifications";
-import { friendlyName } from "../../../package.json";
+import { showNotification } from "../utils/notifications";
+import { friendlyName } from "../../package.json";
 
 export const setupGameControls = () => {
   const upControl = $id("upControl") as GameControl;

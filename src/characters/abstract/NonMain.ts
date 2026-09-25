@@ -3,7 +3,7 @@ import {
   checkBoundingBoxCollision,
   getCharacterBoundingBox,
 } from "../../utils/checkCollision";
-import { getCanvas } from "../../utils/ui/gameplay";
+import { getCanvas } from "../../ui/gameplay";
 import type { INonMainCharacter } from "../interfaces";
 import type { CharacterGameClassification } from "../types";
 import Character from "./Character";

@@ -1,4 +1,4 @@
-import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
+import type PrettyDialog from "../webComponents/dialog/PrettyDialog";
 import { $id } from "./domQuery";
 
 export const showResetCurrentGameDialog = (resetsRemaining: number) => {

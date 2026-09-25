@@ -2,7 +2,7 @@ import type { ILevel } from "./interfaces";
 import type { LevelConstructorOptions, LevelCharacter } from "./types";
 import type { HorizontalDirection } from "../types";
 import { game } from "../singletons/Game";
-import { launchLevelStartDialog } from "../utils/ui/gameplay";
+import { launchLevelStartDialog } from "../ui/gameplay";
 
 class Level implements ILevel {
   private readonly _backgroundImageFilename: string;

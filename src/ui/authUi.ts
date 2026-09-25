@@ -1,12 +1,12 @@
-import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
-import PrettyButton from "../../webComponents/form/PrettyButton";
+import PrettyDialog from "../webComponents/dialog/PrettyDialog";
+import PrettyButton from "../webComponents/form/PrettyButton";
 import {
   getSsoTokenFromLocalStorage,
   handleSsoAuthResponse,
   isAuthenticated,
   logout,
-} from "../authentication";
-import { initializeMsalBrowser, handleMicrosoftSignIn } from "../microsoftAuth";
+} from "../utils/authentication";
+import { initializeMsalBrowser, handleMicrosoftSignIn } from "../utils/microsoftAuth";
 import { $id } from "./domQuery";
 import { setupSettingsDialog } from "./settingsDialog";
 import { showErrorNotice } from "./waitingNotice";

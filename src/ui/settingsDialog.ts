@@ -1,14 +1,14 @@
-import type PrettyDialog from "../../webComponents/dialog/PrettyDialog";
-import type TextInput from "../../webComponents/form/TextInput";
-import { updateProfile } from "../../services/api";
+import type PrettyDialog from "../webComponents/dialog/PrettyDialog";
+import type TextInput from "../webComponents/form/TextInput";
+import { updateProfile } from "../services/api";
 import {
   hideWaitingNotice,
   showErrorNotice,
   showWaitingNotice,
 } from "./waitingNotice";
-import { controlSettingsStore } from "../../inMemoryStores/ControlSettingsStore";
-import { profileStore } from "../../inMemoryStores/ProfileStore";
-import { applyAudioVolume } from "../audio";
+import { controlSettingsStore } from "../inMemoryStores/ControlSettingsStore";
+import { profileStore } from "../inMemoryStores/ProfileStore";
+import { applyAudioVolume } from "../utils/audio";
 import { $id } from "./domQuery";
 import { setupAvatarField } from "./avatarField";
 

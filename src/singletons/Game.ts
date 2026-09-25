@@ -14,19 +14,19 @@ import {
 } from "../utils/gameplay";
 import { restoreGameProgress } from "../utils/gameProgressRecovery";
 import { resizeCanvas, vibrate } from "../utils/generic";
-import { launchCustomDialog } from "../utils/ui/customDialog";
+import { launchCustomDialog } from "../ui/customDialog";
 import {
   getCanvas,
   launchGameEndDialog,
   launchHeartMatingAnimation,
-} from "../utils/ui/gameplay";
-import { toggleMode } from "../utils/ui/mainMenu";
-import { hideOverlay, showOverlay } from "../utils/ui/overlay";
-import { showXpUpdate, updateXpSpan } from "../utils/ui/xp";
+} from "../ui/gameplay";
+import { toggleMode } from "../ui/mainMenu";
+import { hideOverlay, showOverlay } from "../ui/overlay";
+import { showXpUpdate, updateXpSpan } from "../ui/xp";
 import { GameLossReason } from "../events/types";
-import { showErrorNotice } from "../utils/ui/waitingNotice";
+import { showErrorNotice } from "../ui/waitingNotice";
 import { levelStartSnapshot } from "../inMemoryStores/LevelStartSnapshot";
-import { showResetCurrentGameDialog } from "../utils/ui/resetCurrentGameDialog";
+import { showResetCurrentGameDialog } from "../ui/resetCurrentGameDialog";
 
 type GameOptions = {
   canvas: HTMLCanvasElement;

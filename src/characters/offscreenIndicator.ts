@@ -1,6 +1,6 @@
 import type { Direction } from "../types";
 import { paintTriangle, type TrianglePoints } from "../utils/canvas";
-import { getCanvas } from "../utils/ui/gameplay";
+import { getCanvas } from "../ui/gameplay";
 import type { INonMainCharacter } from "./interfaces";
 
 const triangleLength = 10;

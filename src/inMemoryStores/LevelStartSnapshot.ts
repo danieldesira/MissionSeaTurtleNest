@@ -1,5 +1,5 @@
 import { game } from "../singletons/Game";
-import { updateXpSpan } from "../utils/ui/xp";
+import { updateXpSpan } from "../ui/xp";
 import type { IStore } from "./interfaces";
 
 class LevelStartSnapshot implements IStore {

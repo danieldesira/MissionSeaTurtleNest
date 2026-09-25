@@ -18,12 +18,12 @@ import {
   Trophy,
   Wallet,
 } from "lucide";
-import type PrettyButton from "../../webComponents/form/PrettyButton";
-import type SocialLink from "../../webComponents/links/SocialLink";
+import type PrettyButton from "../webComponents/form/PrettyButton";
+import type SocialLink from "../webComponents/links/SocialLink";
 import {
   checkNotificationPermission,
   setupNotificationPermissionListener,
-} from "../notifications";
+} from "../utils/notifications";
 import { $id } from "./domQuery";
 
 export const disableContextMenu = () =>

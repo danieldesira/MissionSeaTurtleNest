@@ -1,4 +1,4 @@
-import { $id } from "../../utils/ui/domQuery";
+import { $id } from "../../ui/domQuery";
 import { loadTemplate } from "../components";
 import type PrettyDialog from "../dialog/PrettyDialog";
 

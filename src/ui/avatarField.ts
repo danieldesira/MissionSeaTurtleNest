@@ -1,5 +1,5 @@
-import PrettyDialog from "../../webComponents/dialog/PrettyDialog";
-import PrettyButton from "../../webComponents/form/PrettyButton";
+import PrettyDialog from "../webComponents/dialog/PrettyDialog";
+import PrettyButton from "../webComponents/form/PrettyButton";
 import { $id } from "./domQuery";
 
 const AVATAR_MAX_WIDTH = 150;
@@ -136,5 +136,28 @@ export const setupAvatarField = () => {
       AVATAR_MAX_HEIGHT,
     );
     const croppedDataUrl = tempCanvas.toDataURL("image/webp");
+
+    const file = createFileObject(croppedDataUrl);
+    console.log(file);
+    //todo: send file to endpoint
+    //todo: notification for successful upload or error
   };
+};
+
+const createFileObject = (dataurl: string) => {
+  const [mimetype, base64] = dataurl
+    .substring("data:".length)
+    .split(";base64,");
+  const bytes = atob(base64);
+  const buffer = new ArrayBuffer(bytes.length);
+  const uintArray = new Uint8Array(buffer);
+  for (let i = 0; i < bytes.length; i++) {
+    uintArray[i] = bytes.charCodeAt(i);
+  }
+  const blob = new Blob([buffer], { type: mimetype });
+  return new File(
+    [blob],
+    `avatar${new Date().getTime()}.${mimetype.split("/")[1]}`,
+    { type: mimetype },
+  );
 };

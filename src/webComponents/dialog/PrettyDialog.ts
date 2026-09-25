@@ -1,4 +1,4 @@
-import { $ } from "../../utils/ui/domQuery";
+import { $ } from "../../ui/domQuery";
 import { loadTemplate } from "../components";
 
 class PrettyDialog extends HTMLElement {

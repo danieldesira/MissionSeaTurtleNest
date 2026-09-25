@@ -1,18 +1,18 @@
 import { login, requestLogout } from "../services/api";
 import type { LoginResponse, SsoToken } from "../services/interfaces";
 import { profileStore } from "../inMemoryStores/ProfileStore";
-import { hideLoginDialog, updateAuthenticationUI } from "./ui/authUi";
-import { hideContinueGameBtn, toggleContinueGameBtn } from "./ui/mainMenu";
-import { hideOverlay, showOverlay } from "./ui/overlay";
-import { updatePersonalBestPlaceholders } from "./ui/scores";
+import { hideLoginDialog, updateAuthenticationUI } from "../ui/authUi";
+import { hideContinueGameBtn, toggleContinueGameBtn } from "../ui/mainMenu";
+import { hideOverlay, showOverlay } from "../ui/overlay";
+import { updatePersonalBestPlaceholders } from "../ui/scores";
 import {
   setupControlSettings,
   setupSettingsProfileTab,
-} from "./ui/settingsDialog";
+} from "../ui/settingsDialog";
 import { controlSettingsStore } from "../inMemoryStores/ControlSettingsStore";
 import { personalBestStore } from "../inMemoryStores/PersonalBestStore";
 import { lastGameStore } from "../inMemoryStores/LastGameStore";
-import { showErrorNotice } from "./ui/waitingNotice";
+import { showErrorNotice } from "../ui/waitingNotice";
 import { applyAudioVolume, defaultAudioVolume } from "./audio";
 import { handleMicrosoftLogout } from "./microsoftAuth";
 

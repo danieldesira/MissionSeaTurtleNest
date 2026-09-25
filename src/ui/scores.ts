@@ -1,10 +1,10 @@
-import { levelExists } from "../../levels/levels";
-import { fetchHighScores } from "../../services/api";
-import { personalBestStore } from "../../inMemoryStores/PersonalBestStore";
-import type PrettyButton from "../../webComponents/form/PrettyButton";
+import { levelExists } from "../levels/levels";
+import { fetchHighScores } from "../services/api";
+import { personalBestStore } from "../inMemoryStores/PersonalBestStore";
+import type PrettyButton from "../webComponents/form/PrettyButton";
 import { deleteChildren } from "./ui";
 import { hideWaitingNotice, showErrorNotice } from "./waitingNotice";
-import { profileStore } from "../../inMemoryStores/ProfileStore";
+import { profileStore } from "../inMemoryStores/ProfileStore";
 import { $id } from "./domQuery";
 
 export const formatLevel = (levelNo: number) =>
