@@ -86,6 +86,7 @@ const paintSelectionSquare = (
 export const setupAvatarField = () => {
   const avatarBtn = $id("avatarBtn") as PrettyButton;
   const fileInput = $id("avatarInput") as HTMLInputElement;
+  const dialog = $id("avatarPreviewDialog") as PrettyDialog;
 
   avatarBtn.on("click", () => fileInput.click());
 
@@ -93,7 +94,6 @@ export const setupAvatarField = () => {
     const target = event.target as HTMLInputElement;
     const selectedFile = target.files?.[0];
 
-    const dialog = $id("avatarPreviewDialog") as PrettyDialog;
     if (dialog && selectedFile) {
       dialog.open();
     }
@@ -117,4 +117,24 @@ export const setupAvatarField = () => {
       paintSelectionSquare(context, selection);
     }
   });
+
+  dialog.closeCallback = () => {
+    const tempCanvas = document.createElement("canvas");
+    tempCanvas.width = AVATAR_MAX_WIDTH;
+    tempCanvas.height = AVATAR_MAX_HEIGHT;
+    const tempContext = tempCanvas.getContext("2d");
+    const { x1, y1 } = getAvatarSquareCoordinates(selection);
+    tempContext?.drawImage(
+      image,
+      x1,
+      y1,
+      AVATAR_MAX_WIDTH,
+      AVATAR_MAX_HEIGHT,
+      0,
+      0,
+      AVATAR_MAX_WIDTH,
+      AVATAR_MAX_HEIGHT,
+    );
+    const croppedDataUrl = tempCanvas.toDataURL("image/webp");
+  };
 };
