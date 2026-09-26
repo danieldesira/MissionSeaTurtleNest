@@ -1,6 +1,12 @@
+import { uploadProfilePicture } from "../services/api";
 import PrettyDialog from "../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../webComponents/form/PrettyButton";
 import { $id } from "./domQuery";
+import {
+  hideWaitingNotice,
+  showErrorNotice,
+  showWaitingNotice,
+} from "./waitingNotice";
 
 const AVATAR_MAX_WIDTH = 150;
 const AVATAR_MAX_HEIGHT = 150;
@@ -21,6 +27,7 @@ type AvatarSquareCoordinates = {
   y2: number;
 };
 
+//todo: handle scenario when width or height of image are less than 150
 const getAvatarSquareCoordinates = (
   selection: AvatarSquareSelection,
 ): AvatarSquareCoordinates => {
@@ -118,7 +125,7 @@ export const setupAvatarField = () => {
     }
   });
 
-  dialog.closeCallback = () => {
+  dialog.closeCallback = async () => {
     const tempCanvas = document.createElement("canvas");
     tempCanvas.width = AVATAR_MAX_WIDTH;
     tempCanvas.height = AVATAR_MAX_HEIGHT;
@@ -138,9 +145,14 @@ export const setupAvatarField = () => {
     const croppedDataUrl = tempCanvas.toDataURL("image/webp");
 
     const file = createFileObject(croppedDataUrl);
-    console.log(file);
-    //todo: send file to endpoint
-    //todo: notification for successful upload or error
+    showWaitingNotice("Uploading new avatar");
+    try {
+      await uploadProfilePicture(file);
+    } catch {
+      showErrorNotice("Failed to upload avatar. Please try again.", 500);
+    } finally {
+      hideWaitingNotice();
+    }
   };
 };
 
