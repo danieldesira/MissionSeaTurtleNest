@@ -33,8 +33,8 @@ export const updateProfile = async (payload: UpdatePlayerPayload) =>
 export const requestLogout = async () =>
   await FetchRequest.post({ url: "api/logout" });
 
-export const uploadProfilePicture = async (file: File) =>
+export const uploadAvatar = async (file: File) =>
   await FetchRequest.uploadFile<UpdateProfilePictureResponse>({
-    url: "api/profile-pic",
+    url: "api/avatar",
     payload: file,
   });

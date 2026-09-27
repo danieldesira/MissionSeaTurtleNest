@@ -1,4 +1,4 @@
-import { uploadProfilePicture } from "../services/api";
+import { uploadAvatar } from "../services/api";
 import PrettyDialog from "../webComponents/dialog/PrettyDialog";
 import PrettyButton from "../webComponents/form/PrettyButton";
 import { $id } from "./domQuery";
@@ -27,13 +27,15 @@ type AvatarSquareCoordinates = {
   y2: number;
 };
 
-//todo: handle scenario when width or height of image are less than 150
 const getAvatarSquareCoordinates = (
   selection: AvatarSquareSelection,
 ): AvatarSquareCoordinates => {
   let x1: number, y1: number, x2: number, y2: number;
 
-  if (selection.x < AVATAR_MAX_WIDTH / 2) {
+  if (canvas.width < AVATAR_MAX_WIDTH) {
+    x1 = 0;
+    x2 = canvas.width;
+  } else if (selection.x < AVATAR_MAX_WIDTH / 2) {
     x1 = 0;
     x2 = AVATAR_MAX_WIDTH;
   } else if (selection.x > canvas.width - AVATAR_MAX_WIDTH / 2) {
@@ -44,7 +46,10 @@ const getAvatarSquareCoordinates = (
     x2 = selection.x + AVATAR_MAX_WIDTH / 2;
   }
 
-  if (selection.y < AVATAR_MAX_HEIGHT / 2) {
+  if (canvas.height < AVATAR_MAX_HEIGHT) {
+    y1 = 0;
+    y2 = canvas.height;
+  } else if (selection.y < AVATAR_MAX_HEIGHT / 2) {
     y1 = 0;
     y2 = AVATAR_MAX_HEIGHT;
   } else if (selection.y > canvas.height - AVATAR_MAX_HEIGHT / 2) {
@@ -87,7 +92,9 @@ const paintSelectionSquare = (
   const { x1, y1 } = getAvatarSquareCoordinates(selection);
   context.strokeStyle = COLOUR;
   context.lineWidth = LINE_WIDTH;
-  context.strokeRect(x1, y1, AVATAR_MAX_WIDTH, AVATAR_MAX_HEIGHT);
+  const width = Math.min(canvas.width, AVATAR_MAX_WIDTH);
+  const height = Math.min(canvas.height, AVATAR_MAX_HEIGHT);
+  context.strokeRect(x1, y1, width, height);
 };
 
 export const setupAvatarField = () => {
@@ -147,7 +154,7 @@ export const setupAvatarField = () => {
     const file = createFileObject(croppedDataUrl);
     showWaitingNotice("Uploading new avatar");
     try {
-      await uploadProfilePicture(file);
+      await uploadAvatar(file);
     } catch {
       showErrorNotice("Failed to upload avatar. Please try again.", 500);
     } finally {

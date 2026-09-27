@@ -6,7 +6,7 @@
   - `MenuItem`: Drop `callback` setter in favour of `on("click", callback)` method pattern
   - `GameControl`: Drop `callback` setter in favour of `onAction(callback)` method pattern
   - `SocialLink`: Drop `action` setter in favour of `on("click", callback)` method pattern
-  - Adapt high scores player check to use the new `guid` field from API 0.5.0
+  - Adapt high scores player check to use the new `guid` field from API 0.5.0 as well as other minor changes attributed to the same API version
   - `MenuItem`, `PrettyButton`:
     `dialog-target` and `dialog-action` attributes replacing `closeButtonIds` array and custom logic
   - `LastGameStore`: Remove `hasData()` so checks now rely directly on the `store` property
