@@ -28,6 +28,7 @@
 - Settings:
   - Fix: Date of Birth cleared when switching to an account without a set DOB
   - Revamped the avatar upload field
+  - Updated buttons to pink/red border with hover effect
 - Main menu:
   - Brand icons migrated to Simple Icons (with fill modification)
   - Remove Linkedin link

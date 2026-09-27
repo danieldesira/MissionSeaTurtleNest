@@ -3,15 +3,15 @@
     @reference "./src/main.css";
 
     button {
-      @apply rounded-md text-xl text-white px-2 py-1 w-fit border-none cursor-pointer transition-colors duration-500;
+      @apply rounded-full text-sm px-2 py-1 w-fit cursor-pointer transition-colors duration-500 bg-transparent border border-solid hover:text-white;
     }
 
     .default {
-      @apply bg-primary hover:bg-pink-300;
+      @apply border-primary text-primary hover:bg-primary;
     }
 
     .danger {
-      @apply bg-danger hover:bg-red-500;
+      @apply border-danger text-danger hover:bg-danger;
     }
   </style>
   <button type="button" role="button">
